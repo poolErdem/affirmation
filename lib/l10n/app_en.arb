@@ -1,0 +1,40 @@
+{
+  "@@locale": "en",
+
+  "settings": "Settings",
+  "goPremium": "Go Premium",
+  "preferences": "Preferences",
+  "categories": "Categories",
+  "themes": "Themes",
+  "name": "Name",
+  "sound": "Sound",
+  "reminders": "Reminders",
+  "language": "Language",
+  "favorites": "Favorites",
+  "privacyPolicy": "Privacy Policy",
+  "terms": "Terms & Conditions",
+
+  "back": "Back",
+  "continueLabel": "Continue",
+  "@continueLabel": {
+    "description": "Continue button text"
+  },
+  "save": "Save",
+
+  "identifyGender": "Identify your gender",
+  "genderSubtitle": "Start your journey to the best version of yourself",
+  "female": "Female",
+  "male": "Male",
+  "others": "Others",
+
+  "choosePreferences": "What areas of your life do you want to improve?",
+  "youCanChangeLater": "You can change them later",
+
+  "yourNamePersonalize": "Your name is used to personalize your affirmations",
+  "typeYourName": "Type your name...",
+  "nameSaved": "Name saved",
+
+  "pickTheme": "Pick a theme",
+  "changeLater": "You can change it later",
+  "pleaseSelectTheme": "Please select a theme first."
+}

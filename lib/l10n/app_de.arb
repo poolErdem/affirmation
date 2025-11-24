@@ -1,0 +1,38 @@
+{
+  "@@locale": "de",
+
+  "settings": "Einstellungen",
+  "goPremium": "Premium freischalten",
+  "preferences": "Präferenzen",
+  "categories": "Kategoriler",
+  "themes": "Themes",
+  "name": "Name",
+  "sound": "Ton",
+  "reminders": "Erinnerungen",
+  "language": "Sprache",
+  "favorites": "Favoriten",
+  "privacyPolicy": "Datenschutzrichtlinie",
+  "terms": "Allgemeine Geschäftsbedingungen",
+
+  "back": "Zurück",
+  "continue": "Weiter",
+  "continueLabel": "Weiter",
+  "save": "Speichern",
+
+  "identifyGender": "Geschlecht auswählen",
+  "genderSubtitle": "Beginnen Sie Ihre Reise zur besten Version Ihrer selbst",
+  "female": "Weiblich",
+  "male": "Männlich",
+  "others": "Andere",
+
+  "choosePreferences": "Welche Bereiche Ihres Lebens möchten Sie verbessern?",
+  "youCanChangeLater": "Sie können es später ändern",
+
+  "yourNamePersonalize": "Ihr Name wird verwendet, um Ihre Affirmationen zu personalisieren",
+  "typeYourName": "Geben Sie Ihren Namen ein...",
+  "nameSaved": "Name gespeichert",
+
+  "pickTheme": "Ein Thema auswählen",
+  "changeLater": "Sie können es später ändern",
+  "pleaseSelectTheme": "Bitte zuerst ein Thema auswählen."
+}

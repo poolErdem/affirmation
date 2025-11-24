@@ -1,0 +1,126 @@
+name: affirmation
+description: "A new Flutter project."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.6.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  provider: ^6.1.3
+  share_plus: ^7.0.0
+  shared_preferences: ^2.0.15
+  universal_html: ^2.2.3
+  google_mobile_ads: ^5.1.0
+  audioplayers: ^5.2.1
+  in_app_purchase: ^3.1.7
+
+  cupertino_icons: ^1.0.8
+  flutter_gen: ^5.12.0
+
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.20.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+
+  generate: true
+
+  assets:
+  - assets/data/themes/themes.json
+  - assets/data/en/categories.json
+  - assets/data/en/self_care.json
+  - assets/data/en/stress_anxiety.json
+  - assets/data/en/positive_thinking.json
+  - assets/data/en/body_positivity.json
+  - assets/data/en/focus_productivity.json
+  - assets/data/en/motivation.json
+  - assets/data/en/healing.json
+  - assets/data/en/happiness.json
+  - assets/data/en/relationships.json
+  - assets/data/en/confidence.json
+  - assets/data/en/mindfulness.json
+  - assets/data/en/gratitude.json
+  - assets/data/en/law_of_attraction.json
+  - assets/data/en/spirituality.json
+  - assets/data/en/inner_child.json
+  - assets/data/en/career_success.json
+  - assets/data/en/sleep.json
+  - assets/data/tr/categories.json
+  - assets/data/tr/self_care.json
+  - assets/data/tr/stress_anxiety.json
+  - assets/data/tr/positive_thinking.json
+  - assets/data/tr/body_positivity.json
+  - assets/data/tr/focus_productivity.json
+  - assets/data/tr/motivation.json
+  - assets/data/tr/healing.json
+  - assets/data/tr/happiness.json
+  - assets/data/tr/relationships.json
+  - assets/data/tr/confidence.json
+  - assets/data/tr/mindfulness.json
+  - assets/data/tr/gratitude.json
+  - assets/data/tr/law_of_attraction.json
+  - assets/data/tr/spirituality.json
+  - assets/data/tr/inner_child.json
+  - assets/data/tr/career_success.json
+  - assets/data/tr/sleep.json
+  - assets/data/themes/a1.jfif
+  - assets/data/themes/a2.jfif
+  - assets/data/themes/a3.jfif
+  - assets/data/themes/a4.jfif
+  - assets/data/themes/a5.jfif
+  - assets/data/themes/b1.jfif
+  - assets/data/themes/b2.jfif
+  - assets/data/themes/b5.jfif
+  - assets/data/themes/b6.jfif
+  - assets/data/themes/c1.jfif
+  - assets/data/themes/c2.jfif
+  - assets/data/themes/c3.jfif
+  - assets/data/themes/c4.jfif
+  - assets/data/themes/c5.jfif
+  - assets/data/themes/c6.jfif
+  - assets/data/themes/d1.jfif
+  - assets/data/themes/d2.jfif
+  - assets/data/themes/d3.jfif
+  - assets/data/themes/d4.jfif
+  - assets/data/themes/d5.jfif
+  - assets/data/themes/d7.jfif
+  - assets/data/themes/d8.jfif
+  - assets/data/themes/d9.jfif
+  - assets/data/themes/l1.jfif
+  - assets/data/themes/l2.jfif
+  - assets/data/themes/l3.jfif
+  - assets/data/categories/body.jfif
+  - assets/data/categories/career.jfif
+  - assets/data/categories/happiness.jfif
+  - assets/data/categories/healing.jfif
+  - assets/data/categories/inner_child.jfif
+  - assets/data/categories/law_of_attraction.jfif
+  - assets/data/categories/mindfulness.jfif
+  - assets/data/categories/body.jfif
+  - assets/data/categories/motivation.jfif
+  - assets/data/categories/positive.jfif
+  - assets/data/categories/productivity.jfif
+  - assets/data/categories/relationships.jfif
+  - assets/data/categories/self_care.jfif
+  - assets/data/categories/sleep.jfif
+  - assets/data/categories/spirituality.jfif
+  - assets/data/categories/stress.jfif
+  - assets/data/categories/confidence.jfif
+  - assets/data/categories/favorites.jfif
+
+# 🌍 L10N BLOĞU (flutter'ın altı değil!)
+l10n:
+  arb-dir: lib/l10n
+  template-arb-file: app_en.arb
+  output-localization-file: app_localizations.dart

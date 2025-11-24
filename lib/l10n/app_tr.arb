@@ -1,0 +1,40 @@
+{
+  "@@locale": "tr",
+
+  "settings": "Ayarlar",
+  "goPremium": "Premium'a Geç",
+  "preferences": "Tercihler",
+  "categories": "Kategoriler",
+  "themes": "Temalar",
+  "name": "İsim",
+  "sound": "Ses",
+  "reminders": "Hatırlatmalar",
+  "language": "Dil",
+  "favorites": "Favoriler",
+  "privacyPolicy": "Gizlilik Politikası",
+  "terms": "Şartlar ve Koşullar",
+
+  "back": "Geri",
+  "continueLabel": "Devam",
+  "@continueLabel": {
+    "description": "Continue button text"
+  },
+  "save": "Kaydet",
+
+  "identifyGender": "Cinsiyetinizi seçin",
+  "genderSubtitle": "Kendinizin en iyi versiyonuna yolculuğa başlayın",
+  "female": "Kadın",
+  "male": "Erkek",
+  "others": "Diğer",
+
+  "choosePreferences": "Hayatınızın hangi alanlarını geliştirmek istersiniz?",
+  "youCanChangeLater": "Daha sonra değiştirebilirsiniz",
+
+  "yourNamePersonalize": "İsminiz olumlamalarınızı kişiselleştirmek için kullanılır",
+  "typeYourName": "İsminizi yazın...",
+  "nameSaved": "İsim kaydedildi",
+
+  "pickTheme": "Tema seçin",
+  "changeLater": "Daha sonra değiştirebilirsiniz",
+  "pleaseSelectTheme": "Lütfen önce bir tema seçin."
+}

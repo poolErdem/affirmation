@@ -1,0 +1,38 @@
+{
+  "@@locale": "es",
+
+  "settings": "Ajustes",
+  "goPremium": "Hazte Premium",
+  "preferences": "Preferencias",
+  "categories": "Kategoriler",
+  "themes": "Themes",
+  "name": "Nombre",
+  "sound": "Sonido",
+  "reminders": "Recordatorios",
+  "language": "Idioma",
+  "favorites": "Favoritos",
+  "privacyPolicy": "Política de Privacidad",
+  "terms": "Términos y Condiciones",
+
+  "back": "Atrás",
+  "continue": "Continuar",
+  "continueLabel": "Continuar",
+  "save": "Guardar",
+
+  "identifyGender": "Identifica tu género",
+  "genderSubtitle": "Empieza tu camino hacia tu mejor versión",
+  "female": "Mujer",
+  "male": "Hombre",
+  "others": "Otros",
+
+  "choosePreferences": "¿Qué áreas de tu vida deseas mejorar?",
+  "youCanChangeLater": "Puedes cambiarlo después",
+
+  "yourNamePersonalize": "Tu nombre se usa para personalizar tus afirmaciones",
+  "typeYourName": "Escribe tu nombre...",
+  "nameSaved": "Nombre guardado",
+
+  "pickTheme": "Elige un tema",
+  "changeLater": "Puedes cambiarlo más tarde",
+  "pleaseSelectTheme": "Por favor selecciona un tema primero."
+}

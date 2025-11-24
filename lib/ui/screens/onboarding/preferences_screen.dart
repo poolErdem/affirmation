@@ -1,0 +1,247 @@
+import 'dart:ui';
+import 'package:affirmation/ui/screens/onboarding/onboarding_name_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:affirmation/state/app_state.dart';
+
+class PreferencesScreen extends StatefulWidget {
+  const PreferencesScreen({super.key});
+
+  @override
+  State<PreferencesScreen> createState() => _PreferencesScreenState();
+}
+
+class _PreferencesScreenState extends State<PreferencesScreen> {
+  final Set<String> selected = {};
+
+  @override
+  Widget build(BuildContext context) {
+    final prefs = [
+      "self_care",
+      "personal_growth",
+      "stress_anxiety",
+      "body_positivity",
+      "happiness",
+      "attracting_love",
+      "confidence",
+      "motivation",
+      "mindfulness",
+      "gratitude",
+    ];
+
+    return Scaffold(
+      body: Stack(
+        children: [
+          // BACKGROUND
+          Positioned.fill(
+            child: Image.asset(
+              "assets/data/themes/a1.jfif",
+              fit: BoxFit.cover,
+            ),
+          ),
+
+          // DARK CINEMATIC GRADIENT
+          Positioned.fill(
+            child: Container(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.black87,
+                    Colors.black45,
+                    Colors.black26,
+                  ],
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                ),
+              ),
+            ),
+          ),
+
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 26),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 12),
+
+                  // Back
+                  GestureDetector(
+                    onTap: () => Navigator.pop(context),
+                    child: Text(
+                      "Back",
+                      style: TextStyle(
+                        color: Colors.white.withValues(alpha: 0.7),
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 35),
+
+                  // TITLE
+                  const Center(
+                    child: Text(
+                      "Which areas of your\nlife do you want to improve?",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 30,
+                        height: 1.2,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 10),
+                  const Center(
+                    child: Text(
+                      "You can change this anytime",
+                      style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 28),
+
+                  // GRID
+                  Expanded(
+                    child: GridView.builder(
+                      padding: const EdgeInsets.only(bottom: 95),
+                      itemCount: prefs.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 16,
+                        mainAxisSpacing: 20,
+                        childAspectRatio: 2.9,
+                      ),
+                      itemBuilder: (context, index) {
+                        final item = prefs[index];
+                        final isSelected = selected.contains(item);
+                        final text = _formatText(item);
+
+                        return GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              isSelected
+                                  ? selected.remove(item)
+                                  : selected.add(item);
+                            });
+                          },
+                          child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 180),
+                            curve: Curves.easeOut,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(40),
+                              border: Border.all(
+                                color: isSelected
+                                    ? Colors.white
+                                    : Colors.white.withValues(alpha: 0.55),
+                                width: isSelected ? 2.2 : 1.6,
+                              ),
+                              color: isSelected
+                                  ? Colors.white.withValues(alpha: 0.15)
+                                  : Colors.white.withValues(alpha: 0.05),
+                              boxShadow: isSelected
+                                  ? [
+                                      BoxShadow(
+                                        color: Colors.white
+                                            .withValues(alpha: 0.25),
+                                        blurRadius: 14,
+                                        spreadRadius: 1,
+                                      )
+                                    ]
+                                  : [],
+                            ),
+                            child: Center(
+                              child: Text(
+                                text,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+
+                  // CONTINUE BUTTON (Glass + Blur)
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 14, sigmaY: 14),
+                      child: GestureDetector(
+                        onTap: () {
+                          if (selected.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                    "Please select at least one preference."),
+                              ),
+                            );
+                            return;
+                          }
+
+                          final appState = context.read<AppState>();
+                          appState.onboardingContentPrefs = selected.toSet();
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const OnboardingNameScreen(),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.symmetric(vertical: 18),
+                          margin: const EdgeInsets.only(bottom: 26),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withValues(alpha: 0.20),
+                            borderRadius: BorderRadius.circular(50),
+                            border: Border.all(
+                              color: Colors.white.withValues(alpha: 0.45),
+                              width: 1.6,
+                            ),
+                          ),
+                          child: const Center(
+                            child: Text(
+                              "Continue",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                                letterSpacing: 0.4,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  String _formatText(String id) {
+    return id
+        .replaceAll("_", " ")
+        .split(" ")
+        .map((w) => w[0].toUpperCase() + w.substring(1))
+        .join(" ");
+  }
+}
