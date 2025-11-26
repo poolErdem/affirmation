@@ -1,6 +1,17 @@
 {
   "@@locale": "tr",
 
+  "welcomeTitle": "Hoş Geldin",
+  "welcomeSubtitle": "İçsel yolculuğun burada başlıyor.",
+  "startButton": "Başla",
+  "continueAgree": "Devam ederek şu koşulları kabul etmiş olursun:",
+  "termsOfUse": "Kullanım Şartları",
+  "and": "ve",
+
+  "nameQuestion": "Adınız nedir?",
+  "personalize": "Olumlamalarınızı kişiselleştireceğiz",
+  "hitname": "İsminizi girin",
+
   "settings": "Ayarlar",
   "goPremium": "Premium'a Geç",
   "preferences": "Tercihler",
@@ -28,13 +39,64 @@
   "others": "Diğer",
 
   "choosePreferences": "Hayatınızın hangi alanlarını geliştirmek istersiniz?",
-  "youCanChangeLater": "Daha sonra değiştirebilirsiniz",
+  "youCanChangeLater": "Bunu istediğiniz zaman değiştirebilirsiniz",
+  "pleasePrefs": "Lütfen en az bir tercih seçin.",
 
-  "yourNamePersonalize": "İsminiz olumlamalarınızı kişiselleştirmek için kullanılır",
+  "yourNamePersonalize": "İsminiz, olumlamalarınızı kişiselleştirmek için kullanılır",
   "typeYourName": "İsminizi yazın...",
   "nameSaved": "İsim kaydedildi",
 
   "pickTheme": "Tema seçin",
   "changeLater": "Daha sonra değiştirebilirsiniz",
-  "pleaseSelectTheme": "Lütfen önce bir tema seçin."
+  "pleaseSelectTheme": "Lütfen önce bir tema seçin.",
+  "reminderTitle": "Hatırlatmalar",
+  "reminderSubtitle": "Gün içinde nazik hatırlatmalarla düzenini koru.",
+  "addReminder": "Hatırlatma Ekle",
+  "editReminder": "Hatırlatmayı Düzenle",
+  "deleteReminder": "Hatırlatmayı Sil",
+  "freeLimitReached": "Ücretsiz hatırlatma sınırına ulaştın.",
+  "premiumUnlockMore": "Premium ile 5 hatırlatmaya kadar ekleyebilirsin.",
+  "unlockMore": "Daha fazla hatırlatma aç",
+
+  "reminderCategory": "Olumlama Kategorisi",
+  "reminderTimes": "Zamanlama",
+  "reminderStartTime": "Başlangıç Saati",
+  "reminderEndTime": "Bitiş Saati",
+  "reminderRepeatCount": "Tekrar Sayısı",
+  "reminderRepeatDays": "Tekrar Günleri",
+  "reminderEnabled": "Aktif",
+
+  "selectCategory": "Kategori seç...",
+  "premiumCategoryLocked": "Bu kategori Premium kullanıcılar için geçerlidir.",
+  "onlySelfCareAvailable": "Ücretsiz planda sadece Self Care kategorisi kullanılabilir.",
+
+  "selectTime": "Saat seç",
+  "startBeforeEnd": "Başlangıç saati bitişten önce olmalı.",
+
+  "selectDays": "Günleri seç",
+  "mon": "Pzt",
+  "tue": "Sal",
+  "wed": "Çar",
+  "thu": "Per",
+  "fri": "Cum",
+  "sat": "Cmt",
+  "sun": "Paz",
+
+  "repeatTimesPerDay": "Günlük tekrar sayısı",
+  "maxRepeatReached": "Maksimum tekrar sayısına ulaşıldı",
+  "minRepeatReached": "Minimum tekrar sayısına ulaşıldı",
+
+  "deleteConfirmTitle": "Hatırlatma silinsin mi?",
+  "deleteConfirmMessage": "Bu hatırlatma kalıcı olarak silinecek.",
+  "cancel": "İptal",
+  "confirm": "Onayla",
+
+  "noRemindersYet": "Henüz hatırlatma yok",
+  "tapToAddReminder": "İlk hatırlatmanı eklemek için aşağıdaki butona dokun.",
+  "freeReminderBadge": "Ücretsiz Hatırlatma",
+  "reminderLimitReached": "Hatırlatma limitine ulaştınız.",
+"unlockMoreReminders": "Daha fazla hatırlatma aç",
+"reminderFreeOnlyCategory": "Ücretsiz kullanıcılar sadece Self-Care kategorisini kullanabilir.",
+"reminderPremiumRequired": "Daha fazla hatırlatma eklemek için Premium’a yükseltin."
+
 }

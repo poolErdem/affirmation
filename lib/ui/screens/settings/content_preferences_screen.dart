@@ -1,160 +1,167 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:affirmation/state/app_state.dart';
+import 'package:affirmation/l10n/app_localizations.dart';
 
-import '../../../state/app_state.dart';
-
-class ContentPreferencesScreen extends StatelessWidget {
+class ContentPreferencesScreen extends StatefulWidget {
   const ContentPreferencesScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final appState = context.watch<AppState>();
-    final selectedPrefs = appState.preferences.selectedContentPreferences;
+  State<ContentPreferencesScreen> createState() => _ContentPreferencesScreen();
+}
 
-    final allPrefs = [
-      "self_care",
-      "personal_growth",
-      "stress_anxiety",
-      "body_positivity",
-      "happiness",
-      "attracting_love",
-      "confidence",
-      "motivation",
-      "mindfulness",
-      "gratitude",
-    ];
+class _ContentPreferencesScreen extends State<ContentPreferencesScreen> {
+  Set<String> selected = {};
+
+  final prefs = [
+    "self_care",
+    "personal_growth",
+    "stress_anxiety",
+    "body_positivity",
+    "happiness",
+    "attracting_love",
+    "confidence",
+    "motivation",
+    "mindfulness",
+    "gratitude",
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+
+    // 🔥 ÖNCEKİ SEÇİMLERİ GERİ YÜKLE
+    final st = context.read<AppState>();
+    selected = Set<String>.from(st.preferences.selectedContentPreferences);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+    final st = context.read<AppState>();
 
     return Scaffold(
       backgroundColor: const Color(0xfff3ece7),
-      appBar: AppBar(
-        backgroundColor: const Color(0xfff3ece7),
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black87),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: const Text(
-          "Content Preferences",
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-            color: Colors.black87,
-            letterSpacing: -0.3,
-          ),
-        ),
-      ),
-      body: ListView(
-        padding: const EdgeInsets.fromLTRB(16, 12, 16, 40),
-        children: [
-          const SizedBox(height: 4),
-          const Text(
-            "What areas of your life would you like to improve?",
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.black54,
-              height: 1.35,
-            ),
-          ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // ❌ Header (X + Title)
+              Row(
+                children: [
+                  GestureDetector(
+                    onTap: () => Navigator.pop(context),
+                    child: const Icon(
+                      Icons.close_rounded,
+                      size: 28,
+                      color: Colors.black87,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Text(
+                    t.preferences,
+                    style: const TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.black87,
+                    ),
+                  ),
+                ],
+              ),
 
-          const SizedBox(height: 22),
+              const SizedBox(height: 16),
 
-          // 🔥 MODERN CHIP GRID (Category / Theme style)
-          GridView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: allPrefs.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              mainAxisSpacing: 16,
-              crossAxisSpacing: 16,
-              childAspectRatio: 2.7,
-            ),
-            itemBuilder: (_, index) {
-              final pref = allPrefs[index];
-              final isSelected = selectedPrefs.contains(pref);
-              return _modernChip(context, pref, isSelected);
-            },
+              const Text(
+                "✨ You can change this any time",
+                style: TextStyle(
+                  fontSize: 15,
+                  color: Colors.black54,
+                  height: 1.3,
+                ),
+              ),
+
+              const SizedBox(height: 26),
+
+              // PREMIUM GRID
+              Expanded(
+                child: GridView.builder(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  itemCount: prefs.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 18,
+                    childAspectRatio: 2.9,
+                  ),
+                  itemBuilder: (_, index) {
+                    final item = prefs[index];
+                    final isSelected = selected.contains(item);
+
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          isSelected
+                              ? selected.remove(item)
+                              : selected.add(item);
+                        });
+
+                        // 🔥 STATE’E KAYDET
+                        st.setSelectedContentPreferences(selected);
+                      },
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 180),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 14, horizontal: 10),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(22),
+                          border: Border.all(
+                            color:
+                                isSelected ? Colors.green : Colors.transparent,
+                            width: isSelected ? 2 : 1,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: isSelected
+                                  ? Colors.green.withValues(alpha: 0.20)
+                                  : Colors.black.withValues(alpha: 0.06),
+                              blurRadius: isSelected ? 16 : 10,
+                              offset: const Offset(0, 5),
+                            ),
+                          ],
+                        ),
+                        child: Center(
+                          child: Text(
+                            _formatText(item),
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: isSelected
+                                  ? FontWeight.w700
+                                  : FontWeight.w600,
+                              color: Colors.black87,
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
 
-  // -----------------------------------------------------
-  // MODERN CHIP (CREAMY + PREMIUM STYLE)
-  // -----------------------------------------------------
-  Widget _modernChip(BuildContext context, String pref, bool isSelected) {
-    final appState = context.read<AppState>();
-
-    return InkWell(
-      borderRadius: BorderRadius.circular(18),
-      onTap: () {
-        final updated = Set<String>.from(
-          appState.preferences.selectedContentPreferences,
-        );
-
-        isSelected ? updated.remove(pref) : updated.add(pref);
-
-        appState.setSelectedContentPreferences(updated);
-      },
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 180),
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(18),
-          color: isSelected ? const Color(0xFF2E7D32) : Colors.white,
-          boxShadow: const [
-            BoxShadow(
-              color: Color(0x26000000),
-              blurRadius: 12,
-              offset: Offset(0, 4),
-            ),
-          ],
-          border: Border.all(
-            color: isSelected ? const Color(0xFF1B5E20) : Colors.transparent,
-            width: 2,
-          ),
-        ),
-        alignment: Alignment.center,
-        child: Text(
-          _label(pref),
-          style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.w600,
-            color: isSelected ? Colors.white : Colors.black87,
-            letterSpacing: 0.2,
-          ),
-          textAlign: TextAlign.center,
-        ),
-      ),
-    );
-  }
-
-  // LABEL
-  String _label(String pref) {
-    switch (pref) {
-      case "self_care":
-        return "Self Care";
-      case "personal_growth":
-        return "Personal Growth";
-      case "stress_anxiety":
-        return "Stress & Anxiety";
-      case "body_positivity":
-        return "Body Positivity";
-      case "happiness":
-        return "Happiness";
-      case "attracting_love":
-        return "Attracting Love";
-      case "confidence":
-        return "Confidence";
-      case "motivation":
-        return "Motivation";
-      case "mindfulness":
-        return "Mindfulness";
-      case "gratitude":
-        return "Gratitude";
-      default:
-        return pref;
-    }
+  String _formatText(String id) {
+    return id
+        .replaceAll("_", " ")
+        .split(" ")
+        .map((w) => w[0].toUpperCase() + w.substring(1))
+        .join(" ");
   }
 }

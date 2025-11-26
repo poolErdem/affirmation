@@ -1,10 +1,11 @@
-import 'package:affirmation/models/affirmation.dart';
+import 'dart:math';
+
 import 'package:affirmation/models/category.dart';
 import 'package:affirmation/ui/screens/premium_screen.dart';
 import 'package:affirmation/ui/screens/theme_screen.dart';
 import 'package:affirmation/ui/screens/categories_screen.dart';
 import 'package:affirmation/ui/screens/settings/settings_screen.dart';
-import 'package:affirmation/ui/widgets/premium_upsell_card.dart';
+import 'package:affirmation/models/user_preferences.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -28,14 +29,26 @@ class _HomeScreenState extends State<HomeScreen>
 
   late PageController _pageController;
 
-  double _shareScale = 1.0; // SHARE bounce
-  //────────────────────────────────────────
+  double _shareScale = 1.0;
 
   @override
   void initState() {
     super.initState();
 
-    _pageController = PageController();
+    final appState = Provider.of<AppState>(context, listen: false);
+    final randomIndex = Random().nextInt(appState.pageCount);
+
+    _pageController = PageController(initialPage: randomIndex);
+
+    appState.playback.onIndexChanged = (newIndex) {
+      if (_pageController.hasClients) {
+        _pageController.animateToPage(
+          newIndex,
+          duration: const Duration(milliseconds: 400),
+          curve: Curves.easeInOut,
+        );
+      }
+    };
 
     _actionAnim = AnimationController(
       duration: const Duration(milliseconds: 350),
@@ -65,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   //────────────────────────────────────────
-  // SPARKLE EFFECT (Heart)
+  // SPARKLE EFFECT
   //────────────────────────────────────────
   void _runHeartSparkle() async {
     OverlayEntry entry = OverlayEntry(
@@ -76,16 +89,9 @@ class _HomeScreenState extends State<HomeScreen>
           duration: const Duration(milliseconds: 600),
           tween: Tween(begin: 1, end: 0),
           builder: (_, value, child) {
-            return Opacity(
-              opacity: value,
-              child: Transform.scale(
-                scale: 1 + (1 - value) * 0.5,
-                child: const Icon(
-                  Icons.star,
-                  color: Colors.amber,
-                  size: 26,
-                ),
-              ),
+            return Transform.scale(
+              scale: 1 + (1 - value) * 0.5,
+              child: const Icon(Icons.star, color: Colors.amber, size: 26),
             );
           },
         ),
@@ -98,7 +104,6 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   //────────────────────────────────────────
-
   @override
   Widget build(BuildContext context) {
     final appState = context.watch<AppState>();
@@ -116,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen>
       backgroundColor: Colors.black,
       body: Stack(
         children: [
-          // BACKGROUND IMAGE
+          // BACKGROUND
           Image.asset(
             backgroundImage,
             fit: BoxFit.cover,
@@ -125,20 +130,21 @@ class _HomeScreenState extends State<HomeScreen>
           ),
 
           // DARK OVERLAY
-          Container(
-            color: Colors.black.withValues(alpha: 0.40),
-          ),
+          Container(color: const Color(0x55000000)),
 
           // TOP BAR
           _buildTopBar(context, isPremium),
 
-          // AFFIRMATIONS LIST
+          // AUTO-READ BAR
+          _buildAutoReadBar(),
+
+          // AFFIRMATIONS
           Align(
             alignment: Alignment.center,
             child: _buildAffirmationPager(appState),
           ),
 
-          // FAVORITE + SHARE (RIGHT SIDE)
+          // FAVORITE + SHARE
           Align(
             alignment: const Alignment(0.90, 0.65),
             child: SlideTransition(
@@ -169,8 +175,8 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   //────────────────────────────────────────
-  // TOP BAR
-  //────────────────────────────────────────
+// TOP BAR
+//────────────────────────────────────────
   Widget _buildTopBar(BuildContext context, bool isPremium) {
     return SafeArea(
       child: Padding(
@@ -178,17 +184,17 @@ class _HomeScreenState extends State<HomeScreen>
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           decoration: BoxDecoration(
-            color: Colors.white.withValues(alpha: 0.12),
+            color: const Color(0x22000000), // yarı şeffaf siyah (opacity YOK)
             borderRadius: BorderRadius.circular(18),
             border: Border.all(
-              color: Colors.white.withValues(alpha: 0.25),
-              width: 1,
+              color: const Color(0x33FFFFFF), // hafif beyaz çerçeve
+              width: 1.2,
             ),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // SETTINGS
+              // ⚙️ SETTINGS BUTTON
               InkWell(
                 onTap: () {
                   Navigator.push(
@@ -200,7 +206,7 @@ class _HomeScreenState extends State<HomeScreen>
                     const Icon(Icons.settings, color: Colors.white, size: 24),
               ),
 
-              // PREMIUM ICON
+              // ⭐ PREMIUM BUTTON
               GestureDetector(
                 onTap: () {
                   if (isPremium) {
@@ -215,26 +221,30 @@ class _HomeScreenState extends State<HomeScreen>
                 child: Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
+                    shape: BoxShape.circle,
                     gradient: isPremium
                         ? const LinearGradient(
-                            colors: [Color(0xFFFFD700), Color(0xFFFFA500)],
+                            colors: [
+                              Color(0xFFFFD700),
+                              Color(0xFFFFA500),
+                            ],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                           )
                         : null,
-                    color:
-                        isPremium ? null : Colors.white.withValues(alpha: 0.15),
-                    shape: BoxShape.circle,
+                    color: isPremium
+                        ? null
+                        : const Color(0x33000000), // premium değilse sade
                     border: Border.all(
                       color: isPremium
                           ? Colors.amber.shade700
-                          : Colors.white.withValues(alpha: 0.25),
+                          : const Color(0x33FFFFFF),
                       width: isPremium ? 2 : 1.4,
                     ),
                     boxShadow: isPremium
                         ? [
                             BoxShadow(
-                              color: Colors.amber.withValues(alpha: 0.35),
+                              color: Colors.amber.withAlpha(90),
                               blurRadius: 22,
                               spreadRadius: 4,
                             ),
@@ -245,10 +255,8 @@ class _HomeScreenState extends State<HomeScreen>
                     isPremium
                         ? Icons.workspace_premium
                         : Icons.workspace_premium_outlined,
+                    color: Colors.white,
                     size: 24,
-                    color: isPremium
-                        ? Colors.white
-                        : Colors.white.withValues(alpha: 0.7),
                   ),
                 ),
               ),
@@ -260,72 +268,68 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   //────────────────────────────────────────
-  // PREMIUM STATUS DIALOG
+  // AUTO READ PANEL
   //────────────────────────────────────────
-  void _showPremiumStatusDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        title: Row(
-          children: [
-            Icon(Icons.workspace_premium, color: Colors.amber, size: 28),
-            const SizedBox(width: 8),
-            const Text(
-              'Premium Active',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _buildBenefit(Icons.block, 'Ad-free experience'),
-            _buildBenefit(Icons.category, 'All categories unlocked'),
-            _buildBenefit(Icons.color_lens, 'All themes available'),
-            _buildBenefit(Icons.favorite, 'Unlimited favorites'),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text(
-              'Close',
-              style: TextStyle(fontWeight: FontWeight.w600),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  Widget _buildAutoReadBar() {
+    final appState = context.watch<AppState>();
+    final playback = appState.playback; // ⭐ PlaybackState'e erişim
+    final enabled = playback.autoReadEnabled;
 
-  Widget _buildBenefit(IconData icon, String text) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(6),
+    return Positioned(
+      top: MediaQuery.of(context).padding.top + 80,
+      left: 20,
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(
+          maxWidth: 200, // ⭐️ genişlik burada limitleniyor
+        ),
+        child: GestureDetector(
+          onTap: () => playback.toggleAutoRead(),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(
-              color: Colors.green.withValues(alpha: 0.1),
-              shape: BoxShape.circle,
+              color: const Color(0x33000000),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: const Color(0x44FFFFFF), width: 1.3),
             ),
-            child: Icon(icon, color: Colors.green, size: 18),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Icon(
+                      enabled ? Icons.volume_up : Icons.volume_off,
+                      color: Colors.white,
+                      size: 22,
+                    ),
+                    const SizedBox(width: 10),
+                    Text(
+                      enabled ? "Auto-Read: ON" : "Auto-Read: OFF",
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
+                const Text(
+                  "1x",
+                  style: TextStyle(color: Colors.white70, fontSize: 14),
+                ),
+              ],
+            ),
           ),
-          const SizedBox(width: 12),
-          Text(text, style: const TextStyle(fontSize: 15)),
-        ],
+        ),
       ),
     );
   }
 
   //────────────────────────────────────────
-  // AFFIRMATION PAGEVIEW
+  // PAGEVIEW + AUTO-READ
   //────────────────────────────────────────
+
   Widget _buildAffirmationPager(AppState appState) {
-    final items = appState.pagedItems;
+    final items = appState.currentFeed; // List<Affirmation>
 
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.52,
@@ -334,25 +338,12 @@ class _HomeScreenState extends State<HomeScreen>
         scrollDirection: Axis.vertical,
         itemCount: items.length,
         onPageChanged: (index) {
-          final item = items[index];
-          if (item['type'] == 'affirmation') {
-            final realIndex = item['realIndex'] ?? 0;
-            appState.onPageChanged(realIndex);
-            _actionAnim.forward(from: 0);
-          }
+          appState.setCurrentIndex(index);
+          appState.playback.setCurrentIndex(index);
+          _actionAnim.forward(from: 0);
         },
         itemBuilder: (_, index) {
-          final item = items[index];
-
-          // PREMIUM CTA
-          if (item['type'] == 'cta_premium') {
-            return const PremiumUpsellCard();
-          }
-
-          final affirmation = item['data'];
-          if (affirmation == null || affirmation is! Affirmation) {
-            return const SizedBox();
-          }
+          final affirmation = items[index]; // Affirmation
 
           return Center(
             child: AffirmationCard(
@@ -366,7 +357,7 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   //────────────────────────────────────────
-  // FAVORITE + SHARE BUTTONS
+  // FAVORITE + SHARE
   //────────────────────────────────────────
   Widget _buildMiddleActions(BuildContext context) {
     final appState = context.watch<AppState>();
@@ -376,10 +367,20 @@ class _HomeScreenState extends State<HomeScreen>
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        // ❤️ FAVORITE + sparkle
         GestureDetector(
           onTap: () {
-            appState.toggleFavoriteForCurrent(context);
+            final appState = context.read<AppState>();
+            final aff = appState.affirmationAt(appState.currentIndex);
+
+            if (appState.isOverFavoriteLimit()) {
+              _showFavoriteLimitDialog(context);
+              return;
+            }
+
+            if (aff != null) {
+              appState.toggleFavorite(aff.id);
+            }
+
             _runHeartSparkle();
           },
           child: AnimatedScale(
@@ -388,8 +389,8 @@ class _HomeScreenState extends State<HomeScreen>
             curve: Curves.easeOut,
             child: Container(
               padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: Colors.black.withValues(alpha: 0.25),
+              decoration: const BoxDecoration(
+                color: Color(0x33000000),
                 shape: BoxShape.circle,
               ),
               child: Icon(
@@ -400,10 +401,7 @@ class _HomeScreenState extends State<HomeScreen>
             ),
           ),
         ),
-
         const SizedBox(height: 16),
-
-        // 🔄 SHARE + bounce
         GestureDetector(
           onTapDown: (_) => setState(() => _shareScale = 0.85),
           onTapUp: (_) => setState(() => _shareScale = 1.0),
@@ -417,15 +415,11 @@ class _HomeScreenState extends State<HomeScreen>
             duration: const Duration(milliseconds: 140),
             child: Container(
               padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: Colors.black.withValues(alpha: 0.25),
+              decoration: const BoxDecoration(
+                color: Color(0x33000000),
                 shape: BoxShape.circle,
               ),
-              child: const Icon(
-                Icons.share,
-                size: 26,
-                color: Colors.white,
-              ),
+              child: const Icon(Icons.share, size: 26, color: Colors.white),
             ),
           ),
         ),
@@ -459,10 +453,10 @@ class _HomeScreenState extends State<HomeScreen>
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: BoxDecoration(
-          color: Colors.white.withValues(alpha: 0.28),
+          color: const Color(0x44000000),
           borderRadius: BorderRadius.circular(30),
           border: Border.all(
-            color: Colors.white.withValues(alpha: 0.22),
+            color: const Color(0x33FFFFFF),
             width: 1,
           ),
         ),
@@ -498,14 +492,130 @@ class _HomeScreenState extends State<HomeScreen>
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: Colors.white.withValues(alpha: 0.28),
+          color: const Color(0x44000000),
           shape: BoxShape.circle,
           border: Border.all(
-            color: Colors.white.withValues(alpha: 0.22),
+            color: const Color(0x33FFFFFF),
             width: 1,
           ),
         ),
         child: const Icon(Icons.color_lens, color: Colors.white, size: 24),
+      ),
+    );
+  }
+
+  //────────────────────────────────────────
+// PREMIUM STATUS DIALOG
+//────────────────────────────────────────
+  Widget _buildPremiumBenefit(IconData icon, String text) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(6),
+            decoration: BoxDecoration(
+              color: const Color(0x3323C552), // yeşilimsi ama opacity YOK
+              shape: BoxShape.circle,
+            ),
+            child: Icon(icon, color: const Color(0xFF23C552), size: 18),
+          ),
+          const SizedBox(width: 12),
+          Text(
+            text,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 15,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showPremiumStatusDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        backgroundColor: const Color(0xFF1A1A1A),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(22),
+          side: const BorderSide(
+            color: Color(0x55FFD700),
+            width: 1.4,
+          ),
+        ),
+        titlePadding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+        contentPadding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
+        title: Row(
+          children: [
+            const Icon(Icons.workspace_premium, color: Colors.amber, size: 28),
+            const SizedBox(width: 10),
+            const Text(
+              'Premium Active',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ],
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _buildPremiumBenefit(Icons.block, "Ad-free experience"),
+            _buildPremiumBenefit(Icons.category, "All categories unlocked"),
+            _buildPremiumBenefit(Icons.color_lens, "All themes available"),
+            _buildPremiumBenefit(Icons.favorite, "Unlimited favorites"),
+          ],
+        ),
+        actionsAlignment: MainAxisAlignment.end,
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text(
+              'Close',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w600,
+                fontSize: 15,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showFavoriteLimitDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text("Favorites Limit"),
+        content: const Text(
+          "You've reached your free favorites limit (5).\n\nUpgrade to Premium for up to 50 favorites ✨",
+        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text("OK"),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const PremiumScreen()),
+              );
+            },
+            child: const Text(
+              "Upgrade",
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
       ),
     );
   }

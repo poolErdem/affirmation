@@ -2,12 +2,15 @@ import 'package:affirmation/ui/screens/onboarding/preferences_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:affirmation/state/app_state.dart';
+import 'package:affirmation/l10n/app_localizations.dart';
 
 class GenderScreen extends StatelessWidget {
   const GenderScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -69,9 +72,9 @@ class GenderScreen extends StatelessWidget {
                   const SizedBox(height: 80),
 
                   // TITLE
-                  const Center(
+                  Center(
                     child: Text(
-                      "Identify your gender",
+                      t.identifyGender,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,

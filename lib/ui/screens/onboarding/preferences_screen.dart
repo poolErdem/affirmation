@@ -1,8 +1,9 @@
-import 'dart:ui';
 import 'package:affirmation/ui/screens/onboarding/onboarding_name_screen.dart';
+import 'package:affirmation/ui/widgets/glass_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:affirmation/state/app_state.dart';
+import 'package:affirmation/l10n/app_localizations.dart';
 
 class PreferencesScreen extends StatefulWidget {
   const PreferencesScreen({super.key});
@@ -16,6 +17,8 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+
     final prefs = [
       "self_care",
       "personal_growth",
@@ -69,7 +72,7 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
                   GestureDetector(
                     onTap: () => Navigator.pop(context),
                     child: Text(
-                      "Back",
+                      t.back,
                       style: TextStyle(
                         color: Colors.white.withValues(alpha: 0.7),
                         fontSize: 20,
@@ -81,9 +84,9 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
                   const SizedBox(height: 35),
 
                   // TITLE
-                  const Center(
+                  Center(
                     child: Text(
-                      "Which areas of your\nlife do you want to improve?",
+                      t.choosePreferences,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
@@ -95,9 +98,9 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
                   ),
 
                   const SizedBox(height: 10),
-                  const Center(
+                  Center(
                     child: Text(
-                      "You can change this anytime",
+                      t.youCanChangeLater,
                       style: TextStyle(
                         color: Colors.white70,
                         fontSize: 15,
@@ -175,58 +178,26 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
                   ),
 
                   // CONTINUE BUTTON (Glass + Blur)
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(50),
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 14, sigmaY: 14),
-                      child: GestureDetector(
-                        onTap: () {
-                          if (selected.isEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text(
-                                    "Please select at least one preference."),
-                              ),
-                            );
-                            return;
-                          }
+                  GlassButton(
+                    text: t.continueLabel, // <-- DOĞRU OLAN BU
+                    onTap: () {
+                      if (selected.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(t.pleasePrefs)),
+                        );
+                        return;
+                      }
 
-                          final appState = context.read<AppState>();
-                          appState.onboardingContentPrefs = selected.toSet();
+                      final appState = context.read<AppState>();
+                      appState.onboardingContentPrefs = selected.toSet();
 
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => const OnboardingNameScreen(),
-                            ),
-                          );
-                        },
-                        child: Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.symmetric(vertical: 18),
-                          margin: const EdgeInsets.only(bottom: 26),
-                          decoration: BoxDecoration(
-                            color: Colors.white.withValues(alpha: 0.20),
-                            borderRadius: BorderRadius.circular(50),
-                            border: Border.all(
-                              color: Colors.white.withValues(alpha: 0.45),
-                              width: 1.6,
-                            ),
-                          ),
-                          child: const Center(
-                            child: Text(
-                              "Continue",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700,
-                                letterSpacing: 0.4,
-                              ),
-                            ),
-                          ),
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const OnboardingNameScreen(),
                         ),
-                      ),
-                    ),
+                      );
+                    },
                   ),
                 ],
               ),

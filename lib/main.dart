@@ -1,29 +1,40 @@
 import 'package:affirmation/l10n/app_localizations.dart';
-import 'package:affirmation/ui/screens/onboarding/welcome_screen.dart';
+import 'package:affirmation/state/purchase_state.dart';
+import 'package:affirmation/state/reminder_state.dart';
+import 'package:affirmation/ui/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart' as admob;
 import 'package:provider/provider.dart';
 
 // Localization
 import 'package:flutter_localizations/flutter_localizations.dart';
-
 import 'state/app_state.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Ads init
   await admob.MobileAds.instance.initialize();
 
-  // ---- EN KRİTİK NOKTA ----
-  // AppState'i önce oluşturup initialize çağırıyoruz
+  // ---- AppState ----
   final appState = AppState();
-  await appState.initialize(); // 🔥 loading burada bitiyor
-  appState.initializePurchaseListener(); // 🔥 ekstra listener
+  await appState.initialize();
+
+  // ---- PurchaseState ----
+  final purchaseState = PurchaseState();
+  await purchaseState.initialize();
+
+  // ---- ReminderState ----
+  final reminderState = ReminderState();
+  await reminderState.load(); // JSON’dan oku
+  reminderState.bindUserPreferences(appState.preferences); // UserPrefs bağla
 
   runApp(
-    ChangeNotifierProvider<AppState>.value(
-      value: appState, // 🔥 aynı instance veriyoruz
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<AppState>.value(value: appState),
+        ChangeNotifierProvider<PurchaseState>.value(value: purchaseState),
+        ChangeNotifierProvider<ReminderState>.value(value: reminderState),
+      ],
       child: const AffirmationApp(),
     ),
   );
@@ -37,9 +48,9 @@ class AffirmationApp extends StatelessWidget {
     return Consumer<AppState>(
       builder: (context, appState, _) {
         print(
-            "🟦 MaterialApp → BUILD with locale = ${appState.preferences.languageCode}");
+            "🟦 MaterialApp → BUILD with locale = ${appState.selectedLocale}");
 
-        // AppState tamamen load edilmeden UI çizmesin
+        // AppState yüklenene kadar loading ekranı
         if (!appState.isLoaded) {
           return const MaterialApp(
             debugShowCheckedModeBanner: false,
@@ -61,7 +72,6 @@ class AffirmationApp extends StatelessWidget {
             fontFamily: 'Roboto',
           ),
 
-          // ⭐️ DİL SEÇİMİ
           locale: Locale(appState.selectedLocale),
 
           supportedLocales: const [
@@ -80,7 +90,7 @@ class AffirmationApp extends StatelessWidget {
           //home: appState.onboardingCompleted
           //  ? const HomeScreen()
           //  : const WelcomeScreen(),
-          home: const WelcomeScreen(),
+          home: const HomeScreen(),
         );
       },
     );

@@ -4,6 +4,7 @@ import 'package:affirmation/state/app_state.dart';
 import 'package:affirmation/ui/screens/premium_screen.dart';
 import 'package:affirmation/models/theme_model.dart';
 import 'package:affirmation/l10n/app_localizations.dart';
+import 'package:affirmation/models/user_preferences.dart';
 
 class ThemeScreen extends StatefulWidget {
   const ThemeScreen({super.key});

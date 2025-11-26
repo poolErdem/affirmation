@@ -99,6 +99,60 @@ abstract class AppLocalizations {
     Locale('tr')
   ];
 
+  /// No description provided for @welcomeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome'**
+  String get welcomeTitle;
+
+  /// No description provided for @welcomeSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your path to inner clarity starts here.'**
+  String get welcomeSubtitle;
+
+  /// No description provided for @startButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get startButton;
+
+  /// No description provided for @continueAgree.
+  ///
+  /// In en, this message translates to:
+  /// **'By continuing, you agree to our'**
+  String get continueAgree;
+
+  /// No description provided for @termsOfUse.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms of Use'**
+  String get termsOfUse;
+
+  /// No description provided for @and.
+  ///
+  /// In en, this message translates to:
+  /// **'and'**
+  String get and;
+
+  /// No description provided for @nameQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'What’s your name?'**
+  String get nameQuestion;
+
+  /// No description provided for @personalize.
+  ///
+  /// In en, this message translates to:
+  /// **'We\'ll personalize your affirmations'**
+  String get personalize;
+
+  /// No description provided for @hitname.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your name'**
+  String get hitname;
+
   /// No description provided for @settings.
   ///
   /// In en, this message translates to:
@@ -198,7 +252,7 @@ abstract class AppLocalizations {
   /// No description provided for @genderSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Start your journey to the best version of yourself'**
+  /// **'This helps personalize your journey'**
   String get genderSubtitle;
 
   /// No description provided for @female.
@@ -222,14 +276,20 @@ abstract class AppLocalizations {
   /// No description provided for @choosePreferences.
   ///
   /// In en, this message translates to:
-  /// **'What areas of your life do you want to improve?'**
+  /// **'Which areas of your life do you want to improve?'**
   String get choosePreferences;
 
   /// No description provided for @youCanChangeLater.
   ///
   /// In en, this message translates to:
-  /// **'You can change them later'**
+  /// **'You can change this anytime'**
   String get youCanChangeLater;
+
+  /// No description provided for @pleasePrefs.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select at least one preference.'**
+  String get pleasePrefs;
 
   /// No description provided for @yourNamePersonalize.
   ///
@@ -266,6 +326,258 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please select a theme first.'**
   String get pleaseSelectTheme;
+
+  /// No description provided for @reminderTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminders'**
+  String get reminderTitle;
+
+  /// No description provided for @reminderSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Stay consistent with gentle daily reminders.'**
+  String get reminderSubtitle;
+
+  /// No description provided for @addReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Reminder'**
+  String get addReminder;
+
+  /// No description provided for @editReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Reminder'**
+  String get editReminder;
+
+  /// No description provided for @deleteReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Reminder'**
+  String get deleteReminder;
+
+  /// No description provided for @freeLimitReached.
+  ///
+  /// In en, this message translates to:
+  /// **'You’ve reached your free reminder limit.'**
+  String get freeLimitReached;
+
+  /// No description provided for @premiumUnlockMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock Premium to add up to 5 reminders.'**
+  String get premiumUnlockMore;
+
+  /// No description provided for @unlockMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock more reminders'**
+  String get unlockMore;
+
+  /// No description provided for @reminderCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Affirmation Category'**
+  String get reminderCategory;
+
+  /// No description provided for @reminderTimes.
+  ///
+  /// In en, this message translates to:
+  /// **'Times'**
+  String get reminderTimes;
+
+  /// No description provided for @reminderStartTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Time'**
+  String get reminderStartTime;
+
+  /// No description provided for @reminderEndTime.
+  ///
+  /// In en, this message translates to:
+  /// **'End Time'**
+  String get reminderEndTime;
+
+  /// No description provided for @reminderRepeatCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Repeat Count'**
+  String get reminderRepeatCount;
+
+  /// No description provided for @reminderRepeatDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Repeat Days'**
+  String get reminderRepeatDays;
+
+  /// No description provided for @reminderEnabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Enabled'**
+  String get reminderEnabled;
+
+  /// No description provided for @selectCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a category...'**
+  String get selectCategory;
+
+  /// No description provided for @premiumCategoryLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'This category is available in Premium.'**
+  String get premiumCategoryLocked;
+
+  /// No description provided for @onlySelfCareAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Only the Self Care category is available in the free plan.'**
+  String get onlySelfCareAvailable;
+
+  /// No description provided for @selectTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a time'**
+  String get selectTime;
+
+  /// No description provided for @startBeforeEnd.
+  ///
+  /// In en, this message translates to:
+  /// **'Start time must be before end time.'**
+  String get startBeforeEnd;
+
+  /// No description provided for @selectDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Select days'**
+  String get selectDays;
+
+  /// No description provided for @mon.
+  ///
+  /// In en, this message translates to:
+  /// **'Mon'**
+  String get mon;
+
+  /// No description provided for @tue.
+  ///
+  /// In en, this message translates to:
+  /// **'Tue'**
+  String get tue;
+
+  /// No description provided for @wed.
+  ///
+  /// In en, this message translates to:
+  /// **'Wed'**
+  String get wed;
+
+  /// No description provided for @thu.
+  ///
+  /// In en, this message translates to:
+  /// **'Thu'**
+  String get thu;
+
+  /// No description provided for @fri.
+  ///
+  /// In en, this message translates to:
+  /// **'Fri'**
+  String get fri;
+
+  /// No description provided for @sat.
+  ///
+  /// In en, this message translates to:
+  /// **'Sat'**
+  String get sat;
+
+  /// No description provided for @sun.
+  ///
+  /// In en, this message translates to:
+  /// **'Sun'**
+  String get sun;
+
+  /// No description provided for @repeatTimesPerDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Times per day'**
+  String get repeatTimesPerDay;
+
+  /// No description provided for @maxRepeatReached.
+  ///
+  /// In en, this message translates to:
+  /// **'Maximum repeat count reached'**
+  String get maxRepeatReached;
+
+  /// No description provided for @minRepeatReached.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimum repeat count reached'**
+  String get minRepeatReached;
+
+  /// No description provided for @deleteConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete reminder?'**
+  String get deleteConfirmTitle;
+
+  /// No description provided for @deleteConfirmMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This reminder will be removed permanently.'**
+  String get deleteConfirmMessage;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get confirm;
+
+  /// No description provided for @noRemindersYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No reminders yet'**
+  String get noRemindersYet;
+
+  /// No description provided for @tapToAddReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the button below to add your first reminder.'**
+  String get tapToAddReminder;
+
+  /// No description provided for @freeReminderBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'Free Reminder'**
+  String get freeReminderBadge;
+
+  /// No description provided for @reminderLimitReached.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve reached your reminder limit.'**
+  String get reminderLimitReached;
+
+  /// No description provided for @unlockMoreReminders.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock more reminders'**
+  String get unlockMoreReminders;
+
+  /// No description provided for @reminderFreeOnlyCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Free users can only use the Self-Care category.'**
+  String get reminderFreeOnlyCategory;
+
+  /// No description provided for @reminderPremiumRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade to Premium to add more reminders.'**
+  String get reminderPremiumRequired;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

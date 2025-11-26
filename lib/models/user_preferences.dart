@@ -1,3 +1,6 @@
+import 'package:affirmation/models/reminder.dart';
+import 'package:flutter/material.dart';
+
 class UserPreferences {
   final Set<String> selectedContentPreferences;
   final Set<String> selectedCategoryIds;
@@ -13,6 +16,7 @@ class UserPreferences {
   final PremiumPlan? premiumPlanId;
   final DateTime? premiumExpiresAt;
   final bool premiumActive;
+  final List<ReminderModel> reminders; // ⭐
 
   const UserPreferences({
     required this.selectedContentPreferences,
@@ -26,6 +30,7 @@ class UserPreferences {
     required this.premiumPlanId,
     required this.premiumExpiresAt,
     required this.premiumActive,
+    required this.reminders,
   });
 
   factory UserPreferences.initial({
@@ -45,6 +50,18 @@ class UserPreferences {
       premiumPlanId: null,
       premiumExpiresAt: null,
       premiumActive: false,
+      reminders: [
+        ReminderModel(
+          id: "free_default",
+          categoryId: "self_care",
+          startTime: const TimeOfDay(hour: 9, minute: 0),
+          endTime: const TimeOfDay(hour: 21, minute: 0),
+          repeatCount: 3,
+          repeatDays: {1, 2, 3, 4, 5, 6, 7},
+          enabled: true,
+          isPremium: false,
+        )
+      ],
     );
   }
 
@@ -60,6 +77,7 @@ class UserPreferences {
     PremiumPlan? premiumPlanId,
     DateTime? premiumExpiresAt,
     bool? premiumActive,
+    List<ReminderModel>? reminders,
   }) {
     return UserPreferences(
       selectedContentPreferences:
@@ -75,6 +93,9 @@ class UserPreferences {
       premiumPlanId: premiumPlanId ?? this.premiumPlanId,
       premiumExpiresAt: premiumExpiresAt ?? this.premiumExpiresAt,
       premiumActive: premiumActive ?? this.premiumActive,
+      reminders: reminders != null
+          ? List<ReminderModel>.from(reminders)
+          : List<ReminderModel>.from(this.reminders), // ⭐ kopya
     );
   }
 
@@ -96,6 +117,9 @@ class UserPreferences {
           ? DateTime.tryParse(json['premiumExpiresAt'])
           : null,
       premiumActive: json['premiumActive'] as bool? ?? false,
+      reminders: (json['reminders'] as List<dynamic>? ?? [])
+          .map((e) => ReminderModel.fromJson(e))
+          .toList(),
     );
   }
 
@@ -111,6 +135,7 @@ class UserPreferences {
         'premiumPlanId': premiumPlanToString(premiumPlanId),
         'premiumExpiresAt': premiumExpiresAt?.toIso8601String(),
         'premiumActive': premiumActive,
+        'reminders': reminders.map((r) => r.toJson()).toList(), // ⭐ EKLENDİ
       };
 }
 
@@ -156,4 +181,13 @@ PremiumPlan? premiumPlanFromString(String? value) {
 String? premiumPlanToString(PremiumPlan? plan) {
   if (plan == null) return null;
   return plan.name;
+}
+
+// PREMIUM CHECK EXTENSION
+extension UserPremiumExt on UserPreferences {
+  bool get isPremiumValid {
+    if (!premiumActive) return false;
+    if (premiumExpiresAt == null) return true;
+    return premiumExpiresAt!.isAfter(DateTime.now());
+  }
 }

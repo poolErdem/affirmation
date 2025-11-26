@@ -11,14 +11,16 @@ class AppRepository {
 
   AppRepository({required this.languageCode});
 
-  // 🔥 Ana load
+  // -------------------------------------------------------------
+  // 🔥 ANA LOAD (categories + themes)
+  // -------------------------------------------------------------
   Future<AppDataBundle> load() async {
     final basePath = "assets/data/$languageCode";
 
     print("🔵 [LOAD] Başladı → dil: $languageCode");
     print("📁 [PATH] Base path: $basePath");
 
-    // categories.json
+    // CATEGORIES
     print("📥 [LOAD] categories.json okunuyor...");
     final categoriesJson =
         await rootBundle.loadString("$basePath/categories.json");
@@ -31,7 +33,7 @@ class AppRepository {
         categoriesList.map((e) => AffirmationCategory.fromJson(e)).toList();
     print("🎯 [MAP] category obj count = ${categories.length}");
 
-    // themes.json
+    // THEMES
     print("📥 [LOAD] themes.json okunuyor...");
     final themesJson =
         await rootBundle.loadString("assets/data/themes/themes.json");
@@ -43,7 +45,8 @@ class AppRepository {
     final themes = themesList.map((e) => ThemeModel.fromJson(e)).toList();
     print("🎨 [MAP] theme obj count = ${themes.length}");
 
-    print("🟢 [LOAD] AppDataBundle hazır (affirmations = empty)");
+    print("🟢 [LOAD] AppDataBundle hazır");
+
     return AppDataBundle(
       themes: themes,
       categories: categories,
@@ -51,8 +54,10 @@ class AppRepository {
     );
   }
 
-  // 🔥 Kategori seçilince çağrılacak
-  Future<List<Affirmation>> loadCategoryItems(String categoryId) async {
+  // -------------------------------------------------------------
+  // 🔥 TEK KATEGORİ LOAD
+  // -------------------------------------------------------------
+  Future<List<Affirmation>> loadCategoryItem(String categoryId) async {
     final basePath = "assets/data/$languageCode";
     final filePath = "$basePath/$categoryId.json";
 
@@ -68,10 +73,8 @@ class AppRepository {
       late final List rawItems;
 
       if (decoded is List) {
-        // Yeni format → direkt liste
         rawItems = decoded;
       } else if (decoded is Map && decoded["items"] is List) {
-        // Eski format → items içinde liste
         rawItems = decoded["items"];
       } else {
         throw Exception("Invalid JSON format for $categoryId");
@@ -80,7 +83,6 @@ class AppRepository {
       print("📊 [DECODE] items count = ${rawItems.length}");
 
       return rawItems.map((e) {
-        print("👉 Affirmation yükleniyor: ${e["text"]}");
         return Affirmation.fromJson({
           ...e,
           "categoryId": categoryId,
@@ -90,5 +92,29 @@ class AppRepository {
       print("❌ [ERROR] loadCategoryItems($categoryId) hata: $e");
       rethrow;
     }
+  }
+
+  // -------------------------------------------------------------
+  // 🔥 BÜTÜN KATEGORİLERİ LOAD
+  // -------------------------------------------------------------
+  Future<List<Affirmation>> loadAllCategoriesItems() async {
+    print("\n🔵 [LOAD-ALL] Tüm kategoriler yükleniyor...");
+
+    final bundle = await load(); // ❗️ önemli! await koymazsan her şey çöker
+    final List<Affirmation> result = [];
+
+    for (final c in bundle.categories) {
+      try {
+        final items = await loadCategoryItem(c.id);
+        result.addAll(items);
+      } catch (e) {
+        print("❌ Category load error for ${c.id}: $e");
+      }
+    }
+
+    print(
+        "✅ [LOAD-ALL] Tüm affirmations yüklendi → toplam ${result.length} madde");
+
+    return result;
   }
 }

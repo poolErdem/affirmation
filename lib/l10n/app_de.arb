@@ -1,6 +1,13 @@
 {
   "@@locale": "de",
 
+  "welcomeTitle": "Welcome",
+  "welcomeSubtitle": "Your path to inner clarity starts here.",
+  "startButton": "Start",
+  "continueAgree": "By continuing, you agree to our",
+  "termsOfUse": "Terms of Use",
+  "and": "and",
+
   "settings": "Einstellungen",
   "goPremium": "Premium freischalten",
   "preferences": "Präferenzen",

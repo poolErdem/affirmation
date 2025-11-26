@@ -3,24 +3,34 @@ import 'package:affirmation/ui/screens/onboarding/preferences_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:affirmation/state/app_state.dart';
+import 'package:affirmation/l10n/app_localizations.dart';
 
-class OnboardingGenderScreen extends StatelessWidget {
+class OnboardingGenderScreen extends StatefulWidget {
   const OnboardingGenderScreen({super.key});
 
   @override
+  State<OnboardingGenderScreen> createState() => _OnboardingGenderScreenState();
+}
+
+class _OnboardingGenderScreenState extends State<OnboardingGenderScreen> {
+  @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+    final appState = context.watch<AppState>();
+
+    // AppState’ten seçili gender
+    final String? selectedGender = appState.onboardingGender;
+    print("Onboarding gender: $selectedGender");
+
     return Scaffold(
       body: Stack(
         children: [
-          // BACKGROUND
           Positioned.fill(
             child: Image.asset(
               "assets/data/themes/a1.jfif",
               fit: BoxFit.cover,
             ),
           ),
-
-          // PREMIUM OVERLAY
           Positioned.fill(
             child: Container(
               decoration: const BoxDecoration(
@@ -36,8 +46,6 @@ class OnboardingGenderScreen extends StatelessWidget {
               ),
             ),
           ),
-
-          // CONTENT
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -45,12 +53,10 @@ class OnboardingGenderScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 20),
-
-                  // BACK
                   GestureDetector(
                     onTap: () => Navigator.pop(context),
                     child: Text(
-                      "Back",
+                      t.back,
                       style: TextStyle(
                         color: Colors.white.withValues(alpha: 0.7),
                         fontSize: 20,
@@ -58,43 +64,34 @@ class OnboardingGenderScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 70),
-
-                  // TITLE
-                  const Center(
+                  Center(
                     child: Text(
-                      "Identify your gender",
+                      t.identifyGender,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 34,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 10),
-
-                  const Center(
+                  Center(
                     child: Text(
-                      "This helps personalize your journey",
+                      t.genderSubtitle,
                       style: TextStyle(
                         color: Colors.white70,
                         fontSize: 15,
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 50),
-
-                  _buildGenderButton(context, "Female"),
+                  _buildGenderButton(context, "female", selectedGender),
                   const SizedBox(height: 20),
-
-                  _buildGenderButton(context, "Male"),
+                  _buildGenderButton(context, "male", selectedGender),
                   const SizedBox(height: 20),
-
-                  _buildGenderButton(context, "Other"),
+                  _buildGenderButton(context, "other", selectedGender),
                 ],
               ),
             ),
@@ -104,12 +101,16 @@ class OnboardingGenderScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildGenderButton(BuildContext context, String text) {
+  Widget _buildGenderButton(
+      BuildContext context, String genderKey, String? selectedGender) {
+    final bool isSelected = selectedGender == genderKey;
+
+    final displayText = genderKey[0].toUpperCase() + genderKey.substring(1);
+
     return GestureDetector(
       onTap: () {
         final appState = context.read<AppState>();
-        appState.onboardingGender = text.toLowerCase();
-
+        appState.onboardingGender = genderKey; // kaydet
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -126,26 +127,41 @@ class OnboardingGenderScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 18),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(40),
-              color: Colors.white.withValues(alpha: 0.15),
+              color: isSelected
+                  ? const Color.fromARGB(60, 255, 255, 255)
+                  : const Color.fromARGB(38, 255, 255, 255),
               border: Border.all(
-                color: Colors.white.withValues(alpha: 0.45),
-                width: 2,
+                color: isSelected
+                    ? Colors.white
+                    : Colors.white.withValues(alpha: 0.45),
+                width: isSelected ? 2.6 : 1.8,
               ),
               boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.25),
-                  blurRadius: 12,
-                )
+                if (isSelected)
+                  BoxShadow(
+                    color: Colors.white.withValues(alpha: 0.25),
+                    blurRadius: 18,
+                    spreadRadius: 1,
+                  ),
               ],
             ),
             child: Center(
               child: Text(
-                text,
-                style: const TextStyle(
+                displayText,
+                style: TextStyle(
                   color: Colors.white,
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
                   letterSpacing: 0.3,
+                  shadows: isSelected
+                      ? [
+                          const Shadow(
+                            color: Colors.black54,
+                            blurRadius: 4,
+                            offset: Offset(0, 1),
+                          )
+                        ]
+                      : [],
                 ),
               ),
             ),

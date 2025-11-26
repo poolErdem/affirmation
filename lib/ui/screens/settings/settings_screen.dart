@@ -5,11 +5,13 @@ import 'package:affirmation/ui/screens/settings/language_screen.dart';
 import 'package:affirmation/ui/screens/settings/name_screen.dart';
 import 'package:affirmation/ui/screens/premium_screen.dart';
 import 'package:affirmation/ui/screens/settings/privacy_policy_screen.dart';
+import 'package:affirmation/ui/screens/settings/reminder_screen.dart';
 import 'package:affirmation/ui/screens/settings/sound_screen.dart';
 import 'package:affirmation/ui/screens/settings/terms_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../state/app_state.dart';
+import 'package:affirmation/models/user_preferences.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -67,9 +69,11 @@ class SettingsScreen extends StatelessWidget {
             icon: Icons.tune,
             onTap: () {
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (_) => const ContentPreferencesScreen()));
+                context,
+                MaterialPageRoute(
+                  builder: (_) => const ContentPreferencesScreen(),
+                ),
+              );
             },
           ),
           _tile(
@@ -77,8 +81,10 @@ class SettingsScreen extends StatelessWidget {
             title: t.language,
             icon: Icons.language,
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (_) => const LanguageScreen()));
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const LanguageScreen()),
+              );
             },
           ),
           _tile(
@@ -86,14 +92,22 @@ class SettingsScreen extends StatelessWidget {
             title: t.sound,
             icon: Icons.volume_up_rounded,
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (_) => const SoundScreen()));
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const SoundScreen()),
+              );
             },
           ),
           _tile(
             context,
             title: t.reminders,
             icon: Icons.notifications_none_rounded,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const RemindersScreen()),
+              );
+            },
           ),
 
           const SizedBox(height: 20),
@@ -105,8 +119,10 @@ class SettingsScreen extends StatelessWidget {
             title: t.name,
             icon: Icons.person_outline_rounded,
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (_) => const NameScreen()));
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const NameScreen()),
+              );
             },
           ),
           _tile(
@@ -114,8 +130,10 @@ class SettingsScreen extends StatelessWidget {
             title: t.favorites,
             icon: Icons.favorite_border,
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (_) => const FavoritesScreen()));
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const FavoritesScreen()),
+              );
             },
           ),
 
@@ -129,9 +147,9 @@ class SettingsScreen extends StatelessWidget {
             icon: Icons.description_outlined,
             onTap: () {
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (_) => const PrivacyPolicyScreen()));
+                context,
+                MaterialPageRoute(builder: (_) => const PrivacyPolicyScreen()),
+              );
             },
           ),
           _tile(
@@ -139,8 +157,10 @@ class SettingsScreen extends StatelessWidget {
             title: t.terms,
             icon: Icons.verified_user_outlined,
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (_) => const TermsScreen()));
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const TermsScreen()),
+              );
             },
           ),
         ],
@@ -195,7 +215,7 @@ class SettingsScreen extends StatelessWidget {
               color: Color(0x26000000),
               blurRadius: 14,
               offset: Offset(0, 5),
-            )
+            ),
           ],
         ),
         child: Padding(
@@ -242,10 +262,12 @@ class SettingsScreen extends StatelessWidget {
     VoidCallback? onTap,
   }) {
     return InkWell(
-      onTap: onTap ??
+      onTap:
+          onTap ??
           () {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text("$title coming soon")));
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text("$title coming soon")));
           },
       borderRadius: BorderRadius.circular(18),
       child: Container(

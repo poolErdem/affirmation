@@ -1,12 +1,36 @@
-import 'dart:ui';
+import 'package:affirmation/state/app_state.dart';
 import 'package:affirmation/ui/screens/onboarding/onboarding_gender_screen.dart';
+import 'package:affirmation/ui/widgets/glass_button.dart';
 import 'package:flutter/material.dart';
+import 'package:affirmation/l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
-class WelcomeScreen extends StatelessWidget {
+class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
 
   @override
+  State<WelcomeScreen> createState() => _WelcomeScreenState();
+}
+
+class _WelcomeScreenState extends State<WelcomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    // Onboarding RESET – doğru yer burası
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final appState = context.read<AppState>();
+      appState.onboardingGender = null;
+      appState.onboardingContentPrefs = {};
+      appState.onboardingName = null;
+      appState.onboardingThemeIndex = null;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -18,14 +42,14 @@ class WelcomeScreen extends StatelessWidget {
             ),
           ),
 
-          // DARK CINEMATIC GRADIENT
+          // DARK CINEMATIC GRADIENT (opacity YOK!)
           Positioned.fill(
             child: Container(
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
                     Colors.black87,
-                    Colors.black45,
+                    Colors.black54,
                     Colors.black26,
                   ],
                   begin: Alignment.bottomCenter,
@@ -44,10 +68,10 @@ class WelcomeScreen extends StatelessWidget {
                   const Spacer(),
 
                   // TITLE
-                  const Text(
-                    "Welcome",
+                  Text(
+                    t.welcomeTitle,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 42,
                       fontWeight: FontWeight.w700,
@@ -58,10 +82,10 @@ class WelcomeScreen extends StatelessWidget {
                   const SizedBox(height: 10),
 
                   Text(
-                    "Your path to inner clarity starts here.",
+                    t.welcomeSubtitle,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.85),
+                    style: const TextStyle(
+                      color: Colors.white70,
                       fontSize: 18,
                       fontWeight: FontWeight.w400,
                     ),
@@ -69,71 +93,42 @@ class WelcomeScreen extends StatelessWidget {
 
                   const SizedBox(height: 50),
 
-                  // START BUTTON (premium style – blur + border)
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(50),
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 14, sigmaY: 14),
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => const OnboardingGenderScreen(),
-                            ),
-                          );
-                        },
-                        child: Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                          decoration: BoxDecoration(
-                            color: Colors.white.withValues(alpha: 0.18),
-                            borderRadius: BorderRadius.circular(50),
-                            border: Border.all(
-                              color: Colors.white.withValues(alpha: 0.45),
-                              width: 1.6,
-                            ),
-                          ),
-                          child: const Center(
-                            child: Text(
-                              "Start",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: 0.5,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                  // PREMIUM GLASS BUTTON
+                  GlassButton(
+                    text: t.startButton,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => const OnboardingGenderScreen()),
+                      );
+                    },
                   ),
 
                   const SizedBox(height: 30),
 
-                  // PRIVACY TEXT
+                  // PRIVACY / TERMS TEXT
                   RichText(
                     textAlign: TextAlign.center,
                     text: TextSpan(
-                      text: "By continuing, you agree to our ",
-                      style: TextStyle(
-                        color: Colors.white.withValues(alpha: 0.7),
+                      text: t.continueAgree,
+                      style: const TextStyle(
+                        color: Colors.white70,
                         fontSize: 13,
                         height: 1.4,
                       ),
                       children: [
                         TextSpan(
-                          text: "Privacy Policy",
+                          text: t.privacyPolicy,
                           style: const TextStyle(
                             decoration: TextDecoration.underline,
                             color: Colors.white,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        const TextSpan(text: " and "),
+                        TextSpan(text: " ${t.and} "),
                         TextSpan(
-                          text: "Terms of Use",
+                          text: t.termsOfUse,
                           style: const TextStyle(
                             decoration: TextDecoration.underline,
                             color: Colors.white,

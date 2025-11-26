@@ -223,20 +223,19 @@ class _PremiumScreenState extends State<PremiumScreen> {
                       child: Column(
                         children: [
                           // BENEFITS LIST
-                          _benefit("✨ All Premium Themes"),
-                          _benefit("📦 All Categories Unlocked"),
-                          _benefit("❤️ Unlimited Favorites"),
-                          _benefit("🚫 Remove Ads"),
-                          _benefit("🎵 Ambient Background Sounds"),
-                          _benefit("🔥 Early Access to New Features"),
+                          _benefit(
+                              "All Premium Themes and Categories unlocked"),
+                          _benefit("Unlimited Favorites"),
+                          _benefit("Remove Ads"),
+                          _benefit("Voice Affirmations"),
+                          _benefit("Early Access to New Features"),
 
                           const SizedBox(height: 30),
 
                           if (!isPremium) ...[
                             _buildPlan("monthly", "Monthly", "₺99.99 / month"),
                             _buildPlan("yearly", "Yearly (Best Deal)",
-                                "₺549.99 / year",
-                                highlight: true),
+                                "₺549.99 / year"),
                             _buildPlan("lifetime", "Lifetime Access",
                                 "₺999.99 one-time"),
                             const SizedBox(height: 20),

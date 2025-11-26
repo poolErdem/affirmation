@@ -9,6 +9,33 @@ class AppLocalizationsTr extends AppLocalizations {
   AppLocalizationsTr([String locale = 'tr']) : super(locale);
 
   @override
+  String get welcomeTitle => 'Hoş Geldin';
+
+  @override
+  String get welcomeSubtitle => 'İçsel yolculuğun burada başlıyor.';
+
+  @override
+  String get startButton => 'Başla';
+
+  @override
+  String get continueAgree => 'Devam ederek şu koşulları kabul etmiş olursun:';
+
+  @override
+  String get termsOfUse => 'Kullanım Şartları';
+
+  @override
+  String get and => 've';
+
+  @override
+  String get nameQuestion => 'Adınız nedir?';
+
+  @override
+  String get personalize => 'Olumlamalarınızı kişiselleştireceğiz';
+
+  @override
+  String get hitname => 'İsminizi girin';
+
+  @override
   String get settings => 'Ayarlar';
 
   @override
@@ -72,10 +99,13 @@ class AppLocalizationsTr extends AppLocalizations {
   String get choosePreferences => 'Hayatınızın hangi alanlarını geliştirmek istersiniz?';
 
   @override
-  String get youCanChangeLater => 'Daha sonra değiştirebilirsiniz';
+  String get youCanChangeLater => 'Bunu istediğiniz zaman değiştirebilirsiniz';
 
   @override
-  String get yourNamePersonalize => 'İsminiz olumlamalarınızı kişiselleştirmek için kullanılır';
+  String get pleasePrefs => 'Lütfen en az bir tercih seçin.';
+
+  @override
+  String get yourNamePersonalize => 'İsminiz, olumlamalarınızı kişiselleştirmek için kullanılır';
 
   @override
   String get typeYourName => 'İsminizi yazın...';
@@ -91,4 +121,130 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get pleaseSelectTheme => 'Lütfen önce bir tema seçin.';
+
+  @override
+  String get reminderTitle => 'Hatırlatmalar';
+
+  @override
+  String get reminderSubtitle => 'Gün içinde nazik hatırlatmalarla düzenini koru.';
+
+  @override
+  String get addReminder => 'Hatırlatma Ekle';
+
+  @override
+  String get editReminder => 'Hatırlatmayı Düzenle';
+
+  @override
+  String get deleteReminder => 'Hatırlatmayı Sil';
+
+  @override
+  String get freeLimitReached => 'Ücretsiz hatırlatma sınırına ulaştın.';
+
+  @override
+  String get premiumUnlockMore => 'Premium ile 5 hatırlatmaya kadar ekleyebilirsin.';
+
+  @override
+  String get unlockMore => 'Daha fazla hatırlatma aç';
+
+  @override
+  String get reminderCategory => 'Olumlama Kategorisi';
+
+  @override
+  String get reminderTimes => 'Zamanlama';
+
+  @override
+  String get reminderStartTime => 'Başlangıç Saati';
+
+  @override
+  String get reminderEndTime => 'Bitiş Saati';
+
+  @override
+  String get reminderRepeatCount => 'Tekrar Sayısı';
+
+  @override
+  String get reminderRepeatDays => 'Tekrar Günleri';
+
+  @override
+  String get reminderEnabled => 'Aktif';
+
+  @override
+  String get selectCategory => 'Kategori seç...';
+
+  @override
+  String get premiumCategoryLocked => 'Bu kategori Premium kullanıcılar için geçerlidir.';
+
+  @override
+  String get onlySelfCareAvailable => 'Ücretsiz planda sadece Self Care kategorisi kullanılabilir.';
+
+  @override
+  String get selectTime => 'Saat seç';
+
+  @override
+  String get startBeforeEnd => 'Başlangıç saati bitişten önce olmalı.';
+
+  @override
+  String get selectDays => 'Günleri seç';
+
+  @override
+  String get mon => 'Pzt';
+
+  @override
+  String get tue => 'Sal';
+
+  @override
+  String get wed => 'Çar';
+
+  @override
+  String get thu => 'Per';
+
+  @override
+  String get fri => 'Cum';
+
+  @override
+  String get sat => 'Cmt';
+
+  @override
+  String get sun => 'Paz';
+
+  @override
+  String get repeatTimesPerDay => 'Günlük tekrar sayısı';
+
+  @override
+  String get maxRepeatReached => 'Maksimum tekrar sayısına ulaşıldı';
+
+  @override
+  String get minRepeatReached => 'Minimum tekrar sayısına ulaşıldı';
+
+  @override
+  String get deleteConfirmTitle => 'Hatırlatma silinsin mi?';
+
+  @override
+  String get deleteConfirmMessage => 'Bu hatırlatma kalıcı olarak silinecek.';
+
+  @override
+  String get cancel => 'İptal';
+
+  @override
+  String get confirm => 'Onayla';
+
+  @override
+  String get noRemindersYet => 'Henüz hatırlatma yok';
+
+  @override
+  String get tapToAddReminder => 'İlk hatırlatmanı eklemek için aşağıdaki butona dokun.';
+
+  @override
+  String get freeReminderBadge => 'Ücretsiz Hatırlatma';
+
+  @override
+  String get reminderLimitReached => 'Hatırlatma limitine ulaştınız.';
+
+  @override
+  String get unlockMoreReminders => 'Daha fazla hatırlatma aç';
+
+  @override
+  String get reminderFreeOnlyCategory => 'Ücretsiz kullanıcılar sadece Self-Care kategorisini kullanabilir.';
+
+  @override
+  String get reminderPremiumRequired => 'Daha fazla hatırlatma eklemek için Premium’a yükseltin.';
 }

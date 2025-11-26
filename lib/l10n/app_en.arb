@@ -1,6 +1,17 @@
 {
   "@@locale": "en",
 
+  "welcomeTitle": "Welcome",
+  "welcomeSubtitle": "Your path to inner clarity starts here.",
+  "startButton": "Start",
+  "continueAgree": "By continuing, you agree to our",
+  "termsOfUse": "Terms of Use",
+  "and": "and",
+
+  "nameQuestion": "What’s your name?",
+  "personalize": "We'll personalize your affirmations",
+  "hitname": "Enter your name",
+
   "settings": "Settings",
   "goPremium": "Go Premium",
   "preferences": "Preferences",
@@ -22,13 +33,14 @@
   "save": "Save",
 
   "identifyGender": "Identify your gender",
-  "genderSubtitle": "Start your journey to the best version of yourself",
+  "genderSubtitle": "This helps personalize your journey",
   "female": "Female",
   "male": "Male",
   "others": "Others",
 
-  "choosePreferences": "What areas of your life do you want to improve?",
-  "youCanChangeLater": "You can change them later",
+  "choosePreferences": "Which areas of your life do you want to improve?",
+  "youCanChangeLater": "You can change this anytime",
+  "pleasePrefs": "Please select at least one preference.",
 
   "yourNamePersonalize": "Your name is used to personalize your affirmations",
   "typeYourName": "Type your name...",
@@ -36,5 +48,57 @@
 
   "pickTheme": "Pick a theme",
   "changeLater": "You can change it later",
-  "pleaseSelectTheme": "Please select a theme first."
+  "pleaseSelectTheme": "Please select a theme first.",
+
+  "reminderTitle": "Reminders",
+  "reminderSubtitle": "Stay consistent with gentle daily reminders.",
+  "addReminder": "Add Reminder",
+  "editReminder": "Edit Reminder",
+  "deleteReminder": "Delete Reminder",
+  "freeLimitReached": "You’ve reached your free reminder limit.",
+  "premiumUnlockMore": "Unlock Premium to add up to 5 reminders.",
+  "unlockMore": "Unlock more reminders",
+
+  "reminderCategory": "Affirmation Category",
+  "reminderTimes": "Times",
+  "reminderStartTime": "Start Time",
+  "reminderEndTime": "End Time",
+  "reminderRepeatCount": "Repeat Count",
+  "reminderRepeatDays": "Repeat Days",
+  "reminderEnabled": "Enabled",
+
+  "selectCategory": "Select a category...",
+  "premiumCategoryLocked": "This category is available in Premium.",
+  "onlySelfCareAvailable": "Only the Self Care category is available in the free plan.",
+
+  "selectTime": "Select a time",
+  "startBeforeEnd": "Start time must be before end time.",
+
+  "selectDays": "Select days",
+  "mon": "Mon",
+  "tue": "Tue",
+  "wed": "Wed",
+  "thu": "Thu",
+  "fri": "Fri",
+  "sat": "Sat",
+  "sun": "Sun",
+
+  "repeatTimesPerDay": "Times per day",
+  "maxRepeatReached": "Maximum repeat count reached",
+  "minRepeatReached": "Minimum repeat count reached",
+
+  "deleteConfirmTitle": "Delete reminder?",
+  "deleteConfirmMessage": "This reminder will be removed permanently.",
+  "cancel": "Cancel",
+  "confirm": "Confirm",
+
+  "noRemindersYet": "No reminders yet",
+  "tapToAddReminder": "Tap the button below to add your first reminder.",
+  "freeReminderBadge": "Free Reminder",
+  "reminderLimitReached": "You've reached your reminder limit.",
+"unlockMoreReminders": "Unlock more reminders",
+"reminderFreeOnlyCategory": "Free users can only use the Self-Care category.",
+"reminderPremiumRequired": "Upgrade to Premium to add more reminders."
+
+
 }

@@ -1,9 +1,11 @@
 import 'dart:ui';
+import 'package:affirmation/ui/widgets/glass_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:affirmation/state/app_state.dart';
 import 'package:affirmation/ui/screens/onboarding/onboarding_theme_screen.dart';
+import 'package:affirmation/l10n/app_localizations.dart';
 
 class OnboardingNameScreen extends StatefulWidget {
   const OnboardingNameScreen({super.key});
@@ -35,6 +37,8 @@ class _OnboardingNameScreenState extends State<OnboardingNameScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -76,7 +80,7 @@ class _OnboardingNameScreenState extends State<OnboardingNameScreen> {
                   GestureDetector(
                     onTap: () => Navigator.pop(context),
                     child: Text(
-                      "Back",
+                      t.back,
                       style: TextStyle(
                         color: Colors.white.withValues(alpha: 0.7),
                         fontSize: 20,
@@ -88,9 +92,9 @@ class _OnboardingNameScreenState extends State<OnboardingNameScreen> {
                   const SizedBox(height: 70),
 
                   // TITLE
-                  const Center(
+                  Center(
                     child: Text(
-                      "What’s your name?",
+                      t.nameQuestion,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
@@ -102,9 +106,9 @@ class _OnboardingNameScreenState extends State<OnboardingNameScreen> {
 
                   const SizedBox(height: 12),
 
-                  const Center(
+                  Center(
                     child: Text(
-                      "We'll personalize your affirmations",
+                      t.personalize,
                       style: TextStyle(
                         color: Colors.white70,
                         fontSize: 15,
@@ -138,7 +142,7 @@ class _OnboardingNameScreenState extends State<OnboardingNameScreen> {
                           ),
                           decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: "Enter your name",
+                            hintText: t.hitname,
                             hintStyle: TextStyle(
                               color: Colors.white.withValues(alpha: 0.55),
                               fontSize: 16,
@@ -152,38 +156,9 @@ class _OnboardingNameScreenState extends State<OnboardingNameScreen> {
                   const Spacer(),
 
                   // CONTINUE BUTTON (glassy like onboarding theme)
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(40),
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
-                      child: GestureDetector(
-                        onTap: _continue,
-                        child: Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.symmetric(vertical: 18),
-                          margin: const EdgeInsets.only(bottom: 20),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(40),
-                            color: Colors.white.withValues(alpha: 0.15),
-                            border: Border.all(
-                              color: Colors.white.withValues(alpha: 0.45),
-                              width: 2,
-                            ),
-                          ),
-                          child: const Center(
-                            child: Text(
-                              "Continue",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700,
-                                letterSpacing: 0.4,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                  GlassButton(
+                    text: t.continueLabel,
+                    onTap: _continue,
                   ),
                 ],
               ),

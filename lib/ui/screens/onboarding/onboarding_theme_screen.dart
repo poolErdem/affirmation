@@ -1,9 +1,10 @@
-import 'dart:ui';
+import 'package:affirmation/ui/widgets/glass_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:affirmation/state/app_state.dart';
 import 'package:affirmation/ui/screens/home_screen.dart';
+import 'package:affirmation/l10n/app_localizations.dart';
 
 class OnboardingThemeScreen extends StatefulWidget {
   const OnboardingThemeScreen({super.key});
@@ -19,6 +20,7 @@ class _OnboardingThemeScreenState extends State<OnboardingThemeScreen> {
   Widget build(BuildContext context) {
     final appState = context.watch<AppState>();
     final themes = appState.themes;
+    final t = AppLocalizations.of(context)!;
 
     return Scaffold(
       body: Stack(
@@ -60,7 +62,7 @@ class _OnboardingThemeScreenState extends State<OnboardingThemeScreen> {
                   GestureDetector(
                     onTap: () => Navigator.pop(context),
                     child: Text(
-                      "Back",
+                      t.back,
                       style: TextStyle(
                         color: Colors.white.withValues(alpha: 0.7),
                         fontSize: 20,
@@ -72,9 +74,9 @@ class _OnboardingThemeScreenState extends State<OnboardingThemeScreen> {
                   const SizedBox(height: 40),
 
                   // TITLE
-                  const Center(
+                  Center(
                     child: Text(
-                      "Pick a theme",
+                      t.pickTheme,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 30,
@@ -85,9 +87,9 @@ class _OnboardingThemeScreenState extends State<OnboardingThemeScreen> {
 
                   const SizedBox(height: 12),
 
-                  const Center(
+                  Center(
                     child: Text(
-                      "You can change it later",
+                      t.changeLater,
                       style: TextStyle(
                         color: Colors.white70,
                         fontSize: 15,
@@ -217,64 +219,32 @@ class _OnboardingThemeScreenState extends State<OnboardingThemeScreen> {
                   ),
 
                   // CONTINUE BUTTON (GLASS)
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(50),
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
-                      child: GestureDetector(
-                        onTap: () async {
-                          final messenger = ScaffoldMessenger.of(context);
-                          final navigator = Navigator.of(context);
+                  GlassButton(
+                    text: t.continueLabel,
+                    onTap: () async {
+                      final messenger = ScaffoldMessenger.of(context);
+                      final navigator = Navigator.of(context);
 
-                          if (selectedIndex == null) {
-                            messenger.showSnackBar(
-                              const SnackBar(
-                                content: Text("Please select a theme first."),
-                              ),
-                            );
-                            return;
-                          }
-
-                          final st =
-                              Provider.of<AppState>(context, listen: false);
-
-                          st.onboardingThemeIndex = selectedIndex;
-
-                          await st.saveOnboardingData();
-                          if (!mounted) return;
-
-                          navigator.pushAndRemoveUntil(
-                            MaterialPageRoute(
-                                builder: (_) => const HomeScreen()),
-                            (route) => false,
-                          );
-                        },
-                        child: Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.symmetric(vertical: 18),
-                          margin: const EdgeInsets.only(bottom: 20),
-                          decoration: BoxDecoration(
-                            color: Colors.white.withValues(alpha: 0.18),
-                            borderRadius: BorderRadius.circular(50),
-                            border: Border.all(
-                              color: Colors.white.withValues(alpha: 0.45),
-                              width: 1.8,
-                            ),
+                      if (selectedIndex == null) {
+                        messenger.showSnackBar(
+                          SnackBar(
+                            content: Text(t.pleaseSelectTheme),
                           ),
-                          child: const Center(
-                            child: Text(
-                              "Continue",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w700,
-                                letterSpacing: 0.4,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                        );
+                        return;
+                      }
+
+                      final st = Provider.of<AppState>(context, listen: false);
+                      st.onboardingThemeIndex = selectedIndex;
+
+                      await st.saveOnboardingData();
+                      if (!mounted) return;
+
+                      navigator.pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (_) => const HomeScreen()),
+                        (route) => false,
+                      );
+                    },
                   ),
                 ],
               ),
