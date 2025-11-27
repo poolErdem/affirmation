@@ -30,16 +30,20 @@ class _HomeScreenState extends State<HomeScreen>
   late PageController _pageController;
 
   double _shareScale = 1.0;
-
   @override
   void initState() {
     super.initState();
 
+    // 🔥 AppState'i burada güvenli şekilde alırız
     final appState = Provider.of<AppState>(context, listen: false);
+
+    // 🔥 RANDOM sayfa seçimi
     final randomIndex = Random().nextInt(appState.pageCount);
 
+    // 🔥 PAGE CONTROLLER
     _pageController = PageController(initialPage: randomIndex);
 
+    // 🔥 Playback index değiştiğinde PageView’ı ilerlet
     appState.playback.onIndexChanged = (newIndex) {
       if (_pageController.hasClients) {
         _pageController.animateToPage(
@@ -50,6 +54,7 @@ class _HomeScreenState extends State<HomeScreen>
       }
     };
 
+    // 🔥 Animations
     _actionAnim = AnimationController(
       duration: const Duration(milliseconds: 350),
       vsync: this,
@@ -75,32 +80,6 @@ class _HomeScreenState extends State<HomeScreen>
     _pageController.dispose();
     _actionAnim.dispose();
     super.dispose();
-  }
-
-  //────────────────────────────────────────
-  // SPARKLE EFFECT
-  //────────────────────────────────────────
-  void _runHeartSparkle() async {
-    OverlayEntry entry = OverlayEntry(
-      builder: (_) => Positioned(
-        top: MediaQuery.of(context).size.height * 0.43,
-        right: 60,
-        child: TweenAnimationBuilder<double>(
-          duration: const Duration(milliseconds: 600),
-          tween: Tween(begin: 1, end: 0),
-          builder: (_, value, child) {
-            return Transform.scale(
-              scale: 1 + (1 - value) * 0.5,
-              child: const Icon(Icons.star, color: Colors.amber, size: 26),
-            );
-          },
-        ),
-      ),
-    );
-
-    Overlay.of(context).insert(entry);
-    await Future.delayed(const Duration(milliseconds: 650));
-    entry.remove();
   }
 
   //────────────────────────────────────────
@@ -135,9 +114,6 @@ class _HomeScreenState extends State<HomeScreen>
           // TOP BAR
           _buildTopBar(context, isPremium),
 
-          // AUTO-READ BAR
-          _buildAutoReadBar(),
-
           // AFFIRMATIONS
           Align(
             alignment: Alignment.center,
@@ -146,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen>
 
           // FAVORITE + SHARE
           Align(
-            alignment: const Alignment(0.90, 0.65),
+            alignment: const Alignment(0.90, 0.75),
             child: SlideTransition(
               position: _slideAnim,
               child: FadeTransition(
@@ -156,7 +132,22 @@ class _HomeScreenState extends State<HomeScreen>
             ),
           ),
 
-          // CATEGORY BUTTON
+          // Positioned(
+          //     left: 16,
+          //     bottom: 24,
+          //     // Herhangi bir sayfada FloatingActionButton ekle:
+          //     child: FloatingActionButton(
+          //       onPressed: () {
+          //         final reminderState = context.read<ReminderState>();
+          //         reminderState.debugCreateSampleReminder();
+          //         Future.delayed(Duration(seconds: 2), () {
+          //           reminderState.debugFireFirstReminder();
+          //         });
+          //       },
+          //       child: Icon(Icons.add_alert),
+          //     )),
+
+          //CATEGORY BUTTON
           Positioned(
             left: 16,
             bottom: 24,
@@ -267,64 +258,6 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  //────────────────────────────────────────
-  // AUTO READ PANEL
-  //────────────────────────────────────────
-  Widget _buildAutoReadBar() {
-    final appState = context.watch<AppState>();
-    final playback = appState.playback; // ⭐ PlaybackState'e erişim
-    final enabled = playback.autoReadEnabled;
-
-    return Positioned(
-      top: MediaQuery.of(context).padding.top + 80,
-      left: 20,
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(
-          maxWidth: 200, // ⭐️ genişlik burada limitleniyor
-        ),
-        child: GestureDetector(
-          onTap: () => playback.toggleAutoRead(),
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            decoration: BoxDecoration(
-              color: const Color(0x33000000),
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: const Color(0x44FFFFFF), width: 1.3),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Icon(
-                      enabled ? Icons.volume_up : Icons.volume_off,
-                      color: Colors.white,
-                      size: 22,
-                    ),
-                    const SizedBox(width: 10),
-                    Text(
-                      enabled ? "Auto-Read: ON" : "Auto-Read: OFF",
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
-                ),
-                const Text(
-                  "1x",
-                  style: TextStyle(color: Colors.white70, fontSize: 14),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  //────────────────────────────────────────
   // PAGEVIEW + AUTO-READ
   //────────────────────────────────────────
 
@@ -338,6 +271,15 @@ class _HomeScreenState extends State<HomeScreen>
         scrollDirection: Axis.vertical,
         itemCount: items.length,
         onPageChanged: (index) {
+          final lastIndex = items.length - 1;
+          if (index == lastIndex) {
+            // ⭐ Son sayfadaysa → hafif delay ile başa sar
+            Future.microtask(() {
+              if (_pageController.hasClients) {
+                _pageController.jumpToPage(0);
+              }
+            });
+          }
           appState.setCurrentIndex(index);
           appState.playback.setCurrentIndex(index);
           _actionAnim.forward(from: 0);
@@ -356,59 +298,98 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  //────────────────────────────────────────
   // FAVORITE + SHARE
   //────────────────────────────────────────
   Widget _buildMiddleActions(BuildContext context) {
-    final appState = context.watch<AppState>();
-    final current = appState.affirmationAt(appState.currentIndex);
-    final isFav = current != null && appState.isFavorite(current.id);
-
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        GestureDetector(
-          onTap: () {
-            final appState = context.read<AppState>();
-            final aff = appState.affirmationAt(appState.currentIndex);
+        // 🔊 READ BUTTON — EN ÜSTTE  ⭐⭐ BU KISIM BURAYA GELİYOR ⭐⭐
+        Consumer<AppState>(
+          builder: (context, appState, child) {
+            final enabled = appState.playback.autoReadEnabled;
 
-            if (appState.isOverFavoriteLimit()) {
-              _showFavoriteLimitDialog(context);
-              return;
-            }
-
-            if (aff != null) {
-              appState.toggleFavorite(aff.id);
-            }
-
-            _runHeartSparkle();
+            return GestureDetector(
+              onTap: () {
+                appState.playback.toggleAutoRead();
+              },
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: enabled
+                      ? const Color(0x55FF6B6B)
+                      : const Color(0x33000000),
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: enabled ? Colors.redAccent : const Color(0x44FFFFFF),
+                    width: 1.5,
+                  ),
+                ),
+                child: Icon(
+                  enabled ? Icons.volume_up : Icons.volume_off,
+                  color: Colors.white,
+                  size: 24,
+                ),
+              ),
+            );
           },
-          child: AnimatedScale(
-            scale: isFav ? 1.25 : 1.0,
-            duration: const Duration(milliseconds: 200),
-            curve: Curves.easeOut,
-            child: Container(
-              padding: const EdgeInsets.all(10),
-              decoration: const BoxDecoration(
-                color: Color(0x33000000),
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                isFav ? Icons.favorite : Icons.favorite_border,
-                size: 28,
-                color: Colors.white,
-              ),
-            ),
-          ),
         ),
+
         const SizedBox(height: 16),
+
+        // ❤️ FAVORİ BUTONU
+        Consumer<AppState>(
+          builder: (context, appState, child) {
+            final current = appState.affirmationAt(appState.currentIndex);
+            final isFav = current != null && appState.isFavorite(current.id);
+
+            return GestureDetector(
+              onTap: () {
+                final aff = appState.affirmationAt(appState.currentIndex);
+                if (aff == null) return;
+
+                final wasFav = appState.isFavorite(aff.id);
+
+                if (!wasFav && appState.isOverFavoriteLimit()) {
+                  _showFavoriteLimitDialog(context);
+                  return;
+                }
+
+                appState.toggleFavorite(aff.id);
+
+                if (!wasFav) {
+                  _runTripleStarSparkle();
+                }
+              },
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                decoration: const BoxDecoration(
+                  color: Color(0x33000000),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  isFav ? Icons.favorite : Icons.favorite_border,
+                  size: 28,
+                  color: Colors.white,
+                ),
+              ),
+            );
+          },
+        ),
+
+        const SizedBox(height: 16),
+
+        // 📤 PAYLAŞ BUTONU
         GestureDetector(
           onTapDown: (_) => setState(() => _shareScale = 0.85),
           onTapUp: (_) => setState(() => _shareScale = 1.0),
           onTapCancel: () => setState(() => _shareScale = 1.0),
-          onTap: () async {
+          onTap: () {
+            final appState = context.read<AppState>();
             final aff = appState.affirmationAt(appState.currentIndex);
-            if (aff != null) await Share.share(aff.text);
+            if (aff == null) return;
+
+            Share.share(aff.text);
           },
           child: AnimatedScale(
             scale: _shareScale,
@@ -419,7 +400,7 @@ class _HomeScreenState extends State<HomeScreen>
                 color: Color(0x33000000),
                 shape: BoxShape.circle,
               ),
-              child: const Icon(Icons.share, size: 26, color: Colors.white),
+              child: const Icon(Icons.ios_share, size: 26, color: Colors.white),
             ),
           ),
         ),
@@ -436,9 +417,9 @@ class _HomeScreenState extends State<HomeScreen>
     final selectedCategory = appState.categories.firstWhere(
       (c) => c.id == appState.activeCategoryId,
       orElse: () => AffirmationCategory(
-        id: "self_care",
-        name: "Self Care",
-        imageAsset: "assets/data/categories/self_care.jfif",
+        id: "general",
+        name: "General",
+        imageAsset: "assets/data/categories/general.jfif",
         isPremiumLocked: false,
       ),
     );
@@ -471,7 +452,7 @@ class _HomeScreenState extends State<HomeScreen>
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -533,6 +514,49 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
+  //────────────────────────────────────────
+  // SPARKLE EFFECT
+  //────────────────────────────────────────
+  void _runTripleStarSparkle() async {
+    final overlay = Overlay.of(context);
+
+    Future<void> showStar(double dx, double dy, double size) async {
+      final entry = OverlayEntry(
+        builder: (_) => Positioned(
+          top: MediaQuery.of(context).size.height * 0.60 + dy,
+          //left: MediaQuery.of(context).size.width * 0.55 + dx,
+          right: MediaQuery.of(context).size.width * 0.30 - dx,
+          child: TweenAnimationBuilder<double>(
+            tween: Tween(begin: 1, end: 0),
+            duration: const Duration(milliseconds: 600),
+            builder: (_, value, __) {
+              return Transform.scale(
+                scale: 1 + (1 - value) * size,
+                child: const Icon(Icons.star,
+                    color: Color.fromARGB(255, 201, 174, 92), size: 28),
+              );
+            },
+          ),
+        ),
+      );
+
+      overlay.insert(entry);
+      await Future.delayed(const Duration(milliseconds: 620));
+      entry.remove();
+    }
+
+    // ⭐ 1 → merkez
+    showStar(50, 0, 0.4);
+
+    // ⭐ 2 → biraz sol + biraz yukarı
+    await Future.delayed(const Duration(milliseconds: 90));
+    showStar(30, -21, 0.5);
+
+    // ⭐ 3 → daha sol + daha yukarı
+    await Future.delayed(const Duration(milliseconds: 90));
+    showStar(15, -50, 0.6);
+  }
+
   void _showPremiumStatusDialog(BuildContext context) {
     showDialog(
       context: context,
@@ -589,33 +613,60 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   void _showFavoriteLimitDialog(BuildContext context) {
+    final appState = context.read<AppState>();
+
+    final isPremium = appState.preferences.isPremiumValid;
+    final freeLimit = AppState.freeFavoriteLimit;
+    final premiumLimit = AppState.premiumFavoriteLimit;
+
+    String title;
+    String message;
+
+    List<Widget> actions;
+
+    if (!isPremium) {
+      // FREE USER
+      title = "Favorites Limit";
+      message = "You've reached your free favorites limit ($freeLimit).\n\n"
+          "Upgrade to Premium and save up to $premiumLimit favorites ✨";
+
+      actions = [
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text("Close"),
+        ),
+        TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const PremiumScreen()),
+            );
+          },
+          child: const Text("Go Premium"),
+        ),
+      ];
+    } else {
+      // PREMIUM USER
+      title = "Premium Limit Reached";
+      message = "You've reached your Premium favorites limit ($premiumLimit).\n"
+          "You cannot add more favorites.";
+
+      actions = [
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text("OK"),
+        ),
+      ];
+    }
+
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        title: const Text("Favorites Limit"),
-        content: const Text(
-          "You've reached your free favorites limit (5).\n\nUpgrade to Premium for up to 50 favorites ✨",
-        ),
+        title: Text(title),
+        content: Text(message),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text("OK"),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const PremiumScreen()),
-              );
-            },
-            child: const Text(
-              "Upgrade",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ),
-        ],
+        actions: actions, // ⭐ DOĞRU YER!
       ),
     );
   }

@@ -43,6 +43,9 @@ dependencies:
     sdk: flutter
   intl: ^0.20.2
 
+  flutter_local_notifications: ^17.2.3
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -165,6 +168,8 @@ flutter:
     - assets/data/categories/favorites.jfif
     - assets/data/categories/general.jfif
     - assets/data/categories/gratitude.jfif
+    - assets/data/categories/myAffirmations.jfif
+
 
 # Localization Configuration
 flutter_gen:

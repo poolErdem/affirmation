@@ -30,6 +30,16 @@ android {
         versionName = flutter.versionName
     }
 
+    // 👇 BURAYI EKLE
+    compileOptions {
+        // Java 8+ desteği
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+        
+        // Core library desugaring
+        coreLibraryDesugaringEnabled true
+    }
+
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.
@@ -41,4 +51,8 @@ android {
 
 flutter {
     source = "../.."
+}
+
+dependencies {
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
 }

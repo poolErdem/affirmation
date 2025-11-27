@@ -1,5 +1,10 @@
-[
+{
+  "categoryId": "sleep",
+  "affirmations": [
 
-        { "id": "hp_001", "text": "Joy flows toward me more easily when I make space for simple pleasures.",  "gender": "female" }
+        { "id": "hp_001", "text": "Joy flows toward me more easily when I make space for simple pleasures.",  "gender": "female" },
+        { "id": "hp_002", "text": "Joy flows  easily when I make space for simple pleasures.",  "gender": "male" },
+        { "id": "hp_003", "text": "Joy flows  easily when I make space for simple pleasures.",  "gender": "female" }
 
 ]
+}

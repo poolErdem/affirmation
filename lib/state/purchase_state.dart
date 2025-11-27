@@ -1,104 +1,194 @@
 import 'dart:async';
+
+import 'package:affirmation/models/user_preferences.dart';
+import 'package:affirmation/state/app_state.dart';
 import 'package:flutter/foundation.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-/// Bu sınıf tamamen satın alma işlemlerinden sorumludur.
-/// AppState, Premium durumunu buradan öğrenir.
-class PurchaseState extends ChangeNotifier {
-  bool premiumActive = false;
-  String? planId;
-  DateTime? expiresAt;
+class PurchaseState {
+  final AppState appState;
 
-  StreamSubscription<List<PurchaseDetails>>? _purchaseSub;
+  StreamSubscription<List<PurchaseDetails>>? _subscription;
 
-  PurchaseState();
+  /// Ürün listesi
+  final Map<String, ProductDetails> products = {};
 
-  /// ⭐ initialize → storage yükle + listener başlat
+  /// Listener bir kere kurulsun diye flag
+  bool _listenerInitialized = false;
+  bool _isInitialized = false;
+
+  PurchaseState(this.appState);
+
+  //────────────────────────────────────────
+  // INITIALIZE (AppState.initialize()'dan çağrılacak)
+  //────────────────────────────────────────
   Future<void> initialize() async {
-    await loadFromStorage();
-    _listenToPurchases();
-  }
-
-  /// Satın alma stream'ini dinler
-  void _listenToPurchases() {
-    _purchaseSub = InAppPurchase.instance.purchaseStream.listen((purchases) {
-      for (final p in purchases) {
-        if (p.status == PurchaseStatus.purchased ||
-            p.status == PurchaseStatus.restored) {
-          _activatePremium(
-            plan: p.productID,
-            expires: DateTime.now().add(const Duration(days: 365)),
-          );
-
-          InAppPurchase.instance.completePurchase(p);
-
-          debugPrint("💎 PurchaseState: Premium activated → ${p.productID}");
-        }
-
-        if (p.status == PurchaseStatus.error) {
-          debugPrint("❌ Purchase error: ${p.error}");
-        }
-      }
-    });
-  }
-
-  /// Premium’u aktif eder
-  void _activatePremium({
-    required String plan,
-    required DateTime expires,
-  }) {
-    premiumActive = true;
-    planId = plan;
-    expiresAt = expires;
-
-    saveToStorage(); // ⭐ premium kaydedilsin
-    notifyListeners();
-  }
-
-  /// Storage → state güncelle
-  void updateFromStorage({
-    required bool active,
-    String? plan,
-    DateTime? expires,
-  }) {
-    premiumActive = active;
-    planId = plan;
-    expiresAt = expires;
-    notifyListeners();
-  }
-
-  bool get isPremiumValid {
-    if (!premiumActive) return false;
-    if (expiresAt == null) return true;
-    return expiresAt!.isAfter(DateTime.now());
-  }
-
-  Future<void> saveToStorage() async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setBool("premiumActive", premiumActive);
-    prefs.setString("premiumPlanId", planId ?? "");
-    prefs.setString("premiumExpiresAt", expiresAt?.toIso8601String() ?? "");
-  }
-
-  Future<void> loadFromStorage() async {
-    final prefs = await SharedPreferences.getInstance();
-
-    final active = prefs.getBool("premiumActive") ?? false;
-    final plan = prefs.getString("premiumPlanId");
-    final expiresRaw = prefs.getString("premiumExpiresAt");
-
-    DateTime? expires;
-    if (expiresRaw != null && expiresRaw.isNotEmpty) {
-      expires = DateTime.tryParse(expiresRaw);
+    if (_isInitialized) {
+      print("⚠️ PurchaseState zaten initialize edilmiş");
+      return;
     }
 
-    updateFromStorage(active: active, plan: plan, expires: expires);
+    try {
+      if (!_listenerInitialized) {
+        _initPurchaseListener();
+        _listenerInitialized = true;
+      }
+
+      await initStoreAvailability();
+      _isInitialized = true;
+      print("✅ PurchaseState initialized successfully");
+    } catch (e) {
+      print("❌ PurchaseState initialization error: $e");
+    }
   }
 
-  @override
-  void dispose() {
-    _purchaseSub?.cancel();
-    super.dispose();
+  bool storeAvailable = false;
+
+  Future<void> initStoreAvailability() async {
+    try {
+      storeAvailable = await InAppPurchase.instance.isAvailable();
+      print("🛒 Store available: $storeAvailable");
+    } catch (e) {
+      print("❌ Store availability check failed: $e");
+      storeAvailable = false;
+    }
+  }
+
+  //────────────────────────────────────────
+  // STORE ÜRÜNLERİNİ ÇEK (Monthly - Yearly - Lifetime)
+  //────────────────────────────────────────
+  Future<void> fetchProducts() async {
+    if (!_isInitialized) {
+      print(
+          "⚠️ PurchaseState henüz initialize edilmedi, fetchProducts atlanıyor");
+      return;
+    }
+
+    if (!storeAvailable) {
+      print("⚠️ Store kullanılamıyor, fetchProducts atlanıyor");
+      return;
+    }
+
+    const ids = {
+      AppState.kMonthly,
+      AppState.kYearly,
+      AppState.kLifetime,
+    };
+
+    try {
+      final response = await InAppPurchase.instance.queryProductDetails(ids);
+
+      if (response.error != null) {
+        print("❌ Product fetch error: ${response.error}");
+        return;
+      }
+
+      products.clear();
+      for (final p in response.productDetails) {
+        products[p.id] = p;
+      }
+
+      print("🛒 Loaded products: ${products.keys.toList()}");
+    } catch (e) {
+      print("❌ fetchProducts exception: $e");
+    }
+  }
+
+  //────────────────────────────────────────
+  // LISTENER (TEK SEFER BAĞLANIR)
+  //────────────────────────────────────────
+  void _initPurchaseListener() {
+    try {
+      final purchaseUpdates = InAppPurchase.instance.purchaseStream;
+
+      _subscription = purchaseUpdates.listen(
+        _handlePurchaseUpdates,
+        onError: (e) => print("❌ Purchase stream error: $e"),
+        onDone: () => print("✅ Purchase stream closed"),
+        cancelOnError: false,
+      );
+
+      print("🎧 Purchase listener aktif (PurchaseState)");
+    } catch (e) {
+      print("❌ Purchase listener başlatma hatası: $e");
+    }
+  }
+
+  //────────────────────────────────────────
+  // DISPOSE
+  //────────────────────────────────────────
+  Future<void> dispose() async {
+    print("🧹 Disposing PurchaseState...");
+    try {
+      await _subscription?.cancel();
+      _subscription = null;
+      _listenerInitialized = false;
+      _isInitialized = false;
+      products.clear();
+      print("✅ PurchaseState disposed");
+    } catch (e) {
+      print("❌ Dispose error: $e");
+    }
+  }
+
+  //────────────────────────────────────────
+  // PURCHASE HANDLER
+  //────────────────────────────────────────
+  void _handlePurchaseUpdates(List<PurchaseDetails> purchases) {
+    for (final purchase in purchases) {
+      print(
+          "💰 Purchase update: ${purchase.productID} status=${purchase.status}");
+
+      if (purchase.status == PurchaseStatus.purchased ||
+          purchase.status == PurchaseStatus.restored) {
+        _activatePlan(purchase.productID);
+      }
+
+      if (purchase.pendingCompletePurchase) {
+        InAppPurchase.instance.completePurchase(purchase);
+      }
+    }
+  }
+
+  void _activatePlan(String productId) {
+    if (productId == AppState.kMonthly) {
+      appState.updatePremium(
+        active: true,
+        plan: PremiumPlan.monthly,
+        expiry: DateTime.now().add(const Duration(days: 30)),
+      );
+    }
+
+    if (productId == AppState.kYearly) {
+      appState.updatePremium(
+        active: true,
+        plan: PremiumPlan.yearly,
+        expiry: DateTime.now().add(const Duration(days: 365)),
+      );
+    }
+
+    if (productId == AppState.kLifetime) {
+      appState.updatePremium(
+        active: true,
+        plan: PremiumPlan.lifetime,
+        expiry: null,
+      );
+    }
+  }
+
+  //────────────────────────────────────────
+  // RESTORE
+  //────────────────────────────────────────
+  Future<void> restorePurchases() async {
+    if (defaultTargetPlatform == TargetPlatform.iOS) {
+      print("🍏 iOS restorePurchases() çağrıldı");
+      try {
+        await InAppPurchase.instance.restorePurchases();
+      } catch (e) {
+        print("❌ Restore purchases error: $e");
+      }
+    } else {
+      print("🤖 Android → restorePurchases() kullanılmaz");
+    }
   }
 }

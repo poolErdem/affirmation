@@ -1,10 +1,14 @@
 import 'dart:async';
 import 'package:affirmation/data/preferences.dart';
+import 'package:affirmation/models/reminder.dart';
 import 'package:affirmation/state/playback_state.dart';
+import 'package:affirmation/state/purchase_state.dart';
 import 'package:affirmation/utils/affirmation_utils.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:audioplayers/audioplayers.dart';
+
 import '../data/app_repository.dart';
 import '../models/affirmation.dart';
 import '../models/category.dart';
@@ -12,19 +16,30 @@ import '../models/theme_model.dart';
 import '../models/user_preferences.dart';
 
 class AppState extends ChangeNotifier {
+  // Premium product IDs (tek doğru yer)
+  static const String kMonthly = "premium_monthly";
+  static const String kYearly = "premium_yearly";
+  static const String kLifetime = "premium_lifetime";
+
   static const String favoritesCategoryId = 'favorites';
   static const String generalCategoryId = 'general';
-  static const String myownaffirmations = 'myownaffirmations';
+  static const String myCategoryId = 'myaffirmations';
+
+  static const int freeFavoriteLimit = 5;
+  static const int premiumFavoriteLimit = 500;
+
+  List<Affirmation> _cachedGeneral = [];
+  bool _generalDirty = true;
 
   late AppRepository _repository;
 
-  String _selectedLocale = "en"; // default
+  String _selectedLocale = "en";
   String get selectedLocale => _selectedLocale;
 
   List<Affirmation> _allAffirmations = [];
-
   List<AffirmationCategory> _categories = [];
   List<ThemeModel> _themes = [];
+
   late UserPreferences _preferences;
 
   String _activeCategoryId = '';
@@ -34,7 +49,11 @@ class AppState extends ChangeNotifier {
   bool isSoundEnabled = true;
   bool favoriteLimitReached = false;
 
+  Set<String> _activeCategoryIds = {};
+  Set<String> get activeCategoryIds => _activeCategoryIds;
+
   final AudioPlayer _audioPlayer = AudioPlayer();
+
   static const List<String> allContentPreferenceIds = ContentPreferences.all;
 
   bool onboardingCompleted = false;
@@ -43,20 +62,34 @@ class AppState extends ChangeNotifier {
   int? onboardingThemeIndex;
   String? onboardingName;
 
-  static const int freeFavoriteLimit = 5;
-  static const int premiumFavoriteLimit = 50;
-  static const supportedLanguages = ['en', 'tr']; // şu an için
+  static const supportedLanguages = ['en', 'tr'];
 
-  final playback = PlaybackState();
+  //final playback = PlaybackState();
+  late PlaybackState _playback;
 
-  AppState();
+  late PurchaseState purchaseState;
 
+  AppState() {
+    _playback = PlaybackState();
+    // ⭐ PlaybackState değiştiğinde AppState'i de güncelle
+    _playback.addListener(() {
+      notifyListeners();
+    });
+
+    purchaseState = PurchaseState(this);
+  }
+
+  PlaybackState get playback => _playback;
   bool get isLoaded => _loaded;
 
-  //────────────────────────────────────────
-  // INITIALIZE
-  //────────────────────────────────────────
+  @override
+  void dispose() {
+    _playback.dispose();
+    purchaseState.dispose(); // dispose async olduğu için await edemiyoruz
+    super.dispose();
+  }
 
+  // INITIALIZE
   Future<void> initialize() async {
     print("🔥 initialize()");
 
@@ -64,152 +97,61 @@ class AppState extends ChangeNotifier {
     print(
         "📌 PREFS = ${prefs.getKeys().map((k) => "$k=${prefs.get(k)}").join(" | ")}");
 
-    String? savedLang = prefs.getString("lastLanguage");
-
-    // Cihaz dili
-    final deviceLocale = PlatformDispatcher.instance.locale;
-    String deviceLang = deviceLocale.languageCode;
+    // 1️⃣ LANGUAGE RESOLUTION (saved → device → fallback)
+    final savedLang = prefs.getString("lastLanguage");
+    final deviceLang = PlatformDispatcher.instance.locale.languageCode;
 
     String resolvedLang;
 
     if (savedLang != null && savedLang.isNotEmpty) {
       resolvedLang = savedLang;
-      print("🌐 Dil: Kullanıcı tercihi bulundu → $resolvedLang");
+    } else if (supportedLanguages.contains(deviceLang)) {
+      resolvedLang = deviceLang;
     } else {
-      // İlk açılış → cihaz dilini kontrol et
-      if (supportedLanguages.contains(deviceLang)) {
-        resolvedLang = deviceLang;
-        print("🌐 Dil: Cihaz dili destekleniyor → $resolvedLang");
-      } else {
-        resolvedLang = "en"; // fallback
-        print("🌐 Dil: Cihaz dili desteklenmiyor → fallback = en");
-      }
+      resolvedLang = "en";
     }
 
     _selectedLocale = resolvedLang;
     playback.setLanguage(_selectedLocale);
 
+    print("🌐 Dil: → $resolvedLang");
+
+    // 2️⃣ REPOSITORY LOAD (categories + themes + affirmations)
     _repository = AppRepository(languageCode: resolvedLang);
 
-    // 1) Categories & themes
     final bundle = await _repository.load();
     _categories = bundle.categories;
     _themes = bundle.themes;
 
-    // 2) Tüm kategorileri tek seferde yükle
     _allAffirmations = await _repository.loadAllCategoriesItems();
+    print(
+        "🟢 ALL data loaded. Category count= ${_categories.length} , Affirmation count=${_allAffirmations.length}");
 
-    print("🟢 ALL data loaded. Total = ${_allAffirmations.length}");
-
-    _preferences = UserPreferences.initial(
-      defaultThemeId: _themes.first.id,
-      allCategoryIds: _categories.map((c) => c.id).toSet(),
-      allContentPreferenceIds: allContentPreferenceIds.toSet(),
-    );
-
+    // 3️⃣ ONBOARDING & OLD PREFS LOAD
     onboardingCompleted = prefs.getBool("onboarding_completed") ?? false;
-    onboardingGender = prefs.getString("onboard_gender");
-    onboardingContentPrefs =
-        (prefs.getStringList("onboard_prefs") ?? []).toSet();
-    onboardingThemeIndex = prefs.getInt("onboard_theme");
 
-    print("🔥 ONBOARDING STATUS:");
-    print("➡ completed = $onboardingCompleted");
-    print("➡ gender = $onboardingGender");
-    print("➡ prefs = $onboardingContentPrefs");
-    print("➡ themeIndex = $onboardingThemeIndex");
+    if (onboardingCompleted) {
+      await loadLastSettings();
+    } else if (_hasValidPrefs(prefs)) {
+      await loadLastSettings();
+    } else {
+      _preferences = UserPreferences.initial(
+        defaultThemeId: _themes.isNotEmpty ? _themes.first.id : "",
+        allCategoryIds: _categories.map((c) => c.id).toSet(),
+        allContentPreferenceIds: allContentPreferenceIds.toSet(),
+      );
+    }
 
-    // Premium bilgileri
+    // 4️⃣ PREMIUM OVERRIDE (prefs içindeki premium değerlerini okuyup uygula)
     final premiumActive = prefs.getBool('premiumActive');
     final premiumPlanId = prefs.getString('premiumPlanId');
     final premiumExpiresAtStr = prefs.getString('premiumExpiresAt');
-    DateTime? premiumExpiresAt;
-    if (premiumExpiresAtStr != null && premiumExpiresAtStr.isNotEmpty) {
-      premiumExpiresAt = DateTime.tryParse(premiumExpiresAtStr);
-    }
 
-    // SENARYO 1: ONBOARDING TAMAMLANMIŞ
-    if (onboardingCompleted) {
-      print("✅ Onboarding tamamlanmış → kullanıcı ayarları yükleniyor");
-      await loadLastSettings();
-    } else {
-      // ESKİ KULLANICI (backward compatibility)
-      final hasOldData = prefs.getString('lastCategory') != null ||
-          prefs.getString('lastContentPreferences') != null;
+    DateTime? premiumExpiresAt =
+        premiumExpiresAtStr != null && premiumExpiresAtStr.isNotEmpty
+            ? DateTime.tryParse(premiumExpiresAtStr)
+            : null;
 
-      if (hasOldData) {
-        print("⚠️ Onboarding yok AMA eski data var → eski ayarlar yükleniyor");
-        await loadLastSettings();
-
-        if (_preferences.selectedContentPreferences.isEmpty) {
-          print("🔓 Fallback: Tüm content preferences aktif");
-          _preferences = _preferences.copyWith(
-            selectedContentPreferences: Set.from(allContentPreferenceIds),
-          );
-        }
-      } else {
-        print("🆕 İlk açılış (veya crash recovery) → varsayılan ayarlar");
-
-        _preferences = _preferences.copyWith(
-          selectedContentPreferences: Set.from(allContentPreferenceIds),
-          gender: Gender.none,
-        );
-      }
-    }
-
-    // 4️⃣ CATEGORY + THEME VALIDATION (ESKİ KODUN)
-    if (_activeCategoryId.isEmpty && _categories.isNotEmpty) {
-      _activeCategoryId = _categories.first.id;
-    }
-
-    // Premium kategori → fallback
-    final activeCategory = _categories
-        .where((c) => c.id == _activeCategoryId)
-        .cast<AffirmationCategory?>()
-        .firstWhere((c) => c != null, orElse: () => null);
-
-    if (activeCategory != null &&
-        activeCategory.isPremiumLocked &&
-        !_preferences.isPremiumValid) {
-      final fallback = _categories.firstWhere(
-        (c) => !c.isPremiumLocked,
-        orElse: () => _categories.first,
-      );
-
-      _activeCategoryId = fallback.id;
-      print("🔒 Premium kategori → fallback: ${fallback.id}");
-    }
-
-    // Tema kontrolü
-    if (_preferences.selectedThemeId.isEmpty && _themes.isNotEmpty) {
-      _preferences = _preferences.copyWith(
-        selectedThemeId: _themes.first.id,
-      );
-    }
-
-    // Premium tema → fallback
-    final activeTheme = _themes
-        .where((t) => t.id == _preferences.selectedThemeId)
-        .cast<ThemeModel?>()
-        .firstWhere((t) => t != null, orElse: () => null);
-
-    if (activeTheme != null &&
-        activeTheme.isPremiumLocked &&
-        !_preferences.isPremiumValid) {
-      final fallbackTheme = _themes.firstWhere(
-        (t) => !t.isPremiumLocked,
-        orElse: () => _themes.first,
-      );
-      _preferences = _preferences.copyWith(selectedThemeId: fallbackTheme.id);
-      print("🔒 Premium tema → fallback: ${fallbackTheme.id}");
-    }
-
-    // Dil kontrolü (biz artık _selectedLocale ile zaten çözdük)
-    if (_preferences.languageCode.isEmpty) {
-      _preferences = _preferences.copyWith(languageCode: _selectedLocale);
-    }
-
-    // Premium durumunu uygula
     _preferences = _preferences.copyWith(
       premiumActive: premiumActive ?? _preferences.premiumActive,
       premiumPlanId: (premiumPlanId != null && premiumPlanId.isNotEmpty)
@@ -218,49 +160,220 @@ class AppState extends ChangeNotifier {
       premiumExpiresAt: premiumExpiresAt ?? _preferences.premiumExpiresAt,
     );
 
+    // 5️⃣ CATEGORY VALIDATION & PREMIUM FALLBACK
+    if (_activeCategoryId.isEmpty && _categories.isNotEmpty) {
+      _activeCategoryId = _categories.first.id;
+    }
+
+    final activeCategory = _categories.firstWhere(
+      (c) => c.id == _activeCategoryId,
+      orElse: () => _categories.first,
+    );
+
+    if (activeCategory.isPremiumLocked && !_preferences.isPremiumValid) {
+      final fallback = _categories.firstWhere(
+        (c) => !c.isPremiumLocked,
+        orElse: () => _categories.first,
+      );
+      _activeCategoryId = fallback.id;
+    }
+
+    // 6️⃣ THEME VALIDATION & PREMIUM FALLBACK
+    ThemeModel? activeTheme;
+    if (_preferences.selectedThemeId.isNotEmpty) {
+      activeTheme = _themes.firstWhere(
+        (t) => t.id == _preferences.selectedThemeId,
+        orElse: () => _themes.first,
+      );
+    } else if (_themes.isNotEmpty) {
+      activeTheme = _themes.first;
+    }
+
+    if (activeTheme != null &&
+        activeTheme.isPremiumLocked &&
+        !_preferences.isPremiumValid) {
+      final freeTheme = _themes.firstWhere(
+        (t) => !t.isPremiumLocked,
+        orElse: () => _themes.first,
+      );
+      _preferences = _preferences.copyWith(selectedThemeId: freeTheme.id);
+    }
+
+    // 7️⃣ LANGUAGE PREFERENCE FALLBACK
+    if (_preferences.languageCode.isEmpty) {
+      _preferences = _preferences.copyWith(languageCode: _selectedLocale);
+    }
+
+    // 8️⃣ PLAYBACK
     playback.updateAffirmations(currentFeed);
-    playback.setCurrentIndex(_currentIndex); // ⭐ önemli
+    playback.setCurrentIndex(_currentIndex);
+
+    await purchaseState.initialize();
+    await purchaseState.fetchProducts();
 
     _loaded = true;
+    _generalDirty = true;
+
     notifyListeners();
 
     print("✅ initialize() tamamlandı");
     print("📊 Final state:");
-    print("   → Language: $_selectedLocale");
-    print("   → Category: $_activeCategoryId");
-    print("   → Theme: ${_preferences.selectedThemeId}");
+    print("   → Aktif Category: $_activeCategoryId");
     print("   → Gender: ${_preferences.gender}");
     print("   → Content Prefs: ${_preferences.selectedContentPreferences}");
     print("   → Premium: ${_preferences.isPremiumValid}");
   }
 
-  // Genel feed = tüm kategoriler + gender filtresi
-  List<Affirmation> get generalFeed => _allAffirmations
-      .where((a) => matchGender(a, _preferences.gender))
-      .toList();
+// ===============================
+  // PREMIUM UPDATE FROM PURCHASESTATE
+  // ===============================
 
-  // Aktif kategoriye göre feed
-  List<Affirmation> get categoryFeed => _allAffirmations
-      .where((a) =>
-          a.categoryId == _activeCategoryId &&
-          matchGender(a, _preferences.gender))
-      .toList();
+  void updatePremium({
+    required bool active,
+    required PremiumPlan plan,
+    required DateTime? expiry,
+  }) async {
+    _preferences = _preferences.copyWith(
+      premiumActive: active,
+      premiumPlanId: plan,
+      premiumExpiresAt: expiry,
+    );
+
+    // storage
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool("premiumActive", false);
+    prefs.setString("premiumPlanId", plan.name);
+    prefs.setString("premiumExpiresAt", expiry?.toIso8601String() ?? "");
+
+    notifyListeners();
+  }
+
+  bool _hasValidPrefs(SharedPreferences prefs) {
+    return prefs.containsKey("selectedThemeId") ||
+        prefs.containsKey("gender") ||
+        prefs.containsKey("selectedContentPreferences") ||
+        prefs.containsKey("premiumActive");
+  }
+
+  List<Affirmation> get generalFeed {
+    if (_generalDirty) {
+      _cachedGeneral = _calculateGeneralFeed();
+      _generalDirty = false;
+    }
+    return _cachedGeneral;
+  }
+
+  // Genel feed = tüm kategoriler + gender + seçilen kategoriler filtresi
+  List<Affirmation> _calculateGeneralFeed() {
+    print('📌 [GENERAL FEED] Başladı');
+    print('➡ Gender: ${_preferences.gender}');
+    print('➡ Selected categories: ${_preferences.selectedContentPreferences}');
+
+    // Kullanıcının seçtiği kategoriler + gender
+    final list = _allAffirmations.where((a) {
+      final genderOk = matchGender(a, _preferences.gender);
+
+      final categoryOk =
+          _preferences.selectedContentPreferences.contains(a.categoryId);
+
+      return genderOk && categoryOk;
+    }).toList();
+
+    if (!_preferences.premiumActive && list.length > 200) {
+      print('✅ GENERAL FEED (200 sınırı) toplam: ${list.length}');
+      return list.take(200).toList();
+    }
+
+    print('✅ GENERAL FEED toplam: ${list.length}');
+
+    return list;
+  }
+
+  // Aktif kategoriye ve gender a göre feed
+  List<Affirmation> get categoryFeed {
+    print('📌 [CATEGORY FEED] Başladı → $_activeCategoryId');
+
+    final list = _allAffirmations.where((a) {
+      return a.categoryId == _activeCategoryId &&
+          matchGender(a, _preferences.gender);
+    }).toList();
+
+    print('✅ CATEGORY FEED toplam: ${list.length}');
+    return list;
+  }
 
   // Favoriler feed
-  List<Affirmation> get favoritesFeed => _allAffirmations
-      .where((a) =>
-          _preferences.favoriteAffirmationIds.contains(a.id) &&
-          matchGender(a, _preferences.gender))
-      .toList();
+  List<Affirmation> get favoritesFeed {
+    print('📌 [FAVORITE FEED] Başladı');
 
-  // Eski kodda varsa diye bıraktım, generalFeed'e delege ettim
-  List<Affirmation> get homeFeed => generalFeed;
+    final list = _allAffirmations.where((a) {
+      return _preferences.favoriteAffirmationIds.contains(a.id);
+    }).toList();
+
+    print('✅ FOVORITE FEED toplam: ${list.length}');
+    return list;
+  }
+
+  // Kendi feed lerim
+  List<Affirmation> get myFeed {
+    print('📌 [MY FEED] Başladı');
+
+    final list = _allAffirmations.where((a) {
+      return _preferences.myAffirmationIds.contains(a.id);
+    }).toList();
+    print('✅ MY FEED toplam: ${list.length}');
+
+    return list;
+  }
 
   // Şu an gösterilecek gerçek feed
   List<Affirmation> get currentFeed {
+    // GENERAL boş veya unset → general
     if (_activeCategoryId.isEmpty) return generalFeed;
     if (_activeCategoryId == generalCategoryId) return generalFeed;
-    if (_activeCategoryId == favoritesCategoryId) return favoritesFeed;
+
+    // FAVORITES
+    if (_activeCategoryId == favoritesCategoryId) {
+      final fav = favoritesFeed;
+
+      if (fav.isEmpty) {
+        return [
+          Affirmation(
+            id: "empty_fav",
+            text: "Your favorites are empty.",
+            categoryId: favoritesCategoryId,
+            gender: "none",
+            preferences: const [],
+            isPremium: false,
+            language: selectedLocale,
+          ),
+        ];
+      }
+
+      return fav;
+    }
+
+    // MY AFFIRMATIONS
+    if (_activeCategoryId == myCategoryId) {
+      final mine = myFeed;
+
+      if (mine.isEmpty) {
+        return [
+          Affirmation(
+            id: "empty_my",
+            text: "You haven't added any custom affirmations yet.",
+            categoryId: myCategoryId,
+            gender: "none",
+            preferences: const [],
+            isPremium: false,
+            language: selectedLocale,
+          ),
+        ];
+      }
+
+      return mine;
+    }
+
     return categoryFeed;
   }
 
@@ -298,38 +411,37 @@ class AppState extends ChangeNotifier {
   }
 
   // CATEGORIES + THEMES
-  //────────────────────────────────────────
-
+  // CATEGORIES + THEMES
   List<AffirmationCategory> get categories {
-    // orijinal listeyi kopyala
-    final base = List<AffirmationCategory>.from(_categories);
-
-    // Eklemek istediğin özel kategoriler
-    const extraCategories = [
-      AffirmationCategory(
+    // Özel kategoriler
+    final base = [
+      const AffirmationCategory(
         id: generalCategoryId,
         name: 'General',
         imageAsset: 'assets/data/categories/general.jfif',
         isPremiumLocked: false,
       ),
-      AffirmationCategory(
+      const AffirmationCategory(
         id: favoritesCategoryId,
         name: 'My Favorites',
         imageAsset: 'assets/data/categories/favorites.jfif',
         isPremiumLocked: false,
       ),
-      AffirmationCategory(
-        id: favoritesCategoryId,
-        name: 'My Own Affirmations',
-        imageAsset: 'assets/data/categories/favorites.jfif',
+      const AffirmationCategory(
+        id: myCategoryId,
+        name: 'My Affirmations',
+        imageAsset: 'assets/data/categories/myAffirmations.jfif',
         isPremiumLocked: false,
       ),
     ];
 
-    // 🔥 TEK SEFERDE ekle (her çağrıda kopya listeye ekleniyor, orijinali bozmuyor)
-    base.insertAll(1, extraCategories);
+    // Değiştirilebilir liste oluştur
+    final result = List<AffirmationCategory>.from(base);
 
-    return base;
+    // _categories'i index 3'ten başlayarak ekle
+    result.addAll(_categories);
+
+    return result;
   }
 
   List<ThemeModel> get themes => _themes;
@@ -373,8 +485,6 @@ class AppState extends ChangeNotifier {
   }
 
   // SAVE / LOAD
-  //────────────────────────────────────────
-
   Future<void> saveLastSettings() async {
     print("💾 saveLastSettings()");
 
@@ -390,12 +500,21 @@ class AppState extends ChangeNotifier {
       );
       await prefs.setInt('lastAffirmationIndex', _currentIndex);
 
-      await prefs.setBool('premiumActive', _preferences.premiumActive);
+      await prefs.setBool('premiumActive', false);
       await prefs.setString('premiumPlanId',
           premiumPlanToString(_preferences.premiumPlanId) ?? '');
       await prefs.setString(
         'premiumExpiresAt',
         _preferences.premiumExpiresAt?.toIso8601String() ?? '',
+      );
+
+      prefs.setString(
+        "favoriteAffirmationIds",
+        _preferences.favoriteAffirmationIds.join(','),
+      );
+      prefs.setString(
+        "myAffirmationIds",
+        _preferences.myAffirmationIds.join(','),
       );
 
       print(
@@ -467,27 +586,12 @@ class AppState extends ChangeNotifier {
       final prefs = await SharedPreferences.getInstance();
       await prefs.reload();
 
-      print("🔥 HOME prefs:");
-      print("➡ lastCategory = ${prefs.getString('lastCategory')}");
-      print("➡ lastTheme = ${prefs.getString('lastTheme')}");
-      print("➡ lastLanguage = ${prefs.getString('lastLanguage')}");
-      print(
-          "➡ lastContentPrefs = ${prefs.getString('lastContentPreferences')}");
-      print("➡ lastIndex = ${prefs.getInt('lastAffirmationIndex')}");
-
       onboardingCompleted = prefs.getBool("onboarding_completed") ?? false;
       onboardingGender = prefs.getString("onboard_gender");
       onboardingContentPrefs =
           (prefs.getStringList("onboard_prefs") ?? []).toSet();
       onboardingThemeIndex = prefs.getInt("onboard_theme");
 
-      print("🔥 ONBOARDING prefs:");
-      print("➡ completed = $onboardingCompleted");
-      print("➡ gender = $onboardingGender");
-      print("➡ prefs = $onboardingContentPrefs");
-      print("➡ themeIndex = $onboardingThemeIndex");
-
-      final lastCategory = prefs.getString('lastCategory');
       final lastTheme = prefs.getString('lastTheme');
       final lastLanguage = prefs.getString('lastLanguage');
       final lastContentPrefs = prefs.getString('lastContentPreferences');
@@ -496,60 +600,70 @@ class AppState extends ChangeNotifier {
       final premiumActive = prefs.getBool('premiumActive');
       final premiumPlanId = prefs.getString('premiumPlanId');
       final premiumExpiresAtStr = prefs.getString('premiumExpiresAt');
-      DateTime? premiumExpiresAt;
-      if (premiumExpiresAtStr != null && premiumExpiresAtStr.isNotEmpty) {
-        premiumExpiresAt = DateTime.tryParse(premiumExpiresAtStr);
-      }
+      final myList = prefs.getString("myAffirmationIds");
+      final favIds = prefs.getString("favoriteAffirmationIds");
 
-      if (onboardingGender != null && onboardingGender!.isNotEmpty) {
-        _preferences = _preferences.copyWith(
-          gender: genderFromString(onboardingGender!),
-        );
-      }
+      final userName = prefs.getString("userName");
+      // --------------------------------------------------------
+      // 🟦 1) _preferences TEK SEFERDE OLUŞUYOR
+      // --------------------------------------------------------
+      _preferences = UserPreferences(
+        selectedContentPreferences: lastContentPrefs != null
+            ? Set<String>.from(lastContentPrefs.split(","))
+            : <String>{},
+        selectedThemeId: lastTheme ?? "",
+        favoriteAffirmationIds:
+            favIds != null ? Set<String>.from(favIds.split(",")) : <String>{},
+        myAffirmationIds:
+            myList != null ? Set<String>.from(myList.split(",")) : <String>{},
+        languageCode: lastLanguage ?? "en",
+        userName: userName ?? "",
+        backgroundVolume: 0.5, // ⭐ REQUIRED
+        gender: genderFromString(onboardingGender ?? "none"),
 
-      if (lastCategory != null && lastCategory.isNotEmpty) {
-        _activeCategoryId = lastCategory;
-      }
+        premiumPlanId: premiumPlanId != null && premiumPlanId.isNotEmpty
+            ? premiumPlanFromString(premiumPlanId)
+            : null,
+        premiumExpiresAt: premiumExpiresAtStr != null
+            ? DateTime.tryParse(premiumExpiresAtStr)
+            : null,
+        premiumActive: premiumActive ?? false,
+        reminders: [
+          ReminderModel(
+            id: "free_default",
+            categoryIds: {"self_care"},
+            startTime: const TimeOfDay(hour: 9, minute: 0),
+            endTime: const TimeOfDay(hour: 21, minute: 0),
+            repeatCount: 3,
+            repeatDays: {1, 2, 3, 4, 5, 6, 7},
+            enabled: true,
+            isPremium: false,
+          )
+        ],
+      );
 
-      if (lastTheme != null && lastTheme.isNotEmpty) {
-        _preferences = _preferences.copyWith(selectedThemeId: lastTheme);
-      }
-
-      if (lastLanguage != null && lastLanguage.isNotEmpty) {
-        _preferences = _preferences.copyWith(languageCode: lastLanguage);
-        _selectedLocale = lastLanguage;
-      }
-
-      if (lastContentPrefs != null && lastContentPrefs.isNotEmpty) {
-        _preferences = _preferences.copyWith(
-          selectedContentPreferences:
-              Set<String>.from(lastContentPrefs.split(',')),
-        );
-      }
-
-      if (lastIndex != null) {
-        _currentIndex = lastIndex;
-      } else {
-        _currentIndex = 0;
-      }
-
+      // --------------------------------------------------------
+      // 🟧 2) KATEGORİ
+      // --------------------------------------------------------
+      _activeCategoryId = generalCategoryId;
+      // --------------------------------------------------------
+      // 🟨 3) INDEX
+      // --------------------------------------------------------
+      _currentIndex = lastIndex ?? 0;
       playback.setCurrentIndex(_currentIndex);
 
-      _preferences = _preferences.copyWith(
-        premiumActive: premiumActive ?? _preferences.premiumActive,
-        premiumPlanId: (premiumPlanId != null && premiumPlanId.isNotEmpty)
-            ? premiumPlanFromString(premiumPlanId)
-            : _preferences.premiumPlanId,
-        premiumExpiresAt: premiumExpiresAt ?? _preferences.premiumExpiresAt,
-      );
+      // --------------------------------------------------------
+      // 🟩 4) DİL (AppState’in kendi dili)
+      // --------------------------------------------------------
+      if (lastLanguage != null && lastLanguage.isNotEmpty) {
+        _selectedLocale = lastLanguage;
+      }
     } catch (e) {
       print("❌ LOAD ERROR: $e");
     }
   }
 
   // PAGE + AFFIRMATION
-  //────────────────────────────────────────
-
   int get pageCount => currentFeed.isEmpty ? 1 : currentFeed.length;
 
   Affirmation? affirmationAt(int index) {
@@ -561,21 +675,24 @@ class AppState extends ChangeNotifier {
 
       return null;
     }
+    print("📌 affirmationAt($index)  (limit = ${currentFeed.length})");
     return list[index];
   }
 
   // CATEGORY CHANGE
-  //────────────────────────────────────────
-
   Future<void> setActiveCategory(String id) async {
-    print("📌 Category changed: $id");
+    print("📌 Category selected: $id");
+    print(
+        "⛔ Uygulama kategori listesindeki ilk kategori: ${_categories.first.id} ");
 
     if (_activeCategoryId == id) {
       assignRandomIndex();
       return;
     }
 
-    if (id != favoritesCategoryId) {
+    if (id != favoritesCategoryId &&
+        id != generalCategoryId &&
+        id != myCategoryId) {
       final category = _categories.firstWhere(
         (c) => c.id == id,
         orElse: () => _categories.first,
@@ -585,67 +702,71 @@ class AppState extends ChangeNotifier {
         print("⛔ Premium değil → kategori kilitli");
         return;
       }
+      _activeCategoryId = category.id;
     }
 
     _activeCategoryId = id;
-    _currentIndex = 0;
+
+    print("📌 Category changed: $_activeCategoryId");
+    playback.updateAffirmations(currentFeed);
 
     assignRandomIndex();
-
     notifyListeners();
     saveLastSettings();
-
-    playback.updateAffirmations(currentFeed);
   }
 
-  // Eski kodda da kalmış, generalFeed ile uyumlu hale getirdik
-  List<Affirmation> get homeFeedRaw {
-    final gender = preferences.gender;
-
-    return _allAffirmations.where((a) {
-      if (a.gender == "any") return true;
-      if (gender == Gender.none) return true;
-      if (gender == Gender.male) return a.gender == "male";
-      if (gender == Gender.female) return a.gender == "female";
-      return true;
+  List<Affirmation> get affirmationsForActiveCategories {
+    return allAffirmations.where((a) {
+      final genderOk = matchGender(a, _preferences.gender);
+      final matchesCategory = _activeCategoryIds.contains(a.categoryId);
+      return genderOk && matchesCategory;
     }).toList();
   }
 
-  //────────────────────────────────────────
-  // RANDOM INDEX
-  //────────────────────────────────────────
+  void setActiveCategories(Set<String> categoryIds) {
+    _activeCategoryIds = categoryIds;
+    notifyListeners();
+  }
 
+  Affirmation? getRandomAffirmation() {
+    final list = affirmationsForActiveCategories;
+    if (list.isEmpty) return null;
+
+    final frandomIndex = randomIndex(list.length);
+    return list[frandomIndex];
+  }
+
+  // RANDOM INDEX
   void assignRandomIndex() {
+    final feed = currentFeed; // mevcut cache'den alır
     if (_allAffirmations.isEmpty) {
       _currentIndex = 0;
       playback.setCurrentIndex(0);
       return;
     }
 
-    final frandomIndex = randomIndex(_allAffirmations.length);
-    print("🎲 Random index = $frandomIndex");
+    final frandomIndex = randomIndex(feed.length);
+    print(
+        "Seçilen kategori: ${feed.first.categoryId} ve aff sayısı= ${feed.length} 🎲 Random index = $frandomIndex");
 
     _currentIndex = frandomIndex;
     playback.setCurrentIndex(frandomIndex);
   }
 
-  //────────────────────────────────────────
   // UI STATE
-  //────────────────────────────────────────
-
   void toggleFabExpanded() {
     _fabExpanded = !_fabExpanded;
     notifyListeners();
   }
 
-  //────────────────────────────────────────
-  // FAVORITES
-  //────────────────────────────────────────
-
+// FAVORITES
   bool isOverFavoriteLimit() {
-    final isPremium = preferences.isPremiumValid;
+    final isPremium = _preferences.isPremiumValid;
     final currentCount = _preferences.favoriteAffirmationIds.length;
-    return !isPremium && currentCount >= 5;
+
+    final limit = isPremium ? premiumFavoriteLimit : freeFavoriteLimit;
+
+    return currentCount >= limit;
   }
 
   void toggleFavorite(String id) {
@@ -669,13 +790,11 @@ class AppState extends ChangeNotifier {
     return _preferences.favoriteAffirmationIds.contains(id);
   }
 
-  //────────────────────────────────────────
   // PREFS / THEME / LANGUAGE / PREMIUM
-  //────────────────────────────────────────
-
   void setSelectedContentPreferences(Set<String> prefs) {
     print("🎯 Content prefs changed → $prefs");
     _preferences = _preferences.copyWith(selectedContentPreferences: prefs);
+    _generalDirty = true;
     notifyListeners();
     saveLastSettings();
 
@@ -734,7 +853,11 @@ class AppState extends ChangeNotifier {
     }
 
     print("🟥 Calling notifyListeners()");
+
+    _generalDirty = true;
+
     notifyListeners();
+    playback.updateAffirmations(currentFeed);
   }
 
   Future<void> updatePremiumStatus({
@@ -755,9 +878,7 @@ class AppState extends ChangeNotifier {
         "💎 Premium güncellendi → active=$active, plan=$planId, expiresAt=$expiresAt");
   }
 
-  //────────────────────────────────────────
   // PAGE ITEMS (AFFIRMATION + CTA)
-  //────────────────────────────────────────
 
   List<Map<String, dynamic>> get pagedItems {
     return _buildPagedItems(

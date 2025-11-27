@@ -23,7 +23,7 @@ class ReminderEditScreen extends StatefulWidget {
 }
 
 class _ReminderEditScreenState extends State<ReminderEditScreen> {
-  late String _categoryId;
+  late Set<String> _categoryIds;
   late TimeOfDay _startTime;
   late TimeOfDay _endTime;
   late int _repeatCount;
@@ -33,7 +33,7 @@ class _ReminderEditScreenState extends State<ReminderEditScreen> {
   @override
   void initState() {
     super.initState();
-    _categoryId = widget.reminder.categoryId;
+    _categoryIds = {...widget.reminder.categoryIds};
     _startTime = widget.reminder.startTime;
     _endTime = widget.reminder.endTime;
     _repeatCount = widget.reminder.repeatCount;
@@ -44,18 +44,35 @@ class _ReminderEditScreenState extends State<ReminderEditScreen> {
   Future<void> _pickTime({required bool isStart}) async {
     final now = DateTime.now();
     final initial = isStart ? _startTime : _endTime;
-    TimeOfDay? selected;
 
-    await showCupertinoModalPopup(
+    TimeOfDay? selected = initial;
+
+    await showModalBottomSheet(
       context: context,
-      builder: (ctx) {
-        return Container(
-          height: 260,
-          color: Colors.white,
+      isScrollControlled: true,
+      backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(22)),
+      ),
+      builder: (context) {
+        return SizedBox(
+          height: 320,
           child: Column(
             children: [
+              const SizedBox(height: 12),
+              Container(
+                width: 40,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: Colors.black26,
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+              const SizedBox(height: 8),
+
+              // PICKER
               SizedBox(
-                height: 210,
+                height: 220,
                 child: CupertinoDatePicker(
                   mode: CupertinoDatePickerMode.time,
                   initialDateTime: DateTime(
@@ -73,14 +90,17 @@ class _ReminderEditScreenState extends State<ReminderEditScreen> {
                   },
                 ),
               ),
-              CupertinoButton(
-                child: const Text(
-                  "Done",
-                  style: TextStyle(color: Colors.black),
+
+              // DONE BUTTON
+              Padding(
+                padding: const EdgeInsets.only(top: 6, bottom: 12),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.black,
+                  ),
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text("Done"),
                 ),
-                onPressed: () {
-                  Navigator.pop(ctx);
-                },
               ),
             ],
           ),
@@ -142,7 +162,7 @@ class _ReminderEditScreenState extends State<ReminderEditScreen> {
 
     final reminderState = context.read<ReminderState>();
     final updated = widget.reminder.copyWith(
-      categoryId: _categoryId,
+      categoryIds: _categoryIds,
       startTime: _startTime,
       endTime: _endTime,
       repeatCount: _repeatCount,
@@ -216,63 +236,58 @@ class _ReminderEditScreenState extends State<ReminderEditScreen> {
         padding: const EdgeInsets.fromLTRB(16, 10, 16, 30),
         children: [
           // CATEGORY
-          Container(
-            padding: const EdgeInsets.all(14),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(18),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "Affirmation Category",
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                DropdownButtonFormField<String>(
-                  initialValue: _categoryId,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Color(0x33000000)),
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: categories.map((c) {
+              final selected = _categoryIds.contains(c.id);
+              final locked = isCategoryLocked && c.id != "self_care";
+
+              return GestureDetector(
+                onTap: locked
+                    ? null
+                    : () {
+                        setState(() {
+                          if (selected) {
+                            _categoryIds.remove(c.id);
+                          } else {
+                            _categoryIds.add(c.id);
+                          }
+                        });
+                      },
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: locked
+                        ? Colors.grey.shade300
+                        : selected
+                            ? Colors.black
+                            : Colors.white,
+                    border: Border.all(
+                      color: locked
+                          ? Colors.grey.shade400
+                          : selected
+                              ? Colors.black
+                              : Colors.black26,
                     ),
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                    borderRadius: BorderRadius.circular(12),
                   ),
-                  items: categories
-                      .map(
-                        (c) => DropdownMenuItem(
-                          value: c.id,
-                          child: Text(c.name),
-                        ),
-                      )
-                      .toList(),
-                  onChanged: isCategoryLocked
-                      ? null
-                      : (val) {
-                          if (val == null) return;
-                          setState(() {
-                            _categoryId = val;
-                          });
-                        },
-                ),
-                if (isCategoryLocked) ...[
-                  const SizedBox(height: 6),
-                  const Text(
-                    "Free reminder uses Self Care. Unlock Premium to choose any category.",
+                  child: Text(
+                    c.name,
                     style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.black54,
+                      color: locked
+                          ? Colors.grey.shade500
+                          : selected
+                              ? Colors.white
+                              : Colors.black,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 13,
                     ),
                   ),
-                ],
-              ],
-            ),
+                ),
+              );
+            }).toList(),
           ),
 
           const SizedBox(height: 14),

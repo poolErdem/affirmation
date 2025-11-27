@@ -1,3 +1,4 @@
+import 'package:affirmation/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../state/app_state.dart';
@@ -28,6 +29,7 @@ class _NameScreenState extends State<NameScreen> {
   @override
   Widget build(BuildContext context) {
     final appState = context.watch<AppState>();
+    final t = AppLocalizations.of(context)!;
 
     return Scaffold(
       backgroundColor: const Color(0xfff3ece7),
@@ -39,12 +41,17 @@ class _NameScreenState extends State<NameScreen> {
           icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black87),
           onPressed: () => Navigator.pop(context),
         ),
-        title: const Text(
-          "Your Name",
-          style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.w700,
-            color: Colors.black87,
+        title: Transform.translate(
+          offset: const Offset(-14, 0),
+          child: Text(
+            t.name,
+            style: const TextStyle(
+              fontFamily: "Poppins",
+              color: Colors.black,
+              fontSize: 21,
+              fontWeight: FontWeight.w700,
+              letterSpacing: -0.2,
+            ),
           ),
         ),
       ),

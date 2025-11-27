@@ -1,6 +1,5 @@
 import 'package:affirmation/l10n/app_localizations.dart';
 import 'package:affirmation/ui/screens/settings/content_preferences_screen.dart';
-import 'package:affirmation/ui/screens/favorites_screen.dart';
 import 'package:affirmation/ui/screens/settings/language_screen.dart';
 import 'package:affirmation/ui/screens/settings/name_screen.dart';
 import 'package:affirmation/ui/screens/premium_screen.dart';
@@ -31,13 +30,17 @@ class SettingsScreen extends StatelessWidget {
           icon: const Icon(Icons.close, color: Colors.black),
           onPressed: () => Navigator.pop(context),
         ),
-        title: const Text(
-          "Settings",
-          style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-            color: Colors.black,
-            letterSpacing: -0.3,
+        title: Transform.translate(
+          offset: const Offset(-14, 0),
+          child: Text(
+            t.settings,
+            style: const TextStyle(
+              fontFamily: "Poppins",
+              color: Colors.black,
+              fontSize: 21,
+              fontWeight: FontWeight.w700,
+              letterSpacing: -0.2,
+            ),
           ),
         ),
       ),
@@ -62,7 +65,20 @@ class SettingsScreen extends StatelessWidget {
           const SizedBox(height: 20),
 
           // GENERAL
-          _section("General"),
+          _section(t.general),
+
+          _tile(
+            context,
+            title: t.name,
+            icon: Icons.person_outline_rounded,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const NameScreen()),
+              );
+            },
+          ),
+
           _tile(
             context,
             title: t.preferences,
@@ -76,6 +92,7 @@ class SettingsScreen extends StatelessWidget {
               );
             },
           ),
+
           _tile(
             context,
             title: t.language,
@@ -87,17 +104,7 @@ class SettingsScreen extends StatelessWidget {
               );
             },
           ),
-          _tile(
-            context,
-            title: t.sound,
-            icon: Icons.volume_up_rounded,
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const SoundScreen()),
-              );
-            },
-          ),
+
           _tile(
             context,
             title: t.reminders,
@@ -110,37 +117,20 @@ class SettingsScreen extends StatelessWidget {
             },
           ),
 
-          const SizedBox(height: 20),
-
-          // ACCOUNT
-          _section("Account"),
           _tile(
             context,
-            title: t.name,
-            icon: Icons.person_outline_rounded,
+            title: t.sound,
+            icon: Icons.volume_up_rounded,
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => const NameScreen()),
+                MaterialPageRoute(builder: (_) => const SoundScreen()),
               );
             },
           ),
-          _tile(
-            context,
-            title: t.favorites,
-            icon: Icons.favorite_border,
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const FavoritesScreen()),
-              );
-            },
-          ),
-
-          const SizedBox(height: 20),
 
           // LEGAL
-          _section("About"),
+          _section(t.about),
           _tile(
             context,
             title: t.privacyPolicy,
@@ -197,53 +187,68 @@ class SettingsScreen extends StatelessWidget {
   }) {
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(18),
+      borderRadius: BorderRadius.circular(20),
       child: Container(
-        height: 75,
+        height: 95,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(18),
-          gradient: isPremium
-              ? const LinearGradient(
-                  colors: [Color(0xffffd700), Color(0xffffa500)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                )
-              : null,
-          color: isPremium ? null : Colors.white,
-          boxShadow: const [
+          borderRadius: BorderRadius.circular(20),
+          image: DecorationImage(
+            image: AssetImage(
+              isPremium
+                  ? "assets/premium/gold_bg.jpg" // premium arka plan
+                  : "assets/premium/premium_offer.jpg", // upgrade arka plan
+            ),
+            fit: BoxFit.cover,
+          ),
+          boxShadow: [
             BoxShadow(
-              color: Color(0x26000000),
-              blurRadius: 14,
-              offset: Offset(0, 5),
+              color: isPremium
+                  ? Colors.amber.withAlpha(140)
+                  : Colors.black.withAlpha(60),
+              blurRadius: 18,
+              offset: const Offset(0, 6),
             ),
           ],
+          border: Border.all(
+            color: isPremium ? const Color(0xFFFFD700) : Colors.black12,
+            width: isPremium ? 2 : 1,
+          ),
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 22),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            gradient: LinearGradient(
+              colors: [
+                Colors.black.withAlpha(120),
+                Colors.black.withAlpha(20),
+              ],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+            ),
+          ),
           child: Row(
             children: [
+              // ICON
               Icon(
-                isPremium
-                    ? Icons.workspace_premium
-                    : Icons.workspace_premium_outlined,
-                color: isPremium ? Colors.white : Colors.amber.shade700,
-                size: 26,
+                Icons.workspace_premium,
+                color: Colors.white,
+                size: 30,
               ),
+
               const SizedBox(width: 18),
+
+              // TEXT
               Expanded(
                 child: Text(
                   title,
-                  style: TextStyle(
-                    fontSize: 16.5,
-                    fontWeight: FontWeight.w600,
-                    color: isPremium ? Colors.white : Colors.black,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                    letterSpacing: -0.1,
                   ),
                 ),
-              ),
-              Icon(
-                Icons.chevron_right,
-                color: isPremium ? Colors.white70 : Colors.grey.shade600,
-                size: 26,
               ),
             ],
           ),
@@ -262,8 +267,7 @@ class SettingsScreen extends StatelessWidget {
     VoidCallback? onTap,
   }) {
     return InkWell(
-      onTap:
-          onTap ??
+      onTap: onTap ??
           () {
             ScaffoldMessenger.of(
               context,
@@ -286,7 +290,12 @@ class SettingsScreen extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Icon(icon, size: 24, color: Colors.teal),
+            Icon(
+              icon, size: 24, color: const Color.fromARGB(255, 58, 54, 54),
+              weight: 100, // ⭐ 100 → ultra ince, 700 → kalın
+              grade: -75, // (-25) daha ince görünüm
+              opticalSize: 10, // simgenin optik boyutu
+            ),
             const SizedBox(width: 20),
             Expanded(
               child: Text(
@@ -294,7 +303,7 @@ class SettingsScreen extends StatelessWidget {
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
-                  color: Colors.black87,
+                  color: Color.fromARGB(255, 58, 54, 54),
                 ),
               ),
             ),

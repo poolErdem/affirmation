@@ -63,7 +63,7 @@ class _ContentPreferencesScreen extends State<ContentPreferencesScreen> {
                   Text(
                     t.preferences,
                     style: const TextStyle(
-                      fontSize: 22,
+                      fontSize: 21,
                       fontWeight: FontWeight.w700,
                       color: Colors.black87,
                     ),

@@ -1,173 +1,200 @@
 import 'dart:async';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/foundation.dart';
 
-/// Bu sınıf sadece ses, TTS ve auto-read’den sorumludur.
 class PlaybackState extends ChangeNotifier {
   final FlutterTts _tts = FlutterTts();
+  final AudioPlayer _bgMusicPlayer = AudioPlayer();
+
+  bool backgroundMusicEnabled = false;
+  String selectedMusic = 'nature_sounds.mp3';
+
+  bool autoScrollEnabled = true; // ⭐ YENİ: Otomatik kaydırma
 
   bool autoReadEnabled = false;
   bool _isReading = false;
   int currentIndex = 0;
 
-  // Affirmation listesini dışarıdan set ediyorsun
   List<dynamic> affirmations = [];
-
-  // TTS bekleme için completer
   Completer<void>? _ttsCompleter;
-
   void Function(int index)? onIndexChanged;
 
+  bool _isInitialized = false;
+
   PlaybackState() {
-    initTts();
+    _initTts();
   }
 
-  /// Dışarıda kategori değişince çağırırsın
   void updateAffirmations(List<dynamic> list) {
     affirmations = list;
     currentIndex = 0;
     notifyListeners();
   }
 
-  /// Dışarıda PageView'dan index değişince çağırırsın
   void setCurrentIndex(int index) {
     currentIndex = index;
-
-    // ⭐ CALLBACK → HomeScreen senkron çalışsın
     if (onIndexChanged != null) {
       onIndexChanged!(index);
+    }
+    notifyListeners();
+  }
+
+  // ⭐ YENİ: Müzik toggle
+  void toggleBackgroundMusic() {
+    backgroundMusicEnabled = !backgroundMusicEnabled;
+
+    if (!backgroundMusicEnabled &&
+        _bgMusicPlayer.state == PlayerState.playing) {
+      _bgMusicPlayer.stop();
     }
 
     notifyListeners();
   }
 
-  // Auto READ
+  // ⭐ YENİ: Müzik seçimi
+  void setBackgroundMusic(String musicFile) {
+    selectedMusic = musicFile;
+
+    // Eğer müzik çalıyorsa, yenisini başlat
+    if (_bgMusicPlayer.state == PlayerState.playing) {
+      _bgMusicPlayer.stop();
+      _bgMusicPlayer.play(
+        AssetSource('audio/$selectedMusic'),
+        volume: 0.3,
+      );
+      _bgMusicPlayer.setReleaseMode(ReleaseMode.loop);
+    }
+
+    notifyListeners();
+  }
+
+  // ⭐ YENİ: Otomatik kaydırma toggle
+  void toggleAutoScroll() {
+    autoScrollEnabled = !autoScrollEnabled;
+    notifyListeners();
+  }
+
   Future<void> toggleAutoRead() async {
     autoReadEnabled = !autoReadEnabled;
 
     if (autoReadEnabled) {
       _startAutoRead();
     } else {
-      _stopAutoRead();
+      await _stopAutoRead();
     }
 
     notifyListeners();
   }
 
-  void setLanguage(String code) {
-    _tts.setLanguage(code);
-    debugPrint("🎤 Playback language set → $code");
+  Future<void> setLanguage(String code) async {
+    await _tts.setLanguage(code);
+    debugPrint("🎤 Language set → $code");
   }
 
-  void initTts() {
-    print("🎤 initTts()");
+  Future<void> _initTts() async {
+    await _tts.setSpeechRate(0.42);
+    await _tts.setPitch(1.0);
+    await _tts.setVolume(1.0);
+
+    if (defaultTargetPlatform == TargetPlatform.iOS) {
+      await _tts.setVoice({"name": "Yelda", "locale": "tr-TR"});
+    }
 
     _tts.setCompletionHandler(() {
-      print("🎤 TTS COMPLETION EVENT RECEIVED");
+      print("✅ TTS COMPLETED"); // ⭐ Bu log görünmeli
 
       if (_ttsCompleter != null && !_ttsCompleter!.isCompleted) {
-        print("🎤 Completing completer (finish)");
         _ttsCompleter!.complete();
       }
     });
+
+    _isInitialized = true;
+    print("✅ TTS initialized");
   }
 
   Future<void> _waitTtsFinish() async {
-    print("⏳ _waitTtsFinish() → new completer created");
     _ttsCompleter = Completer<void>();
-    return _ttsCompleter!.future;
+
+    return _ttsCompleter!.future.timeout(
+      const Duration(seconds: 30),
+      onTimeout: () {
+        debugPrint("⚠️ TTS timeout, moving to next");
+      },
+    );
   }
 
   Future<void> _stopAutoRead() async {
-    print("🛑 _stopAutoRead() called");
     _isReading = false;
-
     await _tts.stop();
-    print("🛑 TTS stopped");
+    await _bgMusicPlayer.stop();
 
     if (_ttsCompleter != null && !_ttsCompleter!.isCompleted) {
-      print("🧹 Completing pending completer");
       _ttsCompleter!.complete();
     }
   }
 
   Future<void> playTextToSpeech(String text) async {
-    print(
-        "🔊 TTS PLAY START → '${text.substring(0, text.length > 30 ? 30 : text.length)}...'");
-
     await _tts.stop();
-    print("🔊 TTS stopped (before speaking)");
-
-    await _tts.setSpeechRate(0.42);
-    await _tts.setPitch(1.05);
-    await _tts.setVolume(1.0);
-
-    print("🔊 Speaking now...");
     await _tts.speak(text);
   }
 
   Future<void> _startAutoRead() async {
-    if (_isReading) {
-      return;
+    if (_isReading) return;
+
+    // ⭐ TTS hazır olana kadar bekle
+    while (!_isInitialized) {
+      await Future.delayed(const Duration(milliseconds: 100));
     }
 
     _isReading = true;
 
-    while (autoReadEnabled && _isReading) {
-      if (affirmations.isEmpty) {
-        print("❌ affirmations boş");
-        break;
+    // ⭐ Müzik başlat
+    if (backgroundMusicEnabled) {
+      try {
+        await _bgMusicPlayer.play(
+          AssetSource('audio/$selectedMusic'),
+          volume: 0.3,
+        );
+        await _bgMusicPlayer.setReleaseMode(ReleaseMode.loop);
+      } catch (e) {
+        debugPrint("⚠️ Müzik başlatılamadı: $e");
+        // Müzik hata verirse devam et
       }
-      print("🔁 LOOP → currentIndex=$currentIndex");
+    }
+
+    while (autoReadEnabled && _isReading) {
+      if (affirmations.isEmpty) break;
 
       if (currentIndex >= affirmations.length) {
-        print("⚠ currentIndex out of range, reset → 0");
         currentIndex = 0;
       }
 
       final aff = affirmations[currentIndex];
-      if (aff == null) {
-        print("❌ aff=null → break loop");
-        break;
-      }
-
-      print(
-          "📖 READING → ${aff.text.substring(0, aff.text.length > 40 ? 40 : aff.text.length)}...");
+      if (aff == null) break;
 
       await playTextToSpeech(aff.text);
-
-      print("⏳ Waiting TTS finish...");
       await _waitTtsFinish();
-      print("✅ TTS finished");
 
-      if (!autoReadEnabled) {
-        print("⛔ autoReadEnabled=false → breaking");
-        break;
-      }
+      await Future.delayed(const Duration(seconds: 2));
 
-      print("➡ Moving to next affirmation");
+      if (!autoReadEnabled) break;
+
       nextAffirmation();
     }
 
-    print("🚪 Exiting AutoRead loop");
+    _isReading = false;
   }
 
   void nextAffirmation() {
-    final list = affirmations;
-    print("➡ nextAffirmation() called");
+    if (affirmations.isEmpty) return;
 
-    if (list.isEmpty) {
-      print("❌ nextAffirmation → list empty");
-      return;
-    }
-
-    if (currentIndex < list.length - 1) {
+    if (currentIndex < affirmations.length - 1) {
       currentIndex++;
     } else {
       currentIndex = 0;
     }
 
-    // ⭐ PageView’a haber ver
     if (onIndexChanged != null) {
       onIndexChanged!(currentIndex);
     }
@@ -178,5 +205,12 @@ class PlaybackState extends ChangeNotifier {
   void onPageChanged(int index) {
     currentIndex = index;
     notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    _bgMusicPlayer.dispose(); // ⭐ dispose ile değiştir
+    _tts.stop();
+    super.dispose();
   }
 }

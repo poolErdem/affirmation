@@ -1,4 +1,6 @@
-[
+{
+  "categoryId": "motivation",
+  "affirmations": [
   { "id": "mot_001", "text": "I show up for myself, even on the hard days.", "gender": "female" },
   { "id": "mot_002", "text": "My energy is rising, and I am becoming unstoppable.", "gender": "female" },
   { "id": "mot_003", "text": "I attract opportunities that match my worth.", "gender": "female" },
@@ -178,4 +180,9 @@
   { "id": "mot_148", "text": "I show up with strength and softness.", "gender": "female" },
   { "id": "mot_149", "text": "I move forward with hope.", "gender": "female" },
   { "id": "mot_150", "text": "I am becoming the version of myself I used to admire.", "gender": "female" }
+
+
+  
 ]
+
+}

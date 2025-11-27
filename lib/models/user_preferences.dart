@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 class UserPreferences {
   final Set<String> selectedContentPreferences;
-  final Set<String> selectedCategoryIds;
   final String selectedThemeId;
   final Set<String> favoriteAffirmationIds;
+  final Set<String> myAffirmationIds;
   final String languageCode;
 
   final String userName;
@@ -20,9 +20,9 @@ class UserPreferences {
 
   const UserPreferences({
     required this.selectedContentPreferences,
-    required this.selectedCategoryIds,
     required this.selectedThemeId,
     required this.favoriteAffirmationIds,
+    required this.myAffirmationIds,
     required this.languageCode,
     required this.userName,
     required this.backgroundVolume,
@@ -40,9 +40,9 @@ class UserPreferences {
   }) {
     return UserPreferences(
       selectedContentPreferences: allContentPreferenceIds,
-      selectedCategoryIds: allCategoryIds,
       selectedThemeId: defaultThemeId,
       favoriteAffirmationIds: <String>{},
+      myAffirmationIds: <String>{},
       languageCode: 'en',
       userName: '',
       backgroundVolume: 0.5,
@@ -53,7 +53,7 @@ class UserPreferences {
       reminders: [
         ReminderModel(
           id: "free_default",
-          categoryId: "self_care",
+          categoryIds: {"self_care"},
           startTime: const TimeOfDay(hour: 9, minute: 0),
           endTime: const TimeOfDay(hour: 21, minute: 0),
           repeatCount: 3,
@@ -67,9 +67,9 @@ class UserPreferences {
 
   UserPreferences copyWith({
     Set<String>? selectedContentPreferences,
-    Set<String>? selectedCategoryIds,
     String? selectedThemeId,
     Set<String>? favoriteAffirmationIds,
+    Set<String>? myAffirmationIds,
     String? languageCode,
     String? userName,
     double? backgroundVolume,
@@ -82,10 +82,11 @@ class UserPreferences {
     return UserPreferences(
       selectedContentPreferences:
           selectedContentPreferences ?? this.selectedContentPreferences,
-      selectedCategoryIds: selectedCategoryIds ?? this.selectedCategoryIds,
       selectedThemeId: selectedThemeId ?? this.selectedThemeId,
       favoriteAffirmationIds:
-          favoriteAffirmationIds ?? this.favoriteAffirmationIds,
+          favoriteAffirmationIds ?? this.favoriteAffirmationIds, // ✅ DÜZELTİLDİ
+      myAffirmationIds:
+          myAffirmationIds ?? this.myAffirmationIds, // ✅ DÜZELTİLDİ
       languageCode: languageCode ?? this.languageCode,
       userName: userName ?? this.userName,
       backgroundVolume: backgroundVolume ?? this.backgroundVolume,
@@ -103,11 +104,10 @@ class UserPreferences {
     return UserPreferences(
       selectedContentPreferences:
           Set<String>.from(json['selectedContentPreferences'] ?? const []),
-      selectedCategoryIds:
-          Set<String>.from(json['selectedCategoryIds'] ?? const []),
       selectedThemeId: json['selectedThemeId'] as String,
       favoriteAffirmationIds:
           Set<String>.from(json['favoriteAffirmationIds'] ?? const []),
+      myAffirmationIds: Set<String>.from(json['myAffirmationIds'] ?? const []),
       languageCode: json['languageCode'] as String? ?? 'en',
       userName: json['userName'] as String? ?? '',
       backgroundVolume: (json['backgroundVolume'] as num?)?.toDouble() ?? 0.5,
@@ -125,9 +125,9 @@ class UserPreferences {
 
   Map<String, dynamic> toJson() => {
         'selectedContentPreferences': selectedContentPreferences.toList(),
-        'selectedCategoryIds': selectedCategoryIds.toList(),
         'selectedThemeId': selectedThemeId,
         'favoriteAffirmationIds': favoriteAffirmationIds.toList(),
+        'myAffirmationIds': myAffirmationIds.toList(),
         'languageCode': languageCode,
         'userName': userName,
         'backgroundVolume': backgroundVolume,

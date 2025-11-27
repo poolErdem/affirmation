@@ -78,7 +78,7 @@ class GenderScreen extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 32,
+                        fontSize: 21,
                         fontWeight: FontWeight.w800,
                         height: 1.2,
                         letterSpacing: -0.3,

@@ -1,13 +1,12 @@
 import 'package:affirmation/l10n/app_localizations.dart';
-import 'package:affirmation/state/purchase_state.dart';
+import 'package:affirmation/models/user_preferences.dart';
 import 'package:affirmation/state/reminder_state.dart';
 import 'package:affirmation/ui/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart' as admob;
 import 'package:provider/provider.dart';
-
-// Localization
 import 'package:flutter_localizations/flutter_localizations.dart';
+
 import 'state/app_state.dart';
 
 void main() async {
@@ -19,20 +18,14 @@ void main() async {
   final appState = AppState();
   await appState.initialize();
 
-  // ---- PurchaseState ----
-  final purchaseState = PurchaseState();
-  await purchaseState.initialize();
-
   // ---- ReminderState ----
-  final reminderState = ReminderState();
-  await reminderState.load(); // JSON’dan oku
-  reminderState.bindUserPreferences(appState.preferences); // UserPrefs bağla
+  final reminderState = ReminderState(appState: appState);
+  await reminderState.initialize(appState.preferences.isPremiumValid);
 
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider<AppState>.value(value: appState),
-        ChangeNotifierProvider<PurchaseState>.value(value: purchaseState),
         ChangeNotifierProvider<ReminderState>.value(value: reminderState),
       ],
       child: const AffirmationApp(),

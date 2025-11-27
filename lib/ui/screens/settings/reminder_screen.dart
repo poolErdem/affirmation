@@ -30,13 +30,17 @@ class RemindersScreen extends StatelessWidget {
           icon: const Icon(Icons.close, color: Colors.black),
           onPressed: () => Navigator.pop(context),
         ),
-        title: Text(
-          t.reminders,
-          style: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-            color: Colors.black,
-            letterSpacing: -0.3,
+        title: Transform.translate(
+          offset: const Offset(-14, 0),
+          child: Text(
+            t.settings,
+            style: const TextStyle(
+              fontFamily: "Poppins",
+              color: Colors.black,
+              fontSize: 21,
+              fontWeight: FontWeight.w700,
+              letterSpacing: -0.2,
+            ),
           ),
         ),
       ),
@@ -52,7 +56,8 @@ class RemindersScreen extends StatelessWidget {
 
                 final categoryName = appState.categories
                     .firstWhere(
-                      (c) => c.id == r.categoryId,
+                      // ignore: unrelated_type_equality_checks
+                      (c) => c.id == r.categoryIds,
                       orElse: () => appState.categories.first,
                     )
                     .name;
@@ -121,8 +126,8 @@ class RemindersScreen extends StatelessWidget {
                   reminderState.canAddReminder
                       ? t.addReminder
                       : (isPremiumUser
-                            ? t.reminderLimitReached
-                            : t.unlockMoreReminders),
+                          ? t.reminderLimitReached
+                          : t.unlockMoreReminders),
                   style: const TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w600,
@@ -149,9 +154,10 @@ class RemindersScreen extends StatelessWidget {
 
                   // Yeni reminder (default self_care)
                   final newReminder = ReminderModel(
-                    id: DateTime.now().millisecondsSinceEpoch
+                    id: DateTime.now()
+                        .millisecondsSinceEpoch
                         .toString(), // basit id
-                    categoryId: "self_care",
+                    categoryIds: {"self_care"},
                     startTime: const TimeOfDay(hour: 9, minute: 0),
                     endTime: const TimeOfDay(hour: 21, minute: 0),
                     repeatCount: 3,

@@ -1,3 +1,4 @@
+import 'package:affirmation/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../state/app_state.dart';
@@ -8,6 +9,7 @@ class LanguageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appState = context.watch<AppState>();
+    final t = AppLocalizations.of(context)!;
 
     final languages = {
       "en": "English",
@@ -27,12 +29,17 @@ class LanguageScreen extends StatelessWidget {
           icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black87),
           onPressed: () => Navigator.pop(context),
         ),
-        title: const Text(
-          "Language",
-          style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.w700,
-            color: Colors.black87,
+        title: Transform.translate(
+          offset: const Offset(-14, 0),
+          child: Text(
+            t.language,
+            style: const TextStyle(
+              fontFamily: "Poppins",
+              color: Colors.black,
+              fontSize: 21,
+              fontWeight: FontWeight.w700,
+              letterSpacing: -0.2,
+            ),
           ),
         ),
       ),

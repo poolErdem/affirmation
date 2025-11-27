@@ -1,4 +1,6 @@
-[
+{
+  "categoryId": "self_care",
+  "affirmations": [
   { "id": "sc_001", "text": "Softness is allowed here, especially on days when the heart feels heavier than usual, {name}.",  "gender": "female" },
   { "id": "sc_002", "text": "I honor the quiet parts of me that survived moments no one ever noticed, {name}.",  "gender": "female" },
   { "id": "sc_003", "text": "Calm energy rises within me, guiding me into choices that feel aligned with my truth.",  "gender": "any" },
@@ -225,3 +227,5 @@
   { "id": "sc_224", "text": "I release what asks me to shrink and choose what supports my softness.",  "gender": "any" },
   { "id": "sc_225", "text": "Peace settles inside me when I breathe slowly and return to my truth, {name}.",  "gender": "female" }
 ]
+
+}

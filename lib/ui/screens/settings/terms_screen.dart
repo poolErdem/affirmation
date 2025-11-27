@@ -1,3 +1,4 @@
+import 'package:affirmation/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class TermsScreen extends StatelessWidget {
@@ -5,6 +6,8 @@ class TermsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final t = AppLocalizations.of(context)!;
+
     return Scaffold(
       backgroundColor: const Color(0xfff3ece7),
       appBar: AppBar(
@@ -14,12 +17,17 @@ class TermsScreen extends StatelessWidget {
           icon: const Icon(Icons.close, color: Colors.black87),
           onPressed: () => Navigator.pop(context),
         ),
-        title: const Text(
-          "Terms & Conditions",
-          style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.w700,
-            color: Colors.black87,
+        title: Transform.translate(
+          offset: const Offset(-14, 0),
+          child: Text(
+            t.terms,
+            style: const TextStyle(
+              fontFamily: "Poppins",
+              color: Colors.black,
+              fontSize: 21,
+              fontWeight: FontWeight.w700,
+              letterSpacing: -0.2,
+            ),
           ),
         ),
       ),

@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
 class ReminderModel {
-  final String id; // unique id
-  final String categoryId; // self_care, motivation, etc.
+  final String id;
+  final Set<String> categoryIds;
   final TimeOfDay startTime;
   final TimeOfDay endTime;
-  final int repeatCount; // kaç kere
-  final Set<int> repeatDays; // 1=Mon ... 7=Sun
-  final bool enabled; // aktif/pasif
-  final bool isPremium; // premium reminder mı
+  final int repeatCount;
+  final Set<int> repeatDays;
+  final bool enabled;
+  final bool isPremium;
 
   ReminderModel({
     required this.id,
-    required this.categoryId,
+    required this.categoryIds,
     required this.startTime,
     required this.endTime,
     required this.repeatCount,
@@ -23,7 +23,7 @@ class ReminderModel {
 
   ReminderModel copyWith({
     String? id,
-    String? categoryId,
+    Set<String>? categoryIds,
     TimeOfDay? startTime,
     TimeOfDay? endTime,
     int? repeatCount,
@@ -33,7 +33,7 @@ class ReminderModel {
   }) {
     return ReminderModel(
       id: id ?? this.id,
-      categoryId: categoryId ?? this.categoryId,
+      categoryIds: categoryIds ?? this.categoryIds,
       startTime: startTime ?? this.startTime,
       endTime: endTime ?? this.endTime,
       repeatCount: repeatCount ?? this.repeatCount,
@@ -45,7 +45,7 @@ class ReminderModel {
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'categoryId': categoryId,
+        'categoryIds': categoryIds.toList(),
         'startHour': startTime.hour,
         'startMinute': startTime.minute,
         'endHour': endTime.hour,
@@ -59,7 +59,7 @@ class ReminderModel {
   factory ReminderModel.fromJson(Map<String, dynamic> json) {
     return ReminderModel(
       id: json['id'] as String,
-      categoryId: json['categoryId'] as String,
+      categoryIds: Set<String>.from(json['categoryIds'] ?? const []),
       startTime: TimeOfDay(
         hour: json['startHour'] as int,
         minute: json['startMinute'] as int,

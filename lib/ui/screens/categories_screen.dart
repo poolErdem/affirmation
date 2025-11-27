@@ -24,17 +24,19 @@ class CategoriesScreen extends StatelessWidget {
           icon: const Icon(Icons.close, color: Colors.black87),
           onPressed: () => Navigator.pop(context),
         ),
-        title: Text(
-          t.categories,
-          style: const TextStyle(
-            fontFamily: 'PlayfairDisplay',
-            fontSize: 30,
-            fontWeight: FontWeight.w700,
-            color: Colors.black87,
-            letterSpacing: -0.3,
+        title: Transform.translate(
+          offset: const Offset(-14, 0),
+          child: Text(
+            t.categories,
+            style: const TextStyle(
+              fontFamily: "Poppins",
+              color: Colors.black,
+              fontSize: 21,
+              fontWeight: FontWeight.w700,
+              letterSpacing: -0.2,
+            ),
           ),
         ),
-        centerTitle: false,
       ),
 
       /// 🔥 TAGLINE (premium vibe)
@@ -141,6 +143,34 @@ class CategoriesScreen extends StatelessWidget {
                                     ),
                                   ),
                                 ),
+
+                                if ((category.id ==
+                                            AppState.generalCategoryId ||
+                                        category.id ==
+                                            AppState.favoritesCategoryId ||
+                                        category.id == AppState.myCategoryId) &&
+                                    !appState.preferences.isPremiumValid)
+                                  Positioned(
+                                    top: 10, //konum
+                                    left: 10,
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8, vertical: 5),
+                                      decoration: BoxDecoration(
+                                        color: Colors.orange.shade700,
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      child: const Text(
+                                        "LIMITED",
+                                        style: TextStyle(
+                                          fontFamily: "Poppins",
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.w700,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
 
                                 /// 🔒 LOCKED BADGE — premium görünüm
                                 if (isPremiumLocked)

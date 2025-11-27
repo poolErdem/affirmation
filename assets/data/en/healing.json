@@ -1,4 +1,6 @@
-[
+{
+  "categoryId": "healing",
+  "affirmations": [
   { "id": "sc_001", "text": "Healing begins the moment you stop rushing your own heart, {name}.", "gender": "female" },
   { "id": "sc_002", "text": "Softness returns to me as I release what no longer feels like home.", "gender": "female" },
   { "id": "sc_003", "text": "Calm rises inside me while I rebuild myself with patience.", "gender": "any" },
@@ -98,16 +100,12 @@
   { "id": "sc_093", "text": "I allow emotional release to move through me without fear or shame.", "gender": "female" },
   { "id": "sc_094", "text": "My inner strength grows every time I choose to rest instead of push.", "gender": "female" },
   { "id": "sc_095", "text": "I release old narratives so my heart can finally breathe freely.", "gender": "female" },
-
   { "id": "sc_096", "text": "Your peace becomes louder, {name}, when you stop feeding what drains you.", "gender": "female" },
-
   { "id": "sc_097", "text": "I embrace the rebuilding happening inside me, even when I can’t see it fully.", "gender": "female" },
   { "id": "sc_098", "text": "My softness is powerful, and it helps me heal in ways force never could.", "gender": "female" },
   { "id": "sc_099", "text": "I trust the gentle unfolding of the version of me I’m becoming.", "gender": "any" },
   { "id": "sc_100", "text": "My healing is steady, honest, and beautifully aligned with who I am now.", "gender": "female" },
-
   { "id": "sc_101", "text": "Softness reaches you, {name}, when you finally stop resisting what your heart knows.", "gender": "female" },
-
   { "id": "sc_102", "text": "I allow emotional clutter to dissolve slowly as clarity returns.", "gender": "female" },
   { "id": "sc_103", "text": "Calm rises gently inside me when I let the moment be enough.", "gender": "any" },
   { "id": "sc_104", "text": "My heart grows lighter as I stop holding onto what was never meant to stay.", "gender": "female" },
@@ -130,36 +128,26 @@
   { "id": "sc_117", "text": "My healing deepens with every boundary I honor without guilt.", "gender": "female" },
   { "id": "sc_118", "text": "I allow my inner world to change at the pace it truly needs.", "gender": "female" },
   { "id": "sc_119", "text": "Peace unfolds within me when I stop feeding old insecurities.", "gender": "female" },
-
   { "id": "sc_120", "text": "Your softness, {name}, is becoming the foundation of your new strength.", "gender": "female" },
-
   { "id": "sc_121", "text": "I release emotional noise so my spirit can breathe freely again.", "gender": "female" },
   { "id": "sc_122", "text": "My healing becomes more real each time I choose presence over panic.", "gender": "female" },
   { "id": "sc_123", "text": "I accept the parts of me that are still learning, still growing, still opening.", "gender": "female" },
   { "id": "sc_124", "text": "My heart steadies when I stop holding myself to impossible standards.", "gender": "any" },
   { "id": "sc_125", "text": "I allow a gentler version of life to meet me, one breath at a time.", "gender": "female" },
-
   { "id": "sc_126", "text": "Softness returns to you, {name}, when you stop forcing unbreakable strength.", "gender": "female" },
-
   { "id": "sc_127", "text": "I allow old emotions to rise and pass without clinging to their stories.", "gender": "female" },
   { "id": "sc_128", "text": "Calm meets me gently when I breathe with intention instead of fear.", "gender": "any" },
   { "id": "sc_129", "text": "My heart becomes lighter each time I choose release instead of resistance.", "gender": "female" },
   { "id": "sc_130", "text": "I welcome a softer chapter where my healing isn’t rushed or judged.", "gender": "female" },
   { "id": "sc_131", "text": "Stillness restores the parts of me that chaos once overwhelmed.", "gender": "female" },
   { "id": "sc_132", "text": "I release the emotional armor I no longer need to survive.", "gender": "female" },
-
   { "id": "sc_133", "text": "Your inner world strengthens, {name}, when you allow yourself to rest.", "gender": "female" },
-
   { "id": "sc_134", "text": "I allow clarity to replace confusion one breath at a time.", "gender": "female" },
   { "id": "sc_135", "text": "Peace finds me when I stop trying to carry every emotion alone.", "gender": "female" },
-
   { "id": "sc_136", "text": "Stillness lets your mind breathe again, {name}.", "gender": "male" },
-
   { "id": "sc_137", "text": "Calm settles into me when I allow my thoughts to soften.", "gender": "male" },
   { "id": "sc_138", "text": "I release old weight slowly, trusting that healing takes time.", "gender": "male" },
-
   { "id": "sc_139", "text": "Your heart opens wider, {name}, when you stop hiding what needs care.", "gender": "female" },
-
   { "id": "sc_140", "text": "I welcome gentle shifts that remind me I’m not stuck where I used to be.", "gender": "female" },
   { "id": "sc_141", "text": "Stillness helps me hear the emotions I’ve been suppressing.", "gender": "any" },
   { "id": "sc_142", "text": "My healing accelerates when I stop judging my sensitivity.", "gender": "female" },
@@ -226,6 +214,7 @@
   { "id": "sc_199", "text": "Your heart expands gently, {name}, each time you choose truth over fear.", "gender": "female" },
   { "id": "sc_200", "text": "I honor the slow progress that unfolds inside me without applause.", "gender": "female" }
 ]
+}
 
 
 

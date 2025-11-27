@@ -1,6 +1,9 @@
-[
+{
+  "categoryId": "relationships",
+  "affirmations": [
     { "id": "rl_001", "text": "I deserve a love that feels gentle and safe.", "gender": "female" }
-
-
+    
 ]
+
+}
 

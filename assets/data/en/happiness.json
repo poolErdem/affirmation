@@ -1,9 +1,12 @@
-[
+{
+  "categoryId": "happiness",
+  "affirmations": [
   
 { "id": "hp_001", "text": "Joy flows toward me more easily when I make space for simple pleasures.", "gender": "female" },
 { "id": "hp_002", "text": "I attract moments that lift my spirit and brighten my day.", "gender": "female" },
 { "id": "hp_003", "text": "Happiness grows quietly when I appreciate small things with intention.",  "gender": "any" },
 { "id": "hp_004", "text": "My heart opens wider when I let joy in without hesitation.", "gender": "female" },
+
 { "id": "hp_005", "text": "Light finds me easily when I stop dimming myself for the world.", "gender": "female" },
 { "id": "hp_006", "text": "I welcome uplifting energy that fills me with warmth and possibility.", "gender": "female" },
 { "id": "hp_007", "text": "Bright moments follow me when I choose gratitude over worry.",  "gender": "any" },
@@ -211,6 +214,6 @@
 { "id": "hp_199", "text": "Joy reaches me faster when I choose ease over tension.",  "gender": "any" },
 { "id": "hp_200", "text": "Happiness settles into me when I allow warmth, presence, and calm to stay.", "gender": "female" }
 
-
 ]
+}
 
