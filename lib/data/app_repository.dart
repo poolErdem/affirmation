@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:affirmation/constants/constants.dart';
 import 'package:flutter/services.dart';
 
 import 'package:affirmation/data/app_data_bundle.dart';
@@ -11,11 +12,9 @@ class AppRepository {
 
   AppRepository({required this.languageCode});
 
-  String get basePath => "assets/data/$languageCode";
+  String get basePath => "${Constants.dataBasePath}/$languageCode";
 
-  // -------------------------------------------------------------
   // LOAD CATEGORIES + THEMES
-  // -------------------------------------------------------------
   Future<AppDataBundle> load() async {
     print("🔵 [LOAD] Başlıyor → dil: $languageCode");
     print("📁 Base path: $basePath");

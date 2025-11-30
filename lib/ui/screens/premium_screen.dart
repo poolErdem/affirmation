@@ -1,9 +1,8 @@
+import 'dart:ui';
+import 'package:affirmation/models/user_preferences.dart';
 import 'package:flutter/material.dart';
-import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:provider/provider.dart';
-
 import '../../state/app_state.dart';
-import '../../models/user_preferences.dart';
 
 class PremiumScreen extends StatefulWidget {
   const PremiumScreen({super.key});
@@ -13,108 +12,8 @@ class PremiumScreen extends StatefulWidget {
 }
 
 class _PremiumScreenState extends State<PremiumScreen> {
-  String _selectedPlan = "yearly"; // "monthly" | "yearly" | "lifetime"
-  bool _loading = false;
-
-  // ---------------------------------------------------------------
-  // DEBUG MOCK PURCHASE
-  // Bu blok sadece geliştirme/test aşamasında kullanılacak.
-  // PRODUCTION ortamında ASLA aktif hale getirmeyin.
-  // ---------------------------------------------------------------
-  /*
-  Future<void> _simulatePurchase() async {
-    setState(() => _loading = true);
-
-    await Future.delayed(const Duration(seconds: 2));
-
-    if (!mounted) return;
-
-    final appState = context.read<AppState>();
-
-    PremiumPlan? planId;
-    DateTime? expiresAt;
-
-    switch (_selectedPlan) {
-      case "monthly":
-        planId = PremiumPlan.monthly;
-        expiresAt = DateTime.now().add(const Duration(days: 30));
-        break;
-      case "yearly":
-        planId = PremiumPlan.yearly;
-        expiresAt = DateTime.now().add(const Duration(days: 365));
-        break;
-      case "lifetime":
-        planId = PremiumPlan.lifetime;
-        expiresAt = null;
-        break;
-    }
-
-    await appState.updatePremium(
-      active: true,
-      plan: planId!,
-      expiry: expiresAt,
-    );
-
-    if (!mounted) return;
-    setState(() => _loading = false);
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('🎉 Premium Activated! (${_selectedPlan.toUpperCase()})'),
-        backgroundColor: Colors.green,
-        duration: const Duration(seconds: 3),
-      ),
-    );
-
-    await Future.delayed(const Duration(seconds: 1));
-    if (!mounted) return;
-    Navigator.pop(context);
-  }
-  */
-
-  // Store’dan ilgili ProductDetails’i çek
-  ProductDetails? _getProductFor(String planKey) {
-    final purchaseState = context.read<AppState>().purchaseState;
-
-    switch (planKey) {
-      case "monthly":
-        return purchaseState.products[AppState.kMonthly];
-      case "yearly":
-        return purchaseState.products[AppState.kYearly];
-      case "lifetime":
-        return purchaseState.products[AppState.kLifetime];
-    }
-    return null;
-  }
-
-  // Prod’da çalışan gerçek satın alma akışı
-  Future<void> _startPurchase() async {
-    setState(() => _loading = true);
-
-    try {
-      // DEBUG’te fake akış kullanmak istersen:
-      // if (kDebugMode) {
-      //   await _simulatePurchase();
-      //   return;
-      // }
-
-      final product = _getProductFor(_selectedPlan);
-      if (product == null) {
-        print("❌ Product not found for plan: $_selectedPlan");
-        return;
-      }
-
-      final purchaseParam = PurchaseParam(productDetails: product);
-
-      await InAppPurchase.instance.buyNonConsumable(
-        purchaseParam: purchaseParam,
-      );
-    } finally {
-      if (mounted) setState(() => _loading = false);
-    }
-  }
-
-  //────────────────────────────────────────
+  String _selectedPlan = "yearly";
+  final bool _loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -122,17 +21,17 @@ class _PremiumScreenState extends State<PremiumScreen> {
     final isPremium = appState.preferences.isPremiumValid;
 
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: const Color(0xFF0F0F0F),
       body: Stack(
         children: [
-          // Background gradient
+          // BACKGROUND GRADIENT (Soft charcoal)
           Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Colors.black,
-                  Color(0xFF1A1A1A),
-                  Color(0xFF000000),
+                  Color(0xFF0E0E0E),
+                  Color(0xFF141414),
+                  Color(0xFF0D0D0D),
                 ],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -140,186 +39,126 @@ class _PremiumScreenState extends State<PremiumScreen> {
             ),
           ),
 
-          // Glow layers
+          // GOLD GLOW TOP
           Positioned(
-            top: -80,
-            left: -40,
+            top: -120,
+            left: -60,
+            child: Container(
+              width: 320,
+              height: 320,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Color(0xFFFFE7B0),
+              ),
+            ),
+          ),
+
+          // GOLD GLOW BOTTOM RIGHT
+          Positioned(
+            bottom: -100,
+            right: -70,
             child: Container(
               width: 260,
               height: 260,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.amber.withValues(alpha: 0.15),
-              ),
-            ),
-          ),
-          Positioned(
-            bottom: -60,
-            right: -40,
-            child: Container(
-              width: 240,
-              height: 240,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.orange.withValues(alpha: 0.12),
+                color: Color(0xFFFFD9A0),
               ),
             ),
           ),
 
+          // BLUR to soften the glow
+          Positioned.fill(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 140, sigmaY: 140),
+              child: Container(color: Colors.transparent),
+            ),
+          ),
+
+          // MAIN CONTENT
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 22),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Close button
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: IconButton(
-                      onPressed: () => Navigator.pop(context),
-                      icon: const Icon(
-                        Icons.close,
-                        color: Colors.white,
-                        size: 28,
-                      ),
+                  const SizedBox(height: 60),
+
+                  // PREMIUM BADGE (Soft gold + blur circle)
+                  Center(
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Container(
+                          width: 110,
+                          height: 110,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: const Color(0xFFFFF3C1),
+                          ),
+                        ),
+                        BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+                          child: Container(
+                            width: 110,
+                            height: 110,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              gradient: const LinearGradient(
+                                colors: [
+                                  Color(0xFFFFF2C0),
+                                  Color(0xFFFFCE80),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        const Icon(Icons.workspace_premium,
+                            color: Colors.white, size: 44),
+                      ],
                     ),
                   ),
+
+                  const SizedBox(height: 24),
+
+                  // TITLE
+                  Text(
+                    isPremium ? "You're Premium ✨" : "Go Premium",
+                    style: const TextStyle(
+                      color: Color(0xFFEAEAEA),
+                      fontSize: 32,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+
                   const SizedBox(height: 10),
 
-                  // Premium Badge
-                  Center(
-                    child: Container(
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        gradient: const LinearGradient(
-                          colors: [Color(0xFFFFD700), Color(0xFFFFA500)],
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.amber.withValues(alpha: 0.5),
-                            blurRadius: 30,
-                            spreadRadius: 6,
-                          ),
-                        ],
-                      ),
-                      child: const Icon(
-                        Icons.workspace_premium,
-                        color: Colors.white,
-                        size: 48,
-                      ),
+                  Text(
+                    isPremium
+                        ? "Enjoy full access forever."
+                        : "Unlock all content, no ads.",
+                    style: const TextStyle(
+                      color: Color(0xFFBDBDBD),
+                      fontSize: 16,
                     ),
                   ),
 
-                  const SizedBox(height: 20),
-
-                  // Title
-                  Center(
-                    child: Text(
-                      isPremium ? "You're Premium ✨" : "Go Premium",
-                      style: const TextStyle(
-                        fontSize: 32,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                  ),
-
-                  const SizedBox(height: 8),
-
-                  Center(
-                    child: Text(
-                      isPremium
-                          ? "Enjoy everything without limits."
-                          : "Unlock all features. No ads. All themes.",
-                      style: TextStyle(
-                        color: Colors.white.withValues(alpha: 0.7),
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-
-                  const SizedBox(height: 32),
+                  const SizedBox(height: 36),
 
                   Expanded(
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
-                          // BENEFITS LIST
-                          _benefit(
-                              "All Premium Themes and Categories unlocked"),
+                          _benefit("All Categories and Themes"),
                           _benefit("Unlimited Favorites"),
-                          _benefit("Remove Ads"),
                           _benefit("Voice Affirmations"),
-                          _benefit("Early Access to New Features"),
-
                           const SizedBox(height: 30),
-
                           if (!isPremium) ...[
+                            _buildPlan("monthly", "Monthly", "₺99.99"),
                             _buildPlan(
-                              "monthly",
-                              "Monthly",
-                              "₺99.99 / month",
-                            ),
-                            _buildPlan(
-                              "yearly",
-                              "Yearly (Best Deal)",
-                              "₺549.99 / year",
-                            ),
-                            _buildPlan(
-                              "lifetime",
-                              "Lifetime Access",
-                              "₺999.99 one-time",
-                            ),
+                                "yearly", "Yearly (Best Deal)", "₺549.99"),
                             const SizedBox(height: 20),
-
-                            // BUY BUTTON
-                            Container(
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(14),
-                                gradient: const LinearGradient(
-                                  colors: [
-                                    Color(0xFFFFD700),
-                                    Color(0xFFFFA500),
-                                  ],
-                                ),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.amber.withValues(alpha: 0.4),
-                                    blurRadius: 18,
-                                    spreadRadius: 2,
-                                  ),
-                                ],
-                              ),
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.transparent,
-                                  shadowColor: Colors.transparent,
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 16,
-                                  ),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(14),
-                                  ),
-                                ),
-                                onPressed: _loading ? null : _startPurchase,
-                                child: _loading
-                                    ? const CircularProgressIndicator(
-                                        color: Colors.white,
-                                      )
-                                    : const Text(
-                                        "Continue",
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                              ),
-                            ),
-
-                            const SizedBox(height: 12),
-
+                            _buyButton(),
+                            const SizedBox(height: 10),
                             TextButton(
                               onPressed: () {
                                 context
@@ -327,11 +166,10 @@ class _PremiumScreenState extends State<PremiumScreen> {
                                     .purchaseState
                                     .restorePurchases();
                               },
-                              child: Text(
+                              child: const Text(
                                 "Restore Purchases",
                                 style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.white.withValues(alpha: 0.7),
+                                  color: Color(0xFFCECECE),
                                   decoration: TextDecoration.underline,
                                 ),
                               ),
@@ -346,27 +184,65 @@ class _PremiumScreenState extends State<PremiumScreen> {
             ),
           ),
 
-          if (_loading) _loadingOverlay(),
+          // CLOSE BUTTON - Stack'in en üstünde, SafeArea içinde
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 10, right: 22),
+              child: Align(
+                alignment: Alignment.topRight,
+                child: GestureDetector(
+                  onTap: () => Navigator.pop(context),
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: const Color(0xAA000000),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.3),
+                          blurRadius: 8,
+                          spreadRadius: 2,
+                        ),
+                      ],
+                    ),
+                    child: const Icon(
+                      Icons.close,
+                      color: Color(0xFFFFFFFF),
+                      size: 24,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+
+          // LOADING OVERLAY
+          if (_loading)
+            Container(
+              color: const Color(0x88000000),
+              child: const Center(
+                child: CircularProgressIndicator(color: Colors.white),
+              ),
+            ),
         ],
       ),
     );
   }
 
-  //────────────────────────────────────────
-
+  //─────────────────────────────── BENEFIT ITEM
   Widget _benefit(String text) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
         children: [
-          const Icon(Icons.check_circle, color: Colors.amber, size: 22),
-          const SizedBox(width: 14),
+          const Icon(Icons.check_rounded, color: Color(0xFFFFD27A), size: 22),
+          const SizedBox(width: 12),
           Expanded(
             child: Text(
               text,
               style: const TextStyle(
-                color: Colors.white,
-                fontSize: 16,
+                color: Color(0xFFEFEFEF),
+                fontSize: 15,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -376,53 +252,48 @@ class _PremiumScreenState extends State<PremiumScreen> {
     );
   }
 
-  Widget _buildPlan(
-    String id,
-    String title,
-    String price, {
-    bool highlight = false,
-  }) {
-    final bool selected = (_selectedPlan == id);
+  //─────────────────────────────── PLAN CARD
+  Widget _buildPlan(String id, String title, String price) {
+    final selected = (_selectedPlan == id);
 
     return GestureDetector(
       onTap: () => setState(() => _selectedPlan = id),
-      child: Container(
-        margin: const EdgeInsets.only(bottom: 14),
-        padding: const EdgeInsets.all(18),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 180),
+        margin: const EdgeInsets.only(bottom: 16),
+        padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
-          gradient: highlight
-              ? const LinearGradient(
-                  colors: [Color(0xFFFFD700), Color(0xFFFFA500)],
-                )
-              : null,
-          color: highlight ? null : Colors.white.withValues(alpha: 0.07),
+          borderRadius: BorderRadius.circular(18),
+          color: selected ? const Color(0xFFFFE8B5) : const Color(0x11FFFFFF),
           border: Border.all(
-            color: selected ? Colors.amber : Colors.white12,
-            width: 1.4,
+            color: selected ? const Color(0xFFFFD27A) : const Color(0x22FFFFFF),
+            width: 1.3,
           ),
-          boxShadow: highlight
+          boxShadow: selected
               ? [
-                  BoxShadow(
-                    color: Colors.amber.withValues(alpha: 0.4),
+                  const BoxShadow(
+                    color: Color(0x44FFC978),
                     blurRadius: 22,
-                    spreadRadius: 2,
+                    spreadRadius: 1,
                   ),
                 ]
-              : null,
+              : [],
         ),
         child: Row(
           children: [
             Icon(
               selected ? Icons.radio_button_checked : Icons.radio_button_off,
-              color: selected ? Colors.white : Colors.white70,
+              color:
+                  selected ? const Color(0xFF4A3D2F) : const Color(0xFFCCCCCC),
             ),
             const SizedBox(width: 14),
             Expanded(
               child: Text(
                 title,
-                style: const TextStyle(
-                  color: Colors.white,
+                style: TextStyle(
+                  color: selected
+                      ? const Color(0xFF3A2E20)
+                      : const Color(0xFFEAEAEA),
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
                 ),
@@ -430,8 +301,10 @@ class _PremiumScreenState extends State<PremiumScreen> {
             ),
             Text(
               price,
-              style: const TextStyle(
-                color: Colors.white,
+              style: TextStyle(
+                color: selected
+                    ? const Color(0xFF3A2E20)
+                    : const Color(0xFFEAEAEA),
                 fontSize: 15,
               ),
             ),
@@ -441,11 +314,37 @@ class _PremiumScreenState extends State<PremiumScreen> {
     );
   }
 
-  Widget _loadingOverlay() {
+  //─────────────────────────────── BUY BUTTON
+  Widget _buyButton() {
     return Container(
-      color: Colors.black.withValues(alpha: 0.4),
-      child: const Center(
-        child: CircularProgressIndicator(color: Colors.white),
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        gradient: const LinearGradient(
+          colors: [
+            Color(0xFFFFF2C0),
+            Color(0xFFFFCE80),
+          ],
+        ),
+      ),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+        ),
+        onPressed: _loading ? null : () {},
+        child: const Text(
+          "Continue",
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF3A2E20),
+          ),
+        ),
       ),
     );
   }

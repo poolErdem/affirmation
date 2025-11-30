@@ -34,97 +34,123 @@ class _ThemeScreenState extends State<ThemeScreen> {
         backgroundColor: const Color(0xfff3ece7),
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.close, color: Colors.black),
+          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black87),
           onPressed: () => Navigator.pop(context),
         ),
         title: Transform.translate(
-          offset: const Offset(-14, 0),
+          offset: const Offset(-10, 0),
           child: Text(
             t.themes,
             style: const TextStyle(
               fontFamily: "Poppins",
-              color: Colors.black,
-              fontSize: 21,
-              fontWeight: FontWeight.w700,
-              letterSpacing: -0.2,
+              fontSize: 22,
+              fontWeight: FontWeight.w800,
+              color: Colors.black87,
             ),
           ),
         ),
       ),
-
-      /// BODY
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      body: Stack(
         children: [
-          /// TAGLINE
-          Padding(
-            padding: const EdgeInsets.only(left: 18, right: 18, top: 4),
-            child: Text(
-              "✨ Customize the mood of your experience",
-              style: TextStyle(
-                fontFamily: "Poppins",
-                fontSize: 14.5,
-                fontWeight: FontWeight.w500,
-                color: Colors.black.withValues(alpha: 0.55),
+          // --- PREMİUM BACKGROUND NOISE (OPACITY YOK) ---
+          Positioned.fill(
+            child: IgnorePointer(
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      const Color(0xfff3ece7),
+                      const Color(0xfff3ece7).withRed(245),
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
+                ),
               ),
             ),
           ),
 
-          const SizedBox(height: 16),
-
-          /// GROUP TABS
-          SizedBox(
-            height: 44,
-            child: ListView.separated(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              scrollDirection: Axis.horizontal,
-              itemCount: groups.length,
-              separatorBuilder: (_, __) => const SizedBox(width: 10),
-              itemBuilder: (_, i) {
-                final g = groups[i];
-                final isSelected = g == selectedGroup;
-
-                return GestureDetector(
-                  onTap: () => setState(() => selectedGroup = g),
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 220),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 18,
-                      vertical: 8,
-                    ),
-                    decoration: BoxDecoration(
-                      color: isSelected
-                          ? Colors.green
-                          : Colors.white.withValues(alpha: 0.65),
-                      borderRadius: BorderRadius.circular(20),
-                      boxShadow: isSelected
-                          ? [
-                              BoxShadow(
-                                color: Colors.black.withValues(alpha: 0.10),
-                                blurRadius: 10,
-                                offset: const Offset(0, 4),
-                              )
-                            ]
-                          : null,
-                    ),
-                    child: Text(
-                      g,
-                      style: TextStyle(
-                        fontFamily: "Poppins",
-                        color: isSelected ? Colors.white : Colors.black87,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Subtitle
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 6, 20, 0),
+                child: Text(
+                  "✨ Customize the mood of your experience",
+                  style: TextStyle(
+                    fontFamily: "Poppins",
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black.withAlpha(120),
                   ),
-                );
-              },
-            ),
+                ),
+              ),
+
+              const SizedBox(height: 16),
+
+              // GROUP TABS (PREMIUM)
+              SizedBox(
+                height: 46,
+                child: ListView.separated(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  scrollDirection: Axis.horizontal,
+                  itemCount: groups.length,
+                  separatorBuilder: (_, __) => const SizedBox(width: 10),
+                  itemBuilder: (_, i) {
+                    final g = groups[i];
+                    final isSelected = g == selectedGroup;
+
+                    return GestureDetector(
+                      onTap: () => setState(() => selectedGroup = g),
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 180),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 9),
+                        decoration: BoxDecoration(
+                          color: isSelected
+                              ? Colors.black
+                              : const Color(0xfffcfaf8),
+                          borderRadius: BorderRadius.circular(22),
+                          border: Border.all(
+                            color: isSelected
+                                ? const Color(0xFFD4AF37) // gold
+                                : Colors.black26,
+                            width: isSelected ? 2 : 1.3,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: isSelected
+                                  ? const Color(0xFFD4AF37)
+                                  : Colors.black.withAlpha(40),
+                              blurRadius: isSelected ? 14 : 6,
+                              offset: const Offset(0, 3),
+                            )
+                          ],
+                        ),
+                        child: Text(
+                          g,
+                          style: TextStyle(
+                            fontFamily: "Poppins",
+                            fontSize: 14.5,
+                            color: isSelected
+                                ? const Color(0xFFD4AF37)
+                                : Colors.black87,
+                            fontWeight:
+                                isSelected ? FontWeight.w700 : FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+
+              const SizedBox(height: 16),
+
+              Expanded(child: _buildGrid(filteredThemes, appState)),
+            ],
           ),
-
-          const SizedBox(height: 14),
-
-          /// THEMES GRID
-          Expanded(child: _buildGrid(filteredThemes, appState)),
         ],
       ),
     );
@@ -155,32 +181,30 @@ class _ThemeScreenState extends State<ThemeScreen> {
               );
               return;
             }
-
             appState.setSelectedTheme(item.id);
             Navigator.pop(context);
           },
           child: AnimatedScale(
-            scale: isSelected ? 1.05 : 1.0,
-            duration: const Duration(milliseconds: 160),
+            scale: isSelected ? 1.08 : 1.0,
+            duration: const Duration(milliseconds: 150),
             child: Stack(
               children: [
-                /// CARD BACKGROUND
+                // THEME CARD
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(18),
                     border: Border.all(
                       color: isSelected
-                          ? Colors.green
+                          ? const Color(0xFFD4AF37) // gold border
                           : isPremium
                               ? Colors.amber.shade600
                               : Colors.transparent,
-                      width: isSelected || isPremium ? 2 : 0,
+                      width: isSelected ? 2.4 : (isPremium ? 2 : 1),
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.07),
+                        color: Colors.black.withAlpha(40),
                         blurRadius: 12,
-                        spreadRadius: 1,
                         offset: const Offset(0, 4),
                       ),
                     ],
@@ -194,7 +218,7 @@ class _ThemeScreenState extends State<ThemeScreen> {
                       gradient: LinearGradient(
                         colors: [
                           Color(0x00000000),
-                          Color(0x33000000),
+                          Color(0x55000000),
                         ],
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
@@ -203,7 +227,7 @@ class _ThemeScreenState extends State<ThemeScreen> {
                   ),
                 ),
 
-                /// PREMIUM LOCK
+                // LOCK BADGE (ESKİSİ AYNI)
                 if (isPremium)
                   Positioned(
                     top: 8,
@@ -211,42 +235,34 @@ class _ThemeScreenState extends State<ThemeScreen> {
                     child: Icon(
                       Icons.lock,
                       color: Colors.amber.shade600,
-                      size: 22,
+                      size: 26,
                     ),
                   ),
 
-                /// SELECTED CHECK
+                // SELECTED CHECK (PREMIUM)
                 if (isSelected)
                   Positioned(
                     top: 8,
                     right: 8,
-                    child: Container(
-                      padding: const EdgeInsets.all(3),
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.white,
-                      ),
-                      child: const Icon(
-                        Icons.check_circle,
-                        color: Colors.green,
-                        size: 22,
-                      ),
+                    child: Icon(
+                      Icons.check_circle,
+                      color: const Color(0xFFD4AF37),
+                      size: 26,
                     ),
                   ),
 
-                /// GROUP LABEL
                 Center(
                   child: Text(
                     item.group,
                     style: const TextStyle(
                       fontFamily: "Poppins",
                       fontSize: 17,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w800,
                       color: Colors.white,
                       shadows: [
                         Shadow(
                           color: Colors.black,
-                          blurRadius: 8,
+                          blurRadius: 10,
                           offset: Offset(0, 2),
                         )
                       ],

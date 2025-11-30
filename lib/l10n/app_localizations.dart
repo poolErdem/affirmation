@@ -168,7 +168,7 @@ abstract class AppLocalizations {
   /// No description provided for @preferences.
   ///
   /// In en, this message translates to:
-  /// **'Preferences'**
+  /// **'Content Preferences'**
   String get preferences;
 
   /// No description provided for @categories.
@@ -224,6 +224,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Terms & Conditions'**
   String get terms;
+
+  /// No description provided for @general.
+  ///
+  /// In en, this message translates to:
+  /// **'General'**
+  String get general;
+
+  /// No description provided for @about.
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get about;
 
   /// No description provided for @back.
   ///

@@ -45,13 +45,13 @@ class ReminderModel {
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'categoryIds': categoryIds.toList(),
+        'categoryIds': categoryIds.toList(), // ✅ List<String>
         'startHour': startTime.hour,
         'startMinute': startTime.minute,
         'endHour': endTime.hour,
         'endMinute': endTime.minute,
         'repeatCount': repeatCount,
-        'repeatDays': repeatDays.toList(),
+        'repeatDays': repeatDays.toList(), // ✅ List<int>
         'enabled': enabled,
         'isPremium': isPremium,
       };
@@ -59,7 +59,10 @@ class ReminderModel {
   factory ReminderModel.fromJson(Map<String, dynamic> json) {
     return ReminderModel(
       id: json['id'] as String,
-      categoryIds: Set<String>.from(json['categoryIds'] ?? const []),
+      categoryIds: (json['categoryIds'] as List<dynamic>?)
+              ?.map((e) => e.toString())
+              .toSet() ??
+          <String>{}, // ✅ Güvenli dönüşüm
       startTime: TimeOfDay(
         hour: json['startHour'] as int,
         minute: json['startMinute'] as int,
@@ -69,7 +72,10 @@ class ReminderModel {
         minute: json['endMinute'] as int,
       ),
       repeatCount: json['repeatCount'] as int,
-      repeatDays: Set<int>.from(json['repeatDays'] ?? const []),
+      repeatDays: (json['repeatDays'] as List<dynamic>?)
+              ?.map((e) => e as int)
+              .toSet() ??
+          <int>{}, // ✅ Güvenli dönüşüm
       enabled: json['enabled'] as bool? ?? true,
       isPremium: json['isPremium'] as bool? ?? false,
     );

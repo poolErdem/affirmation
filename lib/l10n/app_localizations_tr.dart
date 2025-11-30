@@ -42,7 +42,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get goPremium => 'Premium\'a Geç';
 
   @override
-  String get preferences => 'Tercihler';
+  String get preferences => 'İçerik Tercihleri';
 
   @override
   String get categories => 'Kategoriler';
@@ -70,6 +70,12 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get terms => 'Şartlar ve Koşullar';
+
+  @override
+  String get general => 'Genel';
+
+  @override
+  String get about => 'Hakkında';
 
   @override
   String get back => 'Geri';

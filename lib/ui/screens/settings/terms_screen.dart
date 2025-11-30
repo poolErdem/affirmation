@@ -14,7 +14,7 @@ class TermsScreen extends StatelessWidget {
         backgroundColor: const Color(0xfff3ece7),
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.close, color: Colors.black87),
+          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black87),
           onPressed: () => Navigator.pop(context),
         ),
         title: Transform.translate(

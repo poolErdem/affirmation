@@ -42,7 +42,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get goPremium => 'Go Premium';
 
   @override
-  String get preferences => 'Preferences';
+  String get preferences => 'Content Preferences';
 
   @override
   String get categories => 'Categories';
@@ -70,6 +70,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get terms => 'Terms & Conditions';
+
+  @override
+  String get general => 'General';
+
+  @override
+  String get about => 'About';
 
   @override
   String get back => 'Back';

@@ -2,9 +2,7 @@ class Affirmation {
   final String id;
   final String text;
   final String categoryId;
-  final List<String> preferences; // content preferences
   final String language;
-  final bool isPremium;
   final String gender;
 
   /// "female", "male", "any"
@@ -13,9 +11,7 @@ class Affirmation {
     required this.id,
     required this.text,
     required this.categoryId,
-    required this.preferences,
     required this.language,
-    required this.isPremium,
     required this.gender,
   });
 
@@ -24,9 +20,7 @@ class Affirmation {
       id: json['id'] as String,
       text: json['text'] as String,
       categoryId: json['categoryId'] as String,
-      preferences: List<String>.from(json['preferences'] ?? const <String>[]),
       language: json['language'] as String? ?? 'en',
-      isPremium: json['isPremium'] as bool? ?? false,
 
       /// Eğer JSON içinde gender yoksa default: "any"
       gender: json['gender'] as String? ?? "any",
@@ -37,10 +31,8 @@ class Affirmation {
         'id': id,
         'text': text,
         'categoryId': categoryId,
-        'preferences': preferences,
         'language': language,
-        'isPremium': isPremium,
-        'gender': gender,
+        'gender': gender
       };
 
   String renderWithName(String userName) {

@@ -3,7 +3,6 @@ import 'package:affirmation/models/reminder.dart';
 import 'package:affirmation/models/user_preferences.dart';
 import 'package:affirmation/state/app_state.dart';
 import 'package:affirmation/state/reminder_state.dart';
-import 'package:affirmation/ui/widgets/time_box.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -162,7 +161,7 @@ class _ReminderEditScreenState extends State<ReminderEditScreen> {
 
     final reminderState = context.read<ReminderState>();
     final updated = widget.reminder.copyWith(
-      categoryIds: _categoryIds,
+      categoryIds: {"happiness"},
       startTime: _startTime,
       endTime: _endTime,
       repeatCount: _repeatCount,
@@ -199,7 +198,7 @@ class _ReminderEditScreenState extends State<ReminderEditScreen> {
 
     final categories = appState.categories;
 
-    const dayLabels = ["M", "T", "W", "T", "F", "S", "S"];
+    const labels = ["M", "T", "W", "T", "F", "S", "S"];
 
     return Scaffold(
       backgroundColor: const Color(0xfff3ece7),
@@ -207,7 +206,7 @@ class _ReminderEditScreenState extends State<ReminderEditScreen> {
         backgroundColor: const Color(0xfff3ece7),
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.close, color: Colors.black),
+          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black),
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
@@ -235,249 +234,325 @@ class _ReminderEditScreenState extends State<ReminderEditScreen> {
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 10, 16, 30),
         children: [
-          // CATEGORY
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: categories.map((c) {
-              final selected = _categoryIds.contains(c.id);
-              final locked = isCategoryLocked && c.id != "self_care";
+          _buildTypeSelector(t, isPremiumUser),
+          const SizedBox(height: 14),
+          _buildRepeatCountBox(),
+          const SizedBox(height: 14),
+          _buildTimeAdjustBox(
+            label: "Start at",
+            time: _startTime,
+            onMinus: () => setState(() {
+              int h = _startTime.hour;
+              int m = _startTime.minute - 1;
+
+              if (m < 0) {
+                m = 59;
+                h = (h - 1) % 24;
+              }
+              _startTime = TimeOfDay(hour: h, minute: m);
+            }),
+            onPlus: () => setState(() {
+              int h = _startTime.hour;
+              int m = _startTime.minute + 1;
+
+              if (m > 59) {
+                m = 0;
+                h = (h + 1) % 24;
+              }
+              _startTime = TimeOfDay(hour: h, minute: m);
+            }),
+          ),
+          const SizedBox(height: 14),
+          _buildTimeAdjustBox(
+            label: "End at",
+            time: _endTime,
+            onMinus: () {
+              setState(() {
+                int h = _endTime.hour;
+                int m = _endTime.minute - 1;
+
+                if (m < 0) {
+                  m = 59;
+                  h = (h - 1) % 24;
+                }
+
+                _endTime = TimeOfDay(hour: h, minute: m);
+              });
+            },
+            onPlus: () {
+              setState(() {
+                int h = _endTime.hour;
+                int m = _endTime.minute + 1;
+
+                if (m > 59) {
+                  m = 0;
+                  h = (h + 1) % 24;
+                }
+
+                _endTime = TimeOfDay(hour: h, minute: m);
+              });
+            },
+          ),
+          const SizedBox(height: 14),
+          _buildRepeatDays(),
+          const SizedBox(height: 14),
+          _buildSoundSelector(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTypeSelector(AppLocalizations t, bool isPremiumUser) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(18),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Text(
+            "Type of affirmations",
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
+            ),
+          ),
+          GestureDetector(
+            onTap: isPremiumUser
+                ? () {
+                    // TODO: kategori seçme ekranına git
+                  }
+                : null,
+            child: Row(
+              children: [
+                Text(
+                  _categoryIds.isEmpty ? "General" : "Selected",
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: isPremiumUser ? Colors.black : Colors.grey.shade400,
+                  ),
+                ),
+                const SizedBox(width: 6),
+                Icon(
+                  Icons.arrow_forward_ios,
+                  size: 14,
+                  color: isPremiumUser ? Colors.black : Colors.grey.shade400,
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRepeatCountBox() {
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(18),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            "How many",
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _roundButton("-", () {
+                setState(() {
+                  if (_repeatCount > 1) _repeatCount--;
+                });
+              }),
+              Text(
+                "${_repeatCount}x",
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.black,
+                ),
+              ),
+              _roundButton("+", () {
+                setState(() {
+                  if (_repeatCount < 30) _repeatCount++;
+                });
+              }),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTimeAdjustBox({
+    required String label,
+    required TimeOfDay time,
+    required VoidCallback onMinus,
+    required VoidCallback onPlus,
+  }) {
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(18),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            label,
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _roundButton("-", onMinus),
+              Text(
+                _formatTime(time),
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.black,
+                ),
+              ),
+              _roundButton("+", onPlus),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _roundButton(String label, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: 40,
+        height: 40,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: Colors.black,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Text(
+          label,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildRepeatDays() {
+    const labels = ["S", "M", "T", "W", "T", "F", "S"];
+
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(18),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            "Repeat",
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
+            ),
+          ),
+          const SizedBox(height: 14),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: List.generate(7, (i) {
+              final day = i + 1;
+              final selected = _repeatDays.contains(day);
 
               return GestureDetector(
-                onTap: locked
-                    ? null
-                    : () {
-                        setState(() {
-                          if (selected) {
-                            _categoryIds.remove(c.id);
-                          } else {
-                            _categoryIds.add(c.id);
-                          }
-                        });
-                      },
+                onTap: () => _toggleDay(day),
                 child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                  width: 42,
+                  height: 42,
+                  alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: locked
-                        ? Colors.grey.shade300
-                        : selected
-                            ? Colors.black
-                            : Colors.white,
+                    color: selected ? const Color(0xffe6c5b9) : Colors.white,
+                    borderRadius: BorderRadius.circular(21),
                     border: Border.all(
-                      color: locked
-                          ? Colors.grey.shade400
-                          : selected
-                              ? Colors.black
-                              : Colors.black26,
+                      color: selected ? Colors.transparent : Colors.black26,
                     ),
-                    borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
-                    c.name,
+                    labels[i],
                     style: TextStyle(
-                      color: locked
-                          ? Colors.grey.shade500
-                          : selected
-                              ? Colors.white
-                              : Colors.black,
+                      fontSize: 14,
                       fontWeight: FontWeight.w600,
-                      fontSize: 13,
+                      color: selected ? Colors.black : Colors.black87,
                     ),
                   ),
                 ),
               );
-            }).toList(),
+            }),
           ),
+        ],
+      ),
+    );
+  }
 
-          const SizedBox(height: 14),
-
-          // TIME RANGE
-          Container(
-            padding: const EdgeInsets.all(14),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(18),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "Time Range",
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  children: [
-                    Expanded(
-                      child: TimeBox(
-                        label: "Start",
-                        value: _formatTime(_startTime),
-                        onTap: () => _pickTime(isStart: true),
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: TimeBox(
-                        label: "End",
-                        value: _formatTime(_endTime),
-                        onTap: () => _pickTime(isStart: false),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                const Text(
-                  "We’ll spread your affirmations between these hours.",
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.black54,
-                  ),
-                ),
-              ],
+  Widget _buildSoundSelector() {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(18),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Text(
+            "Sound",
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
             ),
           ),
-
-          const SizedBox(height: 14),
-
-          // REPEAT COUNT
-          Container(
-            padding: const EdgeInsets.all(14),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(18),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "How many times per day?",
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  "$_repeatCount times",
-                  style: const TextStyle(
-                    fontSize: 13,
-                    color: Colors.black87,
-                  ),
-                ),
-                Slider(
-                  value: _repeatCount.toDouble(),
-                  min: 1,
-                  max: 30,
-                  divisions: 29,
-                  onChanged: (v) {
-                    setState(() {
-                      _repeatCount = v.round();
-                    });
-                  },
-                ),
-              ],
-            ),
-          ),
-
-          const SizedBox(height: 14),
-
-          // DAYS
-          Container(
-            padding: const EdgeInsets.all(14),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(18),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "Repeat on",
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: List.generate(7, (index) {
-                    final day = index + 1; // 1..7
-                    final selected = _repeatDays.contains(day);
-
-                    return GestureDetector(
-                      onTap: () => _toggleDay(day),
-                      child: Container(
-                        width: 34,
-                        height: 34,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color:
-                              selected ? Colors.black : const Color(0xFFE0D6CE),
-                          borderRadius: BorderRadius.circular(17),
-                        ),
-                        child: Text(
-                          dayLabels[index],
-                          style: TextStyle(
-                            color: selected ? Colors.white : Colors.black,
-                            fontSize: 13,
-                            fontWeight:
-                                selected ? FontWeight.w600 : FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    );
-                  }),
-                ),
-              ],
-            ),
-          ),
-
-          const SizedBox(height: 14),
-
-          // ENABLE TOGGLE
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(18),
-            ),
-            child: SwitchListTile(
-              contentPadding: EdgeInsets.zero,
-              title: const Text(
-                "Enabled",
+          Row(
+            children: const [
+              Text(
+                "Positive",
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
                   color: Colors.black,
                 ),
               ),
-              value: _enabled,
-              onChanged: (v) {
-                setState(() {
-                  _enabled = v;
-                });
-              },
-            ),
+              SizedBox(width: 6),
+              Icon(Icons.arrow_forward_ios, size: 14, color: Colors.black),
+            ],
           ),
-
-          if (!reminderState.canAddReminder && widget.isNew) ...[
-            const SizedBox(height: 10),
-            const Text(
-              "Tip: Premium users can create up to 5 reminders.",
-              style: TextStyle(
-                fontSize: 12,
-                color: Colors.black54,
-              ),
-            ),
-          ],
         ],
       ),
     );

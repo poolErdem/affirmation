@@ -1,9 +1,10 @@
+import 'package:affirmation/constants/constants.dart';
+import 'package:affirmation/models/user_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:affirmation/state/app_state.dart';
 import 'package:affirmation/l10n/app_localizations.dart';
 import 'package:affirmation/ui/screens/premium_screen.dart';
-import 'package:affirmation/models/user_preferences.dart';
 
 class CategoriesScreen extends StatelessWidget {
   const CategoriesScreen({super.key});
@@ -21,7 +22,7 @@ class CategoriesScreen extends StatelessWidget {
         backgroundColor: const Color(0xfff5f2ee),
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.close, color: Colors.black87),
+          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black87),
           onPressed: () => Navigator.pop(context),
         ),
         title: Transform.translate(
@@ -38,8 +39,6 @@ class CategoriesScreen extends StatelessWidget {
           ),
         ),
       ),
-
-      /// 🔥 TAGLINE (premium vibe)
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -52,13 +51,11 @@ class CategoriesScreen extends StatelessWidget {
                 fontFamily: "Poppins",
                 fontSize: 14.5,
                 fontWeight: FontWeight.w500,
-                color: Colors.black.withValues(alpha: 0.55),
+                color: Colors.black.withAlpha(140),
               ),
             ),
           ),
           const SizedBox(height: 14),
-
-          /// GRID
           Expanded(
             child: GridView.builder(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
@@ -76,7 +73,7 @@ class CategoriesScreen extends StatelessWidget {
                     !appState.preferences.isPremiumValid;
 
                 return GestureDetector(
-                  onTap: () async {
+                  onTap: () {
                     if (isPremiumLocked) {
                       Navigator.push(
                         context,
@@ -85,29 +82,31 @@ class CategoriesScreen extends StatelessWidget {
                       );
                       return;
                     }
-                    await appState.setActiveCategory(category.id);
-                    if (context.mounted) Navigator.pop(context);
+
+                    // 🔥 Sadece ID'yi güncelle, veri yükleme yapmadan
+                    appState.setActiveCategoryIdOnly(category.id);
+                    Navigator.pop(context);
                   },
                   child: AnimatedScale(
-                    scale: isSelected ? 1.03 : 1.0,
-                    duration: const Duration(milliseconds: 180),
+                    scale: isSelected ? 1.05 : 1.0,
+                    duration: const Duration(milliseconds: 190),
                     curve: Curves.easeOut,
                     child: Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(18),
+                        borderRadius: BorderRadius.circular(20),
                         color: Colors.white,
                         border: Border.all(
                           color: isSelected
-                              ? const Color(0xFF40916C)
+                              ? const Color(0xFFC9A85D)
                               : Colors.transparent,
                           width: 2,
                         ),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.06),
-                            blurRadius: 12,
+                            color: Colors.black.withAlpha(35),
+                            blurRadius: 14,
                             spreadRadius: 1,
-                            offset: const Offset(0, 4),
+                            offset: const Offset(0, 5),
                           ),
                         ],
                       ),
@@ -116,10 +115,9 @@ class CategoriesScreen extends StatelessWidget {
                           Expanded(
                             child: Stack(
                               children: [
-                                /// CATEGORY IMAGE
                                 ClipRRect(
                                   borderRadius: const BorderRadius.vertical(
-                                    top: Radius.circular(18),
+                                    top: Radius.circular(20),
                                   ),
                                   child: Container(
                                     decoration: BoxDecoration(
@@ -129,36 +127,37 @@ class CategoriesScreen extends StatelessWidget {
                                       ),
                                     ),
                                     child: Container(
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         gradient: LinearGradient(
-                                          colors: [
-                                            Colors.transparent,
-                                            Colors.black
-                                                .withValues(alpha: 0.28),
-                                          ],
                                           begin: Alignment.topCenter,
                                           end: Alignment.bottomCenter,
+                                          colors: [
+                                            Color(0x00000000),
+                                            Color(0x33000000),
+                                          ],
                                         ),
                                       ),
                                     ),
                                   ),
                                 ),
 
+                                // LIMITED LABEL
                                 if ((category.id ==
-                                            AppState.generalCategoryId ||
+                                            Constants.generalCategoryId ||
                                         category.id ==
-                                            AppState.favoritesCategoryId ||
-                                        category.id == AppState.myCategoryId) &&
+                                            Constants.favoritesCategoryId ||
+                                        category.id ==
+                                            Constants.myCategoryId) &&
                                     !appState.preferences.isPremiumValid)
                                   Positioned(
-                                    top: 10, //konum
+                                    top: 10,
                                     left: 10,
                                     child: Container(
                                       padding: const EdgeInsets.symmetric(
-                                          horizontal: 8, vertical: 5),
+                                          horizontal: 10, vertical: 6),
                                       decoration: BoxDecoration(
                                         color: Colors.orange.shade700,
-                                        borderRadius: BorderRadius.circular(12),
+                                        borderRadius: BorderRadius.circular(14),
                                       ),
                                       child: const Text(
                                         "LIMITED",
@@ -172,17 +171,17 @@ class CategoriesScreen extends StatelessWidget {
                                     ),
                                   ),
 
-                                /// 🔒 LOCKED BADGE — premium görünüm
+                                // LOCKED LABEL
                                 if (isPremiumLocked)
                                   Positioned(
-                                    bottom: 10,
-                                    left: 10,
+                                    bottom: 12,
+                                    left: 12,
                                     child: Container(
                                       padding: const EdgeInsets.symmetric(
-                                          horizontal: 8, vertical: 5),
+                                          horizontal: 10, vertical: 6),
                                       decoration: BoxDecoration(
                                         color: Colors.amber.shade700,
-                                        borderRadius: BorderRadius.circular(12),
+                                        borderRadius: BorderRadius.circular(14),
                                       ),
                                       child: const Text(
                                         "UNLOCK",
@@ -196,7 +195,7 @@ class CategoriesScreen extends StatelessWidget {
                                     ),
                                   ),
 
-                                /// SELECTED BADGE
+                                // SELECTED CHECK
                                 if (isSelected)
                                   Positioned(
                                     top: 10,
@@ -209,7 +208,7 @@ class CategoriesScreen extends StatelessWidget {
                                       ),
                                       child: const Icon(
                                         Icons.check_circle,
-                                        color: Color(0xFF2D6A4F),
+                                        color: Color(0xFFC9A85D),
                                         size: 22,
                                       ),
                                     ),
@@ -217,8 +216,6 @@ class CategoriesScreen extends StatelessWidget {
                               ],
                             ),
                           ),
-
-                          /// CATEGORY NAME
                           const SizedBox(height: 10),
                           Padding(
                             padding:
@@ -232,7 +229,7 @@ class CategoriesScreen extends StatelessWidget {
                                 fontSize: 15.5,
                                 fontWeight: FontWeight.w600,
                                 height: 1.25,
-                                color: Colors.black.withValues(alpha: 0.85),
+                                color: Colors.black.withAlpha(220),
                                 letterSpacing: 0.2,
                               ),
                             ),

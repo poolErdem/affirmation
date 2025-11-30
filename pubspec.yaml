@@ -29,9 +29,10 @@ dependencies:
   audioplayers: ^6.1.0
   flutter_tts: ^4.2.0
   
-  # Notifications
+  # Notifications & timezone 
   awesome_notifications: ^0.10.1
-  
+  timezone: ^0.9.4
+
   # UI
   cupertino_icons: ^1.0.8
   
@@ -120,33 +121,41 @@ flutter:
     - assets/data/es/sleep.json
     
     # Theme Images
-    - assets/data/themes/a1.jfif
-    - assets/data/themes/a2.jfif
-    - assets/data/themes/a3.jfif
-    - assets/data/themes/a4.jfif
-    - assets/data/themes/a5.jfif
-    - assets/data/themes/b1.jfif
-    - assets/data/themes/b2.jfif
-    - assets/data/themes/b5.jfif
-    - assets/data/themes/b6.jfif
-    - assets/data/themes/c1.jfif
-    - assets/data/themes/c2.jfif
-    - assets/data/themes/c3.jfif
-    - assets/data/themes/c4.jfif
-    - assets/data/themes/c5.jfif
-    - assets/data/themes/c6.jfif
-    - assets/data/themes/c9.jfif
-    - assets/data/themes/d1.jfif
-    - assets/data/themes/d2.jfif
-    - assets/data/themes/d3.jfif
-    - assets/data/themes/d4.jfif
-    - assets/data/themes/d5.jfif
-    - assets/data/themes/d7.jfif
-    - assets/data/themes/d8.jfif
-    - assets/data/themes/d9.jfif
-    - assets/data/themes/l1.jfif
-    - assets/data/themes/l2.jfif
-    - assets/data/themes/l3.jfif
+    - assets/data/themes/a1.jpg
+    - assets/data/themes/a2.jpg
+    - assets/data/themes/l3.jpg
+    - assets/data/themes/a4.jpg
+    - assets/data/themes/a5.jpg
+    - assets/data/themes/a6.jpg
+    - assets/data/themes/a7.jpg
+    - assets/data/themes/a10.jpg
+    - assets/data/themes/a11.jpg
+    - assets/data/themes/c1.jpg
+    - assets/data/themes/c2.jpg
+    - assets/data/themes/c5.jpg
+    - assets/data/themes/c6.jpg
+    - assets/data/themes/c7.jpg
+    - assets/data/themes/c8.jpg
+    - assets/data/themes/c9.jpg
+    - assets/data/themes/c10.jpg
+    - assets/data/themes/c11.jpg
+    - assets/data/themes/c12.jpg
+    - assets/data/themes/c13.jpg
+    - assets/data/themes/d1.jpg
+    - assets/data/themes/d2.jpg
+    - assets/data/themes/d3.jpg
+    - assets/data/themes/d4.jpg
+    - assets/data/themes/d5.jpg
+    - assets/data/themes/d7.jpg
+    - assets/data/themes/d8.jpg
+    - assets/data/themes/d9.jpg
+    - assets/data/themes/d10.jpg
+    - assets/data/themes/d11.jpg
+    - assets/data/themes/d12.jpg
+    - assets/data/themes/d13.jpg
+    - assets/data/themes/d14.jpg
+    - assets/data/themes/d15.jpg
+    - assets/data/themes/d16.jpg
     
     # Category Images
     - assets/data/categories/body.jfif
@@ -160,7 +169,7 @@ flutter:
     - assets/data/categories/positive.jfif
     - assets/data/categories/productivity.jfif
     - assets/data/categories/relationships.jfif
-    - assets/data/categories/self_care.jfif
+    - assets/data/categories/self_care.jpg
     - assets/data/categories/sleep.jfif
     - assets/data/categories/spirituality.jfif
     - assets/data/categories/stress.jfif

@@ -1,32 +1,52 @@
 import 'package:affirmation/l10n/app_localizations.dart';
 import 'package:affirmation/models/user_preferences.dart';
+import 'package:affirmation/state/my_affirmation_state.dart';
 import 'package:affirmation/state/reminder_state.dart';
 import 'package:affirmation/ui/screens/home_screen.dart';
+import 'package:affirmation/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart' as admob;
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 import 'state/app_state.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await admob.MobileAds.instance.initialize();
+  tz.initializeTimeZones();
 
-  // ---- AppState ----
+  final deviceTzName = DateTime.now().timeZoneName;
+  print("📌 MAIN → Device timezone name: $deviceTzName");
+
+  final normalized = normalizeTimeZone(deviceTzName);
+  print("📌 MAIN → Normalized timezone: $normalized");
+
+  tz.setLocalLocation(tz.getLocation(normalized));
+  print("🌍 MAIN → Local timezone set edildi: ${tz.local}");
+
+  await admob.MobileAds.instance.initialize();
+  print("✅ MAIN → AdMob hazır.");
+
+  final myAffirmationState = MyAffirmationState();
+  await myAffirmationState.initialize();
+  print("✅ MAIN → MyAffirmationState initialize bitti.");
+
   final appState = AppState();
   await appState.initialize();
+  print("✅ MAIN → AppState initialize bitti.");
 
-  // ---- ReminderState ----
   final reminderState = ReminderState(appState: appState);
   await reminderState.initialize(appState.preferences.isPremiumValid);
+  print("✅ MAIN → ReminderState initialize tamam!");
 
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider<AppState>.value(value: appState),
-        ChangeNotifierProvider<ReminderState>.value(value: reminderState),
+        ChangeNotifierProvider.value(value: myAffirmationState),
+        ChangeNotifierProvider.value(value: appState),
+        ChangeNotifierProvider.value(value: reminderState),
       ],
       child: const AffirmationApp(),
     ),
@@ -64,9 +84,7 @@ class AffirmationApp extends StatelessWidget {
             useMaterial3: true,
             fontFamily: 'Roboto',
           ),
-
           locale: Locale(appState.selectedLocale),
-
           supportedLocales: const [
             Locale('en'),
             Locale('tr'),
@@ -79,10 +97,6 @@ class AffirmationApp extends StatelessWidget {
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-
-          //home: appState.onboardingCompleted
-          //  ? const HomeScreen()
-          //  : const WelcomeScreen(),
           home: const HomeScreen(),
         );
       },

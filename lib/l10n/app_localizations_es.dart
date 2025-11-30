@@ -72,6 +72,12 @@ class AppLocalizationsEs extends AppLocalizations {
   String get terms => 'Términos y Condiciones';
 
   @override
+  String get general => 'General';
+
+  @override
+  String get about => 'About';
+
+  @override
   String get back => 'Atrás';
 
   @override

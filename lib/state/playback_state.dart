@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/foundation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PlaybackState extends ChangeNotifier {
   final FlutterTts _tts = FlutterTts();
@@ -12,7 +13,7 @@ class PlaybackState extends ChangeNotifier {
 
   bool autoScrollEnabled = true; // ⭐ YENİ: Otomatik kaydırma
 
-  bool autoReadEnabled = false;
+  bool _autoReadEnabled = false;
   bool _isReading = false;
   int currentIndex = 0;
 
@@ -21,9 +22,34 @@ class PlaybackState extends ChangeNotifier {
   void Function(int index)? onIndexChanged;
 
   bool _isInitialized = false;
+  bool get autoReadEnabled => _autoReadEnabled;
+
+  VoidCallback? onLimitReached;
+  Timer? _limitTimer; // ⭐ Class seviyesinde ekle
 
   PlaybackState() {
     _initTts();
+  }
+
+  Future<void> _initTts() async {
+    await _tts.setSpeechRate(0.42);
+    await _tts.setPitch(1.0);
+    await _tts.setVolume(1.0);
+
+    if (defaultTargetPlatform == TargetPlatform.iOS) {
+      await _tts.setVoice({"name": "Yelda", "locale": "tr-TR"});
+    }
+
+    _tts.setCompletionHandler(() {
+      print("✅ TTS COMPLETED"); // ⭐ Bu log görünmeli
+
+      if (_ttsCompleter != null && !_ttsCompleter!.isCompleted) {
+        _ttsCompleter!.complete();
+      }
+    });
+
+    _isInitialized = true;
+    print("✅ TTS initialized");
   }
 
   void updateAffirmations(List<dynamic> list) {
@@ -76,9 +102,9 @@ class PlaybackState extends ChangeNotifier {
   }
 
   Future<void> toggleAutoRead() async {
-    autoReadEnabled = !autoReadEnabled;
+    _autoReadEnabled = !_autoReadEnabled;
 
-    if (autoReadEnabled) {
+    if (_autoReadEnabled) {
       _startAutoRead();
     } else {
       await _stopAutoRead();
@@ -92,27 +118,6 @@ class PlaybackState extends ChangeNotifier {
     debugPrint("🎤 Language set → $code");
   }
 
-  Future<void> _initTts() async {
-    await _tts.setSpeechRate(0.42);
-    await _tts.setPitch(1.0);
-    await _tts.setVolume(1.0);
-
-    if (defaultTargetPlatform == TargetPlatform.iOS) {
-      await _tts.setVoice({"name": "Yelda", "locale": "tr-TR"});
-    }
-
-    _tts.setCompletionHandler(() {
-      print("✅ TTS COMPLETED"); // ⭐ Bu log görünmeli
-
-      if (_ttsCompleter != null && !_ttsCompleter!.isCompleted) {
-        _ttsCompleter!.complete();
-      }
-    });
-
-    _isInitialized = true;
-    print("✅ TTS initialized");
-  }
-
   Future<void> _waitTtsFinish() async {
     _ttsCompleter = Completer<void>();
 
@@ -122,16 +127,6 @@ class PlaybackState extends ChangeNotifier {
         debugPrint("⚠️ TTS timeout, moving to next");
       },
     );
-  }
-
-  Future<void> _stopAutoRead() async {
-    _isReading = false;
-    await _tts.stop();
-    await _bgMusicPlayer.stop();
-
-    if (_ttsCompleter != null && !_ttsCompleter!.isCompleted) {
-      _ttsCompleter!.complete();
-    }
   }
 
   Future<void> playTextToSpeech(String text) async {
@@ -159,31 +154,85 @@ class PlaybackState extends ChangeNotifier {
         await _bgMusicPlayer.setReleaseMode(ReleaseMode.loop);
       } catch (e) {
         debugPrint("⚠️ Müzik başlatılamadı: $e");
-        // Müzik hata verirse devam et
       }
     }
 
-    while (autoReadEnabled && _isReading) {
-      if (affirmations.isEmpty) break;
+    // 🔥 FREE USER LIMIT TIMER
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final isPremium = prefs.getBool("premiumActive") ?? false;
 
-      if (currentIndex >= affirmations.length) {
-        currentIndex = 0;
+      if (!isPremium) {
+        _limitTimer = Timer(const Duration(seconds: 15), () async {
+          if (!_isReading) return; // Double-check
+
+          debugPrint("⏰ Free user 10 saniye limiti doldu");
+
+          await _stopAutoRead(); // ⭐ Mevcut fonksiyonunu kullan
+
+          if (onLimitReached != null) {
+            onLimitReached!.call();
+          }
+        });
       }
-
-      final aff = affirmations[currentIndex];
-      if (aff == null) break;
-
-      await playTextToSpeech(aff.text);
-      await _waitTtsFinish();
-
-      await Future.delayed(const Duration(seconds: 2));
-
-      if (!autoReadEnabled) break;
-
-      nextAffirmation();
+    } catch (e) {
+      debugPrint("⚠️ Premium kontrolü başarısız: $e");
     }
 
+    // 🔄 ANA TTS DÖNGÜSÜ
+    try {
+      while (autoReadEnabled && _isReading) {
+        if (affirmations.isEmpty) break;
+
+        if (currentIndex >= affirmations.length) {
+          currentIndex = 0;
+        }
+
+        final aff = affirmations[currentIndex];
+        if (aff == null) break;
+
+        final userName = await _getUserNameFromPrefs();
+        final rendered = aff.text.replaceAll("{name}", userName ?? "");
+
+        try {
+          await playTextToSpeech(rendered);
+          await _waitTtsFinish();
+        } catch (e) {
+          debugPrint("⚠️ TTS oynatılamadı: $e");
+          break;
+        }
+
+        if (!autoReadEnabled || !_isReading) break;
+
+        await Future.delayed(const Duration(seconds: 2));
+
+        if (!_isReading) break; // ⭐ Ekstra güvenlik
+
+        nextAffirmation();
+      }
+    } catch (e) {
+      debugPrint("⚠️ AutoRead döngüsünde hata: $e");
+    } finally {
+      // ⭐ Döngü bittiğinde temizlik
+      if (_isReading) {
+        await _stopAutoRead();
+      }
+    }
+  }
+
+  Future<void> _stopAutoRead() async {
     _isReading = false;
+
+    // ⭐ Timer'ı iptal et
+    _limitTimer?.cancel();
+    _limitTimer = null;
+
+    await _tts.stop();
+    await _bgMusicPlayer.stop();
+
+    if (_ttsCompleter != null && !_ttsCompleter!.isCompleted) {
+      _ttsCompleter!.complete();
+    }
   }
 
   void nextAffirmation() {
@@ -207,10 +256,17 @@ class PlaybackState extends ChangeNotifier {
     notifyListeners();
   }
 
+  // ⭐ dispose() metodunda da temizlik yap
   @override
   void dispose() {
-    _bgMusicPlayer.dispose(); // ⭐ dispose ile değiştir
+    _limitTimer?.cancel();
+    _bgMusicPlayer.dispose();
     _tts.stop();
     super.dispose();
+  }
+
+  Future<String?> _getUserNameFromPrefs() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString("userName");
   }
 }

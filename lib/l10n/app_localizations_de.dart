@@ -72,6 +72,12 @@ class AppLocalizationsDe extends AppLocalizations {
   String get terms => 'Allgemeine Geschäftsbedingungen';
 
   @override
+  String get general => 'General';
+
+  @override
+  String get about => 'About';
+
+  @override
   String get back => 'Zurück';
 
   @override

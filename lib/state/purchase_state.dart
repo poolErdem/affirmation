@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:affirmation/constants/constants.dart';
 import 'package:affirmation/models/user_preferences.dart';
 import 'package:affirmation/state/app_state.dart';
 import 'package:flutter/foundation.dart';
@@ -69,11 +70,7 @@ class PurchaseState {
       return;
     }
 
-    const ids = {
-      AppState.kMonthly,
-      AppState.kYearly,
-      AppState.kLifetime,
-    };
+    const ids = {Constants.monthly, Constants.yearly, Constants.lifetime};
 
     try {
       final response = await InAppPurchase.instance.queryProductDetails(ids);
@@ -151,7 +148,7 @@ class PurchaseState {
   }
 
   void _activatePlan(String productId) {
-    if (productId == AppState.kMonthly) {
+    if (productId == Constants.monthly) {
       appState.updatePremium(
         active: true,
         plan: PremiumPlan.monthly,
@@ -159,7 +156,7 @@ class PurchaseState {
       );
     }
 
-    if (productId == AppState.kYearly) {
+    if (productId == Constants.yearly) {
       appState.updatePremium(
         active: true,
         plan: PremiumPlan.yearly,
@@ -167,7 +164,7 @@ class PurchaseState {
       );
     }
 
-    if (productId == AppState.kLifetime) {
+    if (productId == Constants.lifetime) {
       appState.updatePremium(
         active: true,
         plan: PremiumPlan.lifetime,
