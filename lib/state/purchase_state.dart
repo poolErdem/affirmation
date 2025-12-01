@@ -8,8 +8,10 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 
 class PurchaseState {
   final AppState appState;
-
   StreamSubscription<List<PurchaseDetails>>? _subscription;
+
+  // Gerçek constructor (production)
+  PurchaseState(this.appState);
 
   /// Ürün listesi
   final Map<String, ProductDetails> products = {};
@@ -17,8 +19,6 @@ class PurchaseState {
   /// Listener bir kere kurulsun diye flag
   bool _listenerInitialized = false;
   bool _isInitialized = false;
-
-  PurchaseState(this.appState);
 
   //────────────────────────────────────────
   // INITIALIZE (AppState.initialize()'dan çağrılacak)

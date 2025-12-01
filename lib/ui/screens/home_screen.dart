@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:affirmation/constants/constants.dart';
 import 'package:affirmation/models/category.dart';
 import 'package:affirmation/state/reminder_state.dart';
@@ -49,17 +48,10 @@ class _HomeScreenState extends State<HomeScreen>
     final appState = Provider.of<AppState>(context, listen: false);
     final myState = Provider.of<MyAffirmationState>(context, listen: false);
 
-    // Random first page → BUNU BURAYA KOYMALISIN
-    final randomIndex = Random().nextInt(appState.pageCount);
-    _pageController = PageController(initialPage: randomIndex);
+    _pageController = PageController(initialPage: appState.currentIndex);
 
     // Playback limit callback
     appState.playback.onLimitReached = () {
-      if (!mounted) return;
-      _showPlaybackDialog(context);
-    };
-
-    myState.playback.onLimitReached = () {
       if (!mounted) return;
       _showPlaybackDialog(context);
     };
@@ -84,7 +76,6 @@ class _HomeScreenState extends State<HomeScreen>
       }
     };
 
-    // Auto page sync
     myState.playback.onIndexChanged = (newIndex) {
       if (_pageController.hasClients) {
         _pageController.animateToPage(
@@ -174,9 +165,11 @@ class _HomeScreenState extends State<HomeScreen>
             child: _buildThemeButton(context),
           ),
 
+          _buildPlayButton(context),
+
           // 🔥 My Affirmations → Show ADD & EDIT buttons
           if (appState.activeCategoryId == Constants.myCategoryId)
-            _buildMyButtons(),
+            _buildMyAffButtons(),
 
           // 🔥 Bottom panel
           _buildMyPanel(context),
@@ -223,8 +216,18 @@ class _HomeScreenState extends State<HomeScreen>
           scrollDirection: Axis.vertical,
           itemCount: items.length,
           onPageChanged: (index) {
-            myState.playback.setCurrentIndex(index);
-            myState.setCurrentIndex(index);
+            final last = items.length - 1;
+
+            if (index == last) {
+              myState.setCurrentIndex(0);
+              Future.microtask(() {
+                if (_pageController.hasClients) {
+                  _pageController.jumpToPage(0);
+                }
+              });
+            } else {
+              myState.setCurrentIndex(index);
+            }
 
             _actionAnim.forward(from: 0);
           },
@@ -259,15 +262,15 @@ class _HomeScreenState extends State<HomeScreen>
           final last = items.length - 1;
 
           if (index == last) {
+            appState.setCurrentIndex(0);
             Future.microtask(() {
               if (_pageController.hasClients) {
                 _pageController.jumpToPage(0);
               }
             });
+          } else {
+            appState.setCurrentIndex(index);
           }
-
-          appState.setCurrentIndex(index);
-          appState.playback.setCurrentIndex(index);
 
           _actionAnim.forward(from: 0);
         },
@@ -281,70 +284,6 @@ class _HomeScreenState extends State<HomeScreen>
             ),
           );
         },
-      ),
-    );
-  }
-
-  // -------------------------------------------------------------------
-  // ADD + EDIT buttons (only for My Affirmations)
-  // -------------------------------------------------------------------
-  Widget _buildMyButtons() {
-    return Positioned(
-      bottom: 100,
-      left: 0,
-      right: 0,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          // EDIT
-          _circleButton(
-            icon: Icons.edit,
-            onTap: () {
-              final myState = context.read<MyAffirmationState>();
-
-              // 🔥 AKTİF SAYFA INDEX'İ (MY AFFIRMATIONS PageView)
-              final index = _myAffPageController?.page?.round() ?? 0;
-
-              if (index < 0 || index >= myState.items.length) return;
-
-              final aff = myState.items[index];
-
-              _editing = true;
-              _editingId = aff.id;
-              _panelController.text = aff.text;
-
-              setState(() => _panelVisible = true);
-            },
-          ),
-
-          const SizedBox(width: 18),
-
-          // ADD
-          _circleButton(
-            icon: Icons.add,
-            onTap: () {
-              _editing = false;
-              _editingId = null;
-              _panelController.clear();
-              setState(() => _panelVisible = true);
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _circleButton({required IconData icon, required VoidCallback onTap}) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(14),
-        decoration: BoxDecoration(
-          color: const Color(0x44000000),
-          shape: BoxShape.circle,
-          border: Border.all(color: const Color(0x33FFFFFF), width: 1),
-        ),
-        child: Icon(icon, color: Colors.white, size: 26),
       ),
     );
   }
@@ -732,7 +671,7 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   //────────────────────────────────────────
-  // FAVORITE + SHARE + AUTO-READ
+  // FAVORITE + SHARE + PLAY + SES +
   //────────────────────────────────────────
   Widget _buildMiddleActions(BuildContext context) {
     final appState = context.watch<AppState>();
@@ -746,14 +685,17 @@ class _HomeScreenState extends State<HomeScreen>
         ? myAffState.playback as dynamic
         : appState.playback as dynamic;
 
-    final enabled = playback.autoReadEnabled; // ✔ Çalışır
+    final enabled = playback.volumeEnabled; // ✔ Çalışır
+    print("ses enabled $enabled");
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        // 🔊 READ BUTTON (AUTO-TTS)
         GestureDetector(
-          onTap: () => playback.toggleAutoRead(), // ✔ Çalışır
+          onTap: () {
+            print("tiklandi, enable durumu $enabled");
+            playback.toggleVolume();
+          }, // ✔ Çalışır
           child: Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
@@ -772,8 +714,6 @@ class _HomeScreenState extends State<HomeScreen>
             ),
           ),
         ),
-
-        const SizedBox(height: 16),
 
         const SizedBox(height: 16),
 
@@ -845,9 +785,55 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  //────────────────────────────────────────
-  // CATEGORY BUTTON
-  //────────────────────────────────────────
+  Widget _buildPlayButton(BuildContext context) {
+    final appState = context.watch<AppState>();
+    final myAffState = context.watch<MyAffirmationState>();
+
+    final bool isMyCategory =
+        appState.activeCategoryId == Constants.myCategoryId;
+
+    final double? right = isMyCategory ? null : 10;
+
+    // 🔥 Doğru playback seç
+    final playback = isMyCategory
+        ? myAffState.playback as dynamic
+        : appState.playback as dynamic;
+
+    final enabled = playback.autoReadEnabled; // ✔ Çalışır
+
+    return Positioned(
+      bottom: 100,
+      left: 0,
+      right: right,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // 🔊 PLAY BUTTON (AUTO-TTS)
+          GestureDetector(
+            onTap: () => playback.toggleAutoRead(), // ✔ Çalışır
+            child: Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color:
+                    enabled ? const Color(0x55FF6B6B) : const Color(0x33000000),
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: enabled ? Colors.redAccent : const Color(0x44FFFFFF),
+                  width: 1.5,
+                ),
+              ),
+              child: Icon(
+                enabled ? Icons.pause : Icons.play_arrow,
+                color: Colors.white,
+                size: 24,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildCategoryButton(BuildContext context) {
     final appState = context.watch<AppState>();
 
@@ -897,9 +883,6 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  //────────────────────────────────────────
-  // THEME BUTTON
-  //────────────────────────────────────────
   Widget _buildThemeButton(BuildContext context) {
     final reminderState = context.read<ReminderState>();
 
@@ -922,6 +905,67 @@ class _HomeScreenState extends State<HomeScreen>
           ),
         ),
         child: const Icon(Icons.color_lens, color: Colors.white, size: 24),
+      ),
+    );
+  }
+
+  Widget _buildMyAffButtons() {
+    return Positioned(
+      bottom: 100,
+      left: 0,
+      right: 0,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // EDIT
+          _circleButton(
+            icon: Icons.edit,
+            onTap: () {
+              final myState = context.read<MyAffirmationState>();
+
+              // 🔥 AKTİF SAYFA INDEX'İ (MY AFFIRMATIONS PageView)
+              final index = _myAffPageController?.page?.round() ?? 0;
+
+              if (index < 0 || index >= myState.items.length) return;
+
+              final aff = myState.items[index];
+
+              _editing = true;
+              _editingId = aff.id;
+              _panelController.text = aff.text;
+
+              setState(() => _panelVisible = true);
+            },
+          ),
+
+          const SizedBox(width: 18),
+
+          // ADD
+          _circleButton(
+            icon: Icons.add,
+            onTap: () {
+              _editing = false;
+              _editingId = null;
+              _panelController.clear();
+              setState(() => _panelVisible = true);
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _circleButton({required IconData icon, required VoidCallback onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(14),
+        decoration: BoxDecoration(
+          color: const Color(0x44000000),
+          shape: BoxShape.circle,
+          border: Border.all(color: const Color(0x33FFFFFF), width: 1),
+        ),
+        child: Icon(icon, color: Colors.white, size: 26),
       ),
     );
   }

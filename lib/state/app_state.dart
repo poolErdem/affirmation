@@ -8,7 +8,6 @@ import 'package:affirmation/utils/utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:audioplayers/audioplayers.dart';
 import '../data/app_repository.dart';
 import '../models/affirmation.dart';
 import '../models/category.dart';
@@ -16,7 +15,7 @@ import '../models/theme_model.dart';
 import '../models/user_preferences.dart';
 
 class AppState extends ChangeNotifier {
-  final AudioPlayer _audioPlayer = AudioPlayer();
+  //final AudioPlayer _audioPlayer = AudioPlayer();
 
   String _selectedLocale = "en";
   String get selectedLocale => _selectedLocale;
@@ -46,8 +45,8 @@ class AppState extends ChangeNotifier {
   int? onboardingThemeIndex;
   int _currentIndex = 0;
 
-  late PlaybackState _playback;
-  late PurchaseState purchaseState;
+  final PlaybackState _playback;
+  PurchaseState? _purchaseState;
   late UserPreferences _preferences;
   late AppRepository _repository;
 
@@ -68,15 +67,18 @@ class AppState extends ChangeNotifier {
   String? get userName => preferences.userName;
   String get activeCategoryId => _activeCategoryId;
 
-  AppState() {
-    // PLAYBACK
-    _playback = PlaybackState();
-    _playback.addListener(() {
-      notifyListeners();
-    });
+  // Lazy getter
+  PurchaseState get purchaseState {
+    _purchaseState ??= PurchaseState(this);
+    return _purchaseState!;
+  }
 
-    // PURCHASE
-    purchaseState = PurchaseState(this);
+  AppState({
+    PlaybackState? playback,
+    PurchaseState? testPurchase,
+  })  : _playback = playback ?? PlaybackState(),
+        _purchaseState = testPurchase {
+    _playback.addListener(notifyListeners);
   }
 
   @override
@@ -94,6 +96,7 @@ class AppState extends ChangeNotifier {
   // INITIALIZE
   Future<void> initialize() async {
     print("🔥 initialize()");
+    await purchaseState.initialize();
 
     final prefs = await SharedPreferences.getInstance();
     print(
@@ -119,10 +122,10 @@ class AppState extends ChangeNotifier {
     _themes = bundle.themes;
 
     _allAffirmations = await _repository.loadAllCategoriesItems();
+
     print(
         "🟢 ALL data loaded. Category count= ${_categories.length} , Affirmation count=${_allAffirmations.length}");
 
-    // 3️⃣ ONBOARDING & OLD PREFS LOAD
     onboardingCompleted = prefs.getBool("onboarding_completed") ?? false;
 
     if (onboardingCompleted) {
@@ -137,7 +140,6 @@ class AppState extends ChangeNotifier {
       );
     }
 
-    // 4️⃣ PREMIUM OVERRIDE (prefs içindeki premium değerlerini okuyup uygula)
     final premiumActive = prefs.getBool('premiumActive');
     final premiumPlanId = prefs.getString('premiumPlanId');
     final premiumExpiresAtStr = prefs.getString('premiumExpiresAt');
@@ -155,7 +157,6 @@ class AppState extends ChangeNotifier {
       premiumExpiresAt: premiumExpiresAt ?? _preferences.premiumExpiresAt,
     );
 
-    // 5️⃣ CATEGORY VALIDATION & PREMIUM FALLBACK
     if (_activeCategoryId.isEmpty && _categories.isNotEmpty) {
       _activeCategoryId = _categories.first.id;
     }
@@ -193,12 +194,14 @@ class AppState extends ChangeNotifier {
       _preferences = _preferences.copyWith(languageCode: _selectedLocale);
     }
 
-    // 8️⃣ PLAYBACK
-    playback.updateAffirmations(currentFeed);
-    playback.setCurrentIndex(_currentIndex);
+    final count = _allAffirmations
+        .where((a) =>
+            matchGender(a, _preferences.gender) &&
+            _preferences.selectedContentPreferences.contains(a.categoryId))
+        .length;
 
-    await purchaseState.initialize();
-    await purchaseState.fetchProducts();
+    _currentIndex =
+        _preferences.premiumActive ? randomIndex(count) : randomIndex(200);
 
     _loaded = true;
     _generalDirty = true;
@@ -232,7 +235,6 @@ class AppState extends ChangeNotifier {
       final lastTheme = prefs.getString('lastTheme');
       final lastLanguage = prefs.getString('lastLanguage');
       final lastContentPrefs = prefs.getString('lastContentPreferences');
-      final lastIndex = prefs.getInt('lastAffirmationIndex');
 
       final premiumActive = prefs.getBool('premiumActive');
       final premiumPlanId = prefs.getString('premiumPlanId');
@@ -242,7 +244,6 @@ class AppState extends ChangeNotifier {
 
       final userName = prefs.getString("userName");
 
-      // 🟦 1) _preferences TEK SEFERDE OLUŞUYOR
       _preferences = UserPreferences(
         selectedContentPreferences: lastContentPrefs != null
             ? Set<String>.from(lastContentPrefs.split(","))
@@ -254,9 +255,8 @@ class AppState extends ChangeNotifier {
             myList != null ? Set<String>.from(myList.split(",")) : <String>{},
         languageCode: lastLanguage ?? "en",
         userName: userName ?? "",
-        backgroundVolume: 0.5, // ⭐ REQUIRED
+        backgroundVolume: 0.5,
         gender: genderFromString(onboardingGender ?? "none"),
-
         premiumPlanId: premiumPlanId != null && premiumPlanId.isNotEmpty
             ? premiumPlanFromString(premiumPlanId)
             : null,
@@ -278,13 +278,8 @@ class AppState extends ChangeNotifier {
         ],
       );
 
-      // 🟧 2) KATEGORİ
       _activeCategoryId = Constants.generalCategoryId;
-      // 🟨 3) INDEX
-      _currentIndex = lastIndex ?? 0;
-      playback.setCurrentIndex(_currentIndex);
 
-      // 🟩 4) DİL (AppState’in kendi dili)
       if (lastLanguage != null && lastLanguage.isNotEmpty) {
         _selectedLocale = lastLanguage;
       }
@@ -299,14 +294,12 @@ class AppState extends ChangeNotifier {
     try {
       final prefs = await SharedPreferences.getInstance();
 
-      await prefs.setString('lastCategory', _activeCategoryId);
       await prefs.setString('lastTheme', _preferences.selectedThemeId);
       await prefs.setString('lastLanguage', _preferences.languageCode);
       await prefs.setString(
         'lastContentPreferences',
         _preferences.selectedContentPreferences.join(','),
       );
-      await prefs.setInt('lastAffirmationIndex', _currentIndex);
 
       await prefs.setBool('premiumActive', false);
       await prefs.setString('premiumPlanId',
@@ -342,18 +335,15 @@ class AppState extends ChangeNotifier {
     await prefs.setStringList("onboard_prefs", onboardingContentPrefs.toList());
     await prefs.setInt("onboard_theme", onboardingThemeIndex ?? 0);
     await prefs.setString("onboard_name", onboardingName ?? "");
-    await prefs.setInt('lastAffirmationIndex', 0);
 
     await prefs.remove('lastContentPreferences');
 
-    // Gender
     if (onboardingGender != null && onboardingGender!.isNotEmpty) {
       _preferences = _preferences.copyWith(
         gender: genderFromString(onboardingGender!),
       );
     }
 
-    // Content preferences
     _preferences = _preferences.copyWith(
       selectedContentPreferences: onboardingContentPrefs,
     );
@@ -372,13 +362,7 @@ class AppState extends ChangeNotifier {
       print("🎨 Saved theme → $themeId");
     }
 
-    // Active category
-    if (_categories.isNotEmpty) {
-      _activeCategoryId = _categories.first.id;
-      await prefs.setString('lastCategory', _activeCategoryId);
-    }
-
-    _currentIndex = 0;
+    _activeCategoryId = Constants.generalCategoryId;
 
     onboardingCompleted = true;
 
@@ -415,6 +399,7 @@ class AppState extends ChangeNotifier {
       final cutList = list.take(200).toList();
       print(
           '✅ GENERAL FEED (200 sınırı) toplam: ${list.length}, kesildikten sonra: ${cutList.length}');
+
       return cutList;
     }
 
@@ -446,15 +431,7 @@ class AppState extends ChangeNotifier {
         '✅ CATEGORY FEED toplam: ${list.length} (kategori: $_activeCategoryId)');
 
     if (list.isEmpty) {
-      print('⚠️ [CATEGORY FEED] BOŞ! Kontrol edilecekler:');
-      print('   - _activeCategoryId: $_activeCategoryId');
-      print('   - _allAffirmations var mı: ${_allAffirmations.isNotEmpty}');
-      print('   - Gender: ${_preferences.gender}');
-
-      // İlk 3 affirmation'ı göster
-      _allAffirmations.take(3).forEach((a) {
-        print('   - Örnek affirmation: ${a.id} (category: ${a.categoryId})');
-      });
+      _allAffirmations.take(3).forEach((a) {});
     }
 
     return list;
@@ -476,6 +453,7 @@ class AppState extends ChangeNotifier {
     }).toList();
 
     print('✅ FOVORITE FEED toplam: ${list.length}');
+
     return list;
   }
 
@@ -512,6 +490,11 @@ class AppState extends ChangeNotifier {
 
   void setCurrentIndex(int index) {
     _currentIndex = index;
+
+    playback.setCurrentIndex(index);
+    if (currentFeed.isNotEmpty) playback.updateAffirmations(currentFeed);
+
+    notifyListeners();
   }
 
   // CATEGORIES
@@ -531,7 +514,6 @@ class AppState extends ChangeNotifier {
 
     if (_activeCategoryId == id) {
       print("⚠️ Zaten aktif kategori, işlem yok");
-      assignRandomIndex();
       return;
     }
 
@@ -552,7 +534,6 @@ class AppState extends ChangeNotifier {
 
     _activeCategoryId = id;
 
-    // 🔥 My Affirmations ise erken çık (currentFeed çağrılmasın)
     if (_activeCategoryId == Constants.myCategoryId) {
       print("📝 My Affirmations → playback/feed güncelleme YOK");
       notifyListeners();
@@ -560,12 +541,10 @@ class AppState extends ChangeNotifier {
       return;
     }
 
-    // 🔥 Dirty flag'leri set et (lazy loading için)
     _generalDirty = true;
     _categoryDirty = true;
     _favoriteDirty = true;
 
-    playback.updateAffirmations(currentFeed);
     assignRandomIndex();
     notifyListeners();
     saveLastSettings();
@@ -624,9 +603,9 @@ class AppState extends ChangeNotifier {
 
   // RANDOM INDEX
   void assignRandomIndex() {
-    final feed = currentFeed; // mevcut cache'den alır
+    final feed = currentFeed;
+
     if (_allAffirmations.isEmpty) {
-      _currentIndex = 0;
       playback.setCurrentIndex(0);
       return;
     }
@@ -635,7 +614,10 @@ class AppState extends ChangeNotifier {
     print("🎲 Random index = $frandomIndex");
 
     _currentIndex = frandomIndex;
-    playback.setCurrentIndex(frandomIndex);
+
+    playback.updateAffirmations(currentFeed);
+    playback.setCurrentIndex(_currentIndex);
+    return;
   }
 
   // FAVORITES
@@ -685,8 +667,6 @@ class AppState extends ChangeNotifier {
     _favoriteDirty = true;
     notifyListeners();
     saveLastSettings();
-
-    playback.updateAffirmations(currentFeed);
   }
 
   String get activeThemeImage {
@@ -715,33 +695,33 @@ class AppState extends ChangeNotifier {
 
     _preferences = _preferences.copyWith(selectedThemeId: id);
 
-    await playThemeSound();
+    //await playThemeSound();
     notifyListeners();
     await saveLastSettings();
   }
 
   Future<void> playThemeSound() async {
-    final theme = activeTheme;
-    if (!isSoundEnabled || theme.soundAsset == null) {
-      await _audioPlayer.stop();
-      return;
-    }
+    // final theme = activeTheme;
+    // if (!isSoundEnabled || theme.soundAsset == null) {
+    //   await _audioPlayer.stop();
+    //   return;
+    // }
 
-    await _audioPlayer.stop();
-    await _audioPlayer.setReleaseMode(ReleaseMode.loop);
-    await _audioPlayer.play(AssetSource(theme.soundAsset!));
+    // await _audioPlayer.stop();
+    // await _audioPlayer.setReleaseMode(ReleaseMode.loop);
+    // await _audioPlayer.play(AssetSource(theme.soundAsset!));
   }
 
   void toggleSound() {
-    isSoundEnabled = !isSoundEnabled;
-    playThemeSound();
-    notifyListeners();
+    //isSoundEnabled = !isSoundEnabled;
+    //playThemeSound();
+    //notifyListeners();
   }
 
   void setVolume(double v) {
-    _audioPlayer.setVolume(v);
-    print("🔊 Volume updated → $v");
-    notifyListeners();
+    //_audioPlayer.setVolume(v);
+    //print("🔊 Volume updated → $v");
+    //notifyListeners();
   }
 
   Future<void> setLanguage(String code) async {
@@ -785,7 +765,6 @@ class AppState extends ChangeNotifier {
     _categoryDirty = true;
     _favoriteDirty = true;
     notifyListeners();
-    playback.updateAffirmations(currentFeed);
   }
 
   bool canAccessTheme(ThemeModel theme) {

@@ -13,10 +13,11 @@ class Constants {
   static const myCategoryId = 'myaffirmations';
 
   // Limits
-  static const freeFavoriteLimit = 5;
+  static const freeFavoriteLimit = 10;
   static const premiumFavoriteLimit = 500;
   static const freeMyAffLimit = 100;
   static const premiumMyAffLimit = 100;
+  static const freeMyAffReadLimit = 10000;
   static const prefsKey = "my_affirmations";
 
   static const supportedLanguages = ['en', 'tr'];

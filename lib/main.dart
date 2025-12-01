@@ -58,48 +58,49 @@ class AffirmationApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AppState>(
-      builder: (context, appState, _) {
-        print(
-            "🟦 MaterialApp → BUILD with locale = ${appState.selectedLocale}");
+    final appState = context.watch<AppState>();
+    final myAffState = context.watch<MyAffirmationState>();
+    final reminderState = context.watch<ReminderState>();
 
-        // AppState yüklenene kadar loading ekranı
-        if (!appState.isLoaded) {
-          return const MaterialApp(
-            debugShowCheckedModeBanner: false,
-            home: Scaffold(
-              backgroundColor: Colors.black,
-              body: Center(
-                child: CircularProgressIndicator(color: Colors.white),
-              ),
-            ),
-          );
-        }
+    print("🟦 MaterialApp → BUILD with locale = ${appState.selectedLocale}");
 
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Affirmation',
-          theme: ThemeData(
-            brightness: Brightness.dark,
-            useMaterial3: true,
-            fontFamily: 'Roboto',
+    final allLoaded =
+        appState.isLoaded && myAffState.isLoaded && reminderState.isLoaded;
+
+    if (!allLoaded) {
+      return const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          backgroundColor: Colors.black,
+          body: Center(
+            child: CircularProgressIndicator(color: Colors.white),
           ),
-          locale: Locale(appState.selectedLocale),
-          supportedLocales: const [
-            Locale('en'),
-            Locale('tr'),
-            Locale('es'),
-            Locale('de'),
-          ],
-          localizationsDelegates: const [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          home: const HomeScreen(),
-        );
-      },
+        ),
+      );
+    }
+
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Affirmation',
+      theme: ThemeData(
+        brightness: Brightness.dark,
+        useMaterial3: true,
+        fontFamily: 'Roboto',
+      ),
+      locale: Locale(appState.selectedLocale),
+      supportedLocales: const [
+        Locale('en'),
+        Locale('tr'),
+        Locale('es'),
+        Locale('de'),
+      ],
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      home: const HomeScreen(),
     );
   }
 }

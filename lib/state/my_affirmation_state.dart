@@ -34,9 +34,9 @@ class MyAffirmationState extends ChangeNotifier {
     _loaded = true;
 
     playback.updateAffirmations(_items);
-
     _currentIndex = 0;
-    playback.setCurrentIndex(0); // 🔥 LOCAL + PLAYBACK SENKRON
+
+    playback.setCurrentIndex(0);
 
     notifyListeners();
   }
@@ -63,9 +63,7 @@ class MyAffirmationState extends ChangeNotifier {
     await savePrefs();
   }
 
-  // -----------------------------------------------------
   // ADD
-  // -----------------------------------------------------
   Future<void> add(String text) async {
     final id = "my_${DateTime.now().millisecondsSinceEpoch}";
     _items.add(MyAffirmation(id: id, text: text));
@@ -75,15 +73,13 @@ class MyAffirmationState extends ChangeNotifier {
 
     final newIndex = _items.length - 1;
 
-    _currentIndex = newIndex; // 🔥 LOCAL
-    playback.setCurrentIndex(newIndex); // 🔥 PLAYBACK
+    _currentIndex = newIndex;
+    playback.setCurrentIndex(newIndex);
 
     notifyListeners();
   }
 
-  // -----------------------------------------------------
   // UPDATE
-  // -----------------------------------------------------
   Future<void> update(String id, String newText) async {
     final index = _items.indexWhere((x) => x.id == id);
     if (index == -1) return;
@@ -99,9 +95,7 @@ class MyAffirmationState extends ChangeNotifier {
     notifyListeners();
   }
 
-  // -----------------------------------------------------
   // REMOVE
-  // -----------------------------------------------------
   Future<void> remove(String id) async {
     final oldIndex = _items.indexWhere((e) => e.id == id);
 
@@ -122,12 +116,10 @@ class MyAffirmationState extends ChangeNotifier {
     notifyListeners();
   }
 
-  // -----------------------------------------------------
   // MANUAL SETTER
-  // -----------------------------------------------------
   void setCurrentIndex(int index) {
     _currentIndex = index;
-    playback.setCurrentIndex(index); // 🔥 İkisini birden güncelle
+    playback.setCurrentIndex(index);
     notifyListeners();
   }
 

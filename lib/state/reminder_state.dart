@@ -13,11 +13,14 @@ void _onBackgroundNotification(NotificationResponse response) {
 
 class ReminderState extends ChangeNotifier {
   final AppState appState;
+  bool _loaded = false;
 
   ReminderState({required this.appState});
 
   List<ReminderModel> _reminders = [];
   bool _isPremium = false;
+
+  bool get isLoaded => _loaded;
 
   // Notification plugin
   final FlutterLocalNotificationsPlugin _notificationsPlugin =
@@ -51,6 +54,8 @@ class ReminderState extends ChangeNotifier {
 
     // PROD → reminder'ları schedule et
     await _scheduleAllReminders();
+
+    _loaded = true;
 
     notifyListeners();
   }

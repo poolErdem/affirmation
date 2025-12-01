@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:affirmation/constants/constants.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutter/foundation.dart';
@@ -8,96 +9,85 @@ class PlaybackState extends ChangeNotifier {
   final FlutterTts _tts = FlutterTts();
   final AudioPlayer _bgMusicPlayer = AudioPlayer();
 
-  bool backgroundMusicEnabled = false;
-  String selectedMusic = 'nature_sounds.mp3';
-
-  bool autoScrollEnabled = true; // ⭐ YENİ: Otomatik kaydırma
-
-  bool _autoReadEnabled = false;
-  bool _isReading = false;
-  int currentIndex = 0;
-
   List<dynamic> affirmations = [];
+
   Completer<void>? _ttsCompleter;
   void Function(int index)? onIndexChanged;
-
-  bool _isInitialized = false;
-  bool get autoReadEnabled => _autoReadEnabled;
-
   VoidCallback? onLimitReached;
-  Timer? _limitTimer; // ⭐ Class seviyesinde ekle
+  Timer? _limitTimer;
+
+  bool _volumeEnabled = false;
+  bool _autoReadEnabled = false;
+  bool _isReading = false;
+  bool autoScrollEnabled = true;
+
+  int currentIndex = 0;
+
+  bool get autoReadEnabled => _autoReadEnabled;
+  bool get volumeEnabled => _volumeEnabled;
 
   PlaybackState() {
     _initTts();
   }
 
+  Future<void> toggleVolume() async {
+    _volumeEnabled = !_volumeEnabled;
+
+    final v = _tts.getDefaultVoice.toString();
+    print("🔊 Volume → $v");
+
+    if (_ttsCompleter != null) {
+      await _ttsCompleter!.future;
+    }
+
+    if (_volumeEnabled) {
+      await _tts.setVolume(1.0);
+    } else {
+      await _tts.setVolume(0.0);
+    }
+
+    final vi = _tts.getDefaultVoice.toString();
+    print("🔊 Volume changed → $vi");
+
+    notifyListeners();
+  }
+
   Future<void> _initTts() async {
     await _tts.setSpeechRate(0.42);
     await _tts.setPitch(1.0);
-    await _tts.setVolume(1.0);
+    await _tts.setVolume(0.0);
 
-    if (defaultTargetPlatform == TargetPlatform.iOS) {
-      await _tts.setVoice({"name": "Yelda", "locale": "tr-TR"});
-    }
+    final vi = _tts.getDefaultVoice.toString();
+    print("🔊 Initial Volume  → $vi");
 
     _tts.setCompletionHandler(() {
-      print("✅ TTS COMPLETED"); // ⭐ Bu log görünmeli
+      print("✅ TTS COMPLETED");
 
       if (_ttsCompleter != null && !_ttsCompleter!.isCompleted) {
         _ttsCompleter!.complete();
       }
     });
 
-    _isInitialized = true;
     print("✅ TTS initialized");
   }
 
   void updateAffirmations(List<dynamic> list) {
     affirmations = list;
-    currentIndex = 0;
+
+    print("📚 Affirmation count → ${affirmations.length}");
+    print("📍 Current index → $currentIndex");
+
     notifyListeners();
   }
 
   void setCurrentIndex(int index) {
     currentIndex = index;
+
+    print("📍 Current index changed → $currentIndex / ${affirmations.length}");
+
     if (onIndexChanged != null) {
       onIndexChanged!(index);
     }
-    notifyListeners();
-  }
-
-  // ⭐ YENİ: Müzik toggle
-  void toggleBackgroundMusic() {
-    backgroundMusicEnabled = !backgroundMusicEnabled;
-
-    if (!backgroundMusicEnabled &&
-        _bgMusicPlayer.state == PlayerState.playing) {
-      _bgMusicPlayer.stop();
-    }
-
-    notifyListeners();
-  }
-
-  // ⭐ YENİ: Müzik seçimi
-  void setBackgroundMusic(String musicFile) {
-    selectedMusic = musicFile;
-
-    // Eğer müzik çalıyorsa, yenisini başlat
-    if (_bgMusicPlayer.state == PlayerState.playing) {
-      _bgMusicPlayer.stop();
-      _bgMusicPlayer.play(
-        AssetSource('audio/$selectedMusic'),
-        volume: 0.3,
-      );
-      _bgMusicPlayer.setReleaseMode(ReleaseMode.loop);
-    }
-
-    notifyListeners();
-  }
-
-  // ⭐ YENİ: Otomatik kaydırma toggle
-  void toggleAutoScroll() {
-    autoScrollEnabled = !autoScrollEnabled;
     notifyListeners();
   }
 
@@ -137,38 +127,26 @@ class PlaybackState extends ChangeNotifier {
   Future<void> _startAutoRead() async {
     if (_isReading) return;
 
-    // ⭐ TTS hazır olana kadar bekle
-    while (!_isInitialized) {
-      await Future.delayed(const Duration(milliseconds: 100));
+    if (_ttsCompleter != null) {
+      await _ttsCompleter!.future;
     }
 
     _isReading = true;
 
-    // ⭐ Müzik başlat
-    if (backgroundMusicEnabled) {
-      try {
-        await _bgMusicPlayer.play(
-          AssetSource('audio/$selectedMusic'),
-          volume: 0.3,
-        );
-        await _bgMusicPlayer.setReleaseMode(ReleaseMode.loop);
-      } catch (e) {
-        debugPrint("⚠️ Müzik başlatılamadı: $e");
-      }
-    }
+    print("▶️ AutoRead started");
+    print("🔢 Affirmation count → ${affirmations.length}");
+    print("📍 Starting index → $currentIndex");
 
-    // 🔥 FREE USER LIMIT TIMER
     try {
       final prefs = await SharedPreferences.getInstance();
       final isPremium = prefs.getBool("premiumActive") ?? false;
 
-      if (!isPremium) {
-        _limitTimer = Timer(const Duration(seconds: 15), () async {
-          if (!_isReading) return; // Double-check
+      if (isPremium) {
+        _limitTimer = Timer(
+            const Duration(seconds: Constants.freeMyAffReadLimit), () async {
+          if (!_isReading) return;
 
-          debugPrint("⏰ Free user 10 saniye limiti doldu");
-
-          await _stopAutoRead(); // ⭐ Mevcut fonksiyonunu kullan
+          await _stopAutoRead();
 
           if (onLimitReached != null) {
             onLimitReached!.call();
@@ -179,14 +157,15 @@ class PlaybackState extends ChangeNotifier {
       debugPrint("⚠️ Premium kontrolü başarısız: $e");
     }
 
-    // 🔄 ANA TTS DÖNGÜSÜ
     try {
-      while (autoReadEnabled && _isReading) {
+      while (_isReading) {
         if (affirmations.isEmpty) break;
 
         if (currentIndex >= affirmations.length) {
           currentIndex = 0;
         }
+
+        print("📖 Reading index → $currentIndex / ${affirmations.length}");
 
         final aff = affirmations[currentIndex];
         if (aff == null) break;
@@ -202,18 +181,15 @@ class PlaybackState extends ChangeNotifier {
           break;
         }
 
-        if (!autoReadEnabled || !_isReading) break;
+        if (!_autoReadEnabled || !_isReading) break;
 
         await Future.delayed(const Duration(seconds: 2));
-
-        if (!_isReading) break; // ⭐ Ekstra güvenlik
 
         nextAffirmation();
       }
     } catch (e) {
       debugPrint("⚠️ AutoRead döngüsünde hata: $e");
     } finally {
-      // ⭐ Döngü bittiğinde temizlik
       if (_isReading) {
         await _stopAutoRead();
       }
@@ -222,8 +198,8 @@ class PlaybackState extends ChangeNotifier {
 
   Future<void> _stopAutoRead() async {
     _isReading = false;
+    _autoReadEnabled = false;
 
-    // ⭐ Timer'ı iptal et
     _limitTimer?.cancel();
     _limitTimer = null;
 
@@ -233,6 +209,10 @@ class PlaybackState extends ChangeNotifier {
     if (_ttsCompleter != null && !_ttsCompleter!.isCompleted) {
       _ttsCompleter!.complete();
     }
+
+    print("⏹ AutoRead stopped");
+
+    notifyListeners();
   }
 
   void nextAffirmation() {
@@ -244,6 +224,8 @@ class PlaybackState extends ChangeNotifier {
       currentIndex = 0;
     }
 
+    print("➡️ Next index → $currentIndex / ${affirmations.length}");
+
     if (onIndexChanged != null) {
       onIndexChanged!(currentIndex);
     }
@@ -253,14 +235,16 @@ class PlaybackState extends ChangeNotifier {
 
   void onPageChanged(int index) {
     currentIndex = index;
+
+    print("📄 Page changed → $currentIndex / ${affirmations.length}");
+
     notifyListeners();
   }
 
-  // ⭐ dispose() metodunda da temizlik yap
   @override
   void dispose() {
     _limitTimer?.cancel();
-    _bgMusicPlayer.dispose();
+    //_bgMusicPlayer.dispose();
     _tts.stop();
     super.dispose();
   }
@@ -270,3 +254,48 @@ class PlaybackState extends ChangeNotifier {
     return prefs.getString("userName");
   }
 }
+
+
+
+  // ⭐ Müzik başlat
+  // if (backgroundMusicEnabled) {
+  //   try {
+  //     await _bgMusicPlayer.play(
+  //       AssetSource('audio/$selectedMusic'),
+  //       volume: 0.3,
+  //     );
+  //     await _bgMusicPlayer.setReleaseMode(ReleaseMode.loop);
+  //   } catch (e) {
+  //     debugPrint("⚠️ Müzik başlatılamadı: $e");
+  //   }
+  // }
+
+  // ⭐ YENİ: Müzik seçimi
+  // void setBackgroundMusic(String musicFile) {
+  //   selectedMusic = musicFile;
+
+  //   // Eğer müzik çalıyorsa, yenisini başlat
+  //   if (_bgMusicPlayer.state == PlayerState.playing) {
+  //     _bgMusicPlayer.stop();
+  //     _bgMusicPlayer.play(
+  //       AssetSource('audio/$selectedMusic'),
+  //       volume: 0.3,
+  //     );
+  //     _bgMusicPlayer.setReleaseMode(ReleaseMode.loop);
+  //   }
+
+  //   notifyListeners();
+  // }
+
+  // ⭐ YENİ: Müzik toggle
+  // void toggleBackgroundMusic() {
+  //   backgroundMusicEnabled = !backgroundMusicEnabled;
+
+  //   if (!backgroundMusicEnabled &&
+  //       _bgMusicPlayer.state == PlayerState.playing) {
+  //     _bgMusicPlayer.stop();
+  //   }
+
+  //   notifyListeners();
+  // }
+
