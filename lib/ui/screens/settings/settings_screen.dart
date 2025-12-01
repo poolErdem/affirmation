@@ -3,12 +3,12 @@ import 'dart:ui';
 import 'package:affirmation/l10n/app_localizations.dart';
 import 'package:affirmation/models/user_preferences.dart';
 import 'package:affirmation/ui/screens/settings/content_preferences_screen.dart';
+import 'package:affirmation/ui/screens/settings/gender_screen.dart';
 import 'package:affirmation/ui/screens/settings/language_screen.dart';
 import 'package:affirmation/ui/screens/settings/name_screen.dart';
 import 'package:affirmation/ui/screens/premium_screen.dart';
 import 'package:affirmation/ui/screens/settings/privacy_policy_screen.dart';
 import 'package:affirmation/ui/screens/settings/reminder_screen.dart';
-import 'package:affirmation/ui/screens/settings/sound_screen.dart';
 import 'package:affirmation/ui/screens/settings/terms_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -213,11 +213,11 @@ class _SettingsScreenState extends State<SettingsScreen>
 
                 _tile(
                   context,
-                  title: t.sound,
-                  icon: Icons.volume_up_rounded,
+                  title: t.gender,
+                  icon: Icons.wc,
                   onTap: () => Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (_) => const SoundScreen()),
+                    MaterialPageRoute(builder: (_) => const GenderScreen()),
                   ),
                 ),
 

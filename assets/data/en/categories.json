@@ -3,17 +3,11 @@
   { "id": "happiness", "name": "Happiness", "imageAsset": "assets/data/categories/happiness.jfif", "isPremiumLocked": false },
   { "id": "stress_anxiety", "name": "Stress & Anxiety", "imageAsset": "assets/data/categories/stress.jfif", "isPremiumLocked": true },
   { "id": "positive_thinking", "name": "Positive Thinking", "imageAsset": "assets/data/categories/positive.jfif", "isPremiumLocked": true },
-  { "id": "body_positivity", "name": "Body Positivity", "imageAsset": "assets/data/categories/body.jfif", "isPremiumLocked": true },
   { "id": "motivation", "name": "Motivation", "imageAsset": "assets/data/categories/motivation.jfif", "isPremiumLocked": true },
   { "id": "confidence", "name": "Confidence", "imageAsset": "assets/data/categories/confidence.jfif", "isPremiumLocked": true },
   { "id": "sleep", "name": "Sleep", "imageAsset": "assets/data/categories/sleep.jfif", "isPremiumLocked": true },
   { "id": "relationships", "name": "Relationships", "imageAsset": "assets/data/categories/relationships.jfif", "isPremiumLocked": true },
   { "id": "career_success", "name": "Career & Success", "imageAsset": "assets/data/categories/career.jfif", "isPremiumLocked": true },
   { "id": "mindfulness", "name": "Mindfulness", "imageAsset": "assets/data/categories/mindfulness.jfif", "isPremiumLocked": true },
-  { "id": "gratitude", "name": "Gratitude", "imageAsset": "assets/data/categories/gratitude.jfif", "isPremiumLocked": true },
-  { "id": "healing", "name": "Healing", "imageAsset": "assets/data/categories/healing.jfif", "isPremiumLocked": true },
-  { "id": "spirituality", "name": "Spirituality", "imageAsset": "assets/data/categories/spirituality.jfif", "isPremiumLocked": true },
-  { "id": "focus_productivity", "name": "Focus & Productivity", "imageAsset": "assets/data/categories/productivity.jfif", "isPremiumLocked": true },
-  { "id": "law_of_attraction", "name": "Law of Attraction", "imageAsset": "assets/data/categories/law_of_attraction.jfif", "isPremiumLocked": true },
-  { "id": "inner_child", "name": "Inner Child", "imageAsset": "assets/data/categories/inner_child.jfif", "isPremiumLocked": true }
+  { "id": "gratitude", "name": "Gratitude", "imageAsset": "assets/data/categories/gratitude.jfif", "isPremiumLocked": true }
 ]

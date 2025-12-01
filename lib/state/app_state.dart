@@ -27,7 +27,6 @@ class AppState extends ChangeNotifier {
   List<Affirmation> _cachedCategoryFeed = [];
   List<Affirmation> _cachedFavoriteFeed = [];
 
-  Set<String> _activeCategoryIds = {};
   Set<String> onboardingContentPrefs = {};
 
   bool _fabExpanded = false;
@@ -41,7 +40,9 @@ class AppState extends ChangeNotifier {
 
   String _activeCategoryId = '';
   String? onboardingName;
-  String? onboardingGender;
+  String? gender;
+  String? _pendingShareText;
+
   int? onboardingThemeIndex;
   int _currentIndex = 0;
 
@@ -54,15 +55,8 @@ class AppState extends ChangeNotifier {
   PlaybackState get playback => _playback;
 
   bool get isLoaded => _loaded;
-  bool get isFabExpanded => _fabExpanded;
-
-  int get pageCount => currentFeed.isEmpty ? 1 : currentFeed.length;
   int get currentIndex => _currentIndex;
-
-  Set<String> get activeCategoryIds => _activeCategoryIds;
   List<ThemeModel> get themes => _themes;
-  List<Affirmation> get allAffirmations => _allAffirmations;
-  String? _pendingShareText;
   String? get pendingShareText => _pendingShareText;
   String? get userName => preferences.userName;
   String get activeCategoryId => _activeCategoryId;
@@ -121,8 +115,6 @@ class AppState extends ChangeNotifier {
     _categories = bundle.categories;
     _themes = bundle.themes;
 
-    _allAffirmations = await _repository.loadAllCategoriesItems();
-
     print(
         "🟢 ALL data loaded. Category count= ${_categories.length} , Affirmation count=${_allAffirmations.length}");
 
@@ -157,22 +149,7 @@ class AppState extends ChangeNotifier {
       premiumExpiresAt: premiumExpiresAt ?? _preferences.premiumExpiresAt,
     );
 
-    if (_activeCategoryId.isEmpty && _categories.isNotEmpty) {
-      _activeCategoryId = _categories.first.id;
-    }
-
-    final activeCategory = _categories.firstWhere(
-      (c) => c.id == _activeCategoryId,
-      orElse: () => _categories.first,
-    );
-
-    if (activeCategory.isPremiumLocked && !_preferences.isPremiumValid) {
-      final fallback = _categories.firstWhere(
-        (c) => !c.isPremiumLocked,
-        orElse: () => _categories.first,
-      );
-      _activeCategoryId = fallback.id;
-    }
+    _activeCategoryId = Constants.generalCategoryId;
 
     // 6️⃣ THEME VALIDATION & PREMIUM FALLBACK
     ThemeModel? activeTheme;
@@ -194,14 +171,11 @@ class AppState extends ChangeNotifier {
       _preferences = _preferences.copyWith(languageCode: _selectedLocale);
     }
 
-    final count = _allAffirmations
-        .where((a) =>
-            matchGender(a, _preferences.gender) &&
-            _preferences.selectedContentPreferences.contains(a.categoryId))
-        .length;
+    _allAffirmations =
+        await _repository.loadAllCategoriesItems(_preferences.premiumActive);
 
-    _currentIndex =
-        _preferences.premiumActive ? randomIndex(count) : randomIndex(200);
+    // random index aşmaması için, _currentIndex
+    _currentIndex = 0;
 
     _loaded = true;
     _generalDirty = true;
@@ -212,10 +186,27 @@ class AppState extends ChangeNotifier {
 
     print("✅ initialize() tamamlandı");
     print("📊 Final state:");
-    print("   → Aktif Category: $_activeCategoryId");
     print("   → Gender: ${_preferences.gender}");
     print("   → Content Prefs: ${_preferences.selectedContentPreferences}");
     print("   → Premium: ${_preferences.isPremiumValid}");
+  }
+
+  int _calculateInitialCount() {
+    if (_preferences.premiumActive) {
+      return _allAffirmations
+          .where(
+            (a) =>
+                matchGender(a, _preferences.gender) &&
+                _preferences.selectedContentPreferences.contains(a.categoryId),
+          )
+          .length;
+    } else {
+      return _allAffirmations
+          .where(
+            (a) => matchGender(a, _preferences.gender),
+          )
+          .length;
+    }
   }
 
   // SAVE / LOAD
@@ -227,7 +218,7 @@ class AppState extends ChangeNotifier {
       await prefs.reload();
 
       onboardingCompleted = prefs.getBool("onboarding_completed") ?? false;
-      onboardingGender = prefs.getString("onboard_gender");
+      gender = prefs.getString("gender");
       onboardingContentPrefs =
           (prefs.getStringList("onboard_prefs") ?? []).toSet();
       onboardingThemeIndex = prefs.getInt("onboard_theme");
@@ -255,8 +246,7 @@ class AppState extends ChangeNotifier {
             myList != null ? Set<String>.from(myList.split(",")) : <String>{},
         languageCode: lastLanguage ?? "en",
         userName: userName ?? "",
-        backgroundVolume: 0.5,
-        gender: genderFromString(onboardingGender ?? "none"),
+        gender: genderFromString(gender ?? "none"),
         premiumPlanId: premiumPlanId != null && premiumPlanId.isNotEmpty
             ? premiumPlanFromString(premiumPlanId)
             : null,
@@ -331,18 +321,16 @@ class AppState extends ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
 
     await prefs.setBool("onboarding_completed", true);
-    await prefs.setString("onboard_gender", onboardingGender ?? "");
+    await prefs.setString("gender", "none");
     await prefs.setStringList("onboard_prefs", onboardingContentPrefs.toList());
     await prefs.setInt("onboard_theme", onboardingThemeIndex ?? 0);
     await prefs.setString("onboard_name", onboardingName ?? "");
 
     await prefs.remove('lastContentPreferences');
 
-    if (onboardingGender != null && onboardingGender!.isNotEmpty) {
-      _preferences = _preferences.copyWith(
-        gender: genderFromString(onboardingGender!),
-      );
-    }
+    _preferences = _preferences.copyWith(
+      gender: Gender.none,
+    );
 
     _preferences = _preferences.copyWith(
       selectedContentPreferences: onboardingContentPrefs,
@@ -383,29 +371,28 @@ class AppState extends ChangeNotifier {
   List<Affirmation> _calculateGeneralFeed() {
     print('📌 [GENERAL FEED] Başladı');
     print('➡ Gender: ${_preferences.gender}');
+    print('➡ Premium: ${_preferences.premiumActive}');
     print('➡ Selected categories: ${_preferences.selectedContentPreferences}');
 
-    // Kullanıcının seçtiği kategoriler + gender
-    final list = _allAffirmations.where((a) {
-      final genderOk = matchGender(a, _preferences.gender);
+    late final List<Affirmation> list;
 
-      final categoryOk =
-          _preferences.selectedContentPreferences.contains(a.categoryId);
-
-      return genderOk && categoryOk;
-    }).toList();
-
-    if (!_preferences.premiumActive && list.length > 200) {
-      final cutList = list.take(200).toList();
-      print(
-          '✅ GENERAL FEED (200 sınırı) toplam: ${list.length}, kesildikten sonra: ${cutList.length}');
-
-      return cutList;
+    if (_preferences.premiumActive) {
+      list = _allAffirmations.where((a) {
+        final genderOk = matchGender(a, _preferences.gender);
+        final categoryOk =
+            _preferences.selectedContentPreferences.contains(a.categoryId);
+        return genderOk && categoryOk;
+      }).toList();
+    } else {
+      // zaten 2 kategoriden geliyor, seçimlere göre süzmeyelim :)
+      list = _allAffirmations.where((a) {
+        final genderOk = matchGender(a, _preferences.gender);
+        return genderOk;
+      }).toList();
     }
 
     print('✅ GENERAL FEED toplam: ${list.length}');
-
-    return list;
+    return list.take(5).toList();
   }
 
   List<Affirmation> get categoryFeed {
@@ -489,10 +476,12 @@ class AppState extends ChangeNotifier {
   }
 
   void setCurrentIndex(int index) {
-    _currentIndex = index;
+    final feed = currentFeed;
 
+    _currentIndex = index;
     playback.setCurrentIndex(index);
-    if (currentFeed.isNotEmpty) playback.updateAffirmations(currentFeed);
+
+    if (feed.isNotEmpty) playback.updateAffirmations(feed);
 
     notifyListeners();
   }
@@ -509,7 +498,7 @@ class AppState extends ChangeNotifier {
   }
 
   //🔥 OPTİMİZE: Kategori ID'sini günceller + dirty flag + playback
-  void setActiveCategoryIdOnly(String id) {
+  void setActiveCategoryIdOnly(String id, {bool keepIndex = false}) {
     print("🎯 setActiveCategoryIdOnly: $id");
 
     if (_activeCategoryId == id) {
@@ -545,13 +534,16 @@ class AppState extends ChangeNotifier {
     _categoryDirty = true;
     _favoriteDirty = true;
 
-    assignRandomIndex();
+    if (!keepIndex) {
+      assignRandomIndex();
+    }
+
     notifyListeners();
     saveLastSettings();
   }
 
   void setActiveCategories(Set<String> categoryIds) {
-    _activeCategoryIds = categoryIds;
+    //_activeCategoryIds = categoryIds;
     notifyListeners();
   }
 
@@ -561,13 +553,13 @@ class AppState extends ChangeNotifier {
   }
 
   // AFFIRMATIONS
-  List<Affirmation> get affirmationsForActiveCategories {
-    print("🎯 notf allAffirmations count → ${allAffirmations.length}");
+  List<Affirmation> affirmationsForActiveCategories() {
+    print("🎯 notf allAffirmations count → ${_allAffirmations.length}");
     print("🎯 notf gender → ${_preferences.gender}");
     print(
         "🎯 notf seçilen kategori sayısı → ${preferences.selectedContentPreferences.length}");
 
-    return allAffirmations.where((a) {
+    return _allAffirmations.where((a) {
       final genderOk = matchGender(a, _preferences.gender);
       final matchesCategory =
           preferences.selectedContentPreferences.contains(a.categoryId);
@@ -589,7 +581,7 @@ class AppState extends ChangeNotifier {
   }
 
   Affirmation? getRandomAffirmation() {
-    final list = affirmationsForActiveCategories;
+    final list = affirmationsForActiveCategories();
     print("🎯 notf affirmation count → ${list.length}");
 
     if (list.isEmpty) return null;
@@ -615,7 +607,7 @@ class AppState extends ChangeNotifier {
 
     _currentIndex = frandomIndex;
 
-    playback.updateAffirmations(currentFeed);
+    playback.updateAffirmations(feed);
     playback.setCurrentIndex(_currentIndex);
     return;
   }
@@ -746,11 +738,11 @@ class AppState extends ChangeNotifier {
       _themes = bundle.themes;
       _categories = bundle.categories;
 
-      _allAffirmations = await _repository.loadAllCategoriesItems();
+      _allAffirmations =
+          await _repository.loadAllCategoriesItems(_preferences.premiumActive);
 
       print("🟩 All Affirmations count: ${_allAffirmations.length}");
 
-      // Aktif kategori yeni listede yoksa fallback
       if (_categories.isNotEmpty &&
           !_categories.any((c) => c.id == _activeCategoryId)) {
         _activeCategoryId = Constants.generalCategoryId;
@@ -767,77 +759,36 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> setGender(String gender) async {
+    print("🟥 AppState.setGender() CALLED → $gender");
+
+    Gender? selectedGender = gender == "male"
+        ? Gender.male
+        : gender == "female"
+            ? Gender.female
+            : Gender.none;
+
+    _preferences = _preferences.copyWith(gender: selectedGender);
+
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString("gender", gender);
+
+    print("🟥 Gender saved to SharedPreferences");
+
+    _generalDirty = true;
+    _categoryDirty = true;
+    _favoriteDirty = true;
+    notifyListeners();
+  }
+
   bool canAccessTheme(ThemeModel theme) {
     if (!theme.isPremiumLocked) return true;
     return _preferences.isPremiumValid;
   }
 
-  // PREMIUM
-  Future<void> updatePremiumStatus({
-    required bool active,
-    PremiumPlan? planId,
-    DateTime? expiresAt,
-  }) async {
-    _preferences = _preferences.copyWith(
-      premiumActive: active,
-      premiumPlanId: planId,
-      premiumExpiresAt: expiresAt,
-    );
-
+  // Preferences
+  void updatePreferences(UserPreferences newPrefs) {
+    _preferences = newPrefs;
     notifyListeners();
-    await saveLastSettings();
-
-    print(
-        "💎 Premium güncellendi → active=$active, plan=$planId, expiresAt=$expiresAt");
-  }
-
-  void updatePremium({
-    required bool active,
-    required PremiumPlan plan,
-    required DateTime? expiry,
-  }) async {
-    _preferences = _preferences.copyWith(
-      premiumActive: active,
-      premiumPlanId: plan,
-      premiumExpiresAt: expiry,
-    );
-
-    // storage
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setBool("premiumActive", false);
-    prefs.setString("premiumPlanId", plan.name);
-    prefs.setString("premiumExpiresAt", expiry?.toIso8601String() ?? "");
-
-    notifyListeners();
-  }
-
-  // PAGE ITEMS (AFFIRMATION + CTA)
-  List<Map<String, dynamic>> get pagedItems {
-    return _buildPagedItems(
-      affirmations: currentFeed,
-      isPremium: _preferences.isPremiumValid,
-    );
-  }
-
-  List<Map<String, dynamic>> _buildPagedItems({
-    required List<Affirmation> affirmations,
-    required bool isPremium,
-  }) {
-    final List<Map<String, dynamic>> items = [];
-
-    for (int i = 0; i < affirmations.length; i++) {
-      items.add({
-        "type": "affirmation",
-        "data": affirmations[i],
-        "realIndex": i,
-      });
-    }
-
-    // FREE kullanıcı → en sona CTA kartı
-    // if (!isPremium) {
-    //   items.add({"type": "cta_premium"});
-    // }
-
-    return items;
   }
 }

@@ -27,6 +27,33 @@ class Constants {
   static const String categoriesJson = "categories.json";
   static const String themesJson = "themes.json";
 
+  static const localizedLanguageNames = {
+    "en": {
+      "en": "English",
+      "es": "Spanish",
+      "tr": "Turkish",
+      "de": "German",
+    },
+    "es": {
+      "en": "Inglés",
+      "es": "Español",
+      "tr": "Turco",
+      "de": "Alemán",
+    },
+    "tr": {
+      "en": "İngilizce",
+      "es": "İspanyolca",
+      "tr": "Türkçe",
+      "de": "Almanca",
+    },
+    "de": {
+      "en": "Englisch",
+      "es": "Spanisch",
+      "tr": "Türkisch",
+      "de": "Deutsch",
+    },
+  };
+
   static const List<AffirmationCategory> baseCategories = [
     AffirmationCategory(
       id: generalCategoryId,

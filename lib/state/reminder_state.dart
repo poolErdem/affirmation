@@ -325,14 +325,6 @@ class ReminderState extends ChangeNotifier {
   }
 
   // -------------------------------------------------------------------------
-  // Premium durumunu güncelle (AppState değişince çağrılacak)
-  // -------------------------------------------------------------------------
-  void updatePremiumStatus(bool isPremium) {
-    _isPremium = isPremium;
-    notifyListeners();
-  }
-
-  // -------------------------------------------------------------------------
   // ADD
   // -------------------------------------------------------------------------
   bool addReminder(ReminderModel r) {
@@ -444,7 +436,7 @@ class ReminderState extends ChangeNotifier {
   Future<void> _fireReminder(ReminderModel r) async {
     debugPrint("🔔 FIRE → Reminder çalıştı: ${r.categoryIds}");
 
-    appState.setActiveCategories(r.categoryIds);
+    //appState.setActiveCategories(r.categoryIds);
     final aff = appState.getRandomAffirmation();
 
     if (aff == null) {

@@ -85,13 +85,20 @@ class AppRepository {
   // -------------------------------------------------------------
   // LOAD ALL CATEGORIES ITEMS
   // -------------------------------------------------------------
-  Future<List<Affirmation>> loadAllCategoriesItems() async {
+  Future<List<Affirmation>> loadAllCategoriesItems(bool premiumActive) async {
     print("\n🔵 [LOAD-ALL] Tüm kategoriler yükleniyor...");
 
-    final bundle = await load(); // category + theme load
+    final bundle = await load(); // Kategorileri ve temaları yükler
     final List<Affirmation> result = [];
 
-    for (final c in bundle.categories) {
+    // Premium değilse sadece free kategorileri alma
+    final filteredCategories = premiumActive
+        ? bundle.categories
+        : bundle.categories.where((c) => !c.isPremiumLocked).toList();
+
+    print("📦 Kullanılacak kategori sayısı = ${filteredCategories.length}");
+
+    for (final c in filteredCategories) {
       try {
         final items = await loadCategoryItem(c.id);
         result.addAll(items);

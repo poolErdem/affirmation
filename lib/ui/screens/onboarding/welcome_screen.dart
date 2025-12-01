@@ -20,7 +20,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     // Onboarding RESET – doğru yer burası
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final appState = context.read<AppState>();
-      appState.onboardingGender = null;
+      appState.gender = null;
       appState.onboardingContentPrefs = {};
       appState.onboardingName = null;
       appState.onboardingThemeIndex = null;

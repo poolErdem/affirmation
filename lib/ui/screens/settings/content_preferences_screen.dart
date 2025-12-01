@@ -20,11 +20,8 @@ class _ContentPreferencesScreen extends State<ContentPreferencesScreen>
 
   final prefs = [
     "self_care",
-    "personal_growth",
     "stress_anxiety",
-    "body_positivity",
     "happiness",
-    "attracting_love",
     "confidence",
     "motivation",
     "mindfulness",

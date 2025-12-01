@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'dart:ui';
+import 'package:affirmation/constants/constants.dart';
 import 'package:affirmation/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -37,12 +38,8 @@ class _LanguageScreenState extends State<LanguageScreen>
     final t = AppLocalizations.of(context)!;
     final selected = appState.preferences.languageCode;
 
-    final languages = {
-      "en": "English",
-      "es": "Spanish",
-      "tr": "Türkçe",
-      "de": "Deutsch",
-    };
+    final currentLocale = selected; // ör: "tr"
+    final languages = Constants.localizedLanguageNames[currentLocale]!;
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -121,6 +118,22 @@ class _LanguageScreenState extends State<LanguageScreen>
 
                   const SizedBox(height: 10),
 
+                  // ⭐ AÇIKLAMA (Yeni Eklenen Bölüm)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 22),
+                    child: Text(
+                      t.languageDescription,
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.black87,
+                        height: 1.35,
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  // ⭐ LANGUAGE LIST
                   Expanded(
                     child: ListView(
                       padding: const EdgeInsets.symmetric(
@@ -134,6 +147,10 @@ class _LanguageScreenState extends State<LanguageScreen>
                           onTap: () async {
                             print("🌐 LanguageScreen → $code seçildi");
                             await context.read<AppState>().setLanguage(code);
+
+                            await Future.delayed(
+                                const Duration(milliseconds: 350));
+
                             if (context.mounted) Navigator.pop(context);
                           },
                           child: AnimatedContainer(
@@ -177,7 +194,7 @@ class _LanguageScreenState extends State<LanguageScreen>
                                 if (isSelected)
                                   const Icon(
                                     Icons.check_circle,
-                                    color: Color(0xFFC9A85D), // GOLD
+                                    color: Color(0xFFC9A85D),
                                     size: 26,
                                   ),
                               ],
@@ -198,7 +215,7 @@ class _LanguageScreenState extends State<LanguageScreen>
 }
 
 // ------------------------------------------------------------
-// PREMIUM Noise Painter (aynı ekranlarda kullandığın)
+// PREMIUM Noise Painter
 // ------------------------------------------------------------
 class NoisePainter extends CustomPainter {
   final double opacity;

@@ -1,3 +1,4 @@
+import 'package:affirmation/ui/screens/onboarding/welcome_last_screen.dart';
 import 'package:affirmation/ui/widgets/glass_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -241,7 +242,8 @@ class _OnboardingThemeScreenState extends State<OnboardingThemeScreen> {
                       if (!mounted) return;
 
                       navigator.pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (_) => const HomeScreen()),
+                        MaterialPageRoute(
+                            builder: (_) => const WelcomeLastScreen()),
                         (route) => false,
                       );
                     },

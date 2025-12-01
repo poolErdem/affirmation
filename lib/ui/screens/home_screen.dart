@@ -65,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen>
       }
     });
 
-    // Auto page sync
+    // 🔥 Auto page sync (LOOP KIRICI FLAG ile)
     appState.playback.onIndexChanged = (newIndex) {
       if (_pageController.hasClients) {
         _pageController.animateToPage(
@@ -97,6 +97,14 @@ class _HomeScreenState extends State<HomeScreen>
     _fadeAnim = CurvedAnimation(parent: _actionAnim, curve: Curves.easeInOut);
 
     _actionAnim.forward();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final appState = context.read<AppState>();
+      final myState = context.read<MyAffirmationState>();
+
+      appState.playback.forceStop();
+      myState.playback.forceStop();
+    });
   }
 
   @override
@@ -181,12 +189,11 @@ class _HomeScreenState extends State<HomeScreen>
 // --------------------------------------------------------------
 // AFFIRMATION PAGER  (Custom affirmations destekli)
 
-// 🔥 GÜNCELLENMİŞ _buildAffirmationPager
   Widget _buildAffirmationPager(AppState appState) {
     final myState = context.watch<MyAffirmationState>();
 
     // -------------------------------------------------------------
-    // MY AFFIRMATIONS (Custom Feed)
+    // MY AFFIRMATIONS (User custom feed)
     // -------------------------------------------------------------
     if (appState.activeCategoryId == Constants.myCategoryId) {
       final items = myState.items;
@@ -228,18 +235,16 @@ class _HomeScreenState extends State<HomeScreen>
             } else {
               myState.setCurrentIndex(index);
             }
-
             _actionAnim.forward(from: 0);
           },
           itemBuilder: (_, index) {
             final aff = items[index];
-
             return Center(
               child: AffirmationCard(
                 key: ValueKey(aff.id),
                 affirmation: null,
-                customText: aff.text, // 🔥 BUNU KOYMAZSAN KAYIT GÖRÜNMEZ
-                isMine: true, // 🔥 Eğer kart bunu kullanıyorsa
+                customText: aff.text,
+                isMine: true,
               ),
             );
           },
@@ -248,7 +253,7 @@ class _HomeScreenState extends State<HomeScreen>
     }
 
     // -------------------------------------------------------------
-    // NORMAL CATEGORIES (JSON Feed)
+    // NORMAL (JSON) FEED
     // -------------------------------------------------------------
     final items = appState.currentFeed;
 
@@ -271,12 +276,10 @@ class _HomeScreenState extends State<HomeScreen>
           } else {
             appState.setCurrentIndex(index);
           }
-
           _actionAnim.forward(from: 0);
         },
         itemBuilder: (_, index) {
           final aff = items[index];
-
           return Center(
             child: AffirmationCard(
               key: ValueKey(aff.id),
@@ -792,7 +795,7 @@ class _HomeScreenState extends State<HomeScreen>
     final bool isMyCategory =
         appState.activeCategoryId == Constants.myCategoryId;
 
-    final double? right = isMyCategory ? null : 10;
+    //final double? right = isMyCategory ? null : 10;
 
     // 🔥 Doğru playback seç
     final playback = isMyCategory
@@ -804,7 +807,7 @@ class _HomeScreenState extends State<HomeScreen>
     return Positioned(
       bottom: 100,
       left: 0,
-      right: right,
+      right: 0,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -913,7 +916,7 @@ class _HomeScreenState extends State<HomeScreen>
     return Positioned(
       bottom: 100,
       left: 0,
-      right: 0,
+      right: 250,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

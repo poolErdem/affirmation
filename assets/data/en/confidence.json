@@ -4,7 +4,7 @@
 
 { "id": "cf_001", "text": "Strength shows in every small step forward, {name}.", "gender": "female" },
 { "id": "cf_002", "text": "Your presence carries quiet power.", "gender": "female" },
-{ "id": "cf_003", "text": "Self-belief grows each time you choose yourself, {name}.", "gender": "any" },
+{ "id": "cf_003", "text": "Self-belief grows each time you choose yourself.", "gender": "any" },
 { "id": "cf_004", "text": "You are allowed to take up space boldly.", "gender": "female" },
 { "id": "cf_005", "text": "Courage shines through your softness.", "gender": "female" },
 { "id": "cf_006", "text": "Today feels like a fresh chance to rise.", "gender": "any" },
@@ -150,7 +150,7 @@
 { "id": "cf_136", "text": "Your spirit is steady and powerful.", "gender": "any" },
 { "id": "cf_137", "text": "You step into each day with growing certainty.", "gender": "female" },
 { "id": "cf_138", "text": "You deserve the confidence you feel rising within you.", "gender": "female" },
-{ "id": "cf_139", "text": "Your presence speaks before you do, {name}.", "gender": "female" },
+{ "id": "cf_139", "text": "Your presence speaks before you do.", "gender": "female" },
 { "id": "cf_140", "text": "Every step you take is rewriting your story in strength.", "gender": "female" },
 
 { "id": "cf_141", "text": "You walk with an energy that cannot be ignored.", "gender": "female" },
@@ -187,11 +187,11 @@
 { "id": "cf_167", "text": "I trust myself to rise to any occasion.", "gender": "female" },
 { "id": "cf_168", "text": "My worth is constant, no matter the situation.", "gender": "female" },
 { "id": "cf_169", "text": "I deserve to take up space wherever I go.", "gender": "female" },
-{ "id": "cf_170", "text": "My self-trust expands as I follow what feels right, {name}.", "gender": "female" },
+{ "id": "cf_170", "text": "My self-trust expands as I follow what feels right.", "gender": "female" },
 
 { "id": "cf_171", "text": "I carry confidence that is both soft and powerful.", "gender": "female" },
 { "id": "cf_172", "text": "My inner strength is greater than any external doubt.", "gender": "female" },
-{ "id": "cf_173", "text": "I act with courage even when I feel unsure, {name}.", "gender": "female" },
+{ "id": "cf_173", "text": "I act with courage even when I feel unsure.", "gender": "female" },
 { "id": "cf_174", "text": "My confidence grows naturally as I embrace my authenticity.", "gender": "female" },
 { "id": "cf_175", "text": "I trust the woman I'm becoming more every day.", "gender": "female" },
 
@@ -216,7 +216,7 @@
 { "id": "cf_191", "text": "I stand firm in my truth without needing validation.", "gender": "female" },
 { "id": "cf_192", "text": "My confidence shows up in the way I speak, move, and choose.", "gender": "female" },
 { "id": "cf_193", "text": "I trust myself to figure things out one step at a time.", "gender": "female" },
-{ "id": "cf_194", "text": "My self-belief fuels my best decisions, {name}.", "gender": "female" },
+{ "id": "cf_194", "text": "My self-belief fuels my best decisions.", "gender": "female" },
 { "id": "cf_195", "text": "I release self-doubt and embrace my full potential.", "gender": "female" },
 
 { "id": "cf_196", "text": "My confidence is steady, resilient, and ever-growing.", "gender": "female" },

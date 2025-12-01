@@ -26,6 +26,11 @@
   "terms": "Terms & Conditions",
   "general": "General",
   "about": "About",
+  "gender": "Gender",
+  "languageDescription": "Choose the language you want to use in the app.\nYour entire experience will adapt instantly.",
+  "genderDescription": "We’ll personalize the experience based on your preference.",
+  "nameDescription": "Your name helps us personalize your affirmations.",
+
 
   "back": "Back",
   "continueLabel": "Continue",

@@ -237,6 +237,30 @@ abstract class AppLocalizations {
   /// **'About'**
   String get about;
 
+  /// No description provided for @gender.
+  ///
+  /// In en, this message translates to:
+  /// **'Gender'**
+  String get gender;
+
+  /// No description provided for @languageDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the language you want to use in the app.\nYour entire experience will adapt instantly.'**
+  String get languageDescription;
+
+  /// No description provided for @genderDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'We’ll personalize the experience based on your preference.'**
+  String get genderDescription;
+
+  /// No description provided for @nameDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Your name helps us personalize your affirmations.'**
+  String get nameDescription;
+
   /// No description provided for @back.
   ///
   /// In en, this message translates to:

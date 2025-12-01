@@ -7,12 +7,8 @@ class UserPreferences {
   final Set<String> favoriteAffirmationIds;
   final Set<String> myAffirmationIds;
   final String languageCode;
-
   final String userName;
-  final double backgroundVolume;
-
   final Gender? gender;
-
   final PremiumPlan? premiumPlanId;
   final DateTime? premiumExpiresAt;
   final bool premiumActive;
@@ -25,7 +21,6 @@ class UserPreferences {
     required this.myAffirmationIds,
     required this.languageCode,
     required this.userName,
-    required this.backgroundVolume,
     required this.gender,
     required this.premiumPlanId,
     required this.premiumExpiresAt,
@@ -45,7 +40,6 @@ class UserPreferences {
       myAffirmationIds: <String>{},
       languageCode: 'en',
       userName: '',
-      backgroundVolume: 0.5,
       gender: Gender.none,
       premiumPlanId: null,
       premiumExpiresAt: null,
@@ -72,7 +66,6 @@ class UserPreferences {
     Set<String>? myAffirmationIds,
     String? languageCode,
     String? userName,
-    double? backgroundVolume,
     Gender? gender,
     PremiumPlan? premiumPlanId,
     DateTime? premiumExpiresAt,
@@ -89,7 +82,6 @@ class UserPreferences {
           myAffirmationIds ?? this.myAffirmationIds, // ✅ DÜZELTİLDİ
       languageCode: languageCode ?? this.languageCode,
       userName: userName ?? this.userName,
-      backgroundVolume: backgroundVolume ?? this.backgroundVolume,
       gender: gender ?? this.gender,
       premiumPlanId: premiumPlanId ?? this.premiumPlanId,
       premiumExpiresAt: premiumExpiresAt ?? this.premiumExpiresAt,
@@ -110,7 +102,6 @@ class UserPreferences {
       myAffirmationIds: Set<String>.from(json['myAffirmationIds'] ?? const []),
       languageCode: json['languageCode'] as String? ?? 'en',
       userName: json['userName'] as String? ?? '',
-      backgroundVolume: (json['backgroundVolume'] as num?)?.toDouble() ?? 0.5,
       gender: genderFromString(json['gender']),
       premiumPlanId: premiumPlanFromString(json['premiumPlanId']),
       premiumExpiresAt: json['premiumExpiresAt'] != null
@@ -130,7 +121,6 @@ class UserPreferences {
         'myAffirmationIds': myAffirmationIds.toList(),
         'languageCode': languageCode,
         'userName': userName,
-        'backgroundVolume': backgroundVolume,
         'gender': genderToString(gender),
         'premiumPlanId': premiumPlanToString(premiumPlanId),
         'premiumExpiresAt': premiumExpiresAt?.toIso8601String(),

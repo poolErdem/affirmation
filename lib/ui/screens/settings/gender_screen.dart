@@ -1,176 +1,283 @@
-import 'package:affirmation/ui/screens/onboarding/preferences_screen.dart';
+import 'dart:math';
+import 'dart:ui';
+import 'package:affirmation/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:affirmation/state/app_state.dart';
-import 'package:affirmation/l10n/app_localizations.dart';
+import '../../../state/app_state.dart';
 
-class GenderScreen extends StatelessWidget {
+class GenderScreen extends StatefulWidget {
   const GenderScreen({super.key});
 
   @override
+  State<GenderScreen> createState() => _GenderScreenState();
+}
+
+class _GenderScreenState extends State<GenderScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _fade;
+
+  @override
+  void initState() {
+    super.initState();
+    _fade = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 600),
+    )..forward();
+  }
+
+  @override
+  void dispose() {
+    _fade.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final appState = context.watch<AppState>();
     final t = AppLocalizations.of(context)!;
 
+    final selected = appState.preferences.gender;
+
+    // -------------------------------------------------------------
+    // Gender seçenekleri
+    // -------------------------------------------------------------
+    final genders = [
+      {
+        "code": "female",
+        "label": "Female",
+        "icon": Icons.female_rounded,
+        "color": const Color(0xffFF6FAF), // pink
+      },
+      {
+        "code": "male",
+        "label": "Male",
+        "icon": Icons.male_rounded,
+        "color": const Color(0xff4A7AFF), // blue
+      },
+      {
+        "code": "none",
+        "label": "Any",
+        "icon": Icons.auto_awesome_rounded,
+        "color": const Color.fromARGB(255, 53, 128, 79), // soft green
+      },
+    ];
+
     return Scaffold(
+      extendBodyBehindAppBar: true,
       body: Stack(
         children: [
-          // ---- Background ----
-          Positioned.fill(
-            child: Image.asset(
-              "assets/data/themes/a1.jfif",
-              fit: BoxFit.cover,
-            ),
-          ),
-
-          // ---- Premium Gradient ----
-          Positioned.fill(
-            child: Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Color(0xCC000000),
-                    Color(0x66000000),
-                    Color(0x22000000),
-                  ],
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                ),
+          // ⭐ Background Gradient
+          Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Color(0xfff7f2ed),
+                  Color(0xfff2ebe5),
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
             ),
           ),
 
-          // ---- Content ----
+          // ⭐ Noise Texture
+          Positioned.fill(
+            child: IgnorePointer(
+              child: CustomPaint(
+                painter: NoisePainter(opacity: 0.06),
+              ),
+            ),
+          ),
+
+          // ⭐ Top Blur Glow
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: ClipRect(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 18, sigmaY: 18),
+                child: Container(height: 120, color: Colors.transparent),
+              ),
+            ),
+          ),
+
           SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 28),
+            child: FadeTransition(
+              opacity: CurvedAnimation(
+                parent: _fade,
+                curve: Curves.easeOut,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 12),
-
-                  // BACK BUTTON (icon)
-                  GestureDetector(
-                    onTap: () => Navigator.pop(context),
+                  // ⭐ HEADER
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 8, 16, 10),
                     child: Row(
-                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(Icons.arrow_back_ios_new,
-                            color: Colors.white.withValues(alpha: 0.8),
-                            size: 20),
+                        GestureDetector(
+                          onTap: () => Navigator.pop(context),
+                          child: const Icon(
+                            Icons.arrow_back_ios_new,
+                            size: 26,
+                            color: Colors.black87,
+                          ),
+                        ),
+                        const SizedBox(width: 12),
                         Text(
-                          "Back",
-                          style: TextStyle(
-                            color: Colors.white.withValues(alpha: 0.8),
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
+                          t.gender,
+                          style: const TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black87,
                           ),
                         ),
                       ],
                     ),
                   ),
 
-                  const SizedBox(height: 80),
+                  const SizedBox(height: 10),
 
-                  // TITLE
-                  Center(
+                  // ⭐ AÇIKLAMA (Doğru Yer)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 22),
                     child: Text(
-                      t.identifyGender,
-                      textAlign: TextAlign.center,
+                      t.genderDescription,
                       style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 21,
-                        fontWeight: FontWeight.w800,
-                        height: 1.2,
-                        letterSpacing: -0.3,
-                      ),
-                    ),
-                  ),
-
-                  const SizedBox(height: 12),
-
-                  const Center(
-                    child: Text(
-                      "Start your journey to a more aligned you.",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white70,
                         fontSize: 15,
-                        height: 1.4,
+                        color: Colors.black87,
+                        height: 1.35,
                       ),
                     ),
                   ),
 
-                  const SizedBox(height: 60),
+                  const SizedBox(height: 16),
 
-                  // ---- Buttons ----
-                  _genderButton(context, "Female"),
-                  const SizedBox(height: 22),
+                  // ⭐ GENDER LIST
+                  Expanded(
+                    child: ListView.builder(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 8),
+                      itemCount: genders.length,
+                      itemBuilder: (context, i) {
+                        final item = genders[i];
+                        final code = item["code"] as String;
+                        final label = item["label"] as String;
+                        final icon = item["icon"] as IconData;
+                        final color = item["color"] as Color;
 
-                  _genderButton(context, "Male"),
-                  const SizedBox(height: 22),
+                        final isSelected = selected?.name == code;
 
-                  _genderButton(context, "Non-binary / Any"),
+                        return GestureDetector(
+                          onTap: () async {
+                            print("👤 GenderScreen → $code seçildi");
+                            await context.read<AppState>().setGender(code);
+
+                            await Future.delayed(
+                                const Duration(milliseconds: 350));
+
+                            if (context.mounted) Navigator.pop(context);
+                          },
+                          child: AnimatedScale(
+                            scale: isSelected ? 1.02 : 1.0,
+                            duration: const Duration(milliseconds: 160),
+                            curve: Curves.easeOut,
+                            child: AnimatedContainer(
+                              duration: const Duration(milliseconds: 240),
+                              margin: const EdgeInsets.only(bottom: 16),
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 20,
+                                horizontal: 22,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(22),
+                                border: Border.all(
+                                  color: isSelected
+                                      ? const Color(0xFFC9A85D)
+                                      : Colors.transparent,
+                                  width: isSelected ? 2.2 : 1,
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: isSelected
+                                        ? const Color(0xFFC9A85D)
+                                            .withValues(alpha: 0.28)
+                                        : Colors.black.withValues(alpha: 0.07),
+                                    blurRadius: isSelected ? 20 : 12,
+                                    offset: const Offset(0, 5),
+                                  ),
+                                ],
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        icon,
+                                        size: 28,
+                                        color: color,
+                                      ),
+                                      const SizedBox(width: 14),
+                                      Text(
+                                        label,
+                                        style: TextStyle(
+                                          fontSize: 17,
+                                          fontWeight: isSelected
+                                              ? FontWeight.w700
+                                              : FontWeight.w500,
+                                          color: Colors.black87,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  if (isSelected)
+                                    const Icon(
+                                      Icons.check_circle,
+                                      color: Color(0xFFC9A85D),
+                                      size: 28,
+                                    ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );
   }
+}
 
-  // -----------------------------------------------------
-  // PREMIUM BUTTON
-  // -----------------------------------------------------
-  Widget _genderButton(BuildContext context, String text) {
-    return GestureDetector(
-      onTap: () {
-        final appState = context.read<AppState>();
+// -------------------------------------------------------------------
+// NoisePainter – aynı
+// -------------------------------------------------------------------
+class NoisePainter extends CustomPainter {
+  final double opacity;
+  final Random _random = Random();
 
-        String gender = text.toLowerCase();
-        if (gender.contains("non")) gender = "any";
+  NoisePainter({this.opacity = 0.06});
 
-        appState.onboardingGender = gender;
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()..color = Colors.black.withValues(alpha: opacity);
 
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (_) => const PreferencesScreen()),
-        );
-      },
-      child: AnimatedScale(
-        scale: 1.0,
-        duration: const Duration(milliseconds: 120),
-        child: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(vertical: 18),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(32),
-            border: Border.all(
-              color: Colors.white.withValues(alpha: 0.7),
-              width: 2,
-            ),
-            boxShadow: const [
-              BoxShadow(
-                color: Color(0x55000000),
-                blurRadius: 16,
-                offset: Offset(0, 6),
-              ),
-            ],
-            color: Colors.white.withValues(alpha: 0.08),
-          ),
-          child: Center(
-            child: Text(
-              text,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
-                letterSpacing: 0.3,
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
+    for (int i = 0; i < size.width * size.height / 80; i++) {
+      final dx = _random.nextDouble() * size.width;
+      final dy = _random.nextDouble() * size.height;
+      canvas.drawRect(Rect.fromLTWH(dx, dy, 1.0, 1.0), paint);
+    }
   }
+
+  @override
+  bool shouldRepaint(covariant NoisePainter oldDelegate) => false;
 }

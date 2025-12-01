@@ -8,16 +8,12 @@ import '../models/my_affirmation.dart';
 
 class MyAffPlaybackState extends ChangeNotifier {
   final FlutterTts _tts = FlutterTts();
-  //final AudioPlayer _bgMusicPlayer = AudioPlayer();
 
   List<MyAffirmation> affirmations = [];
 
-  //String selectedMusic = 'nature_sounds.mp3';
-
-  //bool backgroundMusicEnabled = false;
   bool _volumeEnabled = false;
-  bool _autoReadEnabled = false; // buton görüntüsü
-  bool _isReading = false; // okuma anında kullanır
+  bool _autoReadEnabled = false;
+  bool _isReading = false;
   bool autoScrollEnabled = true;
 
   int currentIndex = 0;
@@ -36,12 +32,15 @@ class MyAffPlaybackState extends ChangeNotifier {
 
   Future<void> toggleVolume() async {
     _volumeEnabled = !_volumeEnabled;
+    await _tts.setVolume(_volumeEnabled ? 1.0 : 0.0);
+    notifyListeners();
+  }
 
-    if (_volumeEnabled) {
-      await _tts.setVolume(1.0);
-    } else {
-      await _tts.setVolume(0.0);
-    }
+  void forceStop() {
+    _isReading = false;
+    _autoReadEnabled = false;
+    _limitTimer?.cancel();
+    _tts.stop();
     notifyListeners();
   }
 
@@ -59,15 +58,23 @@ class MyAffPlaybackState extends ChangeNotifier {
 
   void updateAffirmations(List<MyAffirmation> list) {
     affirmations = list;
-    currentIndex = 0;
+
+    // mevcut index yoksa başa sar
+    if (currentIndex >= affirmations.length) {
+      currentIndex = 0;
+    }
+
     notifyListeners();
+  }
+
+  Future<void> setLanguage(String code) async {
+    await _tts.setLanguage(code);
+    debugPrint("🎤 Language set → $code");
   }
 
   void setCurrentIndex(int index) {
     currentIndex = index;
-    if (onIndexChanged != null) {
-      onIndexChanged!(index);
-    }
+    onIndexChanged?.call(index);
     notifyListeners();
   }
 
@@ -98,56 +105,39 @@ class MyAffPlaybackState extends ChangeNotifier {
 
   Future<void> _startAutoRead() async {
     if (_isReading) return;
-
-    // ⭐ TTS hazır olana kadar bekle
     if (_ttsCompleter != null) {
       await _ttsCompleter!.future;
     }
 
     _isReading = true;
 
-    // ⭐ Müzik başlat
-    // if (backgroundMusicEnabled) {
-    //   try {
-    //     await _bgMusicPlayer.play(
-    //       AssetSource('audio/$selectedMusic'),
-    //       volume: 0.3,
-    //     );
-    //     await _bgMusicPlayer.setReleaseMode(ReleaseMode.loop);
-    //   } catch (e) {
-    //     debugPrint("⚠️ Müzik başlatılamadı: $e");
-    //   }
-    // }
-
-    // 🔥 FREE USER LIMIT TIMER
+    // FREE USER LIMIT
     try {
       final prefs = await SharedPreferences.getInstance();
       final isPremium = prefs.getBool("premiumActive") ?? false;
 
       if (!isPremium) {
         _limitTimer = Timer(
-            const Duration(seconds: Constants.freeMyAffReadLimit), () async {
-          if (!_isReading) return; // Double-check
+          const Duration(seconds: Constants.freeMyAffReadLimit),
+          () async {
+            if (!_isReading) return;
 
-          debugPrint("⏰ Free user 10 saniye limiti doldu");
+            await _stopAutoRead();
 
-          await _stopAutoRead(); // ⭐ Mevcut fonksiyonunu kullan
-
-          if (onLimitReached != null) {
-            onLimitReached!.call();
-          }
-        });
+            if (onLimitReached != null) {
+              onLimitReached!.call();
+            }
+          },
+        );
       }
-    } catch (e) {
-      debugPrint("⚠️ Premium kontrolü başarısız: $e");
-    }
+    } catch (_) {}
 
     try {
-      while (_isReading && autoReadEnabled) {
+      while (_isReading && _autoReadEnabled) {
         if (affirmations.isEmpty) break;
 
-        if (currentIndex < 0 || currentIndex >= affirmations.length) {
-          break;
+        if (currentIndex >= affirmations.length) {
+          currentIndex = 0;
         }
 
         final aff = affirmations[currentIndex];
@@ -156,6 +146,7 @@ class MyAffPlaybackState extends ChangeNotifier {
         await _waitTts();
 
         if (!_isReading || !_autoReadEnabled) break;
+
         await Future.delayed(const Duration(seconds: 2));
 
         nextMyAffirmation();
@@ -180,13 +171,17 @@ class MyAffPlaybackState extends ChangeNotifier {
     notifyListeners();
   }
 
-  // 🔥 MyAff için next()
   void nextMyAffirmation() {
     if (affirmations.isEmpty) return;
 
-    currentIndex =
-        (currentIndex < affirmations.length - 1) ? currentIndex + 1 : 0;
+    int next = currentIndex + 1;
 
+    if (next >= affirmations.length) {
+      next = 0;
+    }
+
+    currentIndex = next;
+    onIndexChanged?.call(currentIndex);
     notifyListeners();
   }
 
@@ -197,34 +192,3 @@ class MyAffPlaybackState extends ChangeNotifier {
     super.dispose();
   }
 }
-
-   // ⭐ YENİ: Müzik toggle
-  // void toggleBackgroundMusic() {
-  //   backgroundMusicEnabled = !backgroundMusicEnabled;
-
-  //   if (!backgroundMusicEnabled &&
-  //       _bgMusicPlayer.state == PlayerState.playing) {
-  //     _bgMusicPlayer.stop();
-  //   }
-
-  //   notifyListeners();
-  // }
-
-  // ⭐ YENİ: Müzik seçimi
-  // void setBackgroundMusic(String musicFile) {
-  //   selectedMusic = musicFile;
-
-  //   // Eğer müzik çalıyorsa, yenisini başlat
-  //   if (_bgMusicPlayer.state == PlayerState.playing) {
-  //     _bgMusicPlayer.stop();
-  //     _bgMusicPlayer.play(
-  //       AssetSource('audio/$selectedMusic'),
-  //       volume: 0.3,
-  //     );
-  //     _bgMusicPlayer.setReleaseMode(ReleaseMode.loop);
-  //   }
-
-  //   notifyListeners();
-  // }
-
-

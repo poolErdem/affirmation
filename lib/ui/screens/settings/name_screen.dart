@@ -124,7 +124,7 @@ class _NameScreenState extends State<NameScreen>
                     const SizedBox(height: 20),
 
                     Text(
-                      "Your name helps us personalize your affirmations.",
+                      t.nameDescription,
                       style: TextStyle(
                         fontSize: 15,
                         height: 1.4,

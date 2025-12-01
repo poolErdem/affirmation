@@ -5,27 +5,28 @@ import 'package:affirmation/models/user_preferences.dart';
 import 'package:affirmation/state/app_state.dart';
 import 'package:flutter/foundation.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class PurchaseState {
+class PurchaseState extends ChangeNotifier {
   final AppState appState;
   StreamSubscription<List<PurchaseDetails>>? _subscription;
 
-  // Gerçek constructor (production)
+  // Constructor
   PurchaseState(this.appState);
 
-  /// Ürün listesi
+  /// Store ürünleri
   final Map<String, ProductDetails> products = {};
 
-  /// Listener bir kere kurulsun diye flag
   bool _listenerInitialized = false;
   bool _isInitialized = false;
+  bool storeAvailable = false;
 
   //────────────────────────────────────────
-  // INITIALIZE (AppState.initialize()'dan çağrılacak)
+  // INITIALIZE
   //────────────────────────────────────────
   Future<void> initialize() async {
     if (_isInitialized) {
-      print("⚠️ PurchaseState zaten initialize edilmiş");
+      print("⚠️ PurchaseState zaten initialize edildi");
       return;
     }
 
@@ -37,36 +38,34 @@ class PurchaseState {
 
       await initStoreAvailability();
       _isInitialized = true;
-      print("✅ PurchaseState initialized successfully");
+
+      print("✅ PurchaseState initialized");
     } catch (e) {
-      print("❌ PurchaseState initialization error: $e");
+      print("❌ PurchaseState initialize error: $e");
     }
   }
-
-  bool storeAvailable = false;
 
   Future<void> initStoreAvailability() async {
     try {
       storeAvailable = await InAppPurchase.instance.isAvailable();
       print("🛒 Store available: $storeAvailable");
     } catch (e) {
-      print("❌ Store availability check failed: $e");
+      print("❌ Store availability check error: $e");
       storeAvailable = false;
     }
   }
 
   //────────────────────────────────────────
-  // STORE ÜRÜNLERİNİ ÇEK (Monthly - Yearly - Lifetime)
+  // FETCH PRODUCTS
   //────────────────────────────────────────
   Future<void> fetchProducts() async {
     if (!_isInitialized) {
-      print(
-          "⚠️ PurchaseState henüz initialize edilmedi, fetchProducts atlanıyor");
+      print("⚠️ PurchaseState initialize edilmedi → fetchProducts atlandı");
       return;
     }
 
     if (!storeAvailable) {
-      print("⚠️ Store kullanılamıyor, fetchProducts atlanıyor");
+      print("⚠️ Store kapalı → fetchProducts atlandı");
       return;
     }
 
@@ -85,36 +84,36 @@ class PurchaseState {
         products[p.id] = p;
       }
 
-      print("🛒 Loaded products: ${products.keys.toList()}");
+      print("🛒 Products loaded: ${products.keys.toList()}");
     } catch (e) {
       print("❌ fetchProducts exception: $e");
     }
   }
 
   //────────────────────────────────────────
-  // LISTENER (TEK SEFER BAĞLANIR)
+  // LISTENER
   //────────────────────────────────────────
   void _initPurchaseListener() {
     try {
-      final purchaseUpdates = InAppPurchase.instance.purchaseStream;
+      final purchaseStream = InAppPurchase.instance.purchaseStream;
 
-      _subscription = purchaseUpdates.listen(
+      _subscription = purchaseStream.listen(
         _handlePurchaseUpdates,
         onError: (e) => print("❌ Purchase stream error: $e"),
-        onDone: () => print("✅ Purchase stream closed"),
+        onDone: () => print("🎧 Purchase stream closed"),
         cancelOnError: false,
       );
 
-      print("🎧 Purchase listener aktif (PurchaseState)");
+      print("🎧 Purchase listener aktif");
     } catch (e) {
-      print("❌ Purchase listener başlatma hatası: $e");
+      print("❌ Listener başlatılamadı: $e");
     }
   }
 
   //────────────────────────────────────────
   // DISPOSE
   //────────────────────────────────────────
-  Future<void> dispose() async {
+  Future<void> disposeState() async {
     print("🧹 Disposing PurchaseState...");
     try {
       await _subscription?.cancel();
@@ -128,17 +127,27 @@ class PurchaseState {
     }
   }
 
+  @override
+  void dispose() {
+    disposeState();
+    super.dispose();
+  }
+
   //────────────────────────────────────────
   // PURCHASE HANDLER
   //────────────────────────────────────────
   void _handlePurchaseUpdates(List<PurchaseDetails> purchases) {
     for (final purchase in purchases) {
-      print(
-          "💰 Purchase update: ${purchase.productID} status=${purchase.status}");
+      print("💰 Purchase update: ${purchase.productID} → ${purchase.status}");
 
-      if (purchase.status == PurchaseStatus.purchased ||
-          purchase.status == PurchaseStatus.restored) {
-        _activatePlan(purchase.productID);
+      switch (purchase.status) {
+        case PurchaseStatus.purchased:
+        case PurchaseStatus.restored:
+          _activatePlan(purchase.productID);
+          break;
+
+        default:
+          break;
       }
 
       if (purchase.pendingCompletePurchase) {
@@ -147,9 +156,12 @@ class PurchaseState {
     }
   }
 
+  //────────────────────────────────────────
+  // ACTIVATE PLAN
+  //────────────────────────────────────────
   void _activatePlan(String productId) {
     if (productId == Constants.monthly) {
-      appState.updatePremium(
+      updatePremium(
         active: true,
         plan: PremiumPlan.monthly,
         expiry: DateTime.now().add(const Duration(days: 30)),
@@ -157,7 +169,7 @@ class PurchaseState {
     }
 
     if (productId == Constants.yearly) {
-      appState.updatePremium(
+      updatePremium(
         active: true,
         plan: PremiumPlan.yearly,
         expiry: DateTime.now().add(const Duration(days: 365)),
@@ -165,12 +177,45 @@ class PurchaseState {
     }
 
     if (productId == Constants.lifetime) {
-      appState.updatePremium(
+      updatePremium(
         active: true,
         plan: PremiumPlan.lifetime,
         expiry: null,
       );
     }
+  }
+
+  //────────────────────────────────────────
+  // UPDATE PREMIUM
+  //────────────────────────────────────────
+  Future<void> updatePremium({
+    required bool active,
+    required PremiumPlan plan,
+    required DateTime? expiry,
+  }) async {
+    print("⭐ Updating premium → $plan active=$active");
+
+    // 1) Yeni preferences üret
+    final updated = appState.preferences.copyWith(
+      premiumActive: active,
+      premiumPlanId: plan,
+      premiumExpiresAt: expiry,
+    );
+
+    // 2) AppState üzerinden premium bilgilerini güncelle
+    appState.updatePreferences(updated);
+
+    // 3) Storage güncelley
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool("premiumActive", active);
+    await prefs.setString("premiumPlanId", plan.name);
+    await prefs.setString(
+      "premiumExpiresAt",
+      expiry?.toIso8601String() ?? "",
+    );
+
+    // 4) PurchaseState dinleyicilerini tetikle
+    notifyListeners();
   }
 
   //────────────────────────────────────────
@@ -182,10 +227,10 @@ class PurchaseState {
       try {
         await InAppPurchase.instance.restorePurchases();
       } catch (e) {
-        print("❌ Restore purchases error: $e");
+        print("❌ Restore error: $e");
       }
     } else {
-      print("🤖 Android → restorePurchases() kullanılmaz");
+      print("🤖 Android → restorePurchases() kullanılmıyor");
     }
   }
 }

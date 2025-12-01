@@ -19,7 +19,6 @@ class PlaybackState extends ChangeNotifier {
   bool _volumeEnabled = false;
   bool _autoReadEnabled = false;
   bool _isReading = false;
-  bool autoScrollEnabled = true;
 
   int currentIndex = 0;
 
@@ -33,23 +32,22 @@ class PlaybackState extends ChangeNotifier {
   Future<void> toggleVolume() async {
     _volumeEnabled = !_volumeEnabled;
 
-    final v = _tts.getDefaultVoice.toString();
-    print("🔊 Volume → $v");
-
-    if (_ttsCompleter != null) {
-      await _ttsCompleter!.future;
-    }
-
-    if (_volumeEnabled) {
-      await _tts.setVolume(1.0);
-    } else {
-      await _tts.setVolume(0.0);
-    }
-
-    final vi = _tts.getDefaultVoice.toString();
-    print("🔊 Volume changed → $vi");
+    await _tts.setVolume(_volumeEnabled ? 1.0 : 0.0);
 
     notifyListeners();
+  }
+
+  void forceStop() {
+    _isReading = false;
+    _autoReadEnabled = false;
+    _limitTimer?.cancel();
+    _tts.stop();
+    notifyListeners();
+  }
+
+  Future<void> setLanguage(String code) async {
+    await _tts.setLanguage(code);
+    debugPrint("🎤 Language set → $code");
   }
 
   Future<void> _initTts() async {
@@ -57,37 +55,26 @@ class PlaybackState extends ChangeNotifier {
     await _tts.setPitch(1.0);
     await _tts.setVolume(0.0);
 
-    final vi = _tts.getDefaultVoice.toString();
-    print("🔊 Initial Volume  → $vi");
-
     _tts.setCompletionHandler(() {
-      print("✅ TTS COMPLETED");
-
       if (_ttsCompleter != null && !_ttsCompleter!.isCompleted) {
         _ttsCompleter!.complete();
       }
     });
-
-    print("✅ TTS initialized");
   }
 
   void updateAffirmations(List<dynamic> list) {
     affirmations = list;
 
-    print("📚 Affirmation count → ${affirmations.length}");
-    print("📍 Current index → $currentIndex");
+    if (currentIndex >= affirmations.length) {
+      currentIndex = 0;
+    }
 
     notifyListeners();
   }
 
   void setCurrentIndex(int index) {
     currentIndex = index;
-
-    print("📍 Current index changed → $currentIndex / ${affirmations.length}");
-
-    if (onIndexChanged != null) {
-      onIndexChanged!(index);
-    }
+    onIndexChanged?.call(index);
     notifyListeners();
   }
 
@@ -103,25 +90,17 @@ class PlaybackState extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> setLanguage(String code) async {
-    await _tts.setLanguage(code);
-    debugPrint("🎤 Language set → $code");
-  }
-
-  Future<void> _waitTtsFinish() async {
-    _ttsCompleter = Completer<void>();
-
-    return _ttsCompleter!.future.timeout(
-      const Duration(seconds: 30),
-      onTimeout: () {
-        debugPrint("⚠️ TTS timeout, moving to next");
-      },
-    );
-  }
-
   Future<void> playTextToSpeech(String text) async {
     await _tts.stop();
     await _tts.speak(text);
+  }
+
+  Future<void> _waitTts() async {
+    _ttsCompleter = Completer<void>();
+    return _ttsCompleter!.future.timeout(
+      const Duration(seconds: 30),
+      onTimeout: () {},
+    );
   }
 
   Future<void> _startAutoRead() async {
@@ -133,53 +112,39 @@ class PlaybackState extends ChangeNotifier {
 
     _isReading = true;
 
-    print("▶️ AutoRead started");
-    print("🔢 Affirmation count → ${affirmations.length}");
-    print("📍 Starting index → $currentIndex");
-
+    // LIMIT ONLY FOR NON-PREMIUM
     try {
       final prefs = await SharedPreferences.getInstance();
       final isPremium = prefs.getBool("premiumActive") ?? false;
 
-      if (isPremium) {
+      if (!isPremium) {
         _limitTimer = Timer(
-            const Duration(seconds: Constants.freeMyAffReadLimit), () async {
-          if (!_isReading) return;
+          const Duration(seconds: Constants.freeMyAffReadLimit),
+          () async {
+            if (!_isReading) return;
 
-          await _stopAutoRead();
-
-          if (onLimitReached != null) {
-            onLimitReached!.call();
-          }
-        });
+            await _stopAutoRead();
+            onLimitReached?.call();
+          },
+        );
       }
-    } catch (e) {
-      debugPrint("⚠️ Premium kontrolü başarısız: $e");
-    }
+    } catch (_) {}
 
     try {
-      while (_isReading) {
+      while (_isReading && _autoReadEnabled) {
         if (affirmations.isEmpty) break;
 
         if (currentIndex >= affirmations.length) {
           currentIndex = 0;
         }
 
-        print("📖 Reading index → $currentIndex / ${affirmations.length}");
-
         final aff = affirmations[currentIndex];
-        if (aff == null) break;
 
         final userName = await _getUserNameFromPrefs();
-        final rendered = aff.text.replaceAll("{name}", userName ?? "");
+        final text = aff.text.replaceAll("{name}", userName ?? "");
 
-        try {
-          await playTextToSpeech(rendered);
-          await _waitTtsFinish();
-        } catch (e) {
-          debugPrint("⚠️ TTS oynatılamadı: $e");
-          break;
-        }
+        await playTextToSpeech(text);
+        await _waitTts();
 
         if (!_autoReadEnabled || !_isReading) break;
 
@@ -187,8 +152,6 @@ class PlaybackState extends ChangeNotifier {
 
         nextAffirmation();
       }
-    } catch (e) {
-      debugPrint("⚠️ AutoRead döngüsünde hata: $e");
     } finally {
       if (_isReading) {
         await _stopAutoRead();
@@ -201,8 +164,6 @@ class PlaybackState extends ChangeNotifier {
     _autoReadEnabled = false;
 
     _limitTimer?.cancel();
-    _limitTimer = null;
-
     await _tts.stop();
     await _bgMusicPlayer.stop();
 
@@ -210,41 +171,21 @@ class PlaybackState extends ChangeNotifier {
       _ttsCompleter!.complete();
     }
 
-    print("⏹ AutoRead stopped");
-
     notifyListeners();
   }
 
   void nextAffirmation() {
     if (affirmations.isEmpty) return;
 
-    if (currentIndex < affirmations.length - 1) {
-      currentIndex++;
-    } else {
-      currentIndex = 0;
-    }
+    int next = currentIndex + 1;
+    if (next >= affirmations.length) next = 0;
 
-    print("➡️ Next index → $currentIndex / ${affirmations.length}");
-
-    if (onIndexChanged != null) {
-      onIndexChanged!(currentIndex);
-    }
-
-    notifyListeners();
-  }
-
-  void onPageChanged(int index) {
-    currentIndex = index;
-
-    print("📄 Page changed → $currentIndex / ${affirmations.length}");
-
-    notifyListeners();
+    setCurrentIndex(next);
   }
 
   @override
   void dispose() {
     _limitTimer?.cancel();
-    //_bgMusicPlayer.dispose();
     _tts.stop();
     super.dispose();
   }
@@ -254,7 +195,6 @@ class PlaybackState extends ChangeNotifier {
     return prefs.getString("userName");
   }
 }
-
 
 
   // ⭐ Müzik başlat

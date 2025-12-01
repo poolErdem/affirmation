@@ -3,6 +3,7 @@ import 'package:affirmation/models/user_preferences.dart';
 import 'package:affirmation/state/my_affirmation_state.dart';
 import 'package:affirmation/state/reminder_state.dart';
 import 'package:affirmation/ui/screens/home_screen.dart';
+import 'package:affirmation/ui/screens/onboarding/welcome_screen.dart';
 import 'package:affirmation/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart' as admob;
@@ -100,7 +101,7 @@ class AffirmationApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      home: const HomeScreen(),
+      home: const WelcomeScreen(),
     );
   }
 }

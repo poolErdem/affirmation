@@ -19,7 +19,7 @@ class _OnboardingGenderScreenState extends State<OnboardingGenderScreen> {
     final appState = context.watch<AppState>();
 
     // AppState’ten seçili gender
-    final String? selectedGender = appState.onboardingGender;
+    final String? selectedGender = appState.gender;
     print("Onboarding gender: $selectedGender");
 
     return Scaffold(
@@ -110,7 +110,7 @@ class _OnboardingGenderScreenState extends State<OnboardingGenderScreen> {
     return GestureDetector(
       onTap: () {
         final appState = context.read<AppState>();
-        appState.onboardingGender = genderKey; // kaydet
+        appState.gender = genderKey; // kaydet
         Navigator.push(
           context,
           MaterialPageRoute(

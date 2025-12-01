@@ -78,6 +78,18 @@ class AppLocalizationsDe extends AppLocalizations {
   String get about => 'About';
 
   @override
+  String get gender => 'Gender';
+
+  @override
+  String get languageDescription => 'Choose the language you want to use in the app.\nYour entire experience will adapt instantly.';
+
+  @override
+  String get genderDescription => 'We’ll personalize the experience based on your preference.';
+
+  @override
+  String get nameDescription => 'Your name helps us personalize your affirmations.';
+
+  @override
   String get back => 'Zurück';
 
   @override

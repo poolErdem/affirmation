@@ -37,6 +37,7 @@ class MyAffirmationState extends ChangeNotifier {
     _currentIndex = 0;
 
     playback.setCurrentIndex(0);
+    playback.setLanguage("en");
 
     notifyListeners();
   }

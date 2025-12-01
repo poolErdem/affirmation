@@ -65,18 +65,12 @@ flutter:
     - assets/data/en/self_care.json
     - assets/data/en/stress_anxiety.json
     - assets/data/en/positive_thinking.json
-    - assets/data/en/body_positivity.json
-    - assets/data/en/focus_productivity.json
     - assets/data/en/motivation.json
-    - assets/data/en/healing.json
     - assets/data/en/happiness.json
     - assets/data/en/relationships.json
     - assets/data/en/confidence.json
     - assets/data/en/mindfulness.json
     - assets/data/en/gratitude.json
-    - assets/data/en/law_of_attraction.json
-    - assets/data/en/spirituality.json
-    - assets/data/en/inner_child.json
     - assets/data/en/career_success.json
     - assets/data/en/sleep.json
     
