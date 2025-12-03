@@ -112,7 +112,7 @@ class _ContentPreferencesScreen extends State<ContentPreferencesScreen>
                           onTap: () => Navigator.pop(context),
                           child: const Icon(
                             Icons.arrow_back_ios_new,
-                            size: 28,
+                            size: 26,
                             color: Colors.black87,
                           ),
                         ),

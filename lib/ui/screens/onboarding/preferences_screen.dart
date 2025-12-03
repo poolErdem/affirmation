@@ -1,9 +1,10 @@
-import 'package:affirmation/ui/screens/onboarding/onboarding_name_screen.dart';
+import 'package:affirmation/constants/constants.dart';
+import 'package:affirmation/ui/screens/onboarding/welcome_last_screen.dart';
 import 'package:affirmation/ui/widgets/glass_button.dart';
+import 'package:affirmation/ui/widgets/press_effect.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:affirmation/state/app_state.dart';
 import 'package:affirmation/l10n/app_localizations.dart';
+import 'package:affirmation/utils/utils.dart';
 
 class PreferencesScreen extends StatefulWidget {
   const PreferencesScreen({super.key});
@@ -19,18 +20,7 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
 
-    final prefs = [
-      "self_care",
-      "personal_growth",
-      "stress_anxiety",
-      "body_positivity",
-      "happiness",
-      "attracting_love",
-      "confidence",
-      "motivation",
-      "mindfulness",
-      "gratitude",
-    ];
+    final prefs = Constants.allCategories;
 
     return Scaffold(
       body: Stack(
@@ -38,7 +28,7 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
           // BACKGROUND
           Positioned.fill(
             child: Image.asset(
-              "assets/data/themes/a1.jfif",
+              "assets/data/themes/c20.jpg",
               fit: BoxFit.cover,
             ),
           ),
@@ -124,9 +114,11 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
                         childAspectRatio: 2.9,
                       ),
                       itemBuilder: (context, index) {
-                        final item = prefs[index];
-                        final isSelected = selected.contains(item);
-                        final text = _formatText(item);
+                        final item = prefs[index]; // "self_care"
+                        final isSelected =
+                            selected.contains(item); // doğru selection kontrolü
+                        final text =
+                            localizedCategoryName(t, item); // localized label
 
                         return GestureDetector(
                           onTap: () {
@@ -177,27 +169,18 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
                     ),
                   ),
 
-                  // CONTINUE BUTTON (Glass + Blur)
-                  GlassButton(
-                    text: t.continueLabel, // <-- DOĞRU OLAN BU
-                    onTap: () {
-                      if (selected.isEmpty) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text(t.pleasePrefs)),
+                  // ⭐️⭐️⭐️ PREMIUM GLASS BUTTON + PRESS EFFECT ⭐️⭐️⭐️
+                  Pressable(
+                    child: GlassButton(
+                      text: t.continueLabel,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => const WelcomeLastScreen()),
                         );
-                        return;
-                      }
-
-                      final appState = context.read<AppState>();
-                      appState.onboardingContentPrefs = selected.toSet();
-
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const OnboardingNameScreen(),
-                        ),
-                      );
-                    },
+                      },
+                    ),
                   ),
                 ],
               ),
@@ -206,13 +189,5 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
         ],
       ),
     );
-  }
-
-  String _formatText(String id) {
-    return id
-        .replaceAll("_", " ")
-        .split(" ")
-        .map((w) => w[0].toUpperCase() + w.substring(1))
-        .join(" ");
   }
 }

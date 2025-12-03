@@ -4,593 +4,383 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
+
 import '../models/reminder.dart';
 
 @pragma('vm:entry-point')
-void _onBackgroundNotification(NotificationResponse response) {
-  // Background olaylarını buraya yazabilirsin
-}
+void _onBackgroundNotification(NotificationResponse response) {}
 
 class ReminderState extends ChangeNotifier {
   final AppState appState;
-  bool _loaded = false;
 
   ReminderState({required this.appState});
 
+  final FlutterLocalNotificationsPlugin _notifications =
+      FlutterLocalNotificationsPlugin();
+
+  bool _loaded = false;
   List<ReminderModel> _reminders = [];
   bool _isPremium = false;
 
   bool get isLoaded => _loaded;
-
-  // Notification plugin
-  final FlutterLocalNotificationsPlugin _notificationsPlugin =
-      FlutterLocalNotificationsPlugin();
-
   List<ReminderModel> get reminders => List.unmodifiable(_reminders);
   bool get isPremium => _isPremium;
   int get limit => _isPremium ? 200 : 20;
   bool get canAddReminder => _reminders.length < limit;
 
-  // -------------------------------------------------------------------------
-  // INITIALIZE (AppState'ten premium durumu al + Notifications setup)
-  // -------------------------------------------------------------------------
-  Future<void> initialize(bool isPremium) async {
-    _isPremium = isPremium;
-    await _initializeNotifications();
+  // --------------------------------------------------------
+  // INITIALIZE
+  // --------------------------------------------------------
+  Future<void> initialize(bool premium) async {
+    print("🚀 [REM] initialize() başlıyor...");
+    print("   • premium = $premium");
+
+    _isPremium = premium;
+
+    print("🔔 [REM] _initNotifications() çağrılıyor...");
+    await _initNotifications();
+    print("✔ [REM] _initNotifications tamam.");
+
+    print("📥 [REM] _loadFromPrefs() çağrılıyor...");
     await _loadFromPrefs();
+    print("📚 [REM] Yüklenen reminder sayısı: ${_reminders.length}");
 
-    //  test modu
-    // assert(() {
-    //   _debugAutoTest();
-    //   return true;
-    // }());
+    print("⏰ [REM] _scheduleAll() başlıyor... (existing=${_reminders.length})");
+    final sw = Stopwatch()..start();
 
-    // ❗❗ SADECE DEBUG İÇİN AÇ  // KALDIRACAZ
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove("reminders_json");
-    print("🧹 DEBUG → reminders_json temizlendi");
+    await _scheduleAll();
 
-    await _loadFromPrefs();
-
-    // PROD → reminder'ları schedule et
-    await _scheduleAllReminders();
+    sw.stop();
+    print(
+        "✔ [REM] _scheduleAll tamamlandı → süre: ${sw.elapsedMilliseconds} ms");
 
     _loaded = true;
+    notifyListeners();
+
+    print("🏁 [REM] initialize() tamam! Sistem hazır 🎉\n");
+  }
+
+// --------------------------------------------------------
+// ADD
+// --------------------------------------------------------
+  Future<bool> addReminder(ReminderModel r) async {
+    print("➕ [REM] addReminder() çağrıldı");
+    print("   • id          = ${r.id}");
+    print("   • enabled     = ${r.enabled}");
+    print("   • startTime   = ${r.startTime}");
+    print("   • endTime     = ${r.endTime}");
+    print("   • repeatCount = ${r.repeatCount}");
+    print("   • repeatDays  = ${r.repeatDays}");
+    print("   • categories  = ${r.categoryIds}");
+    print(
+        "   • canAdd?     = $canAddReminder (limit=$limit, current=${_reminders.length})");
+
+    if (!canAddReminder) {
+      print("❌ [REM] addReminder → limit aşıldı, eklenmedi.");
+      return false;
+    }
+
+    _reminders.add(r);
+    print(
+        "✅ [REM] Reminder listeye eklendi. Yeni length = ${_reminders.length}");
+
+    await _savePrefs();
+    print("💾 [REM] _savePrefs tamam.");
+
+    await _scheduleReminder(r);
+    print("⏰ [REM] _scheduleReminder tamamlandı (id=${r.id}).");
 
     notifyListeners();
+    print("📢 [REM] notifyListeners() çağrıldı (addReminder).");
+
+    return true;
   }
 
-  void clearReminderPrefs() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove("reminders_json");
-    print("🧹 reminders_json TEMİZLENDİ");
-  }
+// --------------------------------------------------------
+// UPDATE
+// --------------------------------------------------------
+  Future<void> updateReminder(ReminderModel r) async {
+    print("📝 [REM] updateReminder() çağrıldı");
+    print("   • id          = ${r.id}");
+    print("   • enabled     = ${r.enabled}");
+    print("   • startTime   = ${r.startTime}");
+    print("   • endTime     = ${r.endTime}");
+    print("   • repeatCount = ${r.repeatCount}");
+    print("   • repeatDays  = ${r.repeatDays}");
+    print("   • categories  = ${r.categoryIds}");
 
-  Future<void> _scheduleAllReminders() async {
-    debugPrint("🗓 PROD → Tüm reminder'lar schedule ediliyor...");
+    final index = _reminders.indexWhere((x) => x.id == r.id);
+    print("   • bulunan index = $index");
 
-    if (_reminders.isEmpty) {
-      debugPrint("⚠️ PROD → Schedule edilecek reminder yok.");
+    if (index == -1) {
+      print("❌ [REM] updateReminder → id bulunamadı, hiçbir şey yapılmadı.");
       return;
     }
 
-    // Clear eski schedule'lar
-    await _notificationsPlugin.cancelAll();
+    _reminders[index] = r;
+    print("✅ [REM] Reminder listede güncellendi (index=$index).");
 
-    // Her reminder için tekrar oluştur
-    for (final r in _reminders) {
-      await _scheduleReminder(r);
+    await _savePrefs();
+    print("💾 [REM] _savePrefs tamam (update).");
+
+    await cancelReminder(r.id);
+    print("🗑️ [REM] cancelReminder çağrıldı (id=${r.id}).");
+
+    await _scheduleReminder(r);
+    print("⏰ [REM] _scheduleReminder tamamlandı (update, id=${r.id}).");
+
+    notifyListeners();
+    print("📢 [REM] notifyListeners() çağrıldı (updateReminder).");
+  }
+
+// --------------------------------------------------------
+// DELETE
+// --------------------------------------------------------
+  Future<void> deleteReminder(String id) async {
+    print("🗑️ [REM] deleteReminder() çağrıldı → id=$id");
+    final before = _reminders.length;
+
+    _reminders.removeWhere((r) => r.id == id);
+
+    final after = _reminders.length;
+    print("   • önce length = $before, sonra length = $after");
+
+    await _savePrefs();
+    print("💾 [REM] _savePrefs tamam (delete).");
+
+    await cancelReminder(id);
+    print("🧹 [REM] cancelReminder çağrıldı (id=$id).");
+
+    notifyListeners();
+    print("📢 [REM] notifyListeners() çağrıldı (deleteReminder).");
+  }
+
+  Future<void> cancelReminder(String id) async {
+    final notifId = id.hashCode;
+    print("🚫 [REM] cancelReminder() → id=$id, notifId=$notifId");
+    await _notifications.cancel(notifId);
+    print("✔ [REM] Notification cancel tamam (notifId=$notifId).");
+  }
+
+  // --------------------------------------------------------
+  // SAVE / LOAD
+  // --------------------------------------------------------
+  Future<void> _savePrefs() async {
+    final prefs = await SharedPreferences.getInstance();
+    final jsonList = _reminders.map((r) => r.toJson()).toList();
+    await prefs.setString('reminders_json', jsonEncode(jsonList));
+  }
+
+  Future<void> _loadFromPrefs() async {
+    final prefs = await SharedPreferences.getInstance();
+    final raw = prefs.getString('reminders_json');
+
+    if (raw == null || raw.isEmpty) {
+      _reminders = [];
+      return;
     }
 
-    debugPrint("🎉 PROD → Tüm reminder schedule edildi!");
+    final decoded = jsonDecode(raw);
+
+    _reminders =
+        decoded.map<ReminderModel>((j) => ReminderModel.fromJson(j)).toList();
   }
 
-  Future<void> _scheduleReminder(ReminderModel r) async {
-    debugPrint("🗓 SCHEDULE → Reminder: ${r.id}");
+  // --------------------------------------------------------
+  // NOTIFICATIONS INIT
+  // --------------------------------------------------------
+  Future<void> _initNotifications() async {
+    const android = AndroidInitializationSettings('@mipmap/ic_launcher');
+    const ios = DarwinInitializationSettings();
 
-    final now = DateTime.now();
-
-    // Eğer repeatDays boşsa bugün için schedule et
-    final days = r.repeatDays.isEmpty ? {now.weekday} : r.repeatDays;
-
-    for (final day in days) {
-      // O günün tarihi (bugün veya gelecek hafta)
-      DateTime dayDate = _nextWeekday(now, day);
-
-      // Bugünse ve saat geçmişse yarın için al
-      if (dayDate.year == now.year &&
-          dayDate.month == now.month &&
-          dayDate.day == now.day) {
-        final startDateTime = DateTime(
-          dayDate.year,
-          dayDate.month,
-          dayDate.day,
-          r.startTime.hour,
-          r.startTime.minute,
-        );
-
-        if (startDateTime.isBefore(now)) {
-          dayDate = dayDate.add(const Duration(days: 7));
-        }
-      }
-
-      // Başlangıç ve bitiş zamanları
-      DateTime start = DateTime(
-        dayDate.year,
-        dayDate.month,
-        dayDate.day,
-        r.startTime.hour,
-        r.startTime.minute,
-      );
-
-      DateTime end = DateTime(
-        dayDate.year,
-        dayDate.month,
-        dayDate.day,
-        r.endTime.hour,
-        r.endTime.minute,
-      );
-
-      // Gece geçişi kontrolü
-      if (end.isBefore(start)) {
-        end = end.add(const Duration(days: 1));
-      }
-
-      // Toplam süre
-      final totalMinutes = end.difference(start).inMinutes;
-
-      if (totalMinutes <= 0 || r.repeatCount <= 0) {
-        debugPrint("⚠️ Geçersiz zaman aralığı: start=$start end=$end");
-        continue;
-      }
-
-      // Her bildirim arasındaki dakika
-      final intervalMinutes = (totalMinutes / r.repeatCount).floor();
-
-      debugPrint(
-        "⏱ SCHEDULE → ${r.id} → start=$start, end=$end, count=${r.repeatCount}, interval=$intervalMinutes min",
-      );
-
-      // repeatCount kadar bildirim schedule et
-      for (int i = 0; i < r.repeatCount; i++) {
-        final scheduledTime = start.add(Duration(minutes: intervalMinutes * i));
-
-        // Geçmiş zamana schedule etme
-        if (scheduledTime.isBefore(now)) {
-          debugPrint("⏭️ Geçmiş zaman atlandı: $scheduledTime");
-          continue;
-        }
-
-        await _scheduleSingleNotification(r, scheduledTime);
-
-        debugPrint("🔔 Scheduled ${r.id} #$i → $scheduledTime");
-      }
-    }
-  }
-
-  Future<void> _scheduleSingleNotification(
-      ReminderModel r, DateTime when) async {
-    final tzTime = tz.TZDateTime.from(when, tz.local);
-
-    const androidDetails = AndroidNotificationDetails(
-      'affirmation_reminders',
-      'Affirmation Reminders',
-      channelDescription: 'Daily affirmation notifications',
-      importance: Importance.high,
-      priority: Priority.high,
-      icon: '@mipmap/ic_launcher',
-    );
-
-    const iosDetails = DarwinNotificationDetails();
-
-    await _notificationsPlugin.zonedSchedule(
-      when.millisecondsSinceEpoch ~/
-          1000, //  when.hashCode   Benzersiz ID (saniye bazlı)
-      'Affirmation Time! 🌟',
-      'It’s time for your affirmation.',
-      tzTime,
-      const NotificationDetails(android: androidDetails, iOS: iosDetails),
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle, // ⭐ Burası
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
-    );
-  }
-
-  DateTime _nextWeekday(DateTime now, int weekday) {
-    int diff = (weekday - now.weekday) % 7;
-    return now.add(Duration(days: diff));
-  }
-
-  // -------------------------------------------------------------------------
-  // Notification Plugin Initialize
-  // -------------------------------------------------------------------------
-  Future<void> _initializeNotifications() async {
-    // Android ayarları
-    const androidSettings =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
-
-    // iOS ayarları
-    const iosSettings = DarwinInitializationSettings(
-      requestAlertPermission: true,
-      requestBadgePermission: true,
-      requestSoundPermission: true,
-    );
-
-    const initSettings = InitializationSettings(
-      android: androidSettings,
-      iOS: iosSettings,
-    );
-
-    await _notificationsPlugin.initialize(
-      initSettings,
-      onDidReceiveNotificationResponse: _onNotificationTapped,
+    await _notifications.initialize(
+      const InitializationSettings(android: android, iOS: ios),
+      onDidReceiveNotificationResponse: _onTap,
       onDidReceiveBackgroundNotificationResponse: _onBackgroundNotification,
     );
 
-// ⭐ Android notification channel oluştur
-    const AndroidNotificationChannel channel = AndroidNotificationChannel(
-      'affirmation_reminders', // ID
-      'Affirmation Reminders', // Name
-      description: 'Daily affirmation notifications',
+    const channel = AndroidNotificationChannel(
+      'affirmation_reminders',
+      'Affirmation Reminders',
+      description: 'Daily Reminders',
       importance: Importance.high,
       playSound: true,
-      enableVibration: true,
     );
 
-    await _notificationsPlugin
+    await _notifications
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
         ?.createNotificationChannel(channel);
 
-    // Android 13+ için izin iste
-    await _requestNotificationPermission();
+    // Notification permission
+    await _notifications
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.requestNotificationsPermission();
 
-    // ⭐ EXACT ALARM izni iste (Android 12+)
-    await _requestExactAlarmPermission();
-  }
-
-  // -------------------------------------------------------------------------
-  // İzin İste (Android 13+)
-  // -------------------------------------------------------------------------
-  Future<void> _requestNotificationPermission() async {
-    final AndroidFlutterLocalNotificationsPlugin? androidPlugin =
-        _notificationsPlugin.resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>();
+    // Exact alarm permission
+    final androidPlugin = _notifications.resolvePlatformSpecificImplementation<
+        AndroidFlutterLocalNotificationsPlugin>();
 
     if (androidPlugin != null) {
-      await androidPlugin.requestNotificationsPermission();
-    }
-  }
-
-  Future<void> _requestExactAlarmPermission() async {
-    final AndroidFlutterLocalNotificationsPlugin? androidPlugin =
-        _notificationsPlugin.resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>();
-
-    if (androidPlugin != null) {
-      // Android 12+ için exact alarm izni kontrol et
-      final bool? canScheduleExact =
-          await androidPlugin.canScheduleExactNotifications();
-
-      if (canScheduleExact == false) {
-        debugPrint("⚠️ Exact alarm izni yok, istek gönderiliyor...");
+      final can = await androidPlugin.canScheduleExactNotifications();
+      if (can == false) {
         await androidPlugin.requestExactAlarmsPermission();
-      } else {
-        debugPrint("✅ Exact alarm izni var!");
       }
     }
   }
 
-  // -------------------------------------------------------------------------
-  // Bildirime tıklandığında
-  // -------------------------------------------------------------------------
-  void _onNotificationTapped(NotificationResponse response) async {
-    debugPrint("📱 Bildirime tıklandı → actionId: ${response.actionId}");
+  void _onTap(NotificationResponse response) {}
 
-    // payload JSON ise decode et
-    String? payload = response.payload;
+  // --------------------------------------------------------
+  // SCHEDULE ALL
+  // --------------------------------------------------------
+  Future<void> _scheduleAll() async {
+    await _notifications.cancelAll();
 
-    Map<String, dynamic>? data;
-    if (payload != null && payload.isNotEmpty) {
-      try {
-        data = jsonDecode(payload);
-      } catch (_) {
-        data = null;
+    for (final r in _reminders) {
+      if (r.enabled) {
+        await _scheduleReminder(r);
       }
-    }
-
-    final affId = data?["id"];
-    final affText = data?["text"];
-
-    if (response.actionId == 'favorite_action') {
-      debugPrint("❤️ FAVORITE tıklandı");
-
-      if (affId != null) {
-        appState.setPendingShareText("");
-        appState.toggleFavorite(affId);
-        debugPrint("❤️ Favorite eklendi/çıkarıldı → $affId");
-      }
-    }
-
-    if (response.actionId == 'share_action') {
-      debugPrint("📤 SHARE tıklandı");
-
-      if (affText != null) {
-        appState.setPendingShareText(affText);
-        debugPrint("📤 Paylaşılacak metin: $affText");
-      }
-    }
-
-    debugPrint("📱 Notification tap payload: $payload");
-  }
-
-  // -------------------------------------------------------------------------
-  // ADD
-  // -------------------------------------------------------------------------
-  bool addReminder(ReminderModel r) {
-    if (!canAddReminder) return false;
-
-    _reminders.add(r);
-    _saveToPrefs();
-    return true;
-  }
-
-  // -------------------------------------------------------------------------
-  // UPDATE
-  // -------------------------------------------------------------------------
-  void updateReminder(ReminderModel updated) {
-    final index = _reminders.indexWhere((r) => r.id == updated.id);
-    if (index != -1) {
-      _reminders[index] = updated;
-      _saveToPrefs();
     }
   }
 
-  // -------------------------------------------------------------------------
-  // DELETE
-  // -------------------------------------------------------------------------
-  void deleteReminder(String id) {
-    _reminders.removeWhere((r) => r.id == id);
-    _saveToPrefs();
-  }
+  // --------------------------------------------------------
+  // SCHEDULE SINGLE REMINDER
+  // --------------------------------------------------------
 
-  // -------------------------------------------------------------------------
-  // SAVE → SharedPreferences'a JSON olarak kaydet
-  // -------------------------------------------------------------------------
-  Future<void> _saveToPrefs() async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-
-      // Debug loglar
-      debugPrint(
-          "💾 [SAVE] Kaydedilecek reminder sayısı = ${_reminders.length}");
-
-      for (final r in _reminders) {
-        debugPrint("🟡 Reminder toJson: ${r.toJson()}");
-      }
-
-      // JSON encode
-      final list = _reminders.map((r) => r.toJson()).toList();
-      final encoded = jsonEncode(list);
-
-      debugPrint("📦 [SAVE] Encoded JSON: $encoded");
-
-      // Kaydet
-      await prefs.setString("reminders_json", encoded);
-
-      debugPrint("✅ [SAVE] reminders_json başarıyla kaydedildi!");
-      notifyListeners();
-    } catch (e, stackTrace) {
-      debugPrint("❌ [SAVE ERROR] $e");
-      debugPrint("Stack trace: $stackTrace");
-    }
-  }
-
-  // -------------------------------------------------------------------------
-  // LOAD → SharedPreferences'tan yükle
-  // -------------------------------------------------------------------------
-  Future<void> _loadFromPrefs() async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      final raw = prefs.getString("reminders_json");
-
-      debugPrint("🔵 [LOAD] RAW reminders_json: $raw");
-
-      if (raw == null || raw.isEmpty) {
-        debugPrint("⚪ [LOAD] Kaydedilmiş reminder bulunamadı.");
-        _reminders = [];
-        return;
-      }
-
-      final decoded = jsonDecode(raw);
-
-      if (decoded is! List) {
-        debugPrint("⚠️ [LOAD] Bozuk format (List değil) → Temizleniyor!");
-        _reminders = [];
-        await prefs.remove("reminders_json");
-        return;
-      }
-
-      // Her item'i decode et
-      _reminders = [];
-      for (var json in decoded) {
-        try {
-          final reminder = ReminderModel.fromJson(json);
-          _reminders.add(reminder);
-        } catch (e) {
-          debugPrint("⚠️ [LOAD] Geçersiz reminder atlandı: $json → Hata: $e");
-        }
-      }
-
-      debugPrint("✅ [LOAD] Reminders yüklendi: ${_reminders.length}");
-    } catch (e, stackTrace) {
-      debugPrint("❌ [LOAD ERROR] $e");
-      debugPrint("Stack trace: $stackTrace");
-      _reminders = [];
-    }
-  }
-
-  // -------------------------------------------------------------------------
-  // INTERNAL FIRE → Bildirim tetikleme
-  // -------------------------------------------------------------------------
-  Future<void> _fireReminder(ReminderModel r) async {
-    debugPrint("🔔 FIRE → Reminder çalıştı: ${r.categoryIds}");
-
-    //appState.setActiveCategories(r.categoryIds);
-    final aff = appState.getRandomAffirmation();
-
-    if (aff == null) {
-      debugPrint("⚠️ FIRE → Affirmation bulunamadı.");
-      return;
-    }
-
-    // Android Notification Actions
-    final androidDetails = AndroidNotificationDetails(
-      'affirmation_reminders',
-      'Affirmation Reminders',
-      channelDescription: 'Daily affirmation notifications',
-      importance: Importance.high,
-      priority: Priority.high,
-      icon: '@mipmap/ic_launcher',
-      styleInformation: const BigTextStyleInformation(''),
-      actions: [
-        AndroidNotificationAction(
-          'favorite_action', // action ID
-          'FAVORITE', // görünen buton
-        ),
-        AndroidNotificationAction(
-          'share_action',
-          'SHARE',
-        ),
-      ],
-    );
-
-    const iosDetails = DarwinNotificationDetails();
-
-    final notificationDetails = NotificationDetails(
-      android: androidDetails,
-      iOS: iosDetails,
-    );
-
-    try {
-      await _notificationsPlugin.show(
-        r.id.hashCode,
-        'Affirmation',
-        aff.text,
-        notificationDetails,
-        payload: jsonEncode({
-          "id": aff.id,
-          "text": aff.text,
-          "category": r.categoryIds.first,
-        }),
+  DateTime _computeBaseDay(DateTime now, int weekday, TimeOfDay startTime) {
+    // Bugünkü gün mü?
+    if (weekday == now.weekday) {
+      final todayStart = DateTime(
+        now.year,
+        now.month,
+        now.day,
+        startTime.hour,
+        startTime.minute,
       );
 
-      debugPrint("✅ Bildirim gönderildi (actions dahil)!");
-    } catch (e) {
-      debugPrint("❌ Bildirim hatası: $e");
+      // Eğer bugünün saati geçmişse → yarın
+      if (todayStart.isBefore(now)) {
+        return now.add(const Duration(days: 1));
+      }
+
+      // Saat geçmemiş → bugün
+      return now;
     }
+
+    // Farklı gün → gelecek ilk o gün
+    int diff = (weekday - now.weekday) % 7;
+    return now.add(Duration(days: diff));
   }
 
-  // -------------------------------------------------------------------------
-  // DEBUG: Test reminder oluştur
-  // -------------------------------------------------------------------------
-  void debugCreateSampleReminder() {
+  Future<void> _scheduleReminder(ReminderModel r) async {
     final now = DateTime.now();
 
-    print("saat: ${now.hour}");
+    // Eğer tekrar günleri boşsa → sadece bugünün weekday’i
+    final days = r.repeatDays.isEmpty ? {now.weekday} : r.repeatDays;
 
-    final reminder = ReminderModel(
-      id: "debug_${DateTime.now().millisecondsSinceEpoch}",
-      categoryIds: {"happiness"}, // ✅ Set<String>
-      startTime: TimeOfDay(hour: now.hour, minute: now.minute + 3),
-      endTime:
-          TimeOfDay(hour: now.hour, minute: now.minute + 6), // 3 dakika sonra
-      repeatCount: 10, // 10 bildirim
-      repeatDays: {now.weekday},
-      enabled: true,
-      isPremium: true,
-    );
+    for (final day in days) {
+      // 🔥 Yeni FIX: Bugün + saat + önümüzdeki gün hesaplaması
+      final base = _computeBaseDay(now, day, r.startTime);
 
-    if (addReminder(reminder)) {
-      debugPrint(
-        "🟢 DEBUG → Test reminder eklendi, kategori: ${reminder.categoryIds.first}",
+      final start = DateTime(
+        base.year,
+        base.month,
+        base.day,
+        r.startTime.hour,
+        r.startTime.minute,
       );
-    } else {
-      debugPrint(
-        "❌ DEBUG → Reminder eklenemedi (limit: $_reminders.length/$limit)",
+
+      final end = DateTime(
+        base.year,
+        base.month,
+        base.day,
+        r.endTime.hour,
+        r.endTime.minute,
       );
+
+      final total = end.difference(start).inMinutes;
+      if (total <= 0) continue;
+
+      // Her tekrar için aralık
+      final interval = (total / r.repeatCount).floor();
+
+      for (int i = 0; i < r.repeatCount; i++) {
+        final t = start.add(Duration(minutes: interval * i));
+
+        // Ön geçmiş zamanları atla
+        if (t.isBefore(now)) continue;
+
+        await _scheduleSingle(r, t);
+      }
     }
   }
 
-  // -------------------------------------------------------------------------
-  // DEBUG: İlk reminder'ı tetikle
-  // -------------------------------------------------------------------------
-  Future<void> debugFireFirstReminder() async {
-    if (_reminders.isEmpty) {
-      debugPrint("⚠️ DEBUG → Reminder yok.");
-      return;
-    }
+  Future<void> _scheduleSingle(ReminderModel r, DateTime time) async {
+    print("🔔 [_scheduleSingle] START for reminder: ${r.id}");
+    print("➡ categoryIds: ${r.categoryIds}");
 
-    debugPrint(
-        "🔥 DEBUG → Reminder tetiklendi: ${_reminders.first.categoryIds}");
-    await _fireReminder(_reminders.first);
-  }
+    // Category fallback
+    final categorySet = r.categoryIds.isEmpty ? {"general"} : r.categoryIds;
 
-  Future<void> _debugAutoTest() async {
-    debugPrint("🐞 DEBUG → Auto reminder test başlıyor...");
+    // Random affirmation
+    final aff = appState.getRandomAffirmation(categorySet);
+    final rendered = aff?.renderWithName(appState.preferences.userName) ??
+        "Your affirmation is ready.";
 
-    // 1) Bir adet test reminder oluştur
-    debugCreateSampleReminder();
+    // 🚀 Doğru time: her zaman tz.local üzerinden
+    final tzTime = buildNextInstance(time);
 
-    // 2) 3 tane art arda bildirimi ateşle
-    await Future.delayed(const Duration(seconds: 10));
-    await debugFireFirstReminder();
+    final notifId = tzTime.millisecondsSinceEpoch ~/ 1000;
 
-    await Future.delayed(const Duration(seconds: 10));
-    await debugFireFirstReminder();
+    print("📅 Scheduling notification:");
+    print("   • ID: $notifId");
+    print("   • Time: $tzTime");
+    print("   • Body: $rendered");
 
-    await Future.delayed(const Duration(seconds: 10));
-    await debugFireFirstReminder();
-
-    await Future.delayed(const Duration(seconds: 15));
-    await debugFireFirstReminder();
-
-    await Future.delayed(const Duration(seconds: 15));
-    await debugFireFirstReminder();
-
-    debugPrint("🐞 DEBUG → Auto test bitti.");
-  }
-
-  Future<void> debugScheduleImmediateNotification() async {
-    final now = DateTime.now();
-    final scheduledTime = now.add(const Duration(seconds: 10));
-
-    final tzTime = tz.TZDateTime.from(scheduledTime, tz.local);
-
-    debugPrint("🔔 DEBUG → Bildirim birazdan gelecek inş: $tzTime");
-
-    const androidDetails = AndroidNotificationDetails(
-      'affirmation_reminders',
-      'Affirmation Reminders',
-      channelDescription: 'Daily affirmation notifications',
-      importance: Importance.high,
-      priority: Priority.high,
-      icon: '@mipmap/ic_launcher',
-    );
-
-    const iosDetails = DarwinNotificationDetails();
-
-    await _notificationsPlugin.zonedSchedule(
-      999, // Test ID
-      'TEST Affirmation 🧪',
-      'Bu bir test bildirimidir.',
+    await _notifications.zonedSchedule(
+      notifId,
+      'Affirmation Time 🌟',
+      rendered,
       tzTime,
-      const NotificationDetails(android: androidDetails, iOS: iosDetails),
-      androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+      const NotificationDetails(
+        android: AndroidNotificationDetails(
+          'affirmation_reminders',
+          'Affirmation Reminders',
+          importance: Importance.high,
+          priority: Priority.high,
+        ),
+      ),
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
     );
 
-    debugPrint("✅ Test bildirimi schedule edildi!");
+    print("✔ Notification scheduled.\n");
+  }
+
+  tz.TZDateTime buildNextInstance(DateTime time) {
+    final now = tz.TZDateTime.now(tz.local);
+
+    var scheduled = tz.TZDateTime(
+      tz.local,
+      time.year,
+      time.month,
+      time.day,
+      time.hour,
+      time.minute,
+      time.second,
+    );
+
+    // Geçmişse → yarına kaydır
+    if (scheduled.isBefore(now)) {
+      scheduled = scheduled.add(const Duration(days: 1));
+    }
+
+    print("⏰ NOW: $now");
+    print("⏰ SCHEDULED: $scheduled");
+
+    return scheduled;
   }
 }

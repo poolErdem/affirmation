@@ -1,10 +1,10 @@
-import 'package:affirmation/ui/screens/onboarding/welcome_last_screen.dart';
+import 'package:affirmation/ui/screens/onboarding/preferences_screen.dart';
 import 'package:affirmation/ui/widgets/glass_button.dart';
+import 'package:affirmation/ui/widgets/press_effect.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:affirmation/state/app_state.dart';
-import 'package:affirmation/ui/screens/home_screen.dart';
 import 'package:affirmation/l10n/app_localizations.dart';
 
 class OnboardingThemeScreen extends StatefulWidget {
@@ -29,7 +29,7 @@ class _OnboardingThemeScreenState extends State<OnboardingThemeScreen> {
           // BACKGROUND
           Positioned.fill(
             child: Image.asset(
-              "assets/data/themes/a1.jfif",
+              "assets/data/themes/c20.jpg",
               fit: BoxFit.cover,
             ),
           ),
@@ -220,33 +220,19 @@ class _OnboardingThemeScreenState extends State<OnboardingThemeScreen> {
                   ),
 
                   // CONTINUE BUTTON (GLASS)
-                  GlassButton(
-                    text: t.continueLabel,
-                    onTap: () async {
-                      final messenger = ScaffoldMessenger.of(context);
-                      final navigator = Navigator.of(context);
 
-                      if (selectedIndex == null) {
-                        messenger.showSnackBar(
-                          SnackBar(
-                            content: Text(t.pleaseSelectTheme),
-                          ),
+                  // CONTINUE BUTTON (glassy like onboarding theme)
+                  Pressable(
+                    child: GlassButton(
+                      text: t.continueLabel,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => const PreferencesScreen()),
                         );
-                        return;
-                      }
-
-                      final st = Provider.of<AppState>(context, listen: false);
-                      st.onboardingThemeIndex = selectedIndex;
-
-                      await st.saveOnboardingData();
-                      if (!mounted) return;
-
-                      navigator.pushAndRemoveUntil(
-                        MaterialPageRoute(
-                            builder: (_) => const WelcomeLastScreen()),
-                        (route) => false,
-                      );
-                    },
+                      },
+                    ),
                   ),
                 ],
               ),

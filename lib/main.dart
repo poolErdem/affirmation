@@ -2,7 +2,6 @@ import 'package:affirmation/l10n/app_localizations.dart';
 import 'package:affirmation/models/user_preferences.dart';
 import 'package:affirmation/state/my_affirmation_state.dart';
 import 'package:affirmation/state/reminder_state.dart';
-import 'package:affirmation/ui/screens/home_screen.dart';
 import 'package:affirmation/ui/screens/onboarding/welcome_screen.dart';
 import 'package:affirmation/utils/utils.dart';
 import 'package:flutter/material.dart';

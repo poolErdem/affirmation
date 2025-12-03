@@ -1,7 +1,7 @@
+import 'package:affirmation/ui/screens/onboarding/preferences_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:affirmation/state/app_state.dart';
-import 'package:affirmation/ui/screens/premium_screen.dart';
 import 'package:affirmation/models/theme_model.dart';
 import 'package:affirmation/l10n/app_localizations.dart';
 import 'package:affirmation/models/user_preferences.dart';
@@ -177,7 +177,7 @@ class _ThemeScreenState extends State<ThemeScreen> {
             if (isPremium) {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => const PremiumScreen()),
+                MaterialPageRoute(builder: (_) => const PreferencesScreen()),
               );
               return;
             }

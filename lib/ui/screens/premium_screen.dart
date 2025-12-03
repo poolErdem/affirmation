@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:affirmation/l10n/app_localizations.dart';
 import 'package:affirmation/models/user_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +20,7 @@ class _PremiumScreenState extends State<PremiumScreen> {
   Widget build(BuildContext context) {
     final appState = context.watch<AppState>();
     final isPremium = appState.preferences.isPremiumValid;
+    final t = AppLocalizations.of(context)!;
 
     return Scaffold(
       backgroundColor: const Color(0xFF0F0F0F),
@@ -122,7 +124,7 @@ class _PremiumScreenState extends State<PremiumScreen> {
 
                   // TITLE
                   Text(
-                    isPremium ? "You're Premium ✨" : "Go Premium",
+                    isPremium ? "${t.youarePremium} ✨" : t.goPremium,
                     style: const TextStyle(
                       color: Color(0xFFEAEAEA),
                       fontSize: 32,

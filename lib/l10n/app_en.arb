@@ -3,10 +3,13 @@
 
   "welcomeTitle": "Welcome",
   "welcomeSubtitle": "Your path to inner clarity starts here.",
+  "welcomeLast": "Your personalized journey starts now.",
   "startButton": "Start",
   "continueAgree": "By continuing, you agree to our",
   "termsOfUse": "Terms of Use",
   "and": "and",
+
+  "categoryTitle" : "Choose the energy you want to feel today",
 
   "nameQuestion": "What’s your name?",
   "personalize": "We'll personalize your affirmations",
@@ -14,6 +17,7 @@
 
   "settings": "Settings",
   "goPremium": "Go Premium",
+  "youarePremium": "You're Premium",
   "preferences": "Content Preferences",
   "categories": "Categories",
   "themes": "Themes",
@@ -38,6 +42,8 @@
     "description": "Continue button text"
   },
   "save": "Save",
+  "update": "Update",
+  "delete": "Delete",
 
   "identifyGender": "Identify your gender",
   "genderSubtitle": "This helps personalize your journey",
@@ -103,9 +109,23 @@
   "tapToAddReminder": "Tap the button below to add your first reminder.",
   "freeReminderBadge": "Free Reminder",
   "reminderLimitReached": "You've reached your reminder limit.",
-"unlockMoreReminders": "Unlock more reminders",
-"reminderFreeOnlyCategory": "Free users can only use the Self-Care category.",
-"reminderPremiumRequired": "Upgrade to Premium to add more reminders."
+  "unlockMoreReminders": "Unlock more reminders",
+  "reminderFreeOnlyCategory": "Free users can only use the Self-Care category.",
+  "reminderPremiumRequired": "Upgrade to Premium to add more reminders.",
 
+  "careerSucces": "Career Success",
+  "selfCare": "Self Care",
+  "confidence": "Confidence",
+  "gratitude": "Gratitude",
+  "happiness": "Happiness",
+  "mindfulness": "Mindfulness",
+  "motivation": "Motivation",
+  "positiveThinking": "Positive Thinking",
+  "relationships": "Relationships",
+  "sleep": "Sleep",
+  "stressAnxiety": "Stress & Anxiety",
+
+  "unlock" : "UNLOCK",
+  "limited": "LIMITED"
 
 }

@@ -1,5 +1,6 @@
 import 'package:affirmation/constants/constants.dart';
 import 'package:affirmation/models/user_preferences.dart';
+import 'package:affirmation/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:affirmation/state/app_state.dart';
@@ -46,7 +47,7 @@ class CategoriesScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 18),
             child: Text(
-              "✨ Choose the energy you want to feel today",
+              "✨ ${t.categoryTitle}",
               style: TextStyle(
                 fontFamily: "Poppins",
                 fontSize: 14.5,
@@ -159,8 +160,8 @@ class CategoriesScreen extends StatelessWidget {
                                         color: Colors.orange.shade700,
                                         borderRadius: BorderRadius.circular(14),
                                       ),
-                                      child: const Text(
-                                        "LIMITED",
+                                      child: Text(
+                                        t.limited,
                                         style: TextStyle(
                                           fontFamily: "Poppins",
                                           fontSize: 11,
@@ -183,8 +184,8 @@ class CategoriesScreen extends StatelessWidget {
                                         color: Colors.amber.shade700,
                                         borderRadius: BorderRadius.circular(14),
                                       ),
-                                      child: const Text(
-                                        "UNLOCK",
+                                      child: Text(
+                                        t.unlock,
                                         style: TextStyle(
                                           fontFamily: "Poppins",
                                           fontSize: 11,
@@ -221,7 +222,9 @@ class CategoriesScreen extends StatelessWidget {
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 10.0),
                             child: Text(
-                              _titleCase(category.name),
+                              _titleCase(
+                                (localizedCategoryName(t, category.name)),
+                              ),
                               textAlign: TextAlign.center,
                               maxLines: 2,
                               style: TextStyle(

@@ -27,6 +27,19 @@ class Constants {
   static const String categoriesJson = "categories.json";
   static const String themesJson = "themes.json";
 
+  static const List<String> allCategories = [
+    "self_care",
+    "sleep",
+    "stress_anxiety",
+    "relationships",
+    "happiness",
+    "positive_thinking",
+    "confidence",
+    "motivation",
+    "mindfulness",
+    "career_success"
+  ];
+
   static const localizedLanguageNames = {
     "en": {
       "en": "English",

@@ -1,10 +1,14 @@
 import 'package:affirmation/state/app_state.dart';
-import 'package:affirmation/ui/screens/onboarding/onboarding_gender_screen.dart';
+import 'package:affirmation/ui/screens/onboarding/onboarding_name_screen.dart';
 import 'package:affirmation/ui/widgets/glass_button.dart';
+import 'package:affirmation/ui/widgets/press_effect.dart';
 import 'package:flutter/material.dart';
 import 'package:affirmation/l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
+// ==========================================================
+//   WELCOME SCREEN
+// ==========================================================
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
 
@@ -37,12 +41,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           // BACKGROUND IMAGE
           Positioned.fill(
             child: Image.asset(
-              "assets/data/themes/a1.jfif",
+              "assets/data/themes/c20.jpg",
               fit: BoxFit.cover,
             ),
           ),
 
-          // DARK CINEMATIC GRADIENT (opacity YOK!)
+          // DARK CINEMATIC GRADIENT
           Positioned.fill(
             child: Container(
               decoration: const BoxDecoration(
@@ -93,16 +97,18 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
                   const SizedBox(height: 50),
 
-                  // PREMIUM GLASS BUTTON
-                  GlassButton(
-                    text: t.startButton,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => const OnboardingGenderScreen()),
-                      );
-                    },
+                  // ⭐️⭐️⭐️ PREMIUM GLASS BUTTON + PRESS EFFECT ⭐️⭐️⭐️
+                  Pressable(
+                    child: GlassButton(
+                      text: t.startButton,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => const OnboardingNameScreen()),
+                        );
+                      },
+                    ),
                   ),
 
                   const SizedBox(height: 30),

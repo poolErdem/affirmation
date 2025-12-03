@@ -1,43 +1,52 @@
 import 'dart:math';
+import 'package:affirmation/l10n/app_localizations.dart';
 import 'package:affirmation/state/app_state.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:confetti/confetti.dart';
 import '../home_screen.dart';
 
 class WelcomeLastScreen extends StatefulWidget {
   const WelcomeLastScreen({super.key});
 
   @override
-  State<WelcomeLastScreen> createState() => _WelcomeLastScreen();
+  State<WelcomeLastScreen> createState() => _WelcomeLastScreenState();
 }
 
-class _WelcomeLastScreen extends State<WelcomeLastScreen>
+class _WelcomeLastScreenState extends State<WelcomeLastScreen>
     with SingleTickerProviderStateMixin {
-  late AnimationController _fade;
+  late AnimationController _fadeScale;
+  late ConfettiController _confettiController;
 
   @override
   void initState() {
     super.initState();
 
-    _fade = AnimationController(
+    _fadeScale = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 800),
+      duration: const Duration(milliseconds: 900),
     )..forward();
 
-    // 🔥 1.2 saniye sonra home'a geç
-    Future.delayed(const Duration(milliseconds: 3000), () {
-      if (mounted) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (_) => const HomeScreen()),
-        );
-      }
+    _confettiController =
+        ConfettiController(duration: const Duration(milliseconds: 1400));
+
+    Future.delayed(const Duration(milliseconds: 200), () {
+      _confettiController.play();
+    });
+
+    Future.delayed(const Duration(milliseconds: 4000), () {
+      if (!mounted) return;
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const HomeScreen()),
+      );
     });
   }
 
   @override
   void dispose() {
-    _fade.dispose();
+    _fadeScale.dispose();
+    _confettiController.dispose();
     super.dispose();
   }
 
@@ -45,95 +54,124 @@ class _WelcomeLastScreen extends State<WelcomeLastScreen>
   Widget build(BuildContext context) {
     final appState = context.watch<AppState>();
     final userName = appState.preferences.userName;
+    final t = AppLocalizations.of(context)!;
 
-    // ⭐ Kullanıcı adı varsa kişisel karşılama
-    final title = userName.isEmpty ? "Welcome" : "Welcome, $userName";
+    final title =
+        userName.isEmpty ? t.welcomeTitle : "${t.welcomeTitle}, $userName";
 
     return Scaffold(
       extendBodyBehindAppBar: true,
       body: Stack(
         children: [
-          // ⭐ Premium tema uyumlu gradient (gold dokunuşlu)
+          // ⭐ Background gradient - Orta kısımda açık ton
           Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Color(0xfffaf5ef), // soft warm
-                  Color(0xfff7e9d9), // soft peach
+                  Color.fromARGB(255, 83, 78, 73), // Üst koyu
+                  Color(0xFFFCEFD9), // Orta açık/gold
+                  Color(0xFFF7EEDD), // Alt açık
                 ],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
+                stops: [0.0, 0.5, 1.0],
               ),
             ),
           ),
 
-          // ⭐ Hafif noise
-          Positioned.fill(
-            child: IgnorePointer(
-              child: CustomPaint(
-                painter: _NoisePainter(opacity: 0.04),
-              ),
-            ),
-          ),
-
-          // ⭐ Altın ışık efekti (bloom glow)
+          // ⭐ Sparkle
           Positioned(
-            top: 120,
+            top: 110,
             left: 0,
             right: 0,
-            child: Container(
-              height: 140,
-              decoration: BoxDecoration(
-                gradient: RadialGradient(
-                  colors: [
-                    const Color(0xFFC9A85D)
-                        .withValues(alpha: 0.35), // altın glow
-                    Colors.transparent,
-                  ],
-                  radius: 0.85,
+            child: TweenAnimationBuilder<double>(
+              tween: Tween(begin: 0.0, end: 1.0),
+              duration: const Duration(milliseconds: 900),
+              builder: (_, v, __) => Opacity(
+                opacity: v,
+                child: ShaderMask(
+                  shaderCallback: (rect) {
+                    return const LinearGradient(
+                      colors: [
+                        Colors.white,
+                        Color(0xFFC9A85D),
+                        Colors.white,
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ).createShader(rect);
+                  },
+                  child: const Icon(
+                    Icons.star_sharp,
+                    size: 42,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
           ),
 
-          // ⭐ Yazılar
-          SafeArea(
-            child: FadeTransition(
-              opacity: CurvedAnimation(
-                parent: _fade,
-                curve: Curves.easeOut,
-              ),
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // ✨ SPARKLE ICON
-                    Icon(
-                      Icons.auto_awesome,
-                      size: 46,
-                      color: const Color(0xFFC9A85D),
-                    ),
-                    const SizedBox(height: 20),
+          // ⭐ Konfeti
+          Align(
+            alignment: Alignment.topCenter,
+            child: ConfettiWidget(
+              confettiController: _confettiController,
+              blastDirectionality: BlastDirectionality.explosive,
+              emissionFrequency: 0.2,
+              numberOfParticles: 40,
+              maxBlastForce: 30,
+              minBlastForce: 10,
+              gravity: 0.25,
+              colors: const [
+                Color(0xFFC9A85D),
+                Color(0xFFE8D5A6),
+                Color(0xFFFAF3D2),
+              ],
+              createParticlePath: _drawStar,
+            ),
+          ),
 
-                    // ⭐ Başlık
+          // ⭐ Content
+          Positioned(
+            top: 285,
+            left: 0,
+            right: 0,
+            child: ScaleTransition(
+              scale: CurvedAnimation(
+                parent: _fadeScale,
+                curve: Curves.easeOutBack,
+              ),
+              child: FadeTransition(
+                opacity: CurvedAnimation(
+                  parent: _fadeScale,
+                  curve: Curves.easeOut,
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(
+                      Icons.auto_awesome,
+                      size: 50,
+                      color: Color(0xFFC9A85D),
+                    ),
+                    const SizedBox(height: 22),
                     Text(
                       title,
                       textAlign: TextAlign.center,
                       style: const TextStyle(
-                        fontSize: 32,
-                        fontWeight: FontWeight.bold,
+                        fontSize: 34,
+                        fontWeight: FontWeight.w700,
                         color: Colors.black87,
                         height: 1.2,
+                        fontFamily: "Georgia",
                       ),
                     ),
-                    const SizedBox(height: 12),
-
-                    // ⭐ Alt açıklama
-                    const Text(
-                      "Your personalized affirmations are ready.",
+                    const SizedBox(height: 14),
+                    Text(
+                      t.welcomeLast,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 17,
                         color: Colors.black54,
                         height: 1.4,
                       ),
@@ -149,26 +187,27 @@ class _WelcomeLastScreen extends State<WelcomeLastScreen>
   }
 }
 
-// ------------------------------------------------------------
-// Noise painter
-// ------------------------------------------------------------
-class _NoisePainter extends CustomPainter {
-  final double opacity;
-  final Random _rand = Random();
+// ⭐ Star Path
+Path _drawStar(Size size) {
+  const numberOfPoints = 5;
+  final halfWidth = size.width / 2;
+  final externalRadius = halfWidth;
+  final internalRadius = halfWidth / 2.5;
+  final degreesPerStep = pi / numberOfPoints;
+  final halfDegreesPerStep = degreesPerStep / 2;
+  final path = Path()..moveTo(size.width, halfWidth);
 
-  _NoisePainter({this.opacity = 0.04});
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()..color = Colors.black.withValues(alpha: opacity);
-
-    for (int i = 0; i < size.width * size.height / 90; i++) {
-      final dx = _rand.nextDouble() * size.width;
-      final dy = _rand.nextDouble() * size.height;
-      canvas.drawRect(Rect.fromLTWH(dx, dy, 1.2, 1.2), paint);
-    }
+  for (double step = 0; step < pi * 2; step += degreesPerStep) {
+    path.lineTo(
+      halfWidth + externalRadius * cos(step),
+      halfWidth + externalRadius * sin(step),
+    );
+    path.lineTo(
+      halfWidth + internalRadius * cos(step + halfDegreesPerStep),
+      halfWidth + internalRadius * sin(step + halfDegreesPerStep),
+    );
   }
 
-  @override
-  bool shouldRepaint(_NoisePainter oldDelegate) => false;
+  path.close();
+  return path;
 }

@@ -1,10 +1,9 @@
 import 'dart:ui';
+import 'package:affirmation/ui/screens/onboarding/onboarding_gender_screen.dart';
 import 'package:affirmation/ui/widgets/glass_button.dart';
+import 'package:affirmation/ui/widgets/press_effect.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import 'package:affirmation/state/app_state.dart';
-import 'package:affirmation/ui/screens/onboarding/onboarding_theme_screen.dart';
 import 'package:affirmation/l10n/app_localizations.dart';
 
 class OnboardingNameScreen extends StatefulWidget {
@@ -17,24 +16,6 @@ class OnboardingNameScreen extends StatefulWidget {
 class _OnboardingNameScreenState extends State<OnboardingNameScreen> {
   final TextEditingController _controller = TextEditingController();
 
-  void _continue() {
-    final name = _controller.text.trim();
-    if (name.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Please enter your name.")),
-      );
-      return;
-    }
-
-    final appState = context.read<AppState>();
-    appState.onboardingName = name;
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (_) => const OnboardingThemeScreen()),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
@@ -45,7 +26,7 @@ class _OnboardingNameScreenState extends State<OnboardingNameScreen> {
           // BACKGROUND
           Positioned.fill(
             child: Image.asset(
-              "assets/data/themes/a1.jfif",
+              "assets/data/themes/c20.jpg",
               fit: BoxFit.cover,
             ),
           ),
@@ -156,9 +137,17 @@ class _OnboardingNameScreenState extends State<OnboardingNameScreen> {
                   const Spacer(),
 
                   // CONTINUE BUTTON (glassy like onboarding theme)
-                  GlassButton(
-                    text: t.continueLabel,
-                    onTap: _continue,
+                  Pressable(
+                    child: GlassButton(
+                      text: t.continueLabel,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => const OnboardingGenderScreen()),
+                        );
+                      },
+                    ),
                   ),
                 ],
               ),

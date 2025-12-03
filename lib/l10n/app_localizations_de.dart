@@ -15,6 +15,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get welcomeSubtitle => 'Your path to inner clarity starts here.';
 
   @override
+  String get welcomeLast => 'Your personalized journey starts now.';
+
+  @override
   String get startButton => 'Start';
 
   @override
@@ -25,6 +28,9 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get and => 'and';
+
+  @override
+  String get categoryTitle => 'Choose the energy you want to feel today';
 
   @override
   String get nameQuestion => 'What’s your name?';
@@ -40,6 +46,9 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get goPremium => 'Premium freischalten';
+
+  @override
+  String get youarePremium => 'You\'re Premium';
 
   @override
   String get preferences => 'Präferenzen';
@@ -97,6 +106,12 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get save => 'Speichern';
+
+  @override
+  String get update => 'Update';
+
+  @override
+  String get delete => 'Delete';
 
   @override
   String get identifyGender => 'Geschlecht auswählen';
@@ -265,4 +280,43 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get reminderPremiumRequired => 'Upgrade to Premium to add more reminders.';
+
+  @override
+  String get careerSucces => 'Career Success';
+
+  @override
+  String get selfCare => 'Self Care';
+
+  @override
+  String get confidence => 'Confidence';
+
+  @override
+  String get gratitude => 'Gratitude';
+
+  @override
+  String get happiness => 'Happiness';
+
+  @override
+  String get mindfulness => 'Mindfulness';
+
+  @override
+  String get motivation => 'Motivation';
+
+  @override
+  String get positiveThinking => 'Positive Thinking';
+
+  @override
+  String get relationships => 'Relationships';
+
+  @override
+  String get sleep => 'Sleep';
+
+  @override
+  String get stressAnxiety => 'Stress & Anxiety';
+
+  @override
+  String get unlock => 'UNLOCK';
+
+  @override
+  String get limited => 'LIMITED';
 }

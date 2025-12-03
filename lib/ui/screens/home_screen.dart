@@ -1,8 +1,10 @@
 import 'package:affirmation/constants/constants.dart';
+import 'package:affirmation/l10n/app_localizations.dart';
 import 'package:affirmation/models/category.dart';
-import 'package:affirmation/state/reminder_state.dart';
 import 'package:affirmation/ui/screens/premium_screen.dart';
 import 'package:affirmation/ui/screens/theme_screen.dart';
+import 'package:affirmation/ui/screens/onboarding/welcome_last_screen.dart';
+
 import 'package:affirmation/ui/screens/categories_screen.dart';
 import 'package:affirmation/ui/screens/settings/settings_screen.dart';
 import 'package:affirmation/models/user_preferences.dart';
@@ -151,7 +153,7 @@ class _HomeScreenState extends State<HomeScreen>
           ),
 
           Align(
-            alignment: const Alignment(0.90, 0.75),
+            alignment: const Alignment(0.90, 0.73),
             child: SlideTransition(
               position: _slideAnim,
               child: FadeTransition(
@@ -295,142 +297,249 @@ class _HomeScreenState extends State<HomeScreen>
 // -------------------------------------------------------------------
   Widget _buildMyPanel(BuildContext context) {
     final myAffState = context.read<MyAffirmationState>();
+    final t = AppLocalizations.of(context)!;
+    final fullHeight = MediaQuery.of(context).size.height;
 
     return AnimatedPositioned(
       duration: const Duration(milliseconds: 280),
       curve: Curves.easeOut,
       left: 0,
       right: 0,
-      bottom: _panelVisible ? 0 : -MediaQuery.of(context).size.height * 0.35,
-      child: Container(
-        decoration: const BoxDecoration(
-          color: Color(0xFF0D0D0D),
-          borderRadius: BorderRadius.vertical(top: Radius.circular(26)),
-          border: Border(
-            top: BorderSide(
-              color: Color(0x44FFFFFF),
-              width: 1.5,
+      bottom: _panelVisible ? 0 : -fullHeight * 0.50, // tamamen saklanır
+      child: GestureDetector(
+        // ✔ KAYDIRARAK KAPAT
+        onVerticalDragUpdate: (details) {
+          if (details.primaryDelta! > 14) {
+            setState(() => _panelVisible = false);
+          }
+        },
+        onVerticalDragEnd: (details) {
+          if (details.primaryVelocity != null &&
+              details.primaryVelocity! > 200) {
+            setState(() => _panelVisible = false);
+          }
+        },
+
+        child: Container(
+          decoration: const BoxDecoration(
+            color: Color(0xFF1A1A1A), // ✔ premium gri
+            borderRadius: BorderRadius.vertical(top: Radius.circular(26)),
+            border: Border(
+              top: BorderSide(
+                color: Color(0x33FFFFFF),
+                width: 1.2,
+              ),
             ),
+            boxShadow: [
+              BoxShadow(
+                color: Color(0x66000000),
+                blurRadius: 30,
+                spreadRadius: 5,
+                offset: Offset(0, -6),
+              ),
+            ],
           ),
-          boxShadow: [
-            BoxShadow(
-              color: Color(0x33000000),
-              blurRadius: 30,
-              spreadRadius: 5,
-              offset: Offset(0, -5),
-            ),
-          ],
-        ),
-        child: SafeArea(
-          bottom: true,
-          child: Padding(
-            padding: EdgeInsets.only(
-              left: 20,
-              right: 20,
-              top: 16,
-              bottom: 16 + MediaQuery.of(context).viewInsets.bottom,
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                // DRAG HANDLE
-                Container(
-                  width: 42,
-                  height: 5,
-                  decoration: BoxDecoration(
-                    color: const Color(0x55FFFFFF),
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                ),
-
-                const SizedBox(height: 20),
-
-                // TITLE
-                Text(
-                  _editing ? "Edit Affirmation" : "New Affirmation",
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: 0.5,
-                  ),
-                ),
-
-                const SizedBox(height: 16),
-
-                // INPUT FIELD
-                Container(
-                  decoration: BoxDecoration(
-                    color: const Color(0x22FFFFFF),
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(
-                      color: const Color(0x33FFFFFF),
-                      width: 1,
+          child: SafeArea(
+            bottom: true,
+            child: Padding(
+              padding: EdgeInsets.only(
+                left: 20,
+                right: 20,
+                top: 16,
+                bottom: 16 + MediaQuery.of(context).viewInsets.bottom,
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // ─────────────────────────── DRAG HANDLE
+                  Container(
+                    width: 50,
+                    height: 5,
+                    decoration: BoxDecoration(
+                      color: const Color(0x55FFFFFF),
+                      borderRadius: BorderRadius.circular(4),
                     ),
                   ),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: TextField(
-                    controller: _panelController,
-                    maxLines: 3,
+
+                  const SizedBox(height: 20),
+
+                  // ─────────────────────────── TITLE
+                  Text(
+                    _editing ? "Edit Affirmation" : "New Affirmation",
                     style: const TextStyle(
                       color: Colors.white,
-                      fontSize: 16,
-                      height: 1.4,
-                    ),
-                    decoration: const InputDecoration(
-                      hintText: "Write your affirmation…",
-                      hintStyle: TextStyle(
-                        color: Color(0x66FFFFFF),
-                        fontSize: 15,
-                      ),
-                      border: InputBorder.none,
-                      isDense: true,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 0.5,
                     ),
                   ),
-                ),
 
-                const SizedBox(height: 20),
+                  const SizedBox(height: 16),
 
-                // BUTTONS ROW
-                Row(
-                  children: [
-                    // DELETE BUTTON (only when editing)
-                    if (_editing) ...[
+                  // ─────────────────────────── INPUT FIELD
+                  Container(
+                    decoration: BoxDecoration(
+                      color: const Color(0x18FFFFFF),
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(
+                        color: const Color(0x33FFFFFF),
+                        width: 1,
+                      ),
+                    ),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    child: TextField(
+                      controller: _panelController,
+                      maxLines: 3,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        height: 1.4,
+                      ),
+                      decoration: const InputDecoration(
+                        hintText: "Write your affirmation…",
+                        hintStyle: TextStyle(
+                          color: Color(0x66FFFFFF),
+                          fontSize: 15,
+                        ),
+                        border: InputBorder.none,
+                        isDense: true,
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  // ─────────────────────────── BUTTONS ROW
+                  Row(
+                    children: [
+                      // DELETE ------------------------------
+                      if (_editing) ...[
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () async {
+                              if (_editingId != null) {
+                                final myState =
+                                    context.read<MyAffirmationState>();
+                                final currentIndex =
+                                    _myAffPageController?.page?.round() ?? 0;
+
+                                await myAffState.remove(_editingId!);
+
+                                _panelController.clear();
+                                if (!mounted) return;
+
+                                setState(() {
+                                  _editing = false;
+                                  _editingId = null;
+                                  _panelVisible = false;
+                                });
+
+                                await Future.delayed(
+                                    const Duration(milliseconds: 100));
+                                if (!mounted) return;
+
+                                if (myState.items.isNotEmpty &&
+                                    _myAffPageController != null) {
+                                  if (_myAffPageController!.hasClients) {
+                                    final newIndex =
+                                        currentIndex >= myState.items.length
+                                            ? myState.items.length - 1
+                                            : currentIndex;
+
+                                    _myAffPageController!.jumpToPage(newIndex);
+                                  }
+                                }
+                              }
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(vertical: 14),
+                              decoration: BoxDecoration(
+                                color: const Color(0x22FF4444),
+                                borderRadius: BorderRadius.circular(14),
+                                border: Border.all(
+                                  color: const Color(0x66FF4444),
+                                  width: 1.5,
+                                ),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.delete_outline,
+                                    color: Colors.redAccent,
+                                    size: 20,
+                                  ),
+                                  SizedBox(width: 8),
+                                  Text(
+                                    t.delete,
+                                    style: TextStyle(
+                                      color: Colors.redAccent,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                      ],
+
+                      // SAVE / UPDATE ------------------------
                       Expanded(
                         child: GestureDetector(
                           onTap: () async {
-                            if (_editingId != null) {
-                              final myState =
-                                  context.read<MyAffirmationState>();
-                              final currentIndex =
-                                  _myAffPageController?.page?.round() ?? 0;
+                            final text = _panelController.text.trim();
+                            if (text.isEmpty) return;
 
-                              await myAffState.remove(_editingId!);
+                            final scaffoldContext = context;
+                            final wasEditing = _editing;
 
-                              _panelController.clear();
+                            if (!wasEditing) {
+                              final isOver = await myAffState.isOverLimit();
+
                               if (!mounted) return;
+                              if (isOver) {
+                                _showMyAffLimitDialog(scaffoldContext);
+                                return;
+                              }
+                            }
 
-                              setState(() {
-                                _editing = false;
-                                _editingId = null;
-                                _panelVisible = false;
-                              });
+                            if (wasEditing) {
+                              if (_editingId != null) {
+                                await myAffState.update(_editingId!, text);
+                              }
+                            } else {
+                              await myAffState.add(text);
+                            }
 
+                            _panelController.clear();
+                            if (!mounted) return;
+
+                            setState(() {
+                              _editing = false;
+                              _editingId = null;
+                              _panelVisible = false;
+                            });
+
+                            if (!wasEditing) {
                               await Future.delayed(
                                   const Duration(milliseconds: 100));
                               if (!mounted) return;
 
+                              final myState =
+                                  context.read<MyAffirmationState>();
                               if (myState.items.isNotEmpty &&
                                   _myAffPageController != null) {
                                 if (_myAffPageController!.hasClients) {
-                                  final newIndex =
-                                      currentIndex >= myState.items.length
-                                          ? myState.items.length - 1
-                                          : currentIndex;
-
-                                  _myAffPageController!.jumpToPage(newIndex);
+                                  await _myAffPageController!.animateToPage(
+                                    myState.items.length - 1,
+                                    duration: const Duration(milliseconds: 300),
+                                    curve: Curves.easeOut,
+                                  );
                                 }
                               }
                             }
@@ -438,28 +547,43 @@ class _HomeScreenState extends State<HomeScreen>
                           child: Container(
                             padding: const EdgeInsets.symmetric(vertical: 14),
                             decoration: BoxDecoration(
-                              color: const Color(0x22FF4444),
+                              gradient: const LinearGradient(
+                                colors: [
+                                  Color(0xFF4A4A4A),
+                                  Color(0xFF2A2A2A),
+                                ],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
                               borderRadius: BorderRadius.circular(14),
                               border: Border.all(
-                                color: const Color(0x66FF4444),
+                                color: Color(0x55FFFFFF),
                                 width: 1.5,
                               ),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Color(0x22FFFFFF),
+                                  blurRadius: 8,
+                                  spreadRadius: 0,
+                                ),
+                              ],
                             ),
-                            child: const Row(
+                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(
-                                  Icons.delete_outline,
-                                  color: Colors.redAccent,
+                                const Icon(
+                                  Icons.check_circle_outline,
+                                  color: Colors.white,
                                   size: 20,
                                 ),
-                                SizedBox(width: 8),
+                                const SizedBox(width: 8),
                                 Text(
-                                  "Delete",
-                                  style: TextStyle(
-                                    color: Colors.redAccent,
-                                    fontSize: 15,
+                                  _editing ? t.update : t.save,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
                                     fontWeight: FontWeight.w600,
+                                    letterSpacing: 0.5,
                                   ),
                                 ),
                               ],
@@ -467,114 +591,10 @@ class _HomeScreenState extends State<HomeScreen>
                           ),
                         ),
                       ),
-                      const SizedBox(width: 12),
                     ],
-
-                    // SAVE BUTTON
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () async {
-                          final text = _panelController.text.trim();
-                          if (text.isEmpty) return;
-
-                          final scaffoldContext = context;
-                          final wasEditing = _editing;
-
-                          if (!wasEditing) {
-                            final isOver = await myAffState.isOverLimit();
-
-                            if (!mounted) return;
-                            if (isOver) {
-                              _showMyAffLimitDialog(scaffoldContext);
-                              return;
-                            }
-                          }
-
-                          if (wasEditing) {
-                            if (_editingId != null) {
-                              await myAffState.update(_editingId!, text);
-                            }
-                          } else {
-                            await myAffState.add(text);
-                          }
-
-                          _panelController.clear();
-                          if (!mounted) return;
-
-                          setState(() {
-                            _editing = false;
-                            _editingId = null;
-                            _panelVisible = false;
-                          });
-
-                          if (!wasEditing) {
-                            await Future.delayed(
-                                const Duration(milliseconds: 100));
-                            if (!mounted) return;
-
-                            final myState = context.read<MyAffirmationState>();
-                            if (myState.items.isNotEmpty &&
-                                _myAffPageController != null) {
-                              if (_myAffPageController!.hasClients) {
-                                await _myAffPageController!.animateToPage(
-                                  myState.items.length - 1,
-                                  duration: const Duration(milliseconds: 300),
-                                  curve: Curves.easeOut,
-                                );
-                              }
-                            }
-                          }
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(vertical: 14),
-                          decoration: BoxDecoration(
-                            gradient: const LinearGradient(
-                              colors: [
-                                Color(0xFF4A4A4A),
-                                Color(0xFF2A2A2A),
-                              ],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                            ),
-                            borderRadius: BorderRadius.circular(14),
-                            border: Border.all(
-                              color: const Color(0x55FFFFFF),
-                              width: 1.5,
-                            ),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Color(0x22FFFFFF),
-                                blurRadius: 8,
-                                spreadRadius: 0,
-                              ),
-                            ],
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Icon(
-                                Icons.check_circle_outline,
-                                color: Colors.white,
-                                size: 20,
-                              ),
-                              const SizedBox(width: 8),
-                              Text(
-                                _editing ? "Update" : "Save",
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                  letterSpacing: 0.5,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -852,7 +872,6 @@ class _HomeScreenState extends State<HomeScreen>
 
     return InkWell(
       onTap: () {
-        //reminderState.debugCreateSampleReminder();
         Navigator.push(
           context,
           MaterialPageRoute(builder: (_) => const CategoriesScreen()),
@@ -887,14 +906,11 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   Widget _buildThemeButton(BuildContext context) {
-    final reminderState = context.read<ReminderState>();
-
     return InkWell(
       onTap: () {
-        reminderState.debugScheduleImmediateNotification();
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (_) => const ThemeScreen()),
+          MaterialPageRoute(builder: (_) => const WelcomeLastScreen()),
         );
       },
       child: Container(
@@ -914,19 +930,18 @@ class _HomeScreenState extends State<HomeScreen>
 
   Widget _buildMyAffButtons() {
     return Positioned(
-      bottom: 100,
+      bottom: 106,
       left: 0,
-      right: 250,
+      right: 270,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           // EDIT
-          _circleButton(
+          _iconButton(
             icon: Icons.edit,
             onTap: () {
               final myState = context.read<MyAffirmationState>();
 
-              // 🔥 AKTİF SAYFA INDEX'İ (MY AFFIRMATIONS PageView)
               final index = _myAffPageController?.page?.round() ?? 0;
 
               if (index < 0 || index >= myState.items.length) return;
@@ -941,10 +956,10 @@ class _HomeScreenState extends State<HomeScreen>
             },
           ),
 
-          const SizedBox(width: 18),
+          const SizedBox(width: 12),
 
           // ADD
-          _circleButton(
+          _iconButton(
             icon: Icons.add,
             onTap: () {
               _editing = false;
@@ -958,17 +973,20 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  Widget _circleButton({required IconData icon, required VoidCallback onTap}) {
+  Widget _iconButton({
+    required IconData icon,
+    required VoidCallback onTap,
+  }) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(14),
-        decoration: BoxDecoration(
-          color: const Color(0x44000000),
-          shape: BoxShape.circle,
-          border: Border.all(color: const Color(0x33FFFFFF), width: 1),
+      behavior: HitTestBehavior.translucent,
+      child: Padding(
+        padding: const EdgeInsets.all(6.0), // küçük tıklama alanı
+        child: Icon(
+          icon,
+          size: 24,
+          color: Colors.white,
         ),
-        child: Icon(icon, color: Colors.white, size: 26),
       ),
     );
   }
@@ -1227,7 +1245,7 @@ class _HomeScreenState extends State<HomeScreen>
                 scale: 1 + (1 - value) * size,
                 child: const Icon(
                   Icons.star,
-                  color: Color.fromARGB(255, 201, 174, 92),
+                  color: Color.fromARGB(241, 212, 125, 196),
                   size: 28,
                 ),
               );

@@ -61,6 +61,9 @@ class AppState extends ChangeNotifier {
   String? get userName => preferences.userName;
   String get activeCategoryId => _activeCategoryId;
 
+  // Cache → key: "gender|premium|cat1,cat2"
+  final Map<String, List<Affirmation>> _categoryCache = {};
+
   // Lazy getter
   PurchaseState get purchaseState {
     _purchaseState ??= PurchaseState(this);
@@ -174,14 +177,14 @@ class AppState extends ChangeNotifier {
     _allAffirmations =
         await _repository.loadAllCategoriesItems(_preferences.premiumActive);
 
-    // random index aşmaması için, _currentIndex
-    _currentIndex = 0;
+    // her defasında farklı index
+    _currentIndex = randomIndex(_calculateInitialCount());
 
     _loaded = true;
     _generalDirty = true;
     _categoryDirty = true;
     _favoriteDirty = true;
-
+    clearAffirmationCache();
     notifyListeners();
 
     print("✅ initialize() tamamlandı");
@@ -257,10 +260,10 @@ class AppState extends ChangeNotifier {
         reminders: [
           ReminderModel(
             id: "free_default",
-            categoryIds: {"self_care"},
+            categoryIds: {"general"},
             startTime: const TimeOfDay(hour: 2, minute: 0),
-            endTime: const TimeOfDay(hour: 2, minute: 30),
-            repeatCount: 30,
+            endTime: const TimeOfDay(hour: 8, minute: 0),
+            repeatCount: 20,
             repeatDays: {1, 2, 3, 4, 5, 6, 7},
             enabled: true,
             isPremium: false,
@@ -392,7 +395,7 @@ class AppState extends ChangeNotifier {
     }
 
     print('✅ GENERAL FEED toplam: ${list.length}');
-    return list.take(5).toList();
+    return list; //.take(5).toList();
   }
 
   List<Affirmation> get categoryFeed {
@@ -553,20 +556,6 @@ class AppState extends ChangeNotifier {
   }
 
   // AFFIRMATIONS
-  List<Affirmation> affirmationsForActiveCategories() {
-    print("🎯 notf allAffirmations count → ${_allAffirmations.length}");
-    print("🎯 notf gender → ${_preferences.gender}");
-    print(
-        "🎯 notf seçilen kategori sayısı → ${preferences.selectedContentPreferences.length}");
-
-    return _allAffirmations.where((a) {
-      final genderOk = matchGender(a, _preferences.gender);
-      final matchesCategory =
-          preferences.selectedContentPreferences.contains(a.categoryId);
-      return genderOk && matchesCategory;
-    }).toList();
-  }
-
   Affirmation? affirmationAt(int index) {
     final list = currentFeed;
     if (list.isEmpty) return null;
@@ -580,17 +569,78 @@ class AppState extends ChangeNotifier {
     return list[index];
   }
 
-  Affirmation? getRandomAffirmation() {
-    final list = affirmationsForActiveCategories();
-    print("🎯 notf affirmation count → ${list.length}");
+  String _makeCacheKey(Set<String> categories) {
+    final sorted = categories.toList()..sort();
+    final cats = sorted.join(",");
+    final gender = _preferences.gender;
+    final premium = _preferences.premiumActive ? "P" : "F";
+    return "$gender|$premium|$cats";
+  }
 
-    if (list.isEmpty) return null;
+  void clearAffirmationCache() {
+    _categoryCache.clear();
+    print("🧽 [AFF-CACHE] cache cleared");
+  }
+
+  List<Affirmation> affirmationsForCategories(Set<String> categoryIds) {
+    print("🎯 [AFF] allAffirmations count → ${_allAffirmations.length}");
+    print("🎯 [AFF] gender → ${_preferences.gender}");
+    print("🎯 [AFF] incoming categoryIds → $categoryIds");
+
+    final effectiveCats = categoryIds.isEmpty ? {"general"} : categoryIds;
+
+    final key = _makeCacheKey(effectiveCats);
+
+    // 🔥 CACHE HIT
+    if (_categoryCache.containsKey(key)) {
+      print("⚡ [AFF-CACHE] HIT → $key (len=${_categoryCache[key]!.length})");
+      return _categoryCache[key]!;
+    }
+
+    print("🐢 [AFF-CACHE] MISS → $key");
+
+    late final List<Affirmation> list;
+
+    if (_preferences.premiumActive) {
+      // Premium → gender + category
+      list = _allAffirmations.where((a) {
+        final genderOk = matchGender(a, _preferences.gender);
+        final matchesCategory = effectiveCats.contains(a.categoryId);
+        return genderOk && matchesCategory;
+      }).toList();
+    } else {
+      // Free → zaten sadece 2 kategori gösteriyoruz,
+      // tekrar kategori süzmek gereksiz
+      list = _allAffirmations.where((a) {
+        final genderOk = matchGender(a, _preferences.gender);
+        return genderOk;
+      }).toList();
+    }
+
+    print("🎯 [AFF] after filtering → ${list.length}");
+
+    // 🔥 CACHE STORE
+    _categoryCache[key] = list;
+
+    return list;
+  }
+
+  Affirmation? getRandomAffirmation(Set<String> categoryIds) {
+    print("🎲 incoming categoryIds = $categoryIds");
+
+    var list = affirmationsForCategories(categoryIds);
+
+    if (list.isEmpty) {
+      return null;
+    }
 
     final frandomIndex = randomIndex(list.length);
-    print(
-        "🎯 random index: $frandomIndex ve  affirmation → ${list[frandomIndex].text}");
+    final selected = list[frandomIndex];
 
-    return list[frandomIndex];
+    print("🎯 [AFF] random index → $frandomIndex");
+    print("🎯 [AFF] selected affirmation → ${selected.text}");
+
+    return selected;
   }
 
   // RANDOM INDEX
@@ -756,6 +806,7 @@ class AppState extends ChangeNotifier {
     _generalDirty = true;
     _categoryDirty = true;
     _favoriteDirty = true;
+    clearAffirmationCache();
     notifyListeners();
   }
 
@@ -778,6 +829,7 @@ class AppState extends ChangeNotifier {
     _generalDirty = true;
     _categoryDirty = true;
     _favoriteDirty = true;
+    clearAffirmationCache();
     notifyListeners();
   }
 

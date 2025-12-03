@@ -111,6 +111,12 @@ abstract class AppLocalizations {
   /// **'Your path to inner clarity starts here.'**
   String get welcomeSubtitle;
 
+  /// No description provided for @welcomeLast.
+  ///
+  /// In en, this message translates to:
+  /// **'Your personalized journey starts now.'**
+  String get welcomeLast;
+
   /// No description provided for @startButton.
   ///
   /// In en, this message translates to:
@@ -134,6 +140,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'and'**
   String get and;
+
+  /// No description provided for @categoryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the energy you want to feel today'**
+  String get categoryTitle;
 
   /// No description provided for @nameQuestion.
   ///
@@ -164,6 +176,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Go Premium'**
   String get goPremium;
+
+  /// No description provided for @youarePremium.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re Premium'**
+  String get youarePremium;
 
   /// No description provided for @preferences.
   ///
@@ -278,6 +296,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Save'**
   String get save;
+
+  /// No description provided for @update.
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get update;
+
+  /// No description provided for @delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get delete;
 
   /// No description provided for @identifyGender.
   ///
@@ -614,6 +644,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Upgrade to Premium to add more reminders.'**
   String get reminderPremiumRequired;
+
+  /// No description provided for @careerSucces.
+  ///
+  /// In en, this message translates to:
+  /// **'Career Success'**
+  String get careerSucces;
+
+  /// No description provided for @selfCare.
+  ///
+  /// In en, this message translates to:
+  /// **'Self Care'**
+  String get selfCare;
+
+  /// No description provided for @confidence.
+  ///
+  /// In en, this message translates to:
+  /// **'Confidence'**
+  String get confidence;
+
+  /// No description provided for @gratitude.
+  ///
+  /// In en, this message translates to:
+  /// **'Gratitude'**
+  String get gratitude;
+
+  /// No description provided for @happiness.
+  ///
+  /// In en, this message translates to:
+  /// **'Happiness'**
+  String get happiness;
+
+  /// No description provided for @mindfulness.
+  ///
+  /// In en, this message translates to:
+  /// **'Mindfulness'**
+  String get mindfulness;
+
+  /// No description provided for @motivation.
+  ///
+  /// In en, this message translates to:
+  /// **'Motivation'**
+  String get motivation;
+
+  /// No description provided for @positiveThinking.
+  ///
+  /// In en, this message translates to:
+  /// **'Positive Thinking'**
+  String get positiveThinking;
+
+  /// No description provided for @relationships.
+  ///
+  /// In en, this message translates to:
+  /// **'Relationships'**
+  String get relationships;
+
+  /// No description provided for @sleep.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep'**
+  String get sleep;
+
+  /// No description provided for @stressAnxiety.
+  ///
+  /// In en, this message translates to:
+  /// **'Stress & Anxiety'**
+  String get stressAnxiety;
+
+  /// No description provided for @unlock.
+  ///
+  /// In en, this message translates to:
+  /// **'UNLOCK'**
+  String get unlock;
+
+  /// No description provided for @limited.
+  ///
+  /// In en, this message translates to:
+  /// **'LIMITED'**
+  String get limited;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

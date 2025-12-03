@@ -207,7 +207,8 @@ class _SettingsScreenState extends State<SettingsScreen>
                   icon: Icons.notifications_none_rounded,
                   onTap: () => Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (_) => const RemindersScreen()),
+                    MaterialPageRoute(
+                        builder: (_) => const ReminderListScreen()),
                   ),
                 ),
 
@@ -287,7 +288,8 @@ class _SettingsScreenState extends State<SettingsScreen>
             BoxShadow(
               color: isPremium
                   ? Colors.amber.withValues(alpha: 0.4 + pulseValue * 0.2)
-                  : Colors.black.withValues(alpha: 0.3),
+                  : const Color.fromARGB(255, 83, 80, 80)
+                      .withValues(alpha: 0.3),
               blurRadius: 30 + pulseValue * 10,
               spreadRadius: isPremium ? 2 : 0,
               offset: const Offset(0, 10),
@@ -309,7 +311,7 @@ class _SettingsScreenState extends State<SettingsScreen>
                           ]
                         : [
                             Colors.white.withValues(alpha: 0.05),
-                            Colors.transparent,
+                            const Color.fromARGB(0, 56, 53, 53),
                           ],
                   ),
                 ),

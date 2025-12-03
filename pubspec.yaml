@@ -46,6 +46,9 @@ dependencies:
 
   flutter_local_notifications: ^17.2.3
 
+  confetti: ^0.7.0
+
+
 
 dev_dependencies:
   flutter_test:
@@ -135,6 +138,7 @@ flutter:
     - assets/data/themes/c11.jpg
     - assets/data/themes/c12.jpg
     - assets/data/themes/c13.jpg
+    - assets/data/themes/c20.jpg
     - assets/data/themes/d1.jpg
     - assets/data/themes/d2.jpg
     - assets/data/themes/d3.jpg

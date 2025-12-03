@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:affirmation/ui/screens/onboarding/preferences_screen.dart';
+import 'package:affirmation/ui/screens/onboarding/onboarding_theme_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:affirmation/state/app_state.dart';
@@ -13,21 +13,36 @@ class OnboardingGenderScreen extends StatefulWidget {
 }
 
 class _OnboardingGenderScreenState extends State<OnboardingGenderScreen> {
+  String? _localSelected;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    final fromPrefs =
+        ModalRoute.of(context)?.settings.arguments == "from_prefs";
+
+    final appState = context.read<AppState>();
+
+    if (fromPrefs) {
+      _localSelected = appState.gender;
+    } else {
+      appState.gender = null;
+      _localSelected = null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
-    final appState = context.watch<AppState>();
-
-    // AppState’ten seçili gender
-    final String? selectedGender = appState.gender;
-    print("Onboarding gender: $selectedGender");
+    final String? selectedGender = _localSelected;
 
     return Scaffold(
       body: Stack(
         children: [
           Positioned.fill(
             child: Image.asset(
-              "assets/data/themes/a1.jfif",
+              "assets/data/themes/c20.jpg",
               fit: BoxFit.cover,
             ),
           ),
@@ -54,7 +69,7 @@ class _OnboardingGenderScreenState extends State<OnboardingGenderScreen> {
                 children: [
                   const SizedBox(height: 20),
                   GestureDetector(
-                    onTap: () => Navigator.pop(context),
+                    onTap: () => Navigator.pop(context, "prefs"),
                     child: Text(
                       t.back,
                       style: TextStyle(
@@ -80,18 +95,20 @@ class _OnboardingGenderScreenState extends State<OnboardingGenderScreen> {
                   Center(
                     child: Text(
                       t.genderSubtitle,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white70,
                         fontSize: 15,
                       ),
                     ),
                   ),
                   const SizedBox(height: 50),
-                  _buildGenderButton(context, "female", selectedGender),
+
+                  // BUTTONS
+                  _buildGenderButton(context, t.female, selectedGender),
                   const SizedBox(height: 20),
-                  _buildGenderButton(context, "male", selectedGender),
+                  _buildGenderButton(context, t.male, selectedGender),
                   const SizedBox(height: 20),
-                  _buildGenderButton(context, "other", selectedGender),
+                  _buildGenderButton(context, t.others, selectedGender),
                 ],
               ),
             ),
@@ -108,60 +125,64 @@ class _OnboardingGenderScreenState extends State<OnboardingGenderScreen> {
     final displayText = genderKey[0].toUpperCase() + genderKey.substring(1);
 
     return GestureDetector(
+      onTapDown: (_) {
+        setState(() => _localSelected = genderKey);
+      },
       onTap: () {
         final appState = context.read<AppState>();
-        appState.gender = genderKey; // kaydet
+        appState.gender = genderKey;
+
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (_) => const PreferencesScreen(),
+            builder: (_) => const OnboardingThemeScreen(),
+            settings: const RouteSettings(arguments: "from_gender"),
           ),
         );
       },
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(40),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            padding: const EdgeInsets.symmetric(vertical: 18),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(40),
-              color: isSelected
-                  ? const Color.fromARGB(60, 255, 255, 255)
-                  : const Color.fromARGB(38, 255, 255, 255),
-              border: Border.all(
+      child: AnimatedScale(
+        scale: isSelected ? 1.05 : 1.0,
+        duration: const Duration(milliseconds: 180),
+        curve: Curves.easeOut,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(40),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              padding: const EdgeInsets.symmetric(vertical: 18),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(40),
+
+                // PREMIUM BEYAZ – Preferences screen ile birebir aynı efekt
                 color: isSelected
-                    ? Colors.white
-                    : Colors.white.withValues(alpha: 0.45),
-                width: isSelected ? 2.6 : 1.8,
+                    ? Colors.white.withValues(alpha: 0.15)
+                    : Colors.white.withValues(alpha: 0.05),
+
+                border: Border.all(
+                  color: isSelected ? Colors.white : Colors.white54,
+                  width: isSelected ? 2.2 : 1.6,
+                ),
+
+                boxShadow: isSelected
+                    ? [
+                        BoxShadow(
+                          color: Colors.white.withValues(alpha: 0.25),
+                          blurRadius: 14,
+                          spreadRadius: 1,
+                        )
+                      ]
+                    : [],
               ),
-              boxShadow: [
-                if (isSelected)
-                  BoxShadow(
-                    color: Colors.white.withValues(alpha: 0.25),
-                    blurRadius: 18,
-                    spreadRadius: 1,
+              child: Center(
+                child: Text(
+                  displayText,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 0.3,
                   ),
-              ],
-            ),
-            child: Center(
-              child: Text(
-                displayText,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 0.3,
-                  shadows: isSelected
-                      ? [
-                          const Shadow(
-                            color: Colors.black54,
-                            blurRadius: 4,
-                            offset: Offset(0, 1),
-                          )
-                        ]
-                      : [],
                 ),
               ),
             ),

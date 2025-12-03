@@ -1,515 +1,409 @@
-import 'package:affirmation/l10n/app_localizations.dart';
+import 'dart:math';
 import 'package:affirmation/models/reminder.dart';
-import 'package:affirmation/models/user_preferences.dart';
 import 'package:affirmation/state/app_state.dart';
-import 'package:affirmation/state/reminder_state.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:affirmation/ui/screens/premium_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ReminderEditScreen extends StatefulWidget {
-  final ReminderModel reminder;
-  final bool isNew;
+  final ReminderModel? reminder;
 
-  const ReminderEditScreen({
-    super.key,
-    required this.reminder,
-    required this.isNew,
-  });
+  const ReminderEditScreen({super.key, this.reminder});
 
   @override
   State<ReminderEditScreen> createState() => _ReminderEditScreenState();
 }
 
-class _ReminderEditScreenState extends State<ReminderEditScreen> {
-  late Set<String> _categoryIds;
-  late TimeOfDay _startTime;
-  late TimeOfDay _endTime;
-  late int _repeatCount;
-  late Set<int> _repeatDays;
-  late bool _enabled;
+class _ReminderEditScreenState extends State<ReminderEditScreen>
+    with SingleTickerProviderStateMixin {
+  static const generalCategoryId = "general";
+
+  late ReminderModel data;
+  late AnimationController _fade;
 
   @override
   void initState() {
     super.initState();
-    _categoryIds = {...widget.reminder.categoryIds};
-    _startTime = widget.reminder.startTime;
-    _endTime = widget.reminder.endTime;
-    _repeatCount = widget.reminder.repeatCount;
-    _repeatDays = {...widget.reminder.repeatDays};
-    _enabled = widget.reminder.enabled;
+
+    final now = TimeOfDay.now();
+
+    data = widget.reminder ??
+        ReminderModel(
+          id: "r_${DateTime.now().millisecondsSinceEpoch}",
+          categoryIds: {generalCategoryId},
+          startTime: now,
+          endTime: TimeOfDay(hour: now.hour, minute: (now.minute + 30) % 60),
+          repeatCount: 3,
+          repeatDays: {DateTime.now().weekday},
+          enabled: false,
+          isPremium: false,
+        );
+
+    _fade = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    )..forward();
   }
 
-  Future<void> _pickTime({required bool isStart}) async {
-    final now = DateTime.now();
-    final initial = isStart ? _startTime : _endTime;
+  @override
+  void dispose() {
+    _fade.dispose();
+    super.dispose();
+  }
 
-    TimeOfDay? selected = initial;
+  // -----------------------------------------------------------
+  // CATEGORY LABEL
+  // -----------------------------------------------------------
+  String _categoryLabel() {
+    if (data.categoryIds.contains("general")) return "General";
+    return data.categoryIds.join(", ");
+  }
 
-    await showModalBottomSheet(
+  // -----------------------------------------------------------
+  // OPEN CATEGORY SELECTION (FREE → PREMIUMSCREEN)
+  // -----------------------------------------------------------
+  void _openCategorySheet() async {
+    final isPremium = true;
+    // context.read<AppState>().preferences.premiumActive;
+
+    // FREE USER → Premium Screen
+    if (!isPremium) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => const PremiumScreen()),
+      );
+      return;
+    }
+
+    // PREMIUM USER → Bottom Sheet
+    final selected = Set<String>.from(data.categoryIds);
+
+    final result = await showModalBottomSheet<Set<String>>(
       context: context,
       isScrollControlled: true,
-      backgroundColor: Colors.white,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(22)),
+      backgroundColor: Colors.transparent,
+      builder: (_) => _CategoryBottomSheet(
+        selected: selected,
       ),
-      builder: (context) {
-        return SizedBox(
-          height: 320,
-          child: Column(
-            children: [
-              const SizedBox(height: 12),
-              Container(
-                width: 40,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: Colors.black26,
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-              const SizedBox(height: 8),
-
-              // PICKER
-              SizedBox(
-                height: 220,
-                child: CupertinoDatePicker(
-                  mode: CupertinoDatePickerMode.time,
-                  initialDateTime: DateTime(
-                    now.year,
-                    now.month,
-                    now.day,
-                    initial.hour,
-                    initial.minute,
-                  ),
-                  onDateTimeChanged: (dateTime) {
-                    selected = TimeOfDay(
-                      hour: dateTime.hour,
-                      minute: dateTime.minute,
-                    );
-                  },
-                ),
-              ),
-
-              // DONE BUTTON
-              Padding(
-                padding: const EdgeInsets.only(top: 6, bottom: 12),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black,
-                  ),
-                  onPressed: () => Navigator.pop(context),
-                  child: const Text("Done"),
-                ),
-              ),
-            ],
-          ),
-        );
-      },
     );
 
-    if (selected != null) {
+    if (result != null) {
       setState(() {
-        if (isStart) {
-          _startTime = selected!;
-        } else {
-          _endTime = selected!;
-        }
+        data = data.copyWith(categoryIds: result);
       });
     }
   }
 
-  void _toggleDay(int dayIndex) {
-    setState(() {
-      if (_repeatDays.contains(dayIndex)) {
-        _repeatDays.remove(dayIndex);
-      } else {
-        _repeatDays.add(dayIndex);
-      }
-      if (_repeatDays.isEmpty) {
-        // boş kalmasın
-        _repeatDays.add(dayIndex);
-      }
-    });
-  }
-
-  String _formatTime(TimeOfDay t) {
-    String two(int v) => v.toString().padLeft(2, '0');
-    return "${two(t.hour)}:${two(t.minute)}";
-  }
-
-  void _save() {
-    // basit validation: end, start'tan sonra mı
-    final startMinutes = _startTime.hour * 60 + _startTime.minute;
-    final endMinutes = _endTime.hour * 60 + _endTime.minute;
-    if (endMinutes <= startMinutes) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("End time should be after start time."),
-        ),
-      );
-      return;
-    }
-
-    if (_repeatCount < 1 || _repeatCount > 30) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Repeat count must be between 1 and 30."),
-        ),
-      );
-      return;
-    }
-
-    final reminderState = context.read<ReminderState>();
-    final updated = widget.reminder.copyWith(
-      categoryIds: {"happiness"},
-      startTime: _startTime,
-      endTime: _endTime,
-      repeatCount: _repeatCount,
-      repeatDays: _repeatDays,
-      enabled: _enabled,
-    );
-
-    if (widget.isNew) {
-      final ok = reminderState.addReminder(updated);
-      if (!ok) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("Reminder limit reached."),
-          ),
-        );
-        return;
-      }
-    } else {
-      reminderState.updateReminder(updated);
-    }
-
-    Navigator.pop(context);
-  }
-
+  // -----------------------------------------------------------
+  // MAIN UI
+  // -----------------------------------------------------------
   @override
   Widget build(BuildContext context) {
-    final t = AppLocalizations.of(context)!;
-    final appState = context.watch<AppState>();
-    final reminderState = context.watch<ReminderState>();
+    final isPremium = context.watch<AppState>().preferences.premiumActive;
 
-    final isPremiumUser = appState.preferences.isPremiumValid;
-    // free kullanıcı + non-premium reminder → kategori kilitli (self_care)
-    final isCategoryLocked = !isPremiumUser && !widget.reminder.isPremium;
+    return PopScope(
+      canPop: false, // sen manual pop yapıyorsun
+      child: Scaffold(
+        extendBodyBehindAppBar: true,
+        body: Stack(
+          children: [
+            Container(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Color(0xfff7f2ed), Color(0xfff2ebe5)],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                ),
+              ),
+            ),
+            Positioned.fill(
+              child: IgnorePointer(
+                child: CustomPaint(painter: _NoisePainter(opacity: 0.06)),
+              ),
+            ),
+            SafeArea(
+              child: FadeTransition(
+                opacity: _fade,
+                child: ListView(
+                  padding: const EdgeInsets.fromLTRB(20, 10, 20, 30),
+                  children: [
+                    _header(context),
+                    const SizedBox(height: 16),
 
-    final categories = appState.categories;
+                    // GENERAL (FREE → disable görünüm)
+                    _infoBox(
+                      "Category",
+                      _categoryLabel(),
+                      onTap: _openCategorySheet,
+                      isPremium: isPremium,
+                    ),
 
-    const labels = ["M", "T", "W", "T", "F", "S", "S"];
-
-    return Scaffold(
-      backgroundColor: const Color(0xfff3ece7),
-      appBar: AppBar(
-        backgroundColor: const Color(0xfff3ece7),
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black),
-          onPressed: () => Navigator.pop(context),
+                    _editBox(
+                      title: "How many times",
+                      trailing: _countStepper(),
+                    ),
+                    _editBox(
+                      title: "Start at",
+                      trailing: _timeStepper(
+                        data.startTime,
+                        () => _shiftStart(-30),
+                        () => _shiftStart(30),
+                      ),
+                    ),
+                    _editBox(
+                      title: "End at",
+                      trailing: _timeStepper(
+                        data.endTime,
+                        () => _shiftEnd(-30),
+                        () => _shiftEnd(30),
+                      ),
+                    ),
+                    _repeatDaysBox(),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
-        title: Text(
-          widget.isNew ? t.addReminder : t.editReminder,
+      ),
+    );
+  }
+
+  // HEADER
+  Widget _header(BuildContext context) {
+    return Row(
+      children: [
+        GestureDetector(
+          onTap: () => Navigator.pop(context, data),
+          child: const Icon(Icons.arrow_back_ios_new,
+              size: 26, color: Colors.black87),
+        ),
+        const SizedBox(width: 12),
+        Text(
+          widget.reminder == null ? "New Reminder" : "Edit Reminder",
           style: const TextStyle(
             fontSize: 20,
-            fontWeight: FontWeight.w600,
-            color: Colors.black,
-            letterSpacing: -0.3,
+            fontWeight: FontWeight.bold,
+            color: Colors.black87,
           ),
         ),
-        actions: [
-          TextButton(
-            onPressed: _save,
-            child: const Text(
-              "Save",
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          )
-        ],
-      ),
-      body: ListView(
-        padding: const EdgeInsets.fromLTRB(16, 10, 16, 30),
-        children: [
-          _buildTypeSelector(t, isPremiumUser),
-          const SizedBox(height: 14),
-          _buildRepeatCountBox(),
-          const SizedBox(height: 14),
-          _buildTimeAdjustBox(
-            label: "Start at",
-            time: _startTime,
-            onMinus: () => setState(() {
-              int h = _startTime.hour;
-              int m = _startTime.minute - 1;
-
-              if (m < 0) {
-                m = 59;
-                h = (h - 1) % 24;
-              }
-              _startTime = TimeOfDay(hour: h, minute: m);
-            }),
-            onPlus: () => setState(() {
-              int h = _startTime.hour;
-              int m = _startTime.minute + 1;
-
-              if (m > 59) {
-                m = 0;
-                h = (h + 1) % 24;
-              }
-              _startTime = TimeOfDay(hour: h, minute: m);
-            }),
-          ),
-          const SizedBox(height: 14),
-          _buildTimeAdjustBox(
-            label: "End at",
-            time: _endTime,
-            onMinus: () {
-              setState(() {
-                int h = _endTime.hour;
-                int m = _endTime.minute - 1;
-
-                if (m < 0) {
-                  m = 59;
-                  h = (h - 1) % 24;
-                }
-
-                _endTime = TimeOfDay(hour: h, minute: m);
-              });
-            },
-            onPlus: () {
-              setState(() {
-                int h = _endTime.hour;
-                int m = _endTime.minute + 1;
-
-                if (m > 59) {
-                  m = 0;
-                  h = (h + 1) % 24;
-                }
-
-                _endTime = TimeOfDay(hour: h, minute: m);
-              });
-            },
-          ),
-          const SizedBox(height: 14),
-          _buildRepeatDays(),
-          const SizedBox(height: 14),
-          _buildSoundSelector(),
-        ],
-      ),
+      ],
     );
   }
 
-  Widget _buildTypeSelector(AppLocalizations t, bool isPremiumUser) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Text(
-            "Type of affirmations",
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: Colors.black,
-            ),
-          ),
-          GestureDetector(
-            onTap: isPremiumUser
-                ? () {
-                    // TODO: kategori seçme ekranına git
-                  }
-                : null,
-            child: Row(
-              children: [
-                Text(
-                  _categoryIds.isEmpty ? "General" : "Selected",
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: isPremiumUser ? Colors.black : Colors.grey.shade400,
-                  ),
-                ),
-                const SizedBox(width: 6),
-                Icon(
-                  Icons.arrow_forward_ios,
-                  size: 14,
-                  color: isPremiumUser ? Colors.black : Colors.grey.shade400,
-                )
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // CATEGORY BOX (FREE → DISABLED)
+  Widget _infoBox(String title, String value,
+      {VoidCallback? onTap, required bool isPremium}) {
+    final isFree = !isPremium;
 
-  Widget _buildRepeatCountBox() {
-    return Container(
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            "How many",
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: Colors.black,
-            ),
-          ),
-          const SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _roundButton("-", () {
-                setState(() {
-                  if (_repeatCount > 1) _repeatCount--;
-                });
-              }),
-              Text(
-                "${_repeatCount}x",
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.black,
-                ),
-              ),
-              _roundButton("+", () {
-                setState(() {
-                  if (_repeatCount < 30) _repeatCount++;
-                });
-              }),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildTimeAdjustBox({
-    required String label,
-    required TimeOfDay time,
-    required VoidCallback onMinus,
-    required VoidCallback onPlus,
-  }) {
-    return Container(
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            label,
-            style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: Colors.black,
-            ),
-          ),
-          const SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _roundButton("-", onMinus),
-              Text(
-                _formatTime(time),
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.black,
-                ),
-              ),
-              _roundButton("+", onPlus),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _roundButton(String label, VoidCallback onTap) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 40,
-        height: 40,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: Colors.black,
-          borderRadius: BorderRadius.circular(12),
+        margin: const EdgeInsets.only(bottom: 16),
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+        decoration: _boxDecoration(),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(title,
+                style: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black87)),
+            Row(
+              children: [
+                Text(
+                  value,
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w700,
+                    color: isFree ? Colors.black26 : Colors.black87,
+                  ),
+                ),
+                if (isFree) ...[
+                  const SizedBox(width: 6),
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFC9A85D),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: const Text(
+                      "Premium",
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ]
+              ],
+            )
+          ],
         ),
-        child: Text(
+      ),
+    );
+  }
+
+  // GENERIC EDIT BOX
+  Widget _editBox({required String title, required Widget trailing}) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+      decoration: _boxDecoration(),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(title,
+              style: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black87)),
+          trailing,
+        ],
+      ),
+    );
+  }
+
+  BoxDecoration _boxDecoration() {
+    return BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(20),
+      border: Border.all(color: const Color(0xFFC9A85D), width: 1.3),
+      boxShadow: [
+        BoxShadow(
+          color: const Color(0xFFC9A85D).withValues(alpha: 0.18),
+          blurRadius: 12,
+          offset: const Offset(0, 5),
+        ),
+      ],
+    );
+  }
+
+  // COUNT STEPPER
+  Widget _countStepper() {
+    return Row(
+      children: [
+        _circleBtn("-", () {
+          if (data.repeatCount > 1) {
+            setState(() {
+              data = data.copyWith(repeatCount: data.repeatCount - 1);
+            });
+          }
+        }),
+        const SizedBox(width: 10),
+        Text(
+          "${data.repeatCount}",
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Colors.black87,
+          ),
+        ),
+        const SizedBox(width: 10),
+        _circleBtn("+", () {
+          setState(() {
+            data = data.copyWith(repeatCount: data.repeatCount + 1);
+          });
+        }),
+      ],
+    );
+  }
+
+  // TIME STEPPER
+  Widget _timeStepper(TimeOfDay v, VoidCallback onMinus, VoidCallback onPlus) {
+    String label =
+        "${v.hour.toString().padLeft(2, '0')}:${v.minute.toString().padLeft(2, '0')}";
+
+    return Row(
+      children: [
+        _circleBtn("-", onMinus),
+        const SizedBox(width: 10),
+        Text(
           label,
           style: const TextStyle(
-            color: Colors.white,
-            fontSize: 20,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Colors.black87,
+          ),
+        ),
+        const SizedBox(width: 10),
+        _circleBtn("+", onPlus),
+      ],
+    );
+  }
+
+  Widget _circleBtn(String t, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: 32,
+        height: 32,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: const Color(0xFFF0EAE2),
+        ),
+        child: Text(
+          t,
+          style: const TextStyle(
+            fontSize: 18,
             fontWeight: FontWeight.w700,
+            color: Colors.black87,
           ),
         ),
       ),
     );
   }
 
-  Widget _buildRepeatDays() {
-    const labels = ["S", "M", "T", "W", "T", "F", "S"];
+  // REPEAT DAYS
+  Widget _repeatDaysBox() {
+    const names = ["M", "T", "W", "T", "F", "S", "S"];
 
     return Container(
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
-      ),
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+      margin: const EdgeInsets.only(bottom: 16),
+      decoration: _boxDecoration(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            "Repeat",
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: Colors.black,
-            ),
-          ),
-          const SizedBox(height: 14),
+          const Text("Repeat days",
+              style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black87)),
+          const SizedBox(height: 12),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: List.generate(7, (i) {
-              final day = i + 1;
-              final selected = _repeatDays.contains(day);
+              final weekday = i + 1;
+              final selected = data.repeatDays.contains(weekday);
 
               return GestureDetector(
-                onTap: () => _toggleDay(day),
+                onTap: () {
+                  setState(() {
+                    final s = Set<int>.from(data.repeatDays);
+                    selected ? s.remove(weekday) : s.add(weekday);
+                    data = data.copyWith(repeatDays: s);
+                  });
+                },
                 child: Container(
-                  width: 42,
-                  height: 42,
-                  alignment: Alignment.center,
+                  margin: const EdgeInsets.symmetric(horizontal: 4),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
                   decoration: BoxDecoration(
-                    color: selected ? const Color(0xffe6c5b9) : Colors.white,
-                    borderRadius: BorderRadius.circular(21),
-                    border: Border.all(
-                      color: selected ? Colors.transparent : Colors.black26,
-                    ),
+                    color: selected
+                        ? const Color(0xFFC9A85D)
+                        : const Color(0xFFF0EAE2),
+                    borderRadius: BorderRadius.circular(10),
                   ),
                   child: Text(
-                    labels[i],
+                    names[i],
                     style: TextStyle(
                       fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: selected ? Colors.black : Colors.black87,
+                      fontWeight: FontWeight.w700,
+                      color: selected ? Colors.white : Colors.black87,
                     ),
                   ),
                 ),
@@ -521,40 +415,199 @@ class _ReminderEditScreenState extends State<ReminderEditScreen> {
     );
   }
 
-  Widget _buildSoundSelector() {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Text(
-            "Sound",
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: Colors.black,
-            ),
+  void _shiftStart(int minutes) {
+    final dt = DateTime(2020, 1, 1, data.startTime.hour, data.startTime.minute)
+        .add(Duration(minutes: minutes));
+    setState(() {
+      data = data.copyWith(
+        startTime: TimeOfDay(hour: dt.hour, minute: dt.minute),
+      );
+    });
+  }
+
+  void _shiftEnd(int minutes) {
+    final dt = DateTime(2020, 1, 1, data.endTime.hour, data.endTime.minute)
+        .add(Duration(minutes: minutes));
+    setState(() {
+      data = data.copyWith(
+        endTime: TimeOfDay(hour: dt.hour, minute: dt.minute),
+      );
+    });
+  }
+}
+
+// -------------------------------------------------------------
+// PREMIUM CATEGORY BOTTOM SHEET (ONLY FOR PREMIUM USERS)
+// -------------------------------------------------------------
+class _CategoryBottomSheet extends StatefulWidget {
+  final Set<String> selected;
+
+  const _CategoryBottomSheet({
+    required this.selected,
+  });
+
+  @override
+  State<_CategoryBottomSheet> createState() => _CategoryBottomSheetState();
+}
+
+class _CategoryBottomSheetState extends State<_CategoryBottomSheet> {
+  static const allCategories = [
+    "general",
+    "self_care",
+    "sleep",
+    "stress_anxiety",
+    "relationships",
+    "happiness",
+    "positive_thinking",
+    "confidence",
+    "motivation",
+    "mindfulness",
+    "career_success"
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return DraggableScrollableSheet(
+      initialChildSize: 0.55,
+      minChildSize: 0.40,
+      maxChildSize: 0.90,
+      builder: (_, controller) {
+        return Container(
+          padding: const EdgeInsets.fromLTRB(20, 20, 20, 30),
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(26)),
           ),
-          Row(
-            children: const [
-              Text(
-                "Positive",
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black,
+          child: Column(
+            children: [
+              // HANDLE
+              Container(
+                width: 50,
+                height: 5,
+                decoration: BoxDecoration(
+                  color: Colors.black26,
+                  borderRadius: BorderRadius.circular(20),
                 ),
               ),
-              SizedBox(width: 6),
-              Icon(Icons.arrow_forward_ios, size: 14, color: Colors.black),
+
+              const SizedBox(height: 18),
+
+              const Text(
+                "Select Categories",
+                style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.black87,
+                ),
+              ),
+
+              const SizedBox(height: 18),
+
+              Expanded(
+                child: SingleChildScrollView(
+                  controller: controller,
+                  child: Wrap(
+                    spacing: 10,
+                    runSpacing: 10,
+                    children: allCategories.map((c) {
+                      final isSelected = widget.selected.contains(c);
+
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            if (isSelected) {
+                              widget.selected.remove(c);
+                            } else {
+                              widget.selected.add(c);
+                            }
+                          });
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 10,
+                            horizontal: 14,
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            border: Border.all(
+                              color: isSelected
+                                  ? const Color(0xFFC9A85D)
+                                  : Colors.black12,
+                              width: 1.5,
+                            ),
+                            color: isSelected
+                                ? const Color(0xFFF7EFE1)
+                                : Colors.white,
+                          ),
+                          child: Text(
+                            c.replaceAll("_", " ").toUpperCase(),
+                            style: const TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.black87,
+                            ),
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              // DONE BUTTON
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    elevation: 0,
+                    backgroundColor: const Color(0xFFC9A85D),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context, widget.selected);
+                  },
+                  child: const Text(
+                    "Done",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 15,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
+}
+
+// -------------------------------------------------------------
+// Noise Background Painter
+// -------------------------------------------------------------
+class _NoisePainter extends CustomPainter {
+  final double opacity;
+  final Random _rand = Random();
+
+  _NoisePainter({this.opacity = 0.06});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()..color = Colors.black.withValues(alpha: opacity);
+    for (int i = 0; i < size.width * size.height / 80; i++) {
+      final dx = _rand.nextDouble() * size.width;
+      final dy = _rand.nextDouble() * size.height;
+      canvas.drawRect(Rect.fromLTWH(dx, dy, 1.0, 1.0), paint);
+    }
+  }
+
+  @override
+  bool shouldRepaint(_) => false;
 }

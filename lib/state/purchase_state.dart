@@ -214,6 +214,8 @@ class PurchaseState extends ChangeNotifier {
       expiry?.toIso8601String() ?? "",
     );
 
+    appState.clearAffirmationCache();
+
     // 4) PurchaseState dinleyicilerini tetikle
     notifyListeners();
   }

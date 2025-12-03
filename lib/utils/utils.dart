@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:affirmation/l10n/app_localizations.dart';
 import 'package:affirmation/models/user_preferences.dart';
 import 'package:affirmation/models/theme_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -102,6 +103,35 @@ String normalizeTimeZone(String input) {
   }
 }
 
+String localizedCategoryName(AppLocalizations t, String key) {
+  switch (key) {
+    case "self_care":
+      return t.selfCare;
+    case "sleep":
+      return t.sleep;
+    case "stress_anxiety":
+      return t.stressAnxiety;
+    case "positive_thinking":
+      return t.positiveThinking;
+    case "happiness":
+      return t.happiness;
+    case "relationships":
+      return t.relationships;
+    case "confidence":
+      return t.confidence;
+    case "motivation":
+      return t.motivation;
+    case "mindfulness":
+      return t.mindfulness;
+    case "gratitude":
+      return t.gratitude;
+    case "career_success":
+      return t.careerSucces;
+    default:
+      return key;
+  }
+}
+
 /// Basit Locale wrapper — UI’ya karışmaması için minimal
 class LocaleCode {
   final String code;
@@ -123,7 +153,7 @@ ThemeModel resolveActiveTheme({
   if (themes.isEmpty) {
     return ThemeModel(
       id: "default_theme",
-      imageAsset: "assets/data/themes/a1.jfif",
+      imageAsset: "assets/data/themes/c20.jpg",
       soundAsset: null,
       isPremiumLocked: false,
       group: 'Abstract',
