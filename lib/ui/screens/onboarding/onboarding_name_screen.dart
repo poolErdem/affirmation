@@ -1,10 +1,13 @@
 import 'dart:ui';
+import 'package:affirmation/constants/constants.dart';
+import 'package:affirmation/state/app_state.dart';
 import 'package:affirmation/ui/screens/onboarding/onboarding_gender_screen.dart';
 import 'package:affirmation/ui/widgets/glass_button.dart';
 import 'package:affirmation/ui/widgets/press_effect.dart';
 import 'package:flutter/material.dart';
 
 import 'package:affirmation/l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 class OnboardingNameScreen extends StatefulWidget {
   const OnboardingNameScreen({super.key});
@@ -26,7 +29,7 @@ class _OnboardingNameScreenState extends State<OnboardingNameScreen> {
           // BACKGROUND
           Positioned.fill(
             child: Image.asset(
-              "assets/data/themes/c20.jpg",
+              Constants.onboardingThemePath,
               fit: BoxFit.cover,
             ),
           ),
@@ -141,6 +144,14 @@ class _OnboardingNameScreenState extends State<OnboardingNameScreen> {
                     child: GlassButton(
                       text: t.continueLabel,
                       onTap: () {
+                        final name = _controller.text.trim();
+
+                        final appState = context.read<AppState>();
+
+                        final updated =
+                            appState.preferences.copyWith(userName: name);
+                        appState.updatePreferences(updated);
+
                         Navigator.push(
                           context,
                           MaterialPageRoute(

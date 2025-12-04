@@ -1,10 +1,10 @@
+import 'dart:math';
+import 'dart:ui';
 import 'package:affirmation/constants/constants.dart';
 import 'package:affirmation/l10n/app_localizations.dart';
 import 'package:affirmation/models/category.dart';
 import 'package:affirmation/ui/screens/premium_screen.dart';
 import 'package:affirmation/ui/screens/theme_screen.dart';
-import 'package:affirmation/ui/screens/onboarding/welcome_last_screen.dart';
-
 import 'package:affirmation/ui/screens/categories_screen.dart';
 import 'package:affirmation/ui/screens/settings/settings_screen.dart';
 import 'package:affirmation/models/user_preferences.dart';
@@ -29,31 +29,34 @@ class _HomeScreenState extends State<HomeScreen>
   late AnimationController _actionAnim;
   late Animation<Offset> _slideAnim;
   late Animation<double> _fadeAnim;
-  late PageController _pageController;
 
-  bool _editing = false; // <-- BURADA OLMALI
-  String? _editingId; // <-- BURADA OLMALI
+  late PageController _pageController;
+  late PageController _myAffPageController;
+
+  bool _editing = false;
+  String? _editingId;
   double _shareScale = 1.0;
 
   bool _panelVisible = false;
   final TextEditingController _panelController = TextEditingController();
 
-// 🔥 YENİ: MyAffirmations için ayrı bir PageController
-  PageController? _myAffPageController;
-
   @override
   void initState() {
     super.initState();
-
-    _myAffPageController = PageController();
 
     final appState = Provider.of<AppState>(context, listen: false);
     final myState = Provider.of<MyAffirmationState>(context, listen: false);
 
     _pageController = PageController(initialPage: appState.currentIndex);
+    _myAffPageController = PageController(initialPage: myState.currentIndex);
 
     // Playback limit callback
     appState.playback.onLimitReached = () {
+      if (!mounted) return;
+      _showPlaybackDialog(context);
+    };
+
+    myState.playbackMyAff.onLimitReached = () {
       if (!mounted) return;
       _showPlaybackDialog(context);
     };
@@ -67,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen>
       }
     });
 
-    // 🔥 Auto page sync (LOOP KIRICI FLAG ile)
+    // Auto page sync
     appState.playback.onIndexChanged = (newIndex) {
       if (_pageController.hasClients) {
         _pageController.animateToPage(
@@ -78,9 +81,9 @@ class _HomeScreenState extends State<HomeScreen>
       }
     };
 
-    myState.playback.onIndexChanged = (newIndex) {
-      if (_pageController.hasClients) {
-        _pageController.animateToPage(
+    myState.playbackMyAff.onIndexChanged = (newIndex) {
+      if (_myAffPageController.hasClients) {
+        _myAffPageController.animateToPage(
           newIndex,
           duration: const Duration(milliseconds: 400),
           curve: Curves.easeInOut,
@@ -103,16 +106,15 @@ class _HomeScreenState extends State<HomeScreen>
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final appState = context.read<AppState>();
       final myState = context.read<MyAffirmationState>();
-
       appState.playback.forceStop();
-      myState.playback.forceStop();
+      myState.playbackMyAff.forceStop();
     });
   }
 
   @override
   void dispose() {
-    _myAffPageController?.dispose();
     _pageController.dispose();
+    _myAffPageController.dispose();
     _actionAnim.dispose();
     _panelController.dispose();
     super.dispose();
@@ -135,15 +137,40 @@ class _HomeScreenState extends State<HomeScreen>
       backgroundColor: Colors.black,
       body: Stack(
         children: [
-          // Background
-          Image.asset(
-            backgroundImage,
-            fit: BoxFit.cover,
-            width: double.infinity,
-            height: double.infinity,
-          ),
+          // ⭐ NEW PREMIUM BACKGROUND
+          Positioned.fill(
+            child: Stack(
+              children: [
+                Image.asset(
+                  backgroundImage,
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: double.infinity,
+                ),
 
-          Container(color: const Color(0x55000000)),
+                // Soft dark overlay
+                Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.black.withValues(alpha: 0.25),
+                        Colors.black.withValues(alpha: 0.45),
+                      ],
+                    ),
+                  ),
+                ),
+
+                // Noise
+                IgnorePointer(
+                  child: CustomPaint(
+                    painter: HomeNoisePainter(opacity: 0.04),
+                  ),
+                ),
+              ],
+            ),
+          ),
 
           _buildTopBar(context, isPremium),
 
@@ -177,26 +204,20 @@ class _HomeScreenState extends State<HomeScreen>
 
           _buildPlayButton(context),
 
-          // 🔥 My Affirmations → Show ADD & EDIT buttons
           if (appState.activeCategoryId == Constants.myCategoryId)
             _buildMyAffButtons(),
 
-          // 🔥 Bottom panel
           _buildMyPanel(context),
         ],
       ),
     );
   }
 
-// --------------------------------------------------------------
-// AFFIRMATION PAGER  (Custom affirmations destekli)
-
+  // --- AFFIRMATION PAGER (NO CHANGE) ---
   Widget _buildAffirmationPager(AppState appState) {
     final myState = context.watch<MyAffirmationState>();
+    final t = AppLocalizations.of(context)!;
 
-    // -------------------------------------------------------------
-    // MY AFFIRMATIONS (User custom feed)
-    // -------------------------------------------------------------
     if (appState.activeCategoryId == Constants.myCategoryId) {
       final items = myState.items;
 
@@ -205,7 +226,7 @@ class _HomeScreenState extends State<HomeScreen>
           height: MediaQuery.of(context).size.height * 0.52,
           child: Center(
             child: Text(
-              "No affirmations yet\nCreate your first one! ✨",
+              t.noAff,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontFamily: "Poppins",
@@ -220,23 +241,12 @@ class _HomeScreenState extends State<HomeScreen>
       return SizedBox(
         height: MediaQuery.of(context).size.height * 0.52,
         child: PageView.builder(
-          key: ValueKey(_myAffPageController), // 🔥 Controller değişince reset
+          key: ValueKey(_myAffPageController),
           controller: _myAffPageController,
           scrollDirection: Axis.vertical,
           itemCount: items.length,
           onPageChanged: (index) {
-            final last = items.length - 1;
-
-            if (index == last) {
-              myState.setCurrentIndex(0);
-              Future.microtask(() {
-                if (_pageController.hasClients) {
-                  _pageController.jumpToPage(0);
-                }
-              });
-            } else {
-              myState.setCurrentIndex(index);
-            }
+            myState.setCurrentIndex(index);
             _actionAnim.forward(from: 0);
           },
           itemBuilder: (_, index) {
@@ -254,9 +264,6 @@ class _HomeScreenState extends State<HomeScreen>
       );
     }
 
-    // -------------------------------------------------------------
-    // NORMAL (JSON) FEED
-    // -------------------------------------------------------------
     final items = appState.currentFeed;
 
     return SizedBox(
@@ -267,7 +274,6 @@ class _HomeScreenState extends State<HomeScreen>
         itemCount: items.length,
         onPageChanged: (index) {
           final last = items.length - 1;
-
           if (index == last) {
             appState.setCurrentIndex(0);
             Future.microtask(() {
@@ -297,8 +303,8 @@ class _HomeScreenState extends State<HomeScreen>
 // -------------------------------------------------------------------
   Widget _buildMyPanel(BuildContext context) {
     final myAffState = context.read<MyAffirmationState>();
-    final t = AppLocalizations.of(context)!;
     final fullHeight = MediaQuery.of(context).size.height;
+    final t = AppLocalizations.of(context)!;
 
     return AnimatedPositioned(
       duration: const Duration(milliseconds: 280),
@@ -366,7 +372,7 @@ class _HomeScreenState extends State<HomeScreen>
 
                   // ─────────────────────────── TITLE
                   Text(
-                    _editing ? "Edit Affirmation" : "New Affirmation",
+                    _editing ? t.editAff : t.newAff,
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 18,
@@ -397,8 +403,8 @@ class _HomeScreenState extends State<HomeScreen>
                         fontSize: 16,
                         height: 1.4,
                       ),
-                      decoration: const InputDecoration(
-                        hintText: "Write your affirmation…",
+                      decoration: InputDecoration(
+                        hintText: t.writeAff,
                         hintStyle: TextStyle(
                           color: Color(0x66FFFFFF),
                           fontSize: 15,
@@ -423,7 +429,7 @@ class _HomeScreenState extends State<HomeScreen>
                                 final myState =
                                     context.read<MyAffirmationState>();
                                 final currentIndex =
-                                    _myAffPageController?.page?.round() ?? 0;
+                                    _myAffPageController.page?.round() ?? 0;
 
                                 await myAffState.remove(_editingId!);
 
@@ -440,15 +446,14 @@ class _HomeScreenState extends State<HomeScreen>
                                     const Duration(milliseconds: 100));
                                 if (!mounted) return;
 
-                                if (myState.items.isNotEmpty &&
-                                    _myAffPageController != null) {
-                                  if (_myAffPageController!.hasClients) {
+                                if (myState.items.isNotEmpty) {
+                                  if (_myAffPageController.hasClients) {
                                     final newIndex =
                                         currentIndex >= myState.items.length
                                             ? myState.items.length - 1
                                             : currentIndex;
 
-                                    _myAffPageController!.jumpToPage(newIndex);
+                                    _myAffPageController.jumpToPage(newIndex);
                                   }
                                 }
                               }
@@ -532,10 +537,9 @@ class _HomeScreenState extends State<HomeScreen>
 
                               final myState =
                                   context.read<MyAffirmationState>();
-                              if (myState.items.isNotEmpty &&
-                                  _myAffPageController != null) {
-                                if (_myAffPageController!.hasClients) {
-                                  await _myAffPageController!.animateToPage(
+                              if (myState.items.isNotEmpty) {
+                                if (_myAffPageController.hasClients) {
+                                  await _myAffPageController.animateToPage(
                                     myState.items.length - 1,
                                     duration: const Duration(milliseconds: 300),
                                     curve: Curves.easeOut,
@@ -703,44 +707,28 @@ class _HomeScreenState extends State<HomeScreen>
     final bool isMyCategory =
         appState.activeCategoryId == Constants.myCategoryId;
 
-    // 🔥 Doğru playback seç
+    // doğru playback
     final playback = isMyCategory
-        ? myAffState.playback as dynamic
+        ? myAffState.playbackMyAff as dynamic
         : appState.playback as dynamic;
 
-    final enabled = playback.volumeEnabled; // ✔ Çalışır
-    print("ses enabled $enabled");
+    final enabled = playback.volumeEnabled;
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        GestureDetector(
+        // 🔊 VOLUME → GLOW VERSION
+        glowButton(
+          active: enabled,
+          icon: enabled ? Icons.volume_up : Icons.volume_off,
           onTap: () {
-            print("tiklandi, enable durumu $enabled");
             playback.toggleVolume();
-          }, // ✔ Çalışır
-          child: Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color:
-                  enabled ? const Color(0x55FF6B6B) : const Color(0x33000000),
-              shape: BoxShape.circle,
-              border: Border.all(
-                color: enabled ? Colors.redAccent : const Color(0x44FFFFFF),
-                width: 1.5,
-              ),
-            ),
-            child: Icon(
-              enabled ? Icons.volume_up : Icons.volume_off,
-              color: Colors.white,
-              size: 24,
-            ),
-          ),
+          },
         ),
 
         const SizedBox(height: 16),
 
-        // ❤️ FAVORITE
+        // ❤️ FAVORITE (same)
         Consumer<AppState>(
           builder: (context, appState, child) {
             final current = appState.affirmationAt(appState.currentIndex);
@@ -753,7 +741,9 @@ class _HomeScreenState extends State<HomeScreen>
 
                 final wasFav = appState.isFavorite(aff.id);
 
-                if (!wasFav && appState.isOverFavoriteLimit()) {
+                if (!wasFav &&
+                    appState.isOverFavoriteLimit() &&
+                    !appState.preferences.isPremiumValid) {
                   _showFavoriteLimitDialog(context);
                   return;
                 }
@@ -762,12 +752,7 @@ class _HomeScreenState extends State<HomeScreen>
 
                 if (!wasFav) _runTripleStarSparkle();
               },
-              child: Container(
-                padding: const EdgeInsets.all(10),
-                decoration: const BoxDecoration(
-                  color: Color(0x33000000),
-                  shape: BoxShape.circle,
-                ),
+              child: glassButton(
                 child: Icon(
                   isFav ? Icons.favorite : Icons.favorite_border,
                   size: 28,
@@ -780,7 +765,7 @@ class _HomeScreenState extends State<HomeScreen>
 
         const SizedBox(height: 16),
 
-        // 📤 SHARE
+        // 📤 SHARE (same but animated)
         GestureDetector(
           onTapDown: (_) => setState(() => _shareScale = 0.85),
           onTapUp: (_) => setState(() => _shareScale = 1.0),
@@ -794,12 +779,7 @@ class _HomeScreenState extends State<HomeScreen>
           child: AnimatedScale(
             scale: _shareScale,
             duration: const Duration(milliseconds: 140),
-            child: Container(
-              padding: const EdgeInsets.all(10),
-              decoration: const BoxDecoration(
-                color: Color(0x33000000),
-                shape: BoxShape.circle,
-              ),
+            child: glassButton(
               child: const Icon(Icons.ios_share, size: 26, color: Colors.white),
             ),
           ),
@@ -815,14 +795,12 @@ class _HomeScreenState extends State<HomeScreen>
     final bool isMyCategory =
         appState.activeCategoryId == Constants.myCategoryId;
 
-    //final double? right = isMyCategory ? null : 10;
-
-    // 🔥 Doğru playback seç
+    // doğru playback
     final playback = isMyCategory
-        ? myAffState.playback as dynamic
+        ? myAffState.playbackMyAff as dynamic
         : appState.playback as dynamic;
 
-    final enabled = playback.autoReadEnabled; // ✔ Çalışır
+    final enabled = playback.autoReadEnabled;
 
     return Positioned(
       bottom: 100,
@@ -831,20 +809,10 @@ class _HomeScreenState extends State<HomeScreen>
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // 🔊 PLAY BUTTON (AUTO-TTS)
           GestureDetector(
-            onTap: () => playback.toggleAutoRead(), // ✔ Çalışır
-            child: Container(
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color:
-                    enabled ? const Color(0x55FF6B6B) : const Color(0x33000000),
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: enabled ? Colors.redAccent : const Color(0x44FFFFFF),
-                  width: 1.5,
-                ),
-              ),
+            onTap: () => playback.toggleAutoRead(),
+            child: glassButton(
+              enabled: enabled, // 🔥 işte bu! Glow aktif/pasif olur
               child: Icon(
                 enabled ? Icons.pause : Icons.play_arrow,
                 color: Colors.white,
@@ -857,73 +825,137 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
+  Widget glowButton({
+    required bool active,
+    required IconData icon,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 250),
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: active ? const Color(0x55FF6B6B) : const Color(0x33000000),
+          border: Border.all(
+            color: active ? Colors.redAccent : const Color(0x44FFFFFF),
+            width: 1.8,
+          ),
+          boxShadow: active
+              ? [
+                  BoxShadow(
+                    color: Colors.redAccent.withAlpha(120),
+                    blurRadius: 22,
+                    spreadRadius: 1,
+                  ),
+                ]
+              : [],
+        ),
+        child: Icon(icon, color: Colors.white, size: 24),
+      ),
+    );
+  }
+
   Widget _buildCategoryButton(BuildContext context) {
     final appState = context.watch<AppState>();
+    final t = AppLocalizations.of(context)!;
 
     final selectedCategory = appState.categories.firstWhere(
       (c) => c.id == appState.activeCategoryId,
       orElse: () => AffirmationCategory(
         id: "general",
-        name: "General",
-        imageAsset: "assets/data/categories/general.jfif",
+        name: t.general,
+        imageAsset: Constants.generalThemePath,
         isPremiumLocked: false,
       ),
     );
 
-    return InkWell(
+    return GestureDetector(
       onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(builder: (_) => const CategoriesScreen()),
         );
       },
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        decoration: BoxDecoration(
-          color: const Color(0x44000000),
-          borderRadius: BorderRadius.circular(30),
-          border: Border.all(
-            color: const Color(0x33FFFFFF),
-            width: 1,
-          ),
-        ),
-        child: Row(
-          children: [
-            const Icon(Icons.category, color: Colors.white, size: 22),
-            const SizedBox(width: 8),
-            Text(
-              selectedCategory.name,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(22),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 14, sigmaY: 14),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.08),
+              borderRadius: BorderRadius.circular(22),
+              border: Border.all(
+                color: Colors.white.withValues(alpha: 0.18),
+                width: 1.2,
               ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.15),
+                  blurRadius: 16,
+                  offset: const Offset(0, 4),
+                ),
+              ],
             ),
-          ],
+            child: Row(
+              children: [
+                Icon(Icons.category,
+                    color: Colors.white.withValues(alpha: 0.95), size: 20),
+                const SizedBox(width: 8),
+                Text(
+                  selectedCategory.name,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
   }
 
   Widget _buildThemeButton(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (_) => const WelcomeLastScreen()),
+          MaterialPageRoute(builder: (_) => const ThemeScreen()),
         );
       },
-      child: Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: const Color(0x44000000),
-          shape: BoxShape.circle,
-          border: Border.all(
-            color: const Color(0x33FFFFFF),
-            width: 1,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(50),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 14, sigmaY: 14),
+          child: Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.08),
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: Colors.white.withValues(alpha: 0.20),
+                width: 1.3,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.15),
+                  blurRadius: 18,
+                  offset: const Offset(0, 4),
+                ),
+              ],
+            ),
+            child: const Icon(
+              Icons.color_lens,
+              color: Colors.white,
+              size: 24,
+            ),
           ),
         ),
-        child: const Icon(Icons.color_lens, color: Colors.white, size: 24),
       ),
     );
   }
@@ -942,7 +974,7 @@ class _HomeScreenState extends State<HomeScreen>
             onTap: () {
               final myState = context.read<MyAffirmationState>();
 
-              final index = _myAffPageController?.page?.round() ?? 0;
+              final index = _myAffPageController.page?.round() ?? 0;
 
               if (index < 0 || index >= myState.items.length) return;
 
@@ -986,6 +1018,49 @@ class _HomeScreenState extends State<HomeScreen>
           icon,
           size: 24,
           color: Colors.white,
+        ),
+      ),
+    );
+  }
+
+  Widget glassButton({
+    required Widget child,
+    bool enabled = false,
+    EdgeInsets padding = const EdgeInsets.all(10),
+    double blur = 14,
+  }) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(50),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
+        child: Container(
+          padding: padding,
+          decoration: BoxDecoration(
+            color: Colors.white.withValues(alpha: 0.10),
+            shape: BoxShape.circle,
+            border: Border.all(
+              color: enabled
+                  ? Colors.redAccent.withValues(alpha: 0.60)
+                  : Colors.white.withValues(alpha: 0.20),
+              width: 1.3,
+            ),
+            boxShadow: enabled
+                ? [
+                    BoxShadow(
+                      color: Colors.redAccent.withValues(alpha: 0.50),
+                      blurRadius: 24,
+                      spreadRadius: 2,
+                    ),
+                  ]
+                : [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.20),
+                      blurRadius: 18,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+          ),
+          child: child,
         ),
       ),
     );
@@ -1078,46 +1153,33 @@ class _HomeScreenState extends State<HomeScreen>
   void _showFavoriteLimitDialog(BuildContext context) {
     final appState = context.read<AppState>();
     final isPremium = appState.preferences.isPremiumValid;
-    final freeLimit = Constants.freeFavoriteLimit;
-    final premiumLimit = Constants.premiumFavoriteLimit;
+    final t = AppLocalizations.of(context)!;
 
-    String title;
-    String message;
-    List<Widget> actions;
-
-    if (!isPremium) {
-      title = "Favorites Limit";
-      message =
-          "You've reached your free favorites limit ($freeLimit).\n\nUpgrade to Premium and save up to $premiumLimit favorites ✨";
-
-      actions = [
-        TextButton(
-          onPressed: () => Navigator.pop(context),
-          child: const Text("Close"),
-        ),
-        TextButton(
-          onPressed: () {
-            Navigator.pop(context);
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const PremiumScreen()),
-            );
-          },
-          child: const Text("Go Premium"),
-        ),
-      ];
-    } else {
-      title = "Premium Limit Reached";
-      message =
-          "You've reached your Premium favorites limit ($premiumLimit). You cannot add more favorites.";
-
-      actions = [
-        TextButton(
-          onPressed: () => Navigator.pop(context),
-          child: const Text("OK"),
-        ),
-      ];
+    if (isPremium) {
+      // Premium kullanıcıya limit uyarısı göstermeyiz :)
+      return;
     }
+
+    // Buraya gelen her kullanıcı premium değil → değişkenler garanti dolacak
+    final title = t.favoritesLimitTitle;
+    final message = t.favoritesLimitMessage;
+
+    final actions = [
+      TextButton(
+        onPressed: () => Navigator.pop(context),
+        child: Text(t.close),
+      ),
+      TextButton(
+        onPressed: () {
+          Navigator.pop(context);
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const PremiumScreen()),
+          );
+        },
+        child: Text(t.goPremium),
+      ),
+    ];
 
     showDialog(
       context: context,
@@ -1135,19 +1197,15 @@ class _HomeScreenState extends State<HomeScreen>
   void _showMyAffLimitDialog(BuildContext context) {
     final appState = context.read<AppState>();
     final isPremium = appState.preferences.isPremiumValid;
-
-    final freeLimit = Constants.freeMyAffLimit;
-    final premiumLimit = Constants.premiumMyAffLimit;
+    final t = AppLocalizations.of(context)!;
 
     String title;
     String message;
     List<Widget> actions;
 
     if (!isPremium) {
-      title = "My Affirmations Limit";
-      message =
-          "You've reached your free limit ($freeLimit).\n\nUpgrade to Premium and save up to $premiumLimit custom affirmations ✨";
-
+      title = t.myAffLimitTitle;
+      message = t.myAffLimit;
       actions = [
         TextButton(
           onPressed: () => Navigator.pop(context),
@@ -1167,7 +1225,7 @@ class _HomeScreenState extends State<HomeScreen>
     } else {
       title = "Premium Limit Reached";
       message =
-          "You've reached your Premium limit ($premiumLimit). You cannot add more custom affirmations.";
+          "You've reached your Premium limit (1000). You cannot add more custom affirmations.";
 
       actions = [
         TextButton(
@@ -1194,9 +1252,10 @@ class _HomeScreenState extends State<HomeScreen>
   // PLAYBACK LIMIT DIALOG
   //────────────────────────────────────────
   void _showPlaybackDialog(BuildContext context) {
-    String title = "Read Limit";
-    String message =
-        "Your free voice preview is finished. Go Premium to enjoy full, unlimited voice reading.✨";
+    final t = AppLocalizations.of(context)!;
+
+    String title = t.readLimit;
+    String message = t.voiceLimitMessage;
 
     showDialog(
       context: context,
@@ -1270,4 +1329,25 @@ class _HomeScreenState extends State<HomeScreen>
     await Future.delayed(const Duration(milliseconds: 90));
     showStar(8, -115, 0.6);
   }
+}
+
+class HomeNoisePainter extends CustomPainter {
+  final double opacity;
+  final Random _rand = Random();
+
+  HomeNoisePainter({this.opacity = 0.04});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()..color = Colors.white.withValues(alpha: opacity);
+
+    for (int i = 0; i < size.width * size.height / 120; i++) {
+      final dx = _rand.nextDouble() * size.width;
+      final dy = _rand.nextDouble() * size.height;
+      canvas.drawRect(Rect.fromLTWH(dx, dy, 1, 1), paint);
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

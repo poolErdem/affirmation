@@ -65,6 +65,7 @@ flutter:
     
     # English Categories & Content
     - assets/data/en/categories.json
+    - assets/data/en/general.json
     - assets/data/en/self_care.json
     - assets/data/en/stress_anxiety.json
     - assets/data/en/positive_thinking.json
@@ -78,12 +79,9 @@ flutter:
     - assets/data/en/sleep.json
     
     # Turkish Categories & Content
-    - assets/data/tr/categories.json
     - assets/data/tr/self_care.json
     - assets/data/tr/stress_anxiety.json
     - assets/data/tr/positive_thinking.json
-    - assets/data/tr/body_positivity.json
-    - assets/data/tr/focus_productivity.json
     - assets/data/tr/motivation.json
     - assets/data/tr/healing.json
     - assets/data/tr/happiness.json
@@ -91,14 +89,10 @@ flutter:
     - assets/data/tr/confidence.json
     - assets/data/tr/mindfulness.json
     - assets/data/tr/gratitude.json
-    - assets/data/tr/law_of_attraction.json
-    - assets/data/tr/spirituality.json
-    - assets/data/tr/inner_child.json
     - assets/data/tr/career_success.json
     - assets/data/tr/sleep.json
     
     # Spanish Categories & Content
-    - assets/data/es/categories.json
     - assets/data/es/self_care.json
     - assets/data/es/stress_anxiety.json
     - assets/data/es/positive_thinking.json
@@ -120,15 +114,21 @@ flutter:
     # Theme Images
     - assets/data/themes/a1.jpg
     - assets/data/themes/a2.jpg
-    - assets/data/themes/l3.jpg
+    - assets/data/themes/a3.jpg
     - assets/data/themes/a4.jpg
     - assets/data/themes/a5.jpg
     - assets/data/themes/a6.jpg
     - assets/data/themes/a7.jpg
+    - assets/data/themes/a8.jpg
+    - assets/data/themes/a9.jpg
     - assets/data/themes/a10.jpg
     - assets/data/themes/a11.jpg
+    - assets/data/themes/a12.jpg
+
     - assets/data/themes/c1.jpg
     - assets/data/themes/c2.jpg
+    - assets/data/themes/c3.jpg
+    - assets/data/themes/c4.jpg
     - assets/data/themes/c5.jpg
     - assets/data/themes/c6.jpg
     - assets/data/themes/c7.jpg
@@ -138,12 +138,17 @@ flutter:
     - assets/data/themes/c11.jpg
     - assets/data/themes/c12.jpg
     - assets/data/themes/c13.jpg
-    - assets/data/themes/c20.jpg
+    - assets/data/themes/c14.jpg
+    - assets/data/themes/c15.jpg
+    - assets/data/themes/c16.jpg
+    - assets/data/themes/c17.jpg
+
     - assets/data/themes/d1.jpg
     - assets/data/themes/d2.jpg
     - assets/data/themes/d3.jpg
     - assets/data/themes/d4.jpg
     - assets/data/themes/d5.jpg
+    - assets/data/themes/d6.jpg
     - assets/data/themes/d7.jpg
     - assets/data/themes/d8.jpg
     - assets/data/themes/d9.jpg
@@ -154,29 +159,35 @@ flutter:
     - assets/data/themes/d14.jpg
     - assets/data/themes/d15.jpg
     - assets/data/themes/d16.jpg
-    
-    # Category Images
-    - assets/data/categories/body.jfif
-    - assets/data/categories/career.jfif
-    - assets/data/categories/happiness.jfif
-    - assets/data/categories/healing.jfif
-    - assets/data/categories/inner_child.jfif
-    - assets/data/categories/law_of_attraction.jfif
-    - assets/data/categories/mindfulness.jfif
-    - assets/data/categories/motivation.jfif
-    - assets/data/categories/positive.jfif
-    - assets/data/categories/productivity.jfif
-    - assets/data/categories/relationships.jfif
-    - assets/data/categories/self_care.jpg
-    - assets/data/categories/sleep.jfif
-    - assets/data/categories/spirituality.jfif
-    - assets/data/categories/stress.jfif
-    - assets/data/categories/confidence.jfif
-    - assets/data/categories/favorites.jfif
-    - assets/data/categories/general.jfif
-    - assets/data/categories/gratitude.jfif
-    - assets/data/categories/myAffirmations.jfif
+    - assets/data/themes/d17.jpg
 
+    - assets/data/themes/l1.jpg
+    - assets/data/themes/l2.jpg
+    - assets/data/themes/l3.jpg
+    - assets/data/themes/l4.jpg
+    - assets/data/themes/l5.jpg
+    - assets/data/themes/l6.jpg
+    - assets/data/themes/l7.jpg
+    - assets/data/themes/l8.jpg
+    - assets/data/themes/l9.jpg
+    - assets/data/themes/l10.jpg
+
+    # Category Images
+    - assets/data/categories/career.jpg
+    - assets/data/categories/favorites.jpg
+    - assets/data/categories/mindfulness.jpg
+    - assets/data/categories/motivation.jpg
+    - assets/data/categories/selfcare.jpg
+    - assets/data/categories/sleep.jpg
+    - assets/data/categories/stress.jpg
+    - assets/data/categories/relationships.jpg
+    - assets/data/categories/positive.jpg
+    - assets/data/categories/general.jpg
+    - assets/data/categories/gratitude.jpg
+    - assets/data/categories/myAffirmations.jpg
+    - assets/data/categories/happiness.jpg
+    - assets/data/categories/confidence.jpg
+    - assets/data/categories/background.jpg
 
 # Localization Configuration
 flutter_gen:

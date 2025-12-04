@@ -13,10 +13,11 @@ class Constants {
   static const myCategoryId = 'myaffirmations';
 
   // Limits
-  static const freeFavoriteLimit = 10;
-  static const premiumFavoriteLimit = 500;
+  static const freeGeneralLimit = 100;
+  static const freeCategoryLimit = 100;
+  static const freeFavoriteLimit = 20;
   static const freeMyAffLimit = 100;
-  static const premiumMyAffLimit = 100;
+  static const premiumMyAffLimit = 1000;
   static const freeMyAffReadLimit = 10000;
   static const prefsKey = "my_affirmations";
 
@@ -26,6 +27,14 @@ class Constants {
   static const String dataBasePath = "assets/data";
   static const String categoriesJson = "categories.json";
   static const String themesJson = "themes.json";
+  static const String onboardingThemePath = "assets/data/themes/c16.jpg";
+  static const String generalThemePath = "assets/data/categories/general.jpg";
+  static const String backgorundThemePath =
+      "assets/data/categories/background.jpg";
+  static const String favoriteThemePath =
+      "assets/data/categories/favorites.jpg";
+  static const String myAffirmationsThemePath =
+      "assets/data/categories/myAffirmations.jpg";
 
   static const List<String> allCategories = [
     "self_care",
@@ -37,7 +46,8 @@ class Constants {
     "confidence",
     "motivation",
     "mindfulness",
-    "career_success"
+    "career_success",
+    "gratitude"
   ];
 
   static const localizedLanguageNames = {
@@ -69,21 +79,15 @@ class Constants {
 
   static const List<AffirmationCategory> baseCategories = [
     AffirmationCategory(
-      id: generalCategoryId,
-      name: 'General',
-      imageAsset: 'assets/data/categories/general.jfif',
-      isPremiumLocked: false,
-    ),
-    AffirmationCategory(
       id: favoritesCategoryId,
       name: 'My Favorites',
-      imageAsset: 'assets/data/categories/favorites.jfif',
+      imageAsset: favoriteThemePath,
       isPremiumLocked: false,
     ),
     AffirmationCategory(
       id: myCategoryId,
       name: 'My Affirmations',
-      imageAsset: 'assets/data/categories/myAffirmations.jfif',
+      imageAsset: myAffirmationsThemePath,
       isPremiumLocked: false,
     ),
   ];

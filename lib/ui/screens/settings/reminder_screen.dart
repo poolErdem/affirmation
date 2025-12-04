@@ -1,4 +1,6 @@
 import 'dart:math';
+import 'dart:ui';
+
 import 'package:affirmation/constants/constants.dart';
 import 'package:affirmation/l10n/app_localizations.dart';
 import 'package:affirmation/models/reminder.dart';
@@ -6,6 +8,7 @@ import 'package:affirmation/state/app_state.dart';
 import 'package:affirmation/state/reminder_state.dart';
 import 'package:affirmation/ui/screens/premium_screen.dart';
 import 'package:affirmation/ui/screens/settings/reminder_edit_screen.dart';
+import 'package:affirmation/ui/widgets/shared_blur_background.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -44,7 +47,6 @@ class _ReminderListScreenState extends State<ReminderListScreen>
   String _slotId(int index) => 'slot_${index + 1}';
 
   ReminderModel _defaultTemplate(int index, bool isPremium) {
-    // Basit varsayılanlar
     const start = TimeOfDay(hour: 10, minute: 0);
     const end = TimeOfDay(hour: 14, minute: 0);
 
@@ -74,138 +76,183 @@ class _ReminderListScreenState extends State<ReminderListScreen>
     final appState = context.watch<AppState>();
     final isPremium = appState.preferences.premiumActive;
     final t = AppLocalizations.of(context)!;
-
     final reminders = reminderState.reminders;
+    final bg = appState.activeThemeImage;
 
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      body: Stack(
-        children: [
-          // ⭐ TOP GRADIENT
-          Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Color(0xfff7f2ed),
-                  Color(0xfff2ebe5),
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
+    return SharedBlurBackground(
+      imageAsset: bg,
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+              color: Colors.black,
+              size: 26,
+            ),
+            onPressed: () => Navigator.pop(context),
+          ),
+          title: Text(
+            t.reminders,
+            style: const TextStyle(
+              color: Colors.black,
+              fontSize: 22,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
+        body: Stack(
+          children: [
+            // Noise overlay (blur arka plan üstüne film)
+            Positioned.fill(
+              child: IgnorePointer(
+                child: CustomPaint(
+                  painter: _NoisePainter(opacity: 0.06),
+                ),
               ),
             ),
-          ),
 
-          Positioned.fill(
-            child: IgnorePointer(
-              child: CustomPaint(painter: _NoisePainter(opacity: 0.06)),
+            // Üstte hafif ek blur bandı
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: ClipRect(
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
+                  child: Container(
+                    height: 120,
+                    color: Colors.transparent,
+                  ),
+                ),
+              ),
             ),
-          ),
 
-          SafeArea(
-            child: FadeTransition(
-              opacity: CurvedAnimation(parent: _fade, curve: Curves.easeOut),
-              child: Column(
-                children: [
-                  // ⭐ HEADER
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 8, 16, 10),
-                    child: Row(
-                      children: [
-                        GestureDetector(
-                          onTap: () => Navigator.pop(context),
-                          child: const Icon(Icons.arrow_back_ios_new,
-                              size: 26, color: Colors.black87),
-                        ),
-                        const SizedBox(width: 12),
-                        Text(
-                          t.reminders,
-                          style: const TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.black87,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
+            SafeArea(
+              child: FadeTransition(
+                opacity: CurvedAnimation(parent: _fade, curve: Curves.easeOut),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 10),
 
-                  Expanded(
-                    child: ListView(
-                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
-                      children: [
-                        // 1) My Affirmations kartı
-                        _buildMyAffirmationsCard(context, isPremium),
-                        const SizedBox(height: 20),
+                    // İçerik
+                    Expanded(
+                      child: ListView(
+                        padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+                        children: [
+                          // 1) My Affirmations kartı
+                          _buildMyAffirmationsCard(context, isPremium),
+                          const SizedBox(height: 20),
 
-                        // 2) 4 adet reminder slot kartı
-                        for (int i = 0; i < _slotCount; i++)
-                          Padding(
-                            padding: EdgeInsets.only(
-                                bottom: i == _slotCount - 1 ? 0 : 18),
-                            child: _buildSlotCard(
-                              context: context,
-                              slotIndex: i,
-                              isPremium: isPremium,
-                              reminders: reminders,
-                            ),
-                          ),
-                      ],
-                    ),
-                  ),
-
-                  // ⭐ UNLOCK ALL REMINDERS BUTTON
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFFC9A85D),
-                          foregroundColor: Colors.white,
-                          padding: const EdgeInsets.symmetric(vertical: 14),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18),
-                          ),
-                        ),
-                        onPressed: () {
-                          if (!isPremium) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) => const PremiumScreen()),
-                            );
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text("All reminders are unlocked ✨"),
-                                duration: Duration(seconds: 2),
+                          // 2) 4 adet reminder slot kartı
+                          for (int i = 0; i < _slotCount; i++)
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  bottom: i == _slotCount - 1 ? 0 : 18),
+                              child: _buildSlotCard(
+                                context: context,
+                                slotIndex: i,
+                                isPremium: isPremium,
+                                reminders: reminders,
                               ),
-                            );
-                          }
-                        },
-                        child: const Text(
-                          "Unlock all reminders",
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600,
+                            ),
+                        ],
+                      ),
+                    ),
+
+                    // ⭐ UNLOCK ALL REMINDERS BUTTON
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 24),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 14, sigmaY: 14),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              gradient: const LinearGradient(
+                                colors: [
+                                  Color(0xFFC9A85D),
+                                  Color(0xFFE4C98A),
+                                ],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              ),
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(
+                                color: const Color(0xFF87652B),
+                                width: 1.4,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: const Color(0xFFC9A85D)
+                                      .withValues(alpha: 0.40),
+                                  blurRadius: 18,
+                                  offset: const Offset(0, 6),
+                                ),
+                              ],
+                            ),
+                            child: Material(
+                              color: Colors.transparent,
+                              child: InkWell(
+                                borderRadius: BorderRadius.circular(20),
+                                onTap: () {
+                                  if (!isPremium) {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) => const PremiumScreen(),
+                                      ),
+                                    );
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                            "All reminders are unlocked ✨"),
+                                        duration: Duration(seconds: 2),
+                                      ),
+                                    );
+                                  }
+                                },
+                                child: const Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: 14,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "Unlock all reminders",
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
   // ------------------------------------------------------------
-  // ⭐ PREMIUM: MY AFFIRMATIONS (Card)
+  // ⭐ PREMIUM: MY AFFIRMATIONS (Glass Card)
   // ------------------------------------------------------------
   Widget _buildMyAffirmationsCard(BuildContext context, bool isPremium) {
+    final t = AppLocalizations.of(context)!;
+
     return GestureDetector(
       onTap: () {
         if (!isPremium) {
@@ -234,20 +281,66 @@ class _ReminderListScreenState extends State<ReminderListScreen>
           ),
         );
       },
-      child: _premiumBox(
-        title: "My Affirmations",
-        subtitle:
-            isPremium ? "Custom affirmation reminders" : "Premium feature",
-        rightIcon: isPremium
-            ? Icons.arrow_forward_ios_rounded
-            : Icons.lock_outline_rounded,
-        isPremium: isPremium,
+      child: _glassCard(
+        highlight: isPremium,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            // Left text
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  t.myAff,
+                  style: const TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  isPremium
+                      ? "Custom affirmation reminders"
+                      : "Premium feature",
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: Colors.white.withValues(alpha: 0.78),
+                  ),
+                ),
+              ],
+            ),
+
+            // Right icon
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: isPremium
+                      ? const Color(0xFFC9A85D)
+                      : Colors.white.withValues(alpha: 0.40),
+                  width: 1.2,
+                ),
+              ),
+              child: Icon(
+                isPremium
+                    ? Icons.arrow_forward_ios_rounded
+                    : Icons.lock_outline_rounded,
+                size: 18,
+                color: isPremium
+                    ? const Color(0xFFC9A85D)
+                    : Colors.white.withValues(alpha: 0.80),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
   // ------------------------------------------------------------
-  // ⭐ SLOT CARD (2., 3., 4., 5. kutucuk)
+  // ⭐ SLOT CARD (4 slot için glass panel)
   // ------------------------------------------------------------
   Widget _buildSlotCard({
     required BuildContext context,
@@ -255,6 +348,7 @@ class _ReminderListScreenState extends State<ReminderListScreen>
     required bool isPremium,
     required List<ReminderModel> reminders,
   }) {
+    final t = AppLocalizations.of(context)!;
     final reminderState = context.read<ReminderState>();
 
     final active = _findActiveForSlot(reminders, slotIndex);
@@ -293,20 +387,15 @@ class _ReminderListScreenState extends State<ReminderListScreen>
 
         if (edited != null) {
           setState(() {
-            // Draft'ı güncelle, id'yi slot id'sine sabitle
             _drafts[slotIndex] = edited.copyWith(
               id: _slotId(slotIndex),
-              // Non-prem için kategori ~ daima general
               categoryIds: isPremium
                   ? edited.categoryIds
                   : {Constants.generalCategoryId},
               isPremium: isPremium,
-              // enable durumu burada önemli değil, switch karar veriyor
             );
           });
 
-          // Eğer hali hazırda aktif bir reminder varsa,
-          // sadece değerlerini güncelle (enabled durumuna dokunma)
           if (active != null) {
             final updated = _drafts[slotIndex]!.copyWith(
               id: active.id,
@@ -316,26 +405,9 @@ class _ReminderListScreenState extends State<ReminderListScreen>
           }
         }
       },
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 250),
-        padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 22),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(22),
-          border: Border.all(
-            color: isOn ? const Color(0xFFC9A85D) : Colors.transparent,
-            width: isOn ? 2 : 1,
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: isOn
-                  ? const Color(0xFFC9A85D).withValues(alpha: 0.25)
-                  : Colors.black.withValues(alpha: 0.08),
-              blurRadius: isOn ? 18 : 12,
-              offset: const Offset(0, 5),
-            ),
-          ],
-        ),
+      child: _glassCard(
+        highlight: isOn,
+        locked: locked,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -344,26 +416,32 @@ class _ReminderListScreenState extends State<ReminderListScreen>
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "General",
+                  t.general,
                   style: const TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.w700,
-                    color: Colors.black87,
+                    color: Colors.white,
                   ),
                 ),
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 6,
+                    horizontal: 12,
+                  ),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFF6EDD8),
+                    color: Colors.white.withValues(alpha: 0.10),
                     borderRadius: BorderRadius.circular(14),
+                    border: Border.all(
+                      color: Colors.white.withValues(alpha: 0.35),
+                      width: 1.0,
+                    ),
                   ),
                   child: Text(
                     timeRange,
                     style: const TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w600,
-                      color: Colors.black87,
+                      color: Colors.white,
                     ),
                   ),
                 )
@@ -386,16 +464,19 @@ class _ReminderListScreenState extends State<ReminderListScreen>
                       const Icon(
                         Icons.lock_outline_rounded,
                         size: 20,
-                        color: Colors.black45,
+                        color: Colors.white70,
                       ),
                     Switch(
                       value: isOn,
                       activeThumbColor: const Color(0xFFC9A85D),
+                      activeTrackColor:
+                          const Color(0xFFC9A85D).withValues(alpha: 0.50),
+                      inactiveThumbColor: Colors.white.withValues(alpha: 0.90),
+                      inactiveTrackColor: Colors.white.withValues(alpha: 0.25),
                       onChanged: locked
                           ? null
                           : (v) async {
                               if (v) {
-                                // ENABLE → add/update + aktif hale getir
                                 final draft = _drafts[slotIndex] ??
                                     _defaultTemplate(slotIndex, isPremium);
 
@@ -416,7 +497,6 @@ class _ReminderListScreenState extends State<ReminderListScreen>
                                   await reminderState.updateReminder(model);
                                 }
                               } else {
-                                // DISABLE → reminder silinsin
                                 if (active != null) {
                                   await reminderState.deleteReminder(active.id);
                                 }
@@ -433,73 +513,85 @@ class _ReminderListScreenState extends State<ReminderListScreen>
     );
   }
 
-  Widget _premiumBox({
-    required String title,
-    required String subtitle,
-    required IconData rightIcon,
-    required bool isPremium,
+  // ------------------------------------------------------------
+  // Ortak GLASS CARD
+  // ------------------------------------------------------------
+  Widget _glassCard({
+    required Widget child,
+    bool highlight = false,
+    bool locked = false,
   }) {
     return AnimatedContainer(
-      duration: const Duration(milliseconds: 250),
-      padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 22),
+      duration: const Duration(milliseconds: 220),
       decoration: BoxDecoration(
-        color: Colors.white,
         borderRadius: BorderRadius.circular(22),
-        border: Border.all(
-          color: isPremium ? const Color(0xFFC9A85D) : Colors.transparent,
-          width: isPremium ? 2 : 1,
-        ),
         boxShadow: [
           BoxShadow(
-            color: isPremium
-                ? const Color(0xFFC9A85D).withValues(alpha: 0.25)
-                : Colors.black.withValues(alpha: 0.08),
-            blurRadius: isPremium ? 18 : 12,
-            offset: const Offset(0, 5),
+            color: highlight
+                ? const Color(0xFFC9A85D).withValues(alpha: 0.38)
+                : Colors.black.withValues(alpha: 0.22),
+            blurRadius: highlight ? 22 : 16,
+            offset: const Offset(0, 6),
           ),
         ],
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(title,
-                  style: const TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.black87)),
-              const SizedBox(height: 6),
-              Text(
-                subtitle,
-                style: TextStyle(
-                  fontSize: 13,
-                  color: isPremium ? Colors.black54 : Colors.black38,
-                ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(22),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+              vertical: 18,
+              horizontal: 22,
+            ),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Colors.white.withValues(alpha: 0.20),
+                  Colors.white.withValues(alpha: 0.08),
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
               ),
-            ],
+              border: Border.all(
+                color: highlight
+                    ? const Color(0xFFC9A85D)
+                    : locked
+                        ? Colors.white.withValues(alpha: 0.45)
+                        : Colors.white.withValues(alpha: 0.35),
+                width: highlight ? 1.8 : 1.3,
+              ),
+            ),
+            child: child,
           ),
-          Icon(rightIcon, size: 22, color: Colors.black54),
-        ],
+        ),
       ),
     );
   }
 
   List<Widget> _weekdayBadges(Set<int> days) {
-    const shortNames = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+    final t = AppLocalizations.of(context)!;
+    final shortNames = [t.mon, t.tue, t.wed, t.thu, t.fri, t.sat, t.sun];
+
     return days.map((d) {
       final label = shortNames[d - 1];
       return Container(
         padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
         decoration: BoxDecoration(
-          color: const Color(0xFFF0EAE2),
+          color: Colors.white.withValues(alpha: 0.08),
           borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: Colors.white.withValues(alpha: 0.35),
+            width: 1,
+          ),
         ),
         child: Text(
           label,
           style: const TextStyle(
-              fontSize: 12, fontWeight: FontWeight.w600, color: Colors.black87),
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+            color: Colors.white,
+          ),
         ),
       );
     }).toList();
@@ -510,7 +602,9 @@ class _ReminderListScreenState extends State<ReminderListScreen>
   }
 }
 
-// NoisePainter — aynı
+// ------------------------------------------------------------------
+// NoisePainter — diğer ekranlarla aynı premium grain efekti
+// ------------------------------------------------------------------
 class _NoisePainter extends CustomPainter {
   final double opacity;
   final Random _rand = Random();

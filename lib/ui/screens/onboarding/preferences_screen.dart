@@ -1,10 +1,12 @@
 import 'package:affirmation/constants/constants.dart';
+import 'package:affirmation/state/app_state.dart';
 import 'package:affirmation/ui/screens/onboarding/welcome_last_screen.dart';
 import 'package:affirmation/ui/widgets/glass_button.dart';
 import 'package:affirmation/ui/widgets/press_effect.dart';
 import 'package:flutter/material.dart';
 import 'package:affirmation/l10n/app_localizations.dart';
 import 'package:affirmation/utils/utils.dart';
+import 'package:provider/provider.dart';
 
 class PreferencesScreen extends StatefulWidget {
   const PreferencesScreen({super.key});
@@ -28,7 +30,7 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
           // BACKGROUND
           Positioned.fill(
             child: Image.asset(
-              "assets/data/themes/c20.jpg",
+              Constants.onboardingThemePath,
               fit: BoxFit.cover,
             ),
           ),
@@ -173,7 +175,11 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
                   Pressable(
                     child: GlassButton(
                       text: t.continueLabel,
-                      onTap: () {
+                      onTap: () async {
+                        final st = context.read<AppState>();
+
+                        await st.setSelectedContentPreferences(selected);
+
                         Navigator.push(
                           context,
                           MaterialPageRoute(

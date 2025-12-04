@@ -127,6 +127,10 @@ String localizedCategoryName(AppLocalizations t, String key) {
       return t.gratitude;
     case "career_success":
       return t.careerSucces;
+    case "myaffirmations":
+      return t.myAff;
+    case "favorites":
+      return t.favorites;
     default:
       return key;
   }
@@ -153,7 +157,7 @@ ThemeModel resolveActiveTheme({
   if (themes.isEmpty) {
     return ThemeModel(
       id: "default_theme",
-      imageAsset: "assets/data/themes/c20.jpg",
+      imageAsset: "assets/data/themes/a1.jpg",
       soundAsset: null,
       isPremiumLocked: false,
       group: 'Abstract',

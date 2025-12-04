@@ -1,11 +1,10 @@
 class Affirmation {
   final String id;
   final String text;
-  final String categoryId;
+  final String categoryId; // general veya normal kategori
+  final String? actualCategory; // sadece general için
   final String language;
-  final String gender;
-
-  /// "female", "male", "any"
+  final String gender; // "female", "male", "any"
 
   Affirmation({
     required this.id,
@@ -13,6 +12,7 @@ class Affirmation {
     required this.categoryId,
     required this.language,
     required this.gender,
+    this.actualCategory, // opsiyonel
   });
 
   factory Affirmation.fromJson(Map<String, dynamic> json) {
@@ -20,9 +20,9 @@ class Affirmation {
       id: json['id'] as String,
       text: json['text'] as String,
       categoryId: json['categoryId'] as String,
+      actualCategory:
+          json['actualCategory'] as String?, // general için okunacak
       language: json['language'] as String? ?? 'en',
-
-      /// Eğer JSON içinde gender yoksa default: "any"
       gender: json['gender'] as String? ?? "any",
     );
   }
@@ -31,13 +31,13 @@ class Affirmation {
         'id': id,
         'text': text,
         'categoryId': categoryId,
+        'actualCategory': actualCategory, // general için yazacağız
         'language': language,
-        'gender': gender
+        'gender': gender,
       };
 
   String renderWithName(String userName) {
     if (userName.isEmpty) return text.replaceAll(", {name}", "");
-
     return text.replaceAll("{name}", userName);
   }
 }

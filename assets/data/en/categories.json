@@ -1,13 +1,14 @@
 [
-  { "id": "self_care", "name": "Self Care", "imageAsset": "assets/data/categories/self_care.jfif", "isPremiumLocked": false },
-  { "id": "happiness", "name": "Happiness", "imageAsset": "assets/data/categories/happiness.jfif", "isPremiumLocked": false },
-  { "id": "stress_anxiety", "name": "Stress & Anxiety", "imageAsset": "assets/data/categories/stress.jfif", "isPremiumLocked": true },
-  { "id": "positive_thinking", "name": "Positive Thinking", "imageAsset": "assets/data/categories/positive.jfif", "isPremiumLocked": true },
-  { "id": "motivation", "name": "Motivation", "imageAsset": "assets/data/categories/motivation.jfif", "isPremiumLocked": true },
-  { "id": "confidence", "name": "Confidence", "imageAsset": "assets/data/categories/confidence.jfif", "isPremiumLocked": true },
-  { "id": "sleep", "name": "Sleep", "imageAsset": "assets/data/categories/sleep.jfif", "isPremiumLocked": true },
-  { "id": "relationships", "name": "Relationships", "imageAsset": "assets/data/categories/relationships.jfif", "isPremiumLocked": true },
-  { "id": "career_success", "name": "Career & Success", "imageAsset": "assets/data/categories/career.jfif", "isPremiumLocked": true },
-  { "id": "mindfulness", "name": "Mindfulness", "imageAsset": "assets/data/categories/mindfulness.jfif", "isPremiumLocked": true },
-  { "id": "gratitude", "name": "Gratitude", "imageAsset": "assets/data/categories/gratitude.jfif", "isPremiumLocked": true }
+  { "id": "general", "name": "General", "imageAsset": "assets/data/categories/general.jpg", "isPremiumLocked": false },
+  { "id": "self_care", "name": "Self Care", "imageAsset": "assets/data/categories/selfcare.jpg", "isPremiumLocked": false },
+  { "id": "happiness", "name": "Happiness", "imageAsset": "assets/data/categories/happiness.jpg", "isPremiumLocked": true },
+  { "id": "stress_anxiety", "name": "Stress & Anxiety", "imageAsset": "assets/data/categories/stress.jpg", "isPremiumLocked": true },
+  { "id": "positive_thinking", "name": "Positive Thinking", "imageAsset": "assets/data/categories/positive.jpg", "isPremiumLocked": true },
+  { "id": "motivation", "name": "Motivation", "imageAsset": "assets/data/categories/motivation.jpg", "isPremiumLocked": true },
+  { "id": "confidence", "name": "Confidence", "imageAsset": "assets/data/categories/confidence.jpg", "isPremiumLocked": true },
+  { "id": "sleep", "name": "Sleep", "imageAsset": "assets/data/categories/sleep.jpg", "isPremiumLocked": true },
+  { "id": "relationships", "name": "Relationships", "imageAsset": "assets/data/categories/relationships.jpg", "isPremiumLocked": true },
+  { "id": "career_success", "name": "Career & Success", "imageAsset": "assets/data/categories/career.jpg", "isPremiumLocked": true },
+  { "id": "mindfulness", "name": "Mindfulness", "imageAsset": "assets/data/categories/mindfulness.jpg", "isPremiumLocked": true },
+  { "id": "gratitude", "name": "Gratitude", "imageAsset": "assets/data/categories/gratitude.jpg", "isPremiumLocked": true }
 ]

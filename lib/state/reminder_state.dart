@@ -18,12 +18,16 @@ class ReminderState extends ChangeNotifier {
   final FlutterLocalNotificationsPlugin _notifications =
       FlutterLocalNotificationsPlugin();
 
-  bool _loaded = false;
   List<ReminderModel> _reminders = [];
-  bool _isPremium = false;
 
-  bool get isLoaded => _loaded;
+  bool _loaded = false;
+  bool _isPremium = false;
+  bool _adding = false;
+  bool _updating = false;
+  bool _deleting = false;
+
   List<ReminderModel> get reminders => List.unmodifiable(_reminders);
+  bool get isLoaded => _loaded;
   bool get isPremium => _isPremium;
   int get limit => _isPremium ? 200 : 20;
   bool get canAddReminder => _reminders.length < limit;
@@ -35,24 +39,22 @@ class ReminderState extends ChangeNotifier {
     print("🚀 [REM] initialize() başlıyor...");
     print("   • premium = $premium");
 
+    //removePrefs();
+
     _isPremium = premium;
 
-    print("🔔 [REM] _initNotifications() çağrılıyor...");
     await _initNotifications();
-    print("✔ [REM] _initNotifications tamam.");
 
-    print("📥 [REM] _loadFromPrefs() çağrılıyor...");
     await _loadFromPrefs();
-    print("📚 [REM] Yüklenen reminder sayısı: ${_reminders.length}");
 
+    print("📚 [REM] Yüklenen reminder sayısı: ${_reminders.length}");
     print("⏰ [REM] _scheduleAll() başlıyor... (existing=${_reminders.length})");
+
     final sw = Stopwatch()..start();
 
     await _scheduleAll();
 
     sw.stop();
-    print(
-        "✔ [REM] _scheduleAll tamamlandı → süre: ${sw.elapsedMilliseconds} ms");
 
     _loaded = true;
     notifyListeners();
@@ -64,95 +66,109 @@ class ReminderState extends ChangeNotifier {
 // ADD
 // --------------------------------------------------------
   Future<bool> addReminder(ReminderModel r) async {
-    print("➕ [REM] addReminder() çağrıldı");
-    print("   • id          = ${r.id}");
-    print("   • enabled     = ${r.enabled}");
-    print("   • startTime   = ${r.startTime}");
-    print("   • endTime     = ${r.endTime}");
-    print("   • repeatCount = ${r.repeatCount}");
-    print("   • repeatDays  = ${r.repeatDays}");
-    print("   • categories  = ${r.categoryIds}");
-    print(
-        "   • canAdd?     = $canAddReminder (limit=$limit, current=${_reminders.length})");
-
-    if (!canAddReminder) {
-      print("❌ [REM] addReminder → limit aşıldı, eklenmedi.");
+    if (_adding) {
+      print("⛔ [REM] addReminder İPTAL — zaten çalışıyor.");
       return false;
     }
 
-    _reminders.add(r);
-    print(
-        "✅ [REM] Reminder listeye eklendi. Yeni length = ${_reminders.length}");
+    _adding = true;
+    print("➕ [REM] addReminder() BAŞLADI — safe mode");
 
-    await _savePrefs();
-    print("💾 [REM] _savePrefs tamam.");
+    try {
+      if (!canAddReminder) {
+        print("❌ [REM] addReminder → limit dolu.");
+        return false;
+      }
 
-    await _scheduleReminder(r);
-    print("⏰ [REM] _scheduleReminder tamamlandı (id=${r.id}).");
+      _reminders.add(r);
+      print("✅ Reminder listeye eklendi (len=${_reminders.length})");
 
-    notifyListeners();
-    print("📢 [REM] notifyListeners() çağrıldı (addReminder).");
+      await _savePrefs();
+      print("💾 prefs kaydedildi.");
 
-    return true;
+      await _scheduleReminder(r);
+      print("⏰ reminder schedule edildi.");
+
+      notifyListeners();
+      print("📢 notifyListeners çağrıldı (addReminder)");
+
+      return true;
+    } finally {
+      _adding = false;
+      print("🔓 [REM] addReminder kilidi AÇILDI.");
+    }
   }
 
 // --------------------------------------------------------
 // UPDATE
 // --------------------------------------------------------
   Future<void> updateReminder(ReminderModel r) async {
-    print("📝 [REM] updateReminder() çağrıldı");
-    print("   • id          = ${r.id}");
-    print("   • enabled     = ${r.enabled}");
-    print("   • startTime   = ${r.startTime}");
-    print("   • endTime     = ${r.endTime}");
-    print("   • repeatCount = ${r.repeatCount}");
-    print("   • repeatDays  = ${r.repeatDays}");
-    print("   • categories  = ${r.categoryIds}");
-
-    final index = _reminders.indexWhere((x) => x.id == r.id);
-    print("   • bulunan index = $index");
-
-    if (index == -1) {
-      print("❌ [REM] updateReminder → id bulunamadı, hiçbir şey yapılmadı.");
+    // Eğer zaten update ediliyorsa — direkt çık
+    if (_updating) {
+      print("⛔ [REM] updateReminder İPTAL — zaten çalışıyor.");
       return;
     }
 
-    _reminders[index] = r;
-    print("✅ [REM] Reminder listede güncellendi (index=$index).");
+    _updating = true;
+    print("📝 [REM] updateReminder() BAŞLADI — safe mode");
 
-    await _savePrefs();
-    print("💾 [REM] _savePrefs tamam (update).");
+    try {
+      final index = _reminders.indexWhere((x) => x.id == r.id);
+      if (index == -1) {
+        print("❌ [REM] updateReminder → id yok, çıkıyorum.");
+        return;
+      }
 
-    await cancelReminder(r.id);
-    print("🗑️ [REM] cancelReminder çağrıldı (id=${r.id}).");
+      _reminders[index] = r;
+      print("✅ [REM] reminder listede güncellendi.");
 
-    await _scheduleReminder(r);
-    print("⏰ [REM] _scheduleReminder tamamlandı (update, id=${r.id}).");
+      await _savePrefs();
+      print("💾 prefs kaydedildi.");
 
-    notifyListeners();
-    print("📢 [REM] notifyListeners() çağrıldı (updateReminder).");
+      await cancelReminder(r.id);
+      print("🗑️ eski reminder iptal edildi.");
+
+      await _scheduleReminder(r);
+      print("⏰ yeni reminder schedule edildi.");
+
+      notifyListeners();
+      print("📢 notifyListeners çağrıldı (update).");
+    } finally {
+      _updating = false;
+      print("🔓 [REM] updateReminder() kilidi AÇILDI.");
+    }
   }
 
 // --------------------------------------------------------
 // DELETE
 // --------------------------------------------------------
   Future<void> deleteReminder(String id) async {
-    print("🗑️ [REM] deleteReminder() çağrıldı → id=$id");
-    final before = _reminders.length;
+    if (_deleting) {
+      print("⛔ [REM] deleteReminder İPTAL — zaten çalışıyor.");
+      return;
+    }
 
-    _reminders.removeWhere((r) => r.id == id);
+    _deleting = true;
+    try {
+      final before = _reminders.length;
 
-    final after = _reminders.length;
-    print("   • önce length = $before, sonra length = $after");
+      _reminders.removeWhere((r) => r.id == id);
 
-    await _savePrefs();
-    print("💾 [REM] _savePrefs tamam (delete).");
+      final after = _reminders.length;
+      print("   • önce length = $before, sonra = $after");
 
-    await cancelReminder(id);
-    print("🧹 [REM] cancelReminder çağrıldı (id=$id).");
+      await _savePrefs();
+      print("💾 prefs kaydedildi (delete).");
 
-    notifyListeners();
-    print("📢 [REM] notifyListeners() çağrıldı (deleteReminder).");
+      await cancelReminder(id);
+      print("🧹 eski notification iptal edildi.");
+
+      notifyListeners();
+      print("📢 notifyListeners çağrıldı (delete).");
+    } finally {
+      _deleting = false;
+      print("🔓 [REM] deleteReminder kilidi AÇILDI.");
+    }
   }
 
   Future<void> cancelReminder(String id) async {
@@ -162,9 +178,7 @@ class ReminderState extends ChangeNotifier {
     print("✔ [REM] Notification cancel tamam (notifId=$notifId).");
   }
 
-  // --------------------------------------------------------
   // SAVE / LOAD
-  // --------------------------------------------------------
   Future<void> _savePrefs() async {
     final prefs = await SharedPreferences.getInstance();
     final jsonList = _reminders.map((r) => r.toJson()).toList();
@@ -186,9 +200,26 @@ class ReminderState extends ChangeNotifier {
         decoded.map<ReminderModel>((j) => ReminderModel.fromJson(j)).toList();
   }
 
-  // --------------------------------------------------------
+  Future<void> removePrefs() async {
+    final prefs = await SharedPreferences.getInstance();
+    final removed = await prefs.remove('reminders_json');
+
+    if (removed) {
+      print("✔ [REM] reminders_json SharedPrefs'ten silindi.");
+    } else {
+      print("⚠ [REM] reminders_json bulunamadı veya silinemedi.");
+    }
+
+    // State'i sıfırla
+    _reminders.clear();
+
+    // Tüm eski bildirimleri iptal et
+    await _notifications.cancelAll();
+
+    notifyListeners();
+  }
+
   // NOTIFICATIONS INIT
-  // --------------------------------------------------------
   Future<void> _initNotifications() async {
     const android = AndroidInitializationSettings('@mipmap/ic_launcher');
     const ios = DarwinInitializationSettings();
@@ -223,7 +254,10 @@ class ReminderState extends ChangeNotifier {
         AndroidFlutterLocalNotificationsPlugin>();
 
     if (androidPlugin != null) {
+      // Battery optimization kontrolü
       final can = await androidPlugin.canScheduleExactNotifications();
+      print("CAN EXACT? $can");
+
       if (can == false) {
         await androidPlugin.requestExactAlarmsPermission();
       }
@@ -232,9 +266,7 @@ class ReminderState extends ChangeNotifier {
 
   void _onTap(NotificationResponse response) {}
 
-  // --------------------------------------------------------
   // SCHEDULE ALL
-  // --------------------------------------------------------
   Future<void> _scheduleAll() async {
     await _notifications.cancelAll();
 
@@ -332,7 +364,10 @@ class ReminderState extends ChangeNotifier {
     // 🚀 Doğru time: her zaman tz.local üzerinden
     final tzTime = buildNextInstance(time);
 
-    final notifId = tzTime.millisecondsSinceEpoch ~/ 1000;
+// Daha güvenli ID oluşturma
+    final notifId =
+        (r.id.hashCode ^ time.millisecondsSinceEpoch ^ time.weekday) &
+            0x7fffffff;
 
     print("📅 Scheduling notification:");
     print("   • ID: $notifId");
@@ -355,6 +390,8 @@ class ReminderState extends ChangeNotifier {
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
+      matchDateTimeComponents:
+          DateTimeComponents.dayOfWeekAndTime, // 👈 EKLEYIN
     );
 
     print("✔ Notification scheduled.\n");

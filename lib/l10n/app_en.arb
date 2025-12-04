@@ -2,13 +2,18 @@
   "@@locale": "en",
 
   "welcomeTitle": "Welcome",
-  "welcomeSubtitle": "Your path to inner clarity starts here.",
-  "welcomeLast": "Your personalized journey starts now.",
+  "welcomeSubtitle": "Your path to inner clarity starts here",
+  "welcomeLast": "Your personalized journey starts now",
   "startButton": "Start",
-  "continueAgree": "By continuing, you agree to our",
+  "continueAgree": "By continuing, you agree to our ",
   "termsOfUse": "Terms of Use",
   "and": "and",
+  "close": "close",
+  "favoritesLimitTitle" : "Favorites Limit",
+  "premiumActive" :  "Premium Active",
+  "getPremium":  "Get Premium",
 
+"category": "Category",
   "categoryTitle" : "Choose the energy you want to feel today",
 
   "nameQuestion": "What’s your name?",
@@ -32,9 +37,14 @@
   "about": "About",
   "gender": "Gender",
   "languageDescription": "Choose the language you want to use in the app.\nYour entire experience will adapt instantly.",
-  "genderDescription": "We’ll personalize the experience based on your preference.",
-  "nameDescription": "Your name helps us personalize your affirmations.",
-
+  "genderDescription": "We’ll personalize the experience based on your preference",
+  "nameDescription": "Your name helps us personalize your affirmations",
+  "favoritesLimitMessage": "You've reached your free favorites limit (5).\n\nUpgrade to Premium ✨",
+  "myAffLimit": "You've reached your free limit (5).\n\nUpgrade to Premium and save up to 100 custom affirmations ✨",
+  "voiceLimitMessage": "Your free voice preview is finished. Go Premium to enjoy full, unlimited voice reading ✨",
+  "myAffLimitTitle" : "My Affirmations Limit",
+  "myAff" : "My Affirmations",
+  "readLimit": "Read Limit",
 
   "back": "Back",
   "continueLabel": "Continue",
@@ -54,6 +64,7 @@
   "choosePreferences": "Which areas of your life do you want to improve?",
   "youCanChangeLater": "You can change this anytime",
   "pleasePrefs": "Please select at least one preference.",
+  "prefChoose" : "✨ Select what speaks to your soul",
 
   "yourNamePersonalize": "Your name is used to personalize your affirmations",
   "typeYourName": "Type your name...",
@@ -126,6 +137,17 @@
   "stressAnxiety": "Stress & Anxiety",
 
   "unlock" : "UNLOCK",
-  "limited": "LIMITED"
+  "limited": "LIMITED",
+  "noAff" :"No affirmations yet\nCreate your first one! ✨",
+  "writeAff":   "Write your affirmation…",
+  "editAff" : "Edit Affirmation",
+  "newAff": "New Affirmation",
+
+
+"howMany": "How many times",
+"startAt": "Start at",
+"endAt": "End at",
+"repeatDays": "Repeat Days"
+
 
 }

@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:affirmation/constants/constants.dart';
 import 'package:affirmation/ui/screens/onboarding/onboarding_theme_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -42,7 +43,7 @@ class _OnboardingGenderScreenState extends State<OnboardingGenderScreen> {
         children: [
           Positioned.fill(
             child: Image.asset(
-              "assets/data/themes/c20.jpg",
+              Constants.onboardingThemePath,
               fit: BoxFit.cover,
             ),
           ),
@@ -104,11 +105,13 @@ class _OnboardingGenderScreenState extends State<OnboardingGenderScreen> {
                   const SizedBox(height: 50),
 
                   // BUTTONS
-                  _buildGenderButton(context, t.female, selectedGender),
+                  _buildGenderButton(
+                      context, "female", t.female, selectedGender),
                   const SizedBox(height: 20),
-                  _buildGenderButton(context, t.male, selectedGender),
+                  _buildGenderButton(context, "male", t.male, selectedGender),
                   const SizedBox(height: 20),
-                  _buildGenderButton(context, t.others, selectedGender),
+                  _buildGenderButton(
+                      context, "others", t.others, selectedGender),
                 ],
               ),
             ),
@@ -118,20 +121,17 @@ class _OnboardingGenderScreenState extends State<OnboardingGenderScreen> {
     );
   }
 
-  Widget _buildGenderButton(
-      BuildContext context, String genderKey, String? selectedGender) {
-    final bool isSelected = selectedGender == genderKey;
-
-    final displayText = genderKey[0].toUpperCase() + genderKey.substring(1);
+  Widget _buildGenderButton(BuildContext context, String rawValue,
+      String displayText, String? selectedGender) {
+    final bool isSelected = selectedGender == rawValue;
 
     return GestureDetector(
       onTapDown: (_) {
-        setState(() => _localSelected = genderKey);
+        setState(() => _localSelected = rawValue);
       },
-      onTap: () {
+      onTap: () async {
         final appState = context.read<AppState>();
-        appState.gender = genderKey;
-
+        await appState.setGender(rawValue); // 🔥 DOĞRU
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -153,17 +153,13 @@ class _OnboardingGenderScreenState extends State<OnboardingGenderScreen> {
               padding: const EdgeInsets.symmetric(vertical: 18),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(40),
-
-                // PREMIUM BEYAZ – Preferences screen ile birebir aynı efekt
                 color: isSelected
                     ? Colors.white.withValues(alpha: 0.15)
                     : Colors.white.withValues(alpha: 0.05),
-
                 border: Border.all(
                   color: isSelected ? Colors.white : Colors.white54,
                   width: isSelected ? 2.2 : 1.6,
                 ),
-
                 boxShadow: isSelected
                     ? [
                         BoxShadow(
@@ -176,7 +172,7 @@ class _OnboardingGenderScreenState extends State<OnboardingGenderScreen> {
               ),
               child: Center(
                 child: Text(
-                  displayText,
+                  displayText, // 🔥 artık sadece gösterim
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 20,

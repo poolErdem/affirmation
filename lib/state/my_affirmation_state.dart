@@ -10,20 +10,17 @@ class MyAffirmationState extends ChangeNotifier {
   List<MyAffirmation> _items = [];
   List<MyAffirmation> get items => _items;
 
-  late MyAffPlaybackState playbackMyAff;
-  MyAffPlaybackState get playback => playbackMyAff;
-
   int _currentIndex = 0;
   int get currentIndex => _currentIndex;
 
-  MyAffirmationState() {
-    playbackMyAff = MyAffPlaybackState();
+  late MyAffPlaybackState _playbackMyAff;
+  MyAffPlaybackState get playbackMyAff => _playbackMyAff;
 
-    playbackMyAff.addListener(() {
-      // playback dışarıda değiştiğinde MyAffirmationState’i de yenile
-      _currentIndex = playback.currentIndex;
-      notifyListeners();
-    });
+  MyAffirmationState() {
+    _playbackMyAff = MyAffPlaybackState();
+    _playbackMyAff.addListener(notifyListeners);
+
+    notifyListeners();
   }
 
   bool _loaded = false;
@@ -33,11 +30,7 @@ class MyAffirmationState extends ChangeNotifier {
     await loadPrefs();
     _loaded = true;
 
-    playback.updateAffirmations(_items);
-    _currentIndex = 0;
-
-    playback.setCurrentIndex(0);
-    playback.setLanguage("en");
+    playbackMyAff.setLanguage("en");
 
     notifyListeners();
   }
@@ -70,12 +63,10 @@ class MyAffirmationState extends ChangeNotifier {
     _items.add(MyAffirmation(id: id, text: text));
     await _commit();
 
-    playback.updateAffirmations(_items);
-
     final newIndex = _items.length - 1;
 
     _currentIndex = newIndex;
-    playback.setCurrentIndex(newIndex);
+    playbackMyAff.setCurrentIndex(newIndex);
 
     notifyListeners();
   }
@@ -88,10 +79,9 @@ class MyAffirmationState extends ChangeNotifier {
     _items[index] = _items[index].copyWith(text: newText);
     await _commit();
 
-    playback.updateAffirmations(_items);
-
-    _currentIndex = index; // 🔥 LOCAL
-    playback.setCurrentIndex(index); // 🔥 PLAYBACK
+    _currentIndex = index;
+    playbackMyAff.updateAffirmations(_items);
+    playbackMyAff.setCurrentIndex(index); // 🔥 PLAYBACK
 
     notifyListeners();
   }
@@ -103,15 +93,15 @@ class MyAffirmationState extends ChangeNotifier {
     _items.removeWhere((x) => x.id == id);
     await _commit();
 
-    playback.updateAffirmations(_items);
+    playbackMyAff.updateAffirmations(_items);
 
     if (_items.isEmpty) {
       _currentIndex = 0;
-      playback.setCurrentIndex(0);
+      playbackMyAff.setCurrentIndex(0);
     } else {
       final safeIndex = oldIndex.clamp(0, _items.length - 1);
-      _currentIndex = safeIndex; // 🔥 LOCAL
-      playback.setCurrentIndex(safeIndex); // 🔥 PLAYBACK
+      _currentIndex = safeIndex;
+      playbackMyAff.setCurrentIndex(safeIndex);
     }
 
     notifyListeners();
@@ -120,7 +110,7 @@ class MyAffirmationState extends ChangeNotifier {
   // MANUAL SETTER
   void setCurrentIndex(int index) {
     _currentIndex = index;
-    playback.setCurrentIndex(index);
+    playbackMyAff.setCurrentIndex(index);
     notifyListeners();
   }
 

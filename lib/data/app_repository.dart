@@ -16,12 +16,9 @@ class AppRepository {
 
   // LOAD CATEGORIES + THEMES
   Future<AppDataBundle> load() async {
-    print("🔵 [LOAD] Başlıyor → dil: $languageCode");
-    print("📁 Base path: $basePath");
-
     // ---------------- CATEGORIES ----------------
     final categoriesJson =
-        await rootBundle.loadString("$basePath/categories.json");
+        await rootBundle.loadString("assets/data/en/categories.json");
 
     final categoriesList = json.decode(categoriesJson) as List;
 
@@ -40,6 +37,8 @@ class AppRepository {
 
     print("🎨 Theme count = ${themes.length}");
 
+    print("📊 premium Locked = ${themes.first.isPremiumLocked}");
+
     return AppDataBundle(
       categories: categories,
       themes: themes,
@@ -47,9 +46,7 @@ class AppRepository {
     );
   }
 
-  // -------------------------------------------------------------
   // LOAD SINGLE CATEGORY JSON (new format)
-  // -------------------------------------------------------------
   Future<List<Affirmation>> loadCategoryItem(String categoryId) async {
     final filePath = "$basePath/$categoryId.json";
 
@@ -67,14 +64,20 @@ class AppRepository {
       }
 
       final items = decoded["affirmations"] as List;
-
-      print("📊 Affirmation count = ${items.length}");
+      print("📊 Affirmation count (raw) = ${items.length}");
 
       return items.map((e) {
-        return Affirmation.fromJson({
-          ...e,
-          "categoryId": categoryId, // JSON içinden garanti
-        });
+        final map = Map<String, dynamic>.from(e);
+
+        if (categoryId == "general") {
+          map["categoryId"] = "general";
+          // actualCategory JSON’dan geliyor, dokunmuyoruz
+        } else {
+          map["categoryId"] = categoryId;
+          map.remove("actualCategory"); // normal kategoride gereksiz
+        }
+
+        return Affirmation.fromJson(map);
       }).toList();
     } catch (e) {
       print("❌ loadCategoryItem($categoryId) hata: $e");
@@ -82,32 +85,29 @@ class AppRepository {
     }
   }
 
-  // -------------------------------------------------------------
   // LOAD ALL CATEGORIES ITEMS
-  // -------------------------------------------------------------
-  Future<List<Affirmation>> loadAllCategoriesItems(bool premiumActive) async {
+  Future<List<Affirmation>> loadAllCategoriesItems() async {
     print("\n🔵 [LOAD-ALL] Tüm kategoriler yükleniyor...");
 
-    final bundle = await load(); // Kategorileri ve temaları yükler
+    final bundle = await load();
     final List<Affirmation> result = [];
 
-    // Premium değilse sadece free kategorileri alma
-    final filteredCategories = premiumActive
-        ? bundle.categories
-        : bundle.categories.where((c) => !c.isPremiumLocked).toList();
+    print("📦 Toplam kategori = ${bundle.categories.length}");
+    print("📂 Kategoriler = ${bundle.categories.map((e) => e.id).toList()}");
 
-    print("📦 Kullanılacak kategori sayısı = ${filteredCategories.length}");
-
-    for (final c in filteredCategories) {
+    for (final c in bundle.categories) {
       try {
+        print("\n➡️ Kategori yükleniyor: ${c.id}");
         final items = await loadCategoryItem(c.id);
+        print("   📥 Yüklenen affirmation sayısı = ${items.length}");
+
         result.addAll(items);
       } catch (e) {
         print("❌ Category ${c.id} yüklenemedi: $e");
       }
     }
 
-    print("✅ [LOAD-ALL] Total affirmations = ${result.length}");
+    print("\n✅ [LOAD-ALL] Final toplam affirmation = ${result.length}");
     return result;
   }
 }

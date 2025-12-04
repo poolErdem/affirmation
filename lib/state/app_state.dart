@@ -154,31 +154,20 @@ class AppState extends ChangeNotifier {
 
     _activeCategoryId = Constants.generalCategoryId;
 
-    // 6️⃣ THEME VALIDATION & PREMIUM FALLBACK
-    ThemeModel? activeTheme;
-    activeTheme = resolveActiveTheme(
-      themes: _themes,
-      themeId: _preferences.selectedThemeId,
-    );
-
-    if (activeTheme.isPremiumLocked && !_preferences.isPremiumValid) {
-      final freeTheme = _themes.firstWhere(
-        (t) => !t.isPremiumLocked,
-        orElse: () => _themes.first,
-      );
-      _preferences = _preferences.copyWith(selectedThemeId: freeTheme.id);
-    }
-
     // 7️⃣ LANGUAGE PREFERENCE FALLBACK
     if (_preferences.languageCode.isEmpty) {
       _preferences = _preferences.copyWith(languageCode: _selectedLocale);
     }
 
-    _allAffirmations =
-        await _repository.loadAllCategoriesItems(_preferences.premiumActive);
+    _allAffirmations = await _repository.loadAllCategoriesItems();
 
-    // her defasında farklı index
-    _currentIndex = randomIndex(_calculateInitialCount());
+    if (onboardingCompleted) {
+      _currentIndex = randomIndex(_calculateInitialCount());
+      print("🎲 Random onboarding tamam, index = $_currentIndex");
+    } else {
+      _currentIndex = randomIndex(Constants.freeGeneralLimit);
+      print("🎲 Random onboarding tamamlamamış, index = $_currentIndex");
+    }
 
     _loaded = true;
     _generalDirty = true;
@@ -195,21 +184,13 @@ class AppState extends ChangeNotifier {
   }
 
   int _calculateInitialCount() {
-    if (_preferences.premiumActive) {
-      return _allAffirmations
-          .where(
-            (a) =>
-                matchGender(a, _preferences.gender) &&
-                _preferences.selectedContentPreferences.contains(a.categoryId),
-          )
-          .length;
-    } else {
-      return _allAffirmations
-          .where(
-            (a) => matchGender(a, _preferences.gender),
-          )
-          .length;
-    }
+    final count = _allAffirmations.where((a) {
+      return matchGender(a, _preferences.gender) &&
+          a.categoryId == Constants.generalCategoryId &&
+          _preferences.selectedContentPreferences.contains(a.actualCategory);
+    }).length;
+
+    return _preferences.premiumActive ? count : count.clamp(0, 200);
   }
 
   // SAVE / LOAD
@@ -377,25 +358,24 @@ class AppState extends ChangeNotifier {
     print('➡ Premium: ${_preferences.premiumActive}');
     print('➡ Selected categories: ${_preferences.selectedContentPreferences}');
 
-    late final List<Affirmation> list;
+    // Filtrelenmiş general listesi (full)
+    final list = _allAffirmations.where((a) {
+      return matchGender(a, _preferences.gender) &&
+          a.categoryId == Constants.generalCategoryId &&
+          _preferences.selectedContentPreferences.contains(a.actualCategory);
+    }).toList();
 
-    if (_preferences.premiumActive) {
-      list = _allAffirmations.where((a) {
-        final genderOk = matchGender(a, _preferences.gender);
-        final categoryOk =
-            _preferences.selectedContentPreferences.contains(a.categoryId);
-        return genderOk && categoryOk;
-      }).toList();
-    } else {
-      // zaten 2 kategoriden geliyor, seçimlere göre süzmeyelim :)
-      list = _allAffirmations.where((a) {
-        final genderOk = matchGender(a, _preferences.gender);
-        return genderOk;
-      }).toList();
+    print('🔍 GENERAL FEED (raw) count: ${list.length}');
+
+    if (!_preferences.premiumActive) {
+      const limit = Constants.freeGeneralLimit;
+      final limited = list.length > limit ? list.sublist(0, limit) : list;
+      print('⛔ Free mode → ${limited.length} affirmation kullanılacak');
+      return limited;
     }
 
-    print('✅ GENERAL FEED toplam: ${list.length}');
-    return list; //.take(5).toList();
+    print('👑 Premium → full general feed (${list.length}) döndürüldü');
+    return list;
   }
 
   List<Affirmation> get categoryFeed {
@@ -411,19 +391,23 @@ class AppState extends ChangeNotifier {
     print('📊 [CATEGORY FEED] Tüm affirmations: ${_allAffirmations.length}');
 
     final list = _allAffirmations.where((a) {
-      final match = a.categoryId == _activeCategoryId &&
+      return a.categoryId == _activeCategoryId &&
           matchGender(a, _preferences.gender);
-
-      return match;
     }).toList();
 
-    print(
-        '✅ CATEGORY FEED toplam: ${list.length} (kategori: $_activeCategoryId)');
+    print('🔍 CATEGORY FEED (raw) count = ${list.length}');
 
-    if (list.isEmpty) {
-      _allAffirmations.take(3).forEach((a) {});
+    if (!_preferences.premiumActive) {
+      const limit = Constants.freeCategoryLimit;
+
+      final limited = list.length > limit ? list.sublist(0, limit) : list;
+
+      print(
+          '⛔ Free mode → kategori için ${limited.length} affirmation kullanılacak');
+      return limited;
     }
 
+    print('👑 Premium → full kategori feed (${list.length}) döndürüldü');
     return list;
   }
 
@@ -491,12 +475,25 @@ class AppState extends ChangeNotifier {
 
   // CATEGORIES
   List<AffirmationCategory> get categories {
-    // Özel kategoriler
     final base = Constants.baseCategories;
-    final result = List<AffirmationCategory>.from(base);
+    final cats = _categories;
 
-    // _categories'i index 3'ten başlayarak ekle
-    result.addAll(_categories);
+    final result = <AffirmationCategory>[];
+
+    // 0 → categories[0] (varsa)
+    if (cats.isNotEmpty) {
+      result.add(cats[0]);
+    }
+
+    // 1 ve 2 → base[0], base[1] (varsa)
+    if (base.isNotEmpty) result.add(base[0]);
+    if (base.length > 1) result.add(base[1]);
+
+    // 3 → categories[1] ve sonrası
+    if (cats.length > 1) {
+      result.addAll(cats.sublist(1));
+    }
+
     return result;
   }
 
@@ -510,9 +507,7 @@ class AppState extends ChangeNotifier {
     }
 
     // Premium kontrolü
-    if (id != Constants.favoritesCategoryId &&
-        id != Constants.generalCategoryId &&
-        id != Constants.myCategoryId) {
+    if (id != Constants.favoritesCategoryId && id != Constants.myCategoryId) {
       final category = _categories.firstWhere(
         (c) => c.id == id,
         orElse: () => _categories.first,
@@ -543,11 +538,6 @@ class AppState extends ChangeNotifier {
 
     notifyListeners();
     saveLastSettings();
-  }
-
-  void setActiveCategories(Set<String> categoryIds) {
-    //_activeCategoryIds = categoryIds;
-    notifyListeners();
   }
 
   bool canAccessCategory(AffirmationCategory category) {
@@ -669,12 +659,9 @@ class AppState extends ChangeNotifier {
   }
 
   bool isOverFavoriteLimit() {
-    final isPremium = _preferences.isPremiumValid;
     final currentCount = _preferences.favoriteAffirmationIds.length;
 
-    final limit = isPremium
-        ? Constants.premiumFavoriteLimit
-        : Constants.freeFavoriteLimit;
+    final limit = Constants.freeFavoriteLimit;
 
     return currentCount >= limit;
   }
@@ -701,14 +688,20 @@ class AppState extends ChangeNotifier {
   }
 
   // PREFS / THEME / LANGUAGE / SOUND
-  void setSelectedContentPreferences(Set<String> prefs) {
+  Future<void> setSelectedContentPreferences(Set<String> prefs) async {
     print("🎯 Content prefs changed → $prefs");
-    _preferences = _preferences.copyWith(selectedContentPreferences: prefs);
+
+    _preferences = _preferences.copyWith(
+      selectedContentPreferences: prefs,
+    );
+
     _generalDirty = true;
     _categoryDirty = true;
     _favoriteDirty = true;
+
     notifyListeners();
-    saveLastSettings();
+
+    await saveLastSettings(); // 🔥 garantili yazım
   }
 
   String get activeThemeImage {
@@ -727,14 +720,6 @@ class AppState extends ChangeNotifier {
   }
 
   Future<void> setSelectedTheme(String id) async {
-    final theme =
-        _themes.firstWhere((t) => t.id == id, orElse: () => _themes.first);
-
-    if (!canAccessTheme(theme)) {
-      print("⛔ Premium değil → tema kilitli");
-      return;
-    }
-
     _preferences = _preferences.copyWith(selectedThemeId: id);
 
     //await playThemeSound();
@@ -788,8 +773,7 @@ class AppState extends ChangeNotifier {
       _themes = bundle.themes;
       _categories = bundle.categories;
 
-      _allAffirmations =
-          await _repository.loadAllCategoriesItems(_preferences.premiumActive);
+      _allAffirmations = await _repository.loadAllCategoriesItems();
 
       print("🟩 All Affirmations count: ${_allAffirmations.length}");
 

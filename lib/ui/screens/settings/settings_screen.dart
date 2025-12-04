@@ -10,13 +10,12 @@ import 'package:affirmation/ui/screens/premium_screen.dart';
 import 'package:affirmation/ui/screens/settings/privacy_policy_screen.dart';
 import 'package:affirmation/ui/screens/settings/reminder_screen.dart';
 import 'package:affirmation/ui/screens/settings/terms_screen.dart';
+import 'package:affirmation/ui/widgets/premium_tile.dart';
+import 'package:affirmation/ui/widgets/shared_blur_background.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../state/app_state.dart';
 
-// ------------------------------------------------------------
-// MAIN WIDGET
-// ------------------------------------------------------------
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
 
@@ -29,28 +28,26 @@ class _SettingsScreenState extends State<SettingsScreen>
   late AnimationController _shineController;
   late AnimationController _particleController;
   late AnimationController _pulseController;
+
   final List<Particle> _particles = [];
 
   @override
   void initState() {
     super.initState();
 
-    _shineController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 6),
-    )..repeat();
+    _shineController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 6))
+          ..repeat();
 
-    _particleController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 4),
-    )..repeat();
+    _particleController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 4))
+          ..repeat();
 
     _pulseController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 2000),
     )..repeat(reverse: true);
 
-    // 🌟 Parçacıklar oluştur
     for (int i = 0; i < 12; i++) {
       _particles.add(Particle());
     }
@@ -64,198 +61,133 @@ class _SettingsScreenState extends State<SettingsScreen>
     super.dispose();
   }
 
+  void _instantGo(Widget page) {
+    Navigator.of(context).push(PageRouteBuilder(
+      transitionDuration: Duration.zero,
+      reverseTransitionDuration: Duration.zero,
+      pageBuilder: (_, __, ___) => page,
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
     final appState = context.watch<AppState>();
     final isPremium = appState.preferences.isPremiumValid;
+    final bg = appState.activeThemeImage;
 
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
+    return SharedBlurBackground(
+      imageAsset: bg,
+      child: Scaffold(
         backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new,
-              color: Colors.black, size: 26),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: Text(
-          t.settings,
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 22,
-            fontWeight: FontWeight.w700,
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios_new,
+                color: Colors.black, size: 26),
+            onPressed: () => Navigator.pop(context),
+          ),
+          title: Text(
+            t.settings,
+            style: const TextStyle(
+              color: Colors.black,
+              fontSize: 22,
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ),
-      ),
-
-      // ------------------------------------------------------------
-      // BACKGROUND + NOISE + BLUR
-      // ------------------------------------------------------------
-      body: Stack(
-        children: [
-          // Gradient background
-          Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Color(0xfff7f2ed),
-                  Color(0xfff2ebe5),
+        body: Stack(
+          children: [
+            Positioned.fill(
+              child: IgnorePointer(
+                child: CustomPaint(
+                  painter: NoisePainter(opacity: 0.06),
+                ),
+              ),
+            ),
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: ClipRect(
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
+                  child: Container(height: 120, color: Colors.transparent),
+                ),
+              ),
+            ),
+            SafeArea(
+              child: ListView(
+                padding: const EdgeInsets.fromLTRB(16, 20, 16, 40),
+                children: [
+                  const SizedBox(height: 10),
+                  AnimatedBuilder(
+                    animation: Listenable.merge([
+                      _shineController,
+                      _particleController,
+                      _pulseController,
+                    ]),
+                    builder: (context, child) {
+                      return _buildPremiumCardV2(
+                        context: context,
+                        isPremium: isPremium,
+                        shineValue: _shineController.value,
+                        particleValue: _particleController.value,
+                        pulseValue: _pulseController.value,
+                        onTap: () => _instantGo(const PremiumScreen()),
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 15),
+                  _section(t.general),
+                  PremiumTile(
+                    title: t.name,
+                    icon: Icons.person_outline_rounded,
+                    onTap: () => _instantGo(const NameScreen()),
+                  ),
+                  PremiumTile(
+                    title: t.preferences,
+                    icon: Icons.tune,
+                    onTap: () => _instantGo(const ContentPreferencesScreen()),
+                  ),
+                  PremiumTile(
+                    title: t.language,
+                    icon: Icons.language,
+                    onTap: () => _instantGo(const LanguageScreen()),
+                  ),
+                  PremiumTile(
+                    title: t.reminders,
+                    icon: Icons.notifications_none_rounded,
+                    onTap: () => _instantGo(const ReminderListScreen()),
+                  ),
+                  PremiumTile(
+                    title: t.gender,
+                    icon: Icons.wc,
+                    onTap: () => _instantGo(const GenderScreen()),
+                  ),
+                  _section(t.about),
+                  PremiumTile(
+                    title: t.privacyPolicy,
+                    icon: Icons.description_outlined,
+                    onTap: () => _instantGo(const PrivacyPolicyScreen()),
+                  ),
+                  PremiumTile(
+                    title: t.terms,
+                    icon: Icons.verified_user_outlined,
+                    onTap: () => _instantGo(const TermsScreen()),
+                  ),
                 ],
               ),
             ),
-          ),
-
-          // Noise layer
-          Positioned.fill(
-            child: IgnorePointer(
-              child: CustomPaint(
-                painter: NoisePainter(opacity: 0.06),
-              ),
-            ),
-          ),
-
-          // Top blur transition
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: ClipRect(
-              child: BackdropFilter(
-                filter: ImageFilter.blur(
-                  sigmaX: 16,
-                  sigmaY: 16,
-                ),
-                child: Container(height: 120, color: Colors.transparent),
-              ),
-            ),
-          ),
-
-          // CONTENT
-          SafeArea(
-            child: ListView(
-              padding: const EdgeInsets.fromLTRB(16, 20, 16, 40),
-              children: [
-                const SizedBox(height: 10),
-
-                // 🔥 UPGRADED PREMIUM CARD
-                AnimatedBuilder(
-                  animation: Listenable.merge([
-                    _shineController,
-                    _particleController,
-                    _pulseController,
-                  ]),
-                  builder: (context, child) {
-                    return _buildPremiumCardV2(
-                      context: context,
-                      isPremium: isPremium,
-                      shineValue: _shineController.value,
-                      particleValue: _particleController.value,
-                      pulseValue: _pulseController.value,
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (_) => const PremiumScreen()),
-                        );
-                      },
-                    );
-                  },
-                ),
-
-                const SizedBox(height: 15),
-
-                _section(t.general),
-
-                _tile(
-                  context,
-                  title: t.name,
-                  icon: Icons.person_outline_rounded,
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => const NameScreen()),
-                  ),
-                ),
-
-                _tile(
-                  context,
-                  title: t.preferences,
-                  icon: Icons.tune,
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => const ContentPreferencesScreen()),
-                  ),
-                ),
-
-                _tile(
-                  context,
-                  title: t.language,
-                  icon: Icons.language,
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => const LanguageScreen()),
-                  ),
-                ),
-
-                _tile(
-                  context,
-                  title: t.reminders,
-                  icon: Icons.notifications_none_rounded,
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => const ReminderListScreen()),
-                  ),
-                ),
-
-                _tile(
-                  context,
-                  title: t.gender,
-                  icon: Icons.wc,
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => const GenderScreen()),
-                  ),
-                ),
-
-                _section(t.about),
-
-                _tile(
-                  context,
-                  title: t.privacyPolicy,
-                  icon: Icons.description_outlined,
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => const PrivacyPolicyScreen()),
-                  ),
-                ),
-
-                _tile(
-                  context,
-                  title: t.terms,
-                  icon: Icons.verified_user_outlined,
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => const TermsScreen()),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
-  // ------------------------------------------------------------
-  // 🔥 UPGRADED PREMIUM CARD V2
-  // Glassmorphism + Particles + 3D Shadow + Pulse
-  // ------------------------------------------------------------
+  // PREMIUM CARD ----------------------------------------------------
   Widget _buildPremiumCardV2({
     required BuildContext context,
     required bool isPremium,
@@ -264,6 +196,8 @@ class _SettingsScreenState extends State<SettingsScreen>
     required double pulseValue,
     required VoidCallback onTap,
   }) {
+    final t = AppLocalizations.of(context)!;
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -273,14 +207,8 @@ class _SettingsScreenState extends State<SettingsScreen>
           borderRadius: BorderRadius.circular(28),
           gradient: LinearGradient(
             colors: isPremium
-                ? [
-                    const Color(0xFF1A1A1A),
-                    const Color(0xFF2D2D2D),
-                  ]
-                : [
-                    const Color(0xFF3D3D3D),
-                    const Color(0xFF2A2A2A),
-                  ],
+                ? [const Color(0xFF1A1A1A), const Color(0xFF2D2D2D)]
+                : [const Color(0xFF3D3D3D), const Color(0xFF2A2A2A)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -288,10 +216,8 @@ class _SettingsScreenState extends State<SettingsScreen>
             BoxShadow(
               color: isPremium
                   ? Colors.amber.withValues(alpha: 0.4 + pulseValue * 0.2)
-                  : const Color.fromARGB(255, 83, 80, 80)
-                      .withValues(alpha: 0.3),
+                  : Colors.black.withValues(alpha: 0.25),
               blurRadius: 30 + pulseValue * 10,
-              spreadRadius: isPremium ? 2 : 0,
               offset: const Offset(0, 10),
             ),
           ],
@@ -300,7 +226,6 @@ class _SettingsScreenState extends State<SettingsScreen>
           borderRadius: BorderRadius.circular(28),
           child: Stack(
             children: [
-              // 🌟 Background gradient overlay
               Container(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
@@ -311,43 +236,33 @@ class _SettingsScreenState extends State<SettingsScreen>
                           ]
                         : [
                             Colors.white.withValues(alpha: 0.05),
-                            const Color.fromARGB(0, 56, 53, 53),
+                            Colors.transparent,
                           ],
                   ),
                 ),
               ),
-
-              // ✨ Particle effects (only for premium)
               if (isPremium)
-                ..._particles.map((particle) => _buildParticle(
-                      particle,
-                      particleValue,
-                      Size(MediaQuery.of(context).size.width - 40, 160),
-                    )),
-
-              // 💎 Glassmorphism blur
+                ..._particles.map(
+                  (p) => _buildParticle(
+                    p,
+                    particleValue,
+                    Size(MediaQuery.of(context).size.width - 40, 160),
+                  ),
+                ),
               BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                 child: Container(
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        Colors.white.withValues(alpha: 0.05),
-                        Colors.white.withValues(alpha: 0.02),
-                      ],
-                    ),
+                    borderRadius: BorderRadius.circular(28),
                     border: Border.all(
                       color: isPremium
                           ? Colors.amber.withValues(alpha: 0.6)
                           : Colors.white.withValues(alpha: 0.2),
                       width: 1.5,
                     ),
-                    borderRadius: BorderRadius.circular(28),
                   ),
                 ),
               ),
-
-              // 🌈 Shine effect
               ShaderMask(
                 blendMode: BlendMode.srcATop,
                 shaderCallback: (rect) {
@@ -359,141 +274,86 @@ class _SettingsScreenState extends State<SettingsScreen>
                       Colors.white.withValues(alpha: isPremium ? 0.3 : 0.1),
                       Colors.white.withValues(alpha: 0),
                     ],
-                    stops: const [0.3, 0.5, 0.7],
                   ).createShader(rect);
                 },
                 child: const SizedBox.expand(),
               ),
-
-              // 📝 Content
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: Row(
                   children: [
-                    Row(
-                      children: [
-                        // Icon with pulse
-                        AnimatedBuilder(
-                          animation: _pulseController,
-                          builder: (context, child) {
-                            return Transform.scale(
-                              scale: 1 + pulseValue * 0.15,
-                              child: Container(
-                                padding: const EdgeInsets.all(14),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  gradient: isPremium
-                                      ? LinearGradient(
-                                          colors: [
-                                            const Color(0xFFFFD700),
-                                            const Color(0xFFFFA500),
-                                          ],
-                                        )
-                                      : LinearGradient(
-                                          colors: [
-                                            Colors.white.withValues(alpha: 0.2),
-                                            Colors.white.withValues(alpha: 0.1),
-                                          ],
-                                        ),
-                                  boxShadow: isPremium
-                                      ? [
-                                          BoxShadow(
-                                            color: Colors.amber.withValues(
-                                                alpha: 0.6 + pulseValue * 0.2),
-                                            blurRadius: 25,
-                                            spreadRadius: 4,
-                                          ),
-                                        ]
-                                      : null,
-                                ),
-                                child: Icon(
-                                  Icons.workspace_premium,
-                                  size: 36,
-                                  color:
-                                      isPremium ? Colors.white : Colors.white70,
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                        const SizedBox(width: 20),
-
-                        // Text content
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // Title with gradient
-                              if (isPremium)
-                                ShaderMask(
-                                  shaderCallback: (bounds) =>
-                                      const LinearGradient(
-                                    colors: [
-                                      Color(0xFFFFD700),
-                                      Color(0xFFFFA500)
-                                    ],
-                                  ).createShader(bounds),
-                                  child: const Text(
-                                    "Premium Active",
-                                    style: TextStyle(
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
+                    AnimatedBuilder(
+                      animation: _pulseController,
+                      builder: (context, child) {
+                        return Transform.scale(
+                          scale: 1 + pulseValue * 0.15,
+                          child: Container(
+                            padding: const EdgeInsets.all(14),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              gradient: isPremium
+                                  ? const LinearGradient(
+                                      colors: [
+                                        Color(0xFFFFD700),
+                                        Color(0xFFFFA500),
+                                      ],
+                                    )
+                                  : LinearGradient(
+                                      colors: [
+                                        Colors.white.withValues(alpha: 0.2),
+                                        Colors.white.withValues(alpha: 0.1),
+                                      ],
                                     ),
-                                  ),
-                                )
-                              else
-                                const Text(
-                                  "Get Premium",
-                                  style: TextStyle(
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
-                                ),
-
-                              const SizedBox(height: 6),
-
-                              // Subtitle
-                              Text(
-                                isPremium
-                                    ? "All features unlocked ✨"
-                                    : "Unlock unlimited access",
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.white.withValues(alpha: 0.7),
-                                ),
-                              ),
-                            ],
+                              boxShadow: isPremium
+                                  ? [
+                                      BoxShadow(
+                                        color:
+                                            Colors.amber.withValues(alpha: 0.5),
+                                        blurRadius: 25,
+                                      )
+                                    ]
+                                  : null,
+                            ),
+                            child: Icon(
+                              Icons.workspace_premium,
+                              color: Colors.white,
+                              size: 36,
+                            ),
                           ),
-                        ),
-
-                        // Arrow icon
-                        Icon(
-                          Icons.arrow_forward_ios,
-                          color: isPremium
-                              ? Colors.amber.withValues(alpha: 0.8)
-                              : Colors.white.withValues(alpha: 0.5),
-                          size: 20,
-                        ),
-                      ],
+                        );
+                      },
                     ),
-
-                    // Premium benefits (only show for premium users)
-                    if (isPremium) ...[
-                      const SizedBox(height: 16),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    const SizedBox(width: 20),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          _buildMiniFeature(Icons.block, "Ad-Free"),
-                          _buildMiniFeature(Icons.favorite, "Unlimited"),
-                          _buildMiniFeature(Icons.color_lens, "All Themes"),
+                          Text(
+                            isPremium ? t.premiumActive : t.getPremium,
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                              color: isPremium ? Colors.amber : Colors.white,
+                            ),
+                          ),
+                          const SizedBox(height: 6),
+                          Text(
+                            isPremium
+                                ? "All features unlocked ✨"
+                                : "Unlock unlimited access",
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.white.withValues(alpha: 0.7),
+                            ),
+                          ),
                         ],
                       ),
-                    ],
+                    ),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.white.withValues(alpha: 0.7),
+                    ),
                   ],
                 ),
               ),
@@ -504,66 +364,7 @@ class _SettingsScreenState extends State<SettingsScreen>
     );
   }
 
-  // Mini feature badge
-  Widget _buildMiniFeature(IconData icon, String label) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-      decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: Colors.amber.withValues(alpha: 0.3),
-          width: 1,
-        ),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 14, color: Colors.amber),
-          const SizedBox(width: 4),
-          Text(
-            label,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 11,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // Particle widget
-  Widget _buildParticle(Particle particle, double progress, Size cardSize) {
-    final pos = particle.getPosition(progress, cardSize);
-    final opacity = particle.opacity(progress);
-
-    return Positioned(
-      left: pos.dx,
-      top: pos.dy,
-      child: Opacity(
-        opacity: opacity,
-        child: Container(
-          width: particle.size,
-          height: particle.size,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            gradient: RadialGradient(
-              colors: [
-                Colors.amber.withValues(alpha: 0.8),
-                Colors.amber.withValues(alpha: 0),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  // ------------------------------------------------------------
-  // SECTION TITLE WITH GOLD DOT
-  // ------------------------------------------------------------
+  // SECTION ---------------------------------------------------------
   Widget _section(String title) {
     return Padding(
       padding: const EdgeInsets.only(left: 4, bottom: 10, top: 26),
@@ -573,91 +374,48 @@ class _SettingsScreenState extends State<SettingsScreen>
             width: 6,
             height: 6,
             decoration: const BoxDecoration(
+              color: Color(0xFFC9A85D),
               shape: BoxShape.circle,
-              color: Color(0xFFc9a85d),
             ),
           ),
           const SizedBox(width: 8),
           Text(
             title.toUpperCase(),
             style: const TextStyle(
-              fontSize: 12.8,
+              fontSize: 13,
               fontWeight: FontWeight.w700,
               color: Color(0xFF6A6A6A),
-              letterSpacing: 1.0,
             ),
-          )
+          ),
         ],
       ),
     );
   }
 
-  // ------------------------------------------------------------
-  // GOLD TILES
-  // ------------------------------------------------------------
-  Widget _tile(
-    BuildContext context, {
-    required String title,
-    required IconData icon,
-    VoidCallback? onTap,
-  }) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(20),
+  // PARTICLES -------------------------------------------------------
+  Widget _buildParticle(Particle p, double progress, Size size) {
+    final pos = p.getPosition(progress, size);
+    return Positioned(
+      left: pos.dx,
+      top: pos.dy,
       child: Container(
-        margin: const EdgeInsets.only(bottom: 12),
-        padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 18),
+        width: p.size,
+        height: p.size,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: Colors.white,
-          border: Border.all(
-            color: const Color(0xFFE4DCD3),
-            width: 1.2,
+          shape: BoxShape.circle,
+          gradient: RadialGradient(
+            colors: [
+              Colors.amber.withValues(alpha: 0.8),
+              Colors.amber.withValues(alpha: 0),
+            ],
           ),
-          boxShadow: const [
-            BoxShadow(
-              color: Color(0x08000000),
-              blurRadius: 18,
-              offset: Offset(0, 4),
-            ),
-          ],
-        ),
-        child: Row(
-          children: [
-            Icon(
-              icon,
-              size: 24,
-              color: const Color(0xFFC9A85D),
-              weight: 200,
-              grade: -25,
-            ),
-            const SizedBox(width: 20),
-            Expanded(
-              child: Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 16.2,
-                  fontWeight: FontWeight.w600,
-                  color: Color(0xFF4C4743),
-                  letterSpacing: -0.2,
-                ),
-              ),
-            ),
-            Icon(
-              Icons.chevron_right,
-              color: Colors.grey.shade500,
-              size: 26,
-            ),
-          ],
         ),
       ),
     );
   }
 }
 
-// ------------------------------------------------------------
-// PARTICLE CLASS
-// ------------------------------------------------------------
+// PARTICLE CLASS ---------------------------------------------------
 class Particle {
   final double startX = Random().nextDouble();
   final double startY = Random().nextDouble();
@@ -671,15 +429,9 @@ class Particle {
         startY * size.height - (progress * speed * size.height) % size.height;
     return Offset(x, y);
   }
-
-  double opacity(double progress) {
-    return 1 - ((progress * speed) % 1);
-  }
 }
 
-// ------------------------------------------------------------
-// NOISE PAINTER
-// ------------------------------------------------------------
+// NOISE ------------------------------------------------------------
 class NoisePainter extends CustomPainter {
   final double opacity;
   final Random _random = Random();
@@ -689,12 +441,14 @@ class NoisePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()..color = Colors.black.withValues(alpha: opacity);
-
     for (int i = 0; i < size.width * size.height / 80; i++) {
-      final dx = _random.nextDouble() * size.width;
-      final dy = _random.nextDouble() * size.height;
       canvas.drawRect(
-        Rect.fromLTWH(dx, dy, 1.2, 1.2),
+        Rect.fromLTWH(
+          _random.nextDouble() * size.width,
+          _random.nextDouble() * size.height,
+          1.2,
+          1.2,
+        ),
         paint,
       );
     }

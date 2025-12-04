@@ -1,3 +1,4 @@
+import 'package:affirmation/constants/constants.dart';
 import 'package:affirmation/ui/screens/onboarding/preferences_screen.dart';
 import 'package:affirmation/ui/widgets/glass_button.dart';
 import 'package:affirmation/ui/widgets/press_effect.dart';
@@ -29,7 +30,7 @@ class _OnboardingThemeScreenState extends State<OnboardingThemeScreen> {
           // BACKGROUND
           Positioned.fill(
             child: Image.asset(
-              "assets/data/themes/c20.jpg",
+              Constants.onboardingThemePath,
               fit: BoxFit.cover,
             ),
           ),
@@ -219,17 +220,28 @@ class _OnboardingThemeScreenState extends State<OnboardingThemeScreen> {
                     ),
                   ),
 
-                  // CONTINUE BUTTON (GLASS)
-
                   // CONTINUE BUTTON (glassy like onboarding theme)
                   Pressable(
                     child: GlassButton(
                       text: t.continueLabel,
-                      onTap: () {
+                      onTap: () async {
+                        if (selectedIndex == null) {
+                          // İstersen Toast gösterebilirim, şimdilik return
+                          return;
+                        }
+
+                        final st = context.read<AppState>();
+                        final selectedTheme = st.themes[selectedIndex!];
+
+                        // 🔥 1) Tema kaydet
+                        await st.setSelectedTheme(selectedTheme.id);
+
+                        // 🔥 2) Sonraki ekrana git
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (_) => const PreferencesScreen()),
+                            builder: (_) => const PreferencesScreen(),
+                          ),
                         );
                       },
                     ),

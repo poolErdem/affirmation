@@ -12,22 +12,37 @@ class AppLocalizationsEn extends AppLocalizations {
   String get welcomeTitle => 'Welcome';
 
   @override
-  String get welcomeSubtitle => 'Your path to inner clarity starts here.';
+  String get welcomeSubtitle => 'Your path to inner clarity starts here';
 
   @override
-  String get welcomeLast => 'Your personalized journey starts now.';
+  String get welcomeLast => 'Your personalized journey starts now';
 
   @override
   String get startButton => 'Start';
 
   @override
-  String get continueAgree => 'By continuing, you agree to our';
+  String get continueAgree => 'By continuing, you agree to our ';
 
   @override
   String get termsOfUse => 'Terms of Use';
 
   @override
   String get and => 'and';
+
+  @override
+  String get close => 'close';
+
+  @override
+  String get favoritesLimitTitle => 'Favorites Limit';
+
+  @override
+  String get premiumActive => 'Premium Active';
+
+  @override
+  String get getPremium => 'Get Premium';
+
+  @override
+  String get category => 'Category';
 
   @override
   String get categoryTitle => 'Choose the energy you want to feel today';
@@ -93,10 +108,28 @@ class AppLocalizationsEn extends AppLocalizations {
   String get languageDescription => 'Choose the language you want to use in the app.\nYour entire experience will adapt instantly.';
 
   @override
-  String get genderDescription => 'We’ll personalize the experience based on your preference.';
+  String get genderDescription => 'We’ll personalize the experience based on your preference';
 
   @override
-  String get nameDescription => 'Your name helps us personalize your affirmations.';
+  String get nameDescription => 'Your name helps us personalize your affirmations';
+
+  @override
+  String get favoritesLimitMessage => 'You\'ve reached your free favorites limit (5).\n\nUpgrade to Premium ✨';
+
+  @override
+  String get myAffLimit => 'You\'ve reached your free limit (5).\n\nUpgrade to Premium and save up to 100 custom affirmations ✨';
+
+  @override
+  String get voiceLimitMessage => 'Your free voice preview is finished. Go Premium to enjoy full, unlimited voice reading ✨';
+
+  @override
+  String get myAffLimitTitle => 'My Affirmations Limit';
+
+  @override
+  String get myAff => 'My Affirmations';
+
+  @override
+  String get readLimit => 'Read Limit';
 
   @override
   String get back => 'Back';
@@ -136,6 +169,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pleasePrefs => 'Please select at least one preference.';
+
+  @override
+  String get prefChoose => '✨ Select what speaks to your soul';
 
   @override
   String get yourNamePersonalize => 'Your name is used to personalize your affirmations';
@@ -319,4 +355,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get limited => 'LIMITED';
+
+  @override
+  String get noAff => 'No affirmations yet\nCreate your first one! ✨';
+
+  @override
+  String get writeAff => 'Write your affirmation…';
+
+  @override
+  String get editAff => 'Edit Affirmation';
+
+  @override
+  String get newAff => 'New Affirmation';
+
+  @override
+  String get howMany => 'How many times';
+
+  @override
+  String get startAt => 'Start at';
+
+  @override
+  String get endAt => 'End at';
+
+  @override
+  String get repeatDays => 'Repeat Days';
 }

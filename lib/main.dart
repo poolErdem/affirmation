@@ -5,7 +5,6 @@ import 'package:affirmation/state/reminder_state.dart';
 import 'package:affirmation/ui/screens/onboarding/welcome_screen.dart';
 import 'package:affirmation/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart' as admob;
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:timezone/data/latest.dart' as tz;
@@ -26,8 +25,8 @@ void main() async {
   tz.setLocalLocation(tz.getLocation(normalized));
   print("🌍 MAIN → Local timezone set edildi: ${tz.local}");
 
-  await admob.MobileAds.instance.initialize();
-  print("✅ MAIN → AdMob hazır.");
+  //await admob.MobileAds.instance.initialize();
+  //print("✅ MAIN → AdMob hazır.");
 
   final myAffirmationState = MyAffirmationState();
   await myAffirmationState.initialize();

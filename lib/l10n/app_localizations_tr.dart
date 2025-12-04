@@ -9,19 +9,19 @@ class AppLocalizationsTr extends AppLocalizations {
   AppLocalizationsTr([String locale = 'tr']) : super(locale);
 
   @override
-  String get welcomeTitle => 'Hoş Geldin';
+  String get welcomeTitle => 'Hoş geldin';
 
   @override
-  String get welcomeSubtitle => 'İçsel yolculuğun burada başlıyor.';
+  String get welcomeSubtitle => 'İçsel berraklığa giden yolun burada başlıyor';
 
   @override
-  String get welcomeLast => 'Your personalized journey starts now.';
+  String get welcomeLast => 'Kişiselleştirilmiş yolculuğun şimdi başlıyor';
 
   @override
   String get startButton => 'Başla';
 
   @override
-  String get continueAgree => 'Devam ederek şu koşulları kabul etmiş olursun:';
+  String get continueAgree => 'Devam ederek şunları kabul etmiş olursun: ';
 
   @override
   String get termsOfUse => 'Kullanım Şartları';
@@ -30,25 +30,40 @@ class AppLocalizationsTr extends AppLocalizations {
   String get and => 've';
 
   @override
-  String get categoryTitle => 'Choose the energy you want to feel today';
+  String get close => 'kapat';
 
   @override
-  String get nameQuestion => 'Adınız nedir?';
+  String get favoritesLimitTitle => 'Favori Limiti';
 
   @override
-  String get personalize => 'Olumlamalarınızı kişiselleştireceğiz';
+  String get premiumActive => 'Premium Aktif';
 
   @override
-  String get hitname => 'İsminizi girin';
+  String get getPremium => 'Premium Al';
+
+  @override
+  String get category => 'Kategori';
+
+  @override
+  String get categoryTitle => 'Bugün hissetmek istediğin enerjiyi seç';
+
+  @override
+  String get nameQuestion => 'Adın ne?';
+
+  @override
+  String get personalize => 'Olumlamaları senin için kişiselleştireceğiz';
+
+  @override
+  String get hitname => 'Adını gir';
 
   @override
   String get settings => 'Ayarlar';
 
   @override
-  String get goPremium => 'Premium\'a Geç';
+  String get goPremium => 'Premium’a Geç';
 
   @override
-  String get youarePremium => 'You\'re Premium';
+  String get youarePremium => 'Premium’sun';
 
   @override
   String get preferences => 'İçerik Tercihleri';
@@ -87,37 +102,55 @@ class AppLocalizationsTr extends AppLocalizations {
   String get about => 'Hakkında';
 
   @override
-  String get gender => 'Gender';
+  String get gender => 'Cinsiyet';
 
   @override
-  String get languageDescription => 'Choose the language you want to use in the app.\nYour entire experience will adapt instantly.';
+  String get languageDescription => 'Uygulamada kullanmak istediğin dili seç';
 
   @override
-  String get genderDescription => 'We’ll personalize the experience based on your preference.';
+  String get genderDescription => 'Deneyimi tercihlerine göre kişiselleştireceğiz';
 
   @override
-  String get nameDescription => 'Your name helps us personalize your affirmations.';
+  String get nameDescription => 'İsmin, onaylamaları kişiselleştirmemize yardımcı olur';
+
+  @override
+  String get favoritesLimitMessage => 'Ücretsiz favori limitine (5) ulaştın.\n\nPremium’a geçerek sınırsız favori kaydedebilirsin ✨';
+
+  @override
+  String get myAffLimit => 'Ücretsiz limitine (5) ulaştın.\n\nPremium’a geçerek 100’e kadar kendi onaylamanı kaydedebilirsin ✨';
+
+  @override
+  String get voiceLimitMessage => 'Ücretsiz ses önizlemen sona erdi. Sınırsız ve tam sesli okuma için Premium’a geç ✨';
+
+  @override
+  String get myAffLimitTitle => 'Kendi Onaylamaların Limiti';
+
+  @override
+  String get myAff => 'Olumlamalarım';
+
+  @override
+  String get readLimit => 'Okuma Limiti';
 
   @override
   String get back => 'Geri';
 
   @override
-  String get continueLabel => 'Devam';
+  String get continueLabel => 'Devam Et';
 
   @override
   String get save => 'Kaydet';
 
   @override
-  String get update => 'Update';
+  String get update => 'Güncelle';
 
   @override
-  String get delete => 'Delete';
+  String get delete => 'Sil';
 
   @override
-  String get identifyGender => 'Cinsiyetinizi seçin';
+  String get identifyGender => 'Cinsiyetini belirt';
 
   @override
-  String get genderSubtitle => 'Kendinizin en iyi versiyonuna yolculuğa başlayın';
+  String get genderSubtitle => 'Yolculuğunu kişiselleştirmemize yardımcı olacak';
 
   @override
   String get female => 'Kadın';
@@ -129,37 +162,40 @@ class AppLocalizationsTr extends AppLocalizations {
   String get others => 'Diğer';
 
   @override
-  String get choosePreferences => 'Hayatınızın hangi alanlarını geliştirmek istersiniz?';
+  String get choosePreferences => 'Hayatının hangi alanlarını geliştirmek istiyorsun?';
 
   @override
-  String get youCanChangeLater => 'Bunu istediğiniz zaman değiştirebilirsiniz';
+  String get youCanChangeLater => 'Bunu daha sonra değiştirebilirsin';
 
   @override
-  String get pleasePrefs => 'Lütfen en az bir tercih seçin.';
+  String get pleasePrefs => 'Lütfen en az bir tercih seç.';
 
   @override
-  String get yourNamePersonalize => 'İsminiz, olumlamalarınızı kişiselleştirmek için kullanılır';
+  String get prefChoose => '✨ Size hitap edenleri seçin';
 
   @override
-  String get typeYourName => 'İsminizi yazın...';
+  String get yourNamePersonalize => 'İsmin, onaylamalarını kişiselleştirmek için kullanılır';
+
+  @override
+  String get typeYourName => 'Adını yaz...';
 
   @override
   String get nameSaved => 'İsim kaydedildi';
 
   @override
-  String get pickTheme => 'Tema seçin';
+  String get pickTheme => 'Bir tema seç';
 
   @override
-  String get changeLater => 'Daha sonra değiştirebilirsiniz';
+  String get changeLater => 'Bunu daha sonra değiştirebilirsin';
 
   @override
-  String get pleaseSelectTheme => 'Lütfen önce bir tema seçin.';
+  String get pleaseSelectTheme => 'Lütfen önce bir tema seç';
 
   @override
   String get reminderTitle => 'Hatırlatmalar';
 
   @override
-  String get reminderSubtitle => 'Gün içinde nazik hatırlatmalarla düzenini koru.';
+  String get reminderSubtitle => 'Nazik günlük hatırlatmalarla istikrarlı kal';
 
   @override
   String get addReminder => 'Hatırlatma Ekle';
@@ -171,25 +207,25 @@ class AppLocalizationsTr extends AppLocalizations {
   String get deleteReminder => 'Hatırlatmayı Sil';
 
   @override
-  String get freeLimitReached => 'Ücretsiz hatırlatma sınırına ulaştın.';
+  String get freeLimitReached => 'Ücretsiz hatırlatma limitine ulaştın.';
 
   @override
-  String get premiumUnlockMore => 'Premium ile 5 hatırlatmaya kadar ekleyebilirsin.';
+  String get premiumUnlockMore => 'Premium’a geçerek 5’e kadar hatırlatma ekleyebilirsin';
 
   @override
   String get unlockMore => 'Daha fazla hatırlatma aç';
 
   @override
-  String get reminderCategory => 'Olumlama Kategorisi';
+  String get reminderCategory => 'Onaylama Kategorisi';
 
   @override
-  String get reminderTimes => 'Zamanlama';
+  String get reminderTimes => 'Zamanlar';
 
   @override
-  String get reminderStartTime => 'Başlangıç Saati';
+  String get reminderStartTime => 'Başlangıç Zamanı';
 
   @override
-  String get reminderEndTime => 'Bitiş Saati';
+  String get reminderEndTime => 'Bitiş Zamanı';
 
   @override
   String get reminderRepeatCount => 'Tekrar Sayısı';
@@ -204,16 +240,16 @@ class AppLocalizationsTr extends AppLocalizations {
   String get selectCategory => 'Kategori seç...';
 
   @override
-  String get premiumCategoryLocked => 'Bu kategori Premium kullanıcılar için geçerlidir.';
+  String get premiumCategoryLocked => 'Bu kategori Premium kullanıcılar için.';
 
   @override
-  String get onlySelfCareAvailable => 'Ücretsiz planda sadece Self Care kategorisi kullanılabilir.';
+  String get onlySelfCareAvailable => 'Ücretsiz planda yalnızca Öz Bakım kategorisi kullanılabilir';
 
   @override
   String get selectTime => 'Saat seç';
 
   @override
-  String get startBeforeEnd => 'Başlangıç saati bitişten önce olmalı.';
+  String get startBeforeEnd => 'Başlangıç zamanı bitişten önce olmalıdır';
 
   @override
   String get selectDays => 'Günleri seç';
@@ -249,7 +285,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get minRepeatReached => 'Minimum tekrar sayısına ulaşıldı';
 
   @override
-  String get deleteConfirmTitle => 'Hatırlatma silinsin mi?';
+  String get deleteConfirmTitle => 'Hatırlatmayı sil?';
 
   @override
   String get deleteConfirmMessage => 'Bu hatırlatma kalıcı olarak silinecek.';
@@ -270,53 +306,77 @@ class AppLocalizationsTr extends AppLocalizations {
   String get freeReminderBadge => 'Ücretsiz Hatırlatma';
 
   @override
-  String get reminderLimitReached => 'Hatırlatma limitine ulaştınız.';
+  String get reminderLimitReached => 'Hatırlatma limitine ulaştın.';
 
   @override
   String get unlockMoreReminders => 'Daha fazla hatırlatma aç';
 
   @override
-  String get reminderFreeOnlyCategory => 'Ücretsiz kullanıcılar sadece Self-Care kategorisini kullanabilir.';
+  String get reminderFreeOnlyCategory => 'Ücretsiz kullanıcılar yalnızca Öz Bakım kategorisini kullanabilir.';
 
   @override
-  String get reminderPremiumRequired => 'Daha fazla hatırlatma eklemek için Premium’a yükseltin.';
+  String get reminderPremiumRequired => 'Daha fazla hatırlatma eklemek için Premium’a geç.';
 
   @override
-  String get careerSucces => 'Career Success';
+  String get careerSucces => 'Kariyer Başarısı';
 
   @override
-  String get selfCare => 'Self Care';
+  String get selfCare => 'Öz Bakım';
 
   @override
-  String get confidence => 'Confidence';
+  String get confidence => 'Özgüven';
 
   @override
-  String get gratitude => 'Gratitude';
+  String get gratitude => 'Şükran';
 
   @override
-  String get happiness => 'Happiness';
+  String get happiness => 'Mutluluk';
 
   @override
-  String get mindfulness => 'Mindfulness';
+  String get mindfulness => 'Farkındalık';
 
   @override
-  String get motivation => 'Motivation';
+  String get motivation => 'Motivasyon';
 
   @override
-  String get positiveThinking => 'Positive Thinking';
+  String get positiveThinking => 'Pozitif Düşünce';
 
   @override
-  String get relationships => 'Relationships';
+  String get relationships => 'İlişkiler';
 
   @override
-  String get sleep => 'Sleep';
+  String get sleep => 'Uyku';
 
   @override
-  String get stressAnxiety => 'Stress & Anxiety';
+  String get stressAnxiety => 'Stres & Anksiyete';
 
   @override
-  String get unlock => 'UNLOCK';
+  String get unlock => 'AÇ';
 
   @override
-  String get limited => 'LIMITED';
+  String get limited => 'SINIRLI';
+
+  @override
+  String get noAff => 'Henüz onaylama yok\nİlkini oluştur! ✨';
+
+  @override
+  String get writeAff => 'Onaylamanı yaz…';
+
+  @override
+  String get editAff => 'Onaylamayı Düzenle';
+
+  @override
+  String get newAff => 'Yeni Onaylama';
+
+  @override
+  String get howMany => 'Kaç kere';
+
+  @override
+  String get startAt => 'Başlangıç saati';
+
+  @override
+  String get endAt => 'Bitiş saati';
+
+  @override
+  String get repeatDays => 'Günler';
 }

@@ -108,13 +108,13 @@ abstract class AppLocalizations {
   /// No description provided for @welcomeSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Your path to inner clarity starts here.'**
+  /// **'Your path to inner clarity starts here'**
   String get welcomeSubtitle;
 
   /// No description provided for @welcomeLast.
   ///
   /// In en, this message translates to:
-  /// **'Your personalized journey starts now.'**
+  /// **'Your personalized journey starts now'**
   String get welcomeLast;
 
   /// No description provided for @startButton.
@@ -126,7 +126,7 @@ abstract class AppLocalizations {
   /// No description provided for @continueAgree.
   ///
   /// In en, this message translates to:
-  /// **'By continuing, you agree to our'**
+  /// **'By continuing, you agree to our '**
   String get continueAgree;
 
   /// No description provided for @termsOfUse.
@@ -140,6 +140,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'and'**
   String get and;
+
+  /// No description provided for @close.
+  ///
+  /// In en, this message translates to:
+  /// **'close'**
+  String get close;
+
+  /// No description provided for @favoritesLimitTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Favorites Limit'**
+  String get favoritesLimitTitle;
+
+  /// No description provided for @premiumActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Premium Active'**
+  String get premiumActive;
+
+  /// No description provided for @getPremium.
+  ///
+  /// In en, this message translates to:
+  /// **'Get Premium'**
+  String get getPremium;
+
+  /// No description provided for @category.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get category;
 
   /// No description provided for @categoryTitle.
   ///
@@ -270,14 +300,50 @@ abstract class AppLocalizations {
   /// No description provided for @genderDescription.
   ///
   /// In en, this message translates to:
-  /// **'We’ll personalize the experience based on your preference.'**
+  /// **'We’ll personalize the experience based on your preference'**
   String get genderDescription;
 
   /// No description provided for @nameDescription.
   ///
   /// In en, this message translates to:
-  /// **'Your name helps us personalize your affirmations.'**
+  /// **'Your name helps us personalize your affirmations'**
   String get nameDescription;
+
+  /// No description provided for @favoritesLimitMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve reached your free favorites limit (5).\n\nUpgrade to Premium ✨'**
+  String get favoritesLimitMessage;
+
+  /// No description provided for @myAffLimit.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve reached your free limit (5).\n\nUpgrade to Premium and save up to 100 custom affirmations ✨'**
+  String get myAffLimit;
+
+  /// No description provided for @voiceLimitMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your free voice preview is finished. Go Premium to enjoy full, unlimited voice reading ✨'**
+  String get voiceLimitMessage;
+
+  /// No description provided for @myAffLimitTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'My Affirmations Limit'**
+  String get myAffLimitTitle;
+
+  /// No description provided for @myAff.
+  ///
+  /// In en, this message translates to:
+  /// **'My Affirmations'**
+  String get myAff;
+
+  /// No description provided for @readLimit.
+  ///
+  /// In en, this message translates to:
+  /// **'Read Limit'**
+  String get readLimit;
 
   /// No description provided for @back.
   ///
@@ -356,6 +422,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please select at least one preference.'**
   String get pleasePrefs;
+
+  /// No description provided for @prefChoose.
+  ///
+  /// In en, this message translates to:
+  /// **'✨ Select what speaks to your soul'**
+  String get prefChoose;
 
   /// No description provided for @yourNamePersonalize.
   ///
@@ -722,6 +794,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'LIMITED'**
   String get limited;
+
+  /// No description provided for @noAff.
+  ///
+  /// In en, this message translates to:
+  /// **'No affirmations yet\nCreate your first one! ✨'**
+  String get noAff;
+
+  /// No description provided for @writeAff.
+  ///
+  /// In en, this message translates to:
+  /// **'Write your affirmation…'**
+  String get writeAff;
+
+  /// No description provided for @editAff.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Affirmation'**
+  String get editAff;
+
+  /// No description provided for @newAff.
+  ///
+  /// In en, this message translates to:
+  /// **'New Affirmation'**
+  String get newAff;
+
+  /// No description provided for @howMany.
+  ///
+  /// In en, this message translates to:
+  /// **'How many times'**
+  String get howMany;
+
+  /// No description provided for @startAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Start at'**
+  String get startAt;
+
+  /// No description provided for @endAt.
+  ///
+  /// In en, this message translates to:
+  /// **'End at'**
+  String get endAt;
+
+  /// No description provided for @repeatDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Repeat Days'**
+  String get repeatDays;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

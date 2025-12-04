@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:affirmation/constants/constants.dart';
 import 'package:affirmation/models/user_preferences.dart';
@@ -43,6 +44,18 @@ class PurchaseState extends ChangeNotifier {
     } catch (e) {
       print("❌ PurchaseState initialize error: $e");
     }
+  }
+
+  String get monthlyPriceLabel {
+    return isTurkey ? "₺29,99 / ay" : "€2.99 / month";
+  }
+
+  String get yearlyPriceLabel {
+    return isTurkey ? "₺199,99 / yıl" : "€29.99 / year";
+  }
+
+  String get lifeTimePriceLabel {
+    return isTurkey ? "₺399,99 / ömür boyu" : "€29.99 / life time";
   }
 
   Future<void> initStoreAvailability() async {
@@ -234,5 +247,11 @@ class PurchaseState extends ChangeNotifier {
     } else {
       print("🤖 Android → restorePurchases() kullanılmıyor");
     }
+  }
+
+  bool get isTurkey {
+    // Örnek: 'tr_TR', 'en_US'
+    final locale = Platform.localeName.toLowerCase();
+    return locale.endsWith("tr");
   }
 }

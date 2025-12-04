@@ -1,0 +1,500 @@
+{
+  "categoryId": "general",
+  "affirmations": [
+
+
+
+{ "id": "g_001", "text": "I grow steadier whenever I return to my breath.", "actualCategory": "stress_anxiety", "gender": "female" },
+{ "id": "g_002", "text": "I choose thoughts that gently support my progress.", "actualCategory": "positive_thinking", "gender": "female" },
+{ "id": "g_003", "text": "I welcome rest into my body at the end of each day.", "actualCategory": "sleep", "gender": "female" },
+{ "id": "g_004", "text": "I move forward at a pace that honors my energy.", "actualCategory": "self_care", "gender": "female" },
+{ "id": "g_005", "text": "I build confidence through consistent, quiet action.", "actualCategory": "confidence", "gender": "female" },
+
+{ "id": "g_006", "text": "My heart softens when I release unnecessary pressure.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_007", "text": "My gratitude expands when I notice life's simple gifts.", "actualCategory": "gratitude", "gender": "female" },
+
+{ "id": "g_008", "text": "I allow happiness to find me in small, gentle moments.", "actualCategory": "happiness", "gender": "female" },
+{ "id": "g_009", "text": "I strengthen my relationships through honesty and care.", "actualCategory": "relationships", "gender": "female" },
+{ "id": "g_010", "text": "I gain motivation each time I choose to begin again.", "actualCategory": "motivation", "gender": "female" },
+
+{ "id": "g_011", "text": "You rise into deeper strength one soft step at a time, {name}.", "actualCategory": "self_care", "gender": "female" },
+{ "id": "g_012", "text": "You reconnect with clarity each time you breathe with intention, {name}.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_013", "text": "Your confidence grows when you honor the progress you’ve made.", "actualCategory": "confidence", "gender": "any" },
+{ "id": "g_014", "text": "A calm night welcomes you when you allow your thoughts to settle.", "actualCategory": "sleep", "gender": "female" },
+{ "id": "g_015", "text": "Happiness blooms when you loosen expectations and trust the moment.", "actualCategory": "happiness", "gender": "female" },
+
+{ "id": "g_016", "text": "I honor my growth even when it feels subtle.", "actualCategory": "career_success", "gender": "female" },
+{ "id": "g_017", "text": "I let compassion guide me back to balance.", "actualCategory": "self_care", "gender": "female" },
+{ "id": "g_018", "text": "I trust my ability to turn challenges into understanding.", "actualCategory": "relationships", "gender": "female" },
+{ "id": "g_019", "text": "I breathe through tense moments and allow peace to return.", "actualCategory": "stress_anxiety", "gender": "female" },
+{ "id": "g_020", "text": "I create momentum by taking small, meaningful steps.", "actualCategory": "motivation", "gender": "female" },
+
+{ "id": "g_021", "text": "You find direction when you listen to your inner voice, {name}.", "actualCategory": "career_success", "gender": "female" },
+{ "id": "g_022", "text": "Positive thoughts shift your inner atmosphere at the right pace.", "actualCategory": "positive_thinking", "gender": "female" },
+{ "id": "g_023", "text": "Your relationships deepen when patience leads the way.", "actualCategory": "relationships", "gender": "female" },
+{ "id": "g_024", "text": "Calm returns when you reconnect with your breath.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_025", "text": "Gratitude helps you rediscover what truly matters.", "actualCategory": "gratitude", "gender": "female" },
+
+{ "id": "g_026", "text": "I trust myself to navigate uncertainty with grace.", "actualCategory": "positive_thinking", "gender": "female" },
+{ "id": "g_027", "text": "I build confidence by remembering what I’ve already overcome.", "actualCategory": "confidence", "gender": "female" },
+{ "id": "g_028", "text": "I allow rest to restore my mind and body fully.", "actualCategory": "sleep", "gender": "female" },
+{ "id": "g_029", "text": "I welcome a sense of ease into my daily rhythm.", "actualCategory": "stress_anxiety", "gender": "female" },
+{ "id": "g_030", "text": "I choose steady progress instead of rushing my growth.", "actualCategory": "career_success", "gender": "female" },
+
+{ "id": "g_031", "text": "You reconnect with motivation when you honor your intentions, {name}.", "actualCategory": "motivation", "gender": "female" },
+{ "id": "g_032", "text": "Your happiness expands as you notice gentle moments of joy.", "actualCategory": "happiness", "gender": "female" },
+{ "id": "g_033", "text": "Your clarity strengthens when your thoughts soften.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_034", "text": "Your confidence rises when you step into your truth.", "actualCategory": "confidence", "gender": "male" },
+{ "id": "g_035", "text": "Your heart grows lighter when gratitude becomes a habit.", "actualCategory": "gratitude", "gender": "female" },
+
+{ "id": "g_036", "text": "I find strength in moments of silence and reflection.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_037", "text": "I allow myself to feel joy without hesitation.", "actualCategory": "happiness", "gender": "female" },
+{ "id": "g_038", "text": "I release thoughts that no longer support my well-being.", "actualCategory": "positive_thinking", "gender": "female" },
+{ "id": "g_039", "text": "I approach challenges with curiosity instead of fear.", "actualCategory": "career_success", "gender": "female" },
+{ "id": "g_040", "text": "I invite peaceful energy into my stressful moments.", "actualCategory": "stress_anxiety", "gender": "female" },
+
+{ "id": "g_041", "text": "You soften tension when you let yourself slow down, {name}.", "actualCategory": "stress_anxiety", "gender": "female" },
+{ "id": "g_042", "text": "You deepen your relationships when you lead with compassion.", "actualCategory": "relationships", "gender": "female" },
+{ "id": "g_043", "text": "You create brighter days by embracing gentle optimism.", "actualCategory": "positive_thinking", "gender": "any" },
+{ "id": "g_044", "text": "You align with success when you trust your evolving skills.", "actualCategory": "career_success", "gender": "female" },
+{ "id": "g_045", "text": "You welcome joy back when you give yourself permission to rest.", "actualCategory": "sleep", "gender": "female" },
+
+{ "id": "g_046", "text": "I choose to honor my emotional needs without guilt.", "actualCategory": "self_care", "gender": "female" },
+{ "id": "g_047", "text": "I let motivation grow naturally through small actions.", "actualCategory": "motivation", "gender": "male" },
+{ "id": "g_048", "text": "I open my heart to deeper, more supportive connections.", "actualCategory": "relationships", "gender": "female" },
+{ "id": "g_049", "text": "I allow happiness to flow through the simplest experiences.", "actualCategory": "happiness", "gender": "female" },
+{ "id": "g_050", "text": "I strengthen my confidence by honoring my progress daily.", "actualCategory": "confidence", "gender": "female" },
+
+{ "id": "g_051", "text": "I allow calmness to settle gently within me.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_052", "text": "I choose thoughts that support my emotional balance.", "actualCategory": "positive_thinking", "gender": "female" },
+{ "id": "g_053", "text": "I move through stressful moments with patience and softness.", "actualCategory": "stress_anxiety", "gender": "female" },
+{ "id": "g_054", "text": "I let happiness unfold naturally throughout my day.", "actualCategory": "happiness", "gender": "female" },
+{ "id": "g_055", "text": "I create motivation through consistent, gentle action.", "actualCategory": "motivation", "gender": "female" },
+
+{ "id": "g_056", "text": "My confidence strengthens when I celebrate small wins.", "actualCategory": "confidence", "gender": "female" },
+{ "id": "g_057", "text": "My gratitude grows as I notice life’s quiet blessings.", "actualCategory": "gratitude", "gender": "female" },
+{ "id": "g_058", "text": "My heart relaxes when I let go of unnecessary pressure.", "actualCategory": "self_care", "gender": "female" },
+
+{ "id": "g_059", "text": "You rise stronger when you trust your inner resilience, {name}.", "actualCategory": "confidence", "gender": "female" },
+{ "id": "g_060", "text": "You reconnect with peace when you breathe with intention, {name}.", "actualCategory": "mindfulness", "gender": "female" },
+
+{ "id": "g_061", "text": "I welcome clarity by slowing down my thoughts.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_062", "text": "I let go of stress that no longer supports my well-being.", "actualCategory": "stress_anxiety", "gender": "female" },
+{ "id": "g_063", "text": "I trust my ability to build a meaningful career.", "actualCategory": "career_success", "gender": "female" },
+{ "id": "g_064", "text": "I nurture relationships that feel safe and supportive.", "actualCategory": "relationships", "gender": "female" },
+{ "id": "g_065", "text": "I choose optimism even when life feels uncertain.", "actualCategory": "positive_thinking", "gender": "female" },
+
+{ "id": "g_066", "text": "You deepen your happiness when you embrace gentler expectations.", "actualCategory": "happiness", "gender": "female" },
+{ "id": "g_067", "text": "You bring calm into your world by honoring your own pace.", "actualCategory": "self_care", "gender": "female" },
+{ "id": "g_068", "text": "You find rest when you release the weight of the day, {name}.", "actualCategory": "sleep", "gender": "female" },
+{ "id": "g_069", "text": "Your relationships strengthen through patient understanding.", "actualCategory": "relationships", "gender": "female" },
+{ "id": "g_070", "text": "Your motivation grows as you reconnect with what matters.", "actualCategory": "motivation", "gender": "female" },
+
+{ "id": "g_071", "text": "I give myself the permission to rest fully.", "actualCategory": "sleep", "gender": "female" },
+{ "id": "g_072", "text": "I nourish my confidence through everyday courage.", "actualCategory": "confidence", "gender": "female" },
+{ "id": "g_073", "text": "I build momentum by embracing small steps forward.", "actualCategory": "career_success", "gender": "female" },
+{ "id": "g_074", "text": "I choose grateful thoughts to elevate my mood.", "actualCategory": "gratitude", "gender": "female" },
+{ "id": "g_075", "text": "I soften my internal dialogue to welcome more peace.", "actualCategory": "self_care", "gender": "female" },
+
+{ "id": "g_076", "text": "You rediscover peace when you step back and breathe, {name}.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_077", "text": "You shine brighter when you honor your authentic voice.", "actualCategory": "confidence", "gender": "male" },
+{ "id": "g_078", "text": "You strengthen connections by showing gentle compassion.", "actualCategory": "relationships", "gender": "female" },
+{ "id": "g_079", "text": "You create joy by noticing the softer parts of your day.", "actualCategory": "happiness", "gender": "female" },
+{ "id": "g_080", "text": "You build resilience one breath at a time, {name}.", "actualCategory": "stress_anxiety", "gender": "female" },
+
+{ "id": "g_081", "text": "I let motivation come naturally without force.", "actualCategory": "motivation", "gender": "female" },
+{ "id": "g_082", "text": "I cultivate gratitude by appreciating simple comforts.", "actualCategory": "gratitude", "gender": "female" },
+{ "id": "g_083", "text": "I grow my career by trusting my evolving skills.", "actualCategory": "career_success", "gender": "female" },
+{ "id": "g_084", "text": "I welcome kindness into my thoughts and actions.", "actualCategory": "positive_thinking", "gender": "female" },
+{ "id": "g_085", "text": "I allow rest to restore my energy completely.", "actualCategory": "sleep", "gender": "female" },
+
+{ "id": "g_086", "text": "You find strength in the moments you choose patience.", "actualCategory": "self_care", "gender": "female" },
+{ "id": "g_087", "text": "You move toward success by trusting your direction, {name}.", "actualCategory": "career_success", "gender": "female" },
+{ "id": "g_088", "text": "You invite calm when you release unnecessary expectations.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_089", "text": "Your gratitude anchors you during uncertain times.", "actualCategory": "gratitude", "gender": "any" },
+{ "id": "g_090", "text": "Your happiness expands when you notice subtle sources of joy.", "actualCategory": "happiness", "gender": "female" },
+
+{ "id": "g_091", "text": "I trust my path even when the next step feels unclear.", "actualCategory": "positive_thinking", "gender": "female" },
+{ "id": "g_092", "text": "I support my emotional health with gentle self-talk.", "actualCategory": "self_care", "gender": "female" },
+{ "id": "g_093", "text": "I strengthen my mind by returning to the present moment.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_094", "text": "I welcome new motivation through clarity and purpose.", "actualCategory": "motivation", "gender": "female" },
+{ "id": "g_095", "text": "I approach my goals with ease rather than pressure.", "actualCategory": "career_success", "gender": "female" },
+
+{ "id": "g_096", "text": "You soften your stress by embracing slower rhythms, {name}.", "actualCategory": "stress_anxiety", "gender": "female" },
+{ "id": "g_097", "text": "You nurture meaningful relationships through presence.", "actualCategory": "relationships", "gender": "female" },
+{ "id": "g_098", "text": "You step into confidence by honoring your truth.", "actualCategory": "confidence", "gender": "female" },
+{ "id": "g_099", "text": "You end your day peacefully by letting the past rest.", "actualCategory": "sleep", "gender": "female" },
+{ "id": "g_100", "text": "You elevate your life by inviting gratitude into every breath.", "actualCategory": "gratitude", "gender": "female" },
+
+
+{ "id": "g_101", "text": "I welcome peace into the parts of me that feel overwhelmed.", "actualCategory": "stress_anxiety", "gender": "female" },
+{ "id": "g_102", "text": "I allow calm thoughts to guide me through uncertainty.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_103", "text": "I choose growth that respects my own pace.", "actualCategory": "self_care", "gender": "female" },
+{ "id": "g_104", "text": "I trust my ability to rebuild motivation gently.", "actualCategory": "motivation", "gender": "female" },
+{ "id": "g_105", "text": "I open myself to moments of genuine happiness.", "actualCategory": "happiness", "gender": "female" },
+
+{ "id": "g_106", "text": "My confidence expands when I honor my quiet progress.", "actualCategory": "confidence", "gender": "female" },
+{ "id": "g_107", "text": "My gratitude deepens as I notice the beauty of small moments.", "actualCategory": "gratitude", "gender": "female" },
+
+{ "id": "g_108", "text": "You rise stronger each time you choose compassion, {name}.", "actualCategory": "self_care", "gender": "female" },
+{ "id": "g_109", "text": "You reconnect with clarity when you breathe with intention, {name}.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_110", "text": "Your confidence grows when you celebrate steady progress.", "actualCategory": "confidence", "gender": "any" },
+
+{ "id": "g_111", "text": "I release tension that doesn't belong to me anymore.", "actualCategory": "stress_anxiety", "gender": "female" },
+{ "id": "g_112", "text": "I rest deeply when I allow my thoughts to settle.", "actualCategory": "sleep", "gender": "female" },
+{ "id": "g_113", "text": "I create motivation through small actions that matter to me.", "actualCategory": "motivation", "gender": "female" },
+{ "id": "g_114", "text": "I invest in relationships that feel nurturing and honest.", "actualCategory": "relationships", "gender": "female" },
+{ "id": "g_115", "text": "I follow the path that aligns with my long-term vision.", "actualCategory": "career_success", "gender": "female" },
+
+{ "id": "g_116", "text": "You open new doors when you trust your inner direction, {name}.", "actualCategory": "career_success", "gender": "female" },
+{ "id": "g_117", "text": "Your happiness expands as you embrace softer expectations.", "actualCategory": "happiness", "gender": "female" },
+{ "id": "g_118", "text": "Your relationships flourish when you show gentle understanding.", "actualCategory": "relationships", "gender": "female" },
+{ "id": "g_119", "text": "Your gratitude grows when you slow down and notice the present.", "actualCategory": "gratitude", "gender": "female" },
+{ "id": "g_120", "text": "Your breath brings you home to yourself each time you pause.", "actualCategory": "mindfulness", "gender": "female" },
+
+{ "id": "g_121", "text": "I give myself permission to rest without guilt.", "actualCategory": "sleep", "gender": "female" },
+{ "id": "g_122", "text": "I reclaim confidence by acknowledging my evolution.", "actualCategory": "confidence", "gender": "female" },
+{ "id": "g_123", "text": "I move gently through stress with patience and care.", "actualCategory": "stress_anxiety", "gender": "female" },
+{ "id": "g_124", "text": "I open space for happiness to return naturally.", "actualCategory": "happiness", "gender": "female" },
+{ "id": "g_125", "text": "I approach my goals with curiosity rather than pressure.", "actualCategory": "career_success", "gender": "female" },
+
+{ "id": "g_126", "text": "You reconnect with ease when you give yourself time, {name}.", "actualCategory": "self_care", "gender": "female" },
+{ "id": "g_127", "text": "You shine brighter when you trust your quiet resilience.", "actualCategory": "confidence", "gender": "female" },
+{ "id": "g_128", "text": "You find calmness in the moments you choose to slow down.", "actualCategory": "stress_anxiety", "gender": "any" },
+{ "id": "g_129", "text": "You deepen your relationships through mindful presence.", "actualCategory": "relationships", "gender": "female" },
+{ "id": "g_130", "text": "You rediscover joy in the simplicity of ordinary moments.", "actualCategory": "happiness", "gender": "female" },
+
+{ "id": "g_131", "text": "I nurture my motivation by showing up consistently.", "actualCategory": "motivation", "gender": "female" },
+{ "id": "g_132", "text": "I strengthen my emotional resilience each day.", "actualCategory": "self_care", "gender": "female" },
+{ "id": "g_133", "text": "I choose clarity by releasing unnecessary worries.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_134", "text": "I practice gratitude to stay connected to what matters.", "actualCategory": "gratitude", "gender": "female" },
+{ "id": "g_135", "text": "I build my confidence through intention, not perfection.", "actualCategory": "confidence", "gender": "female" },
+
+{ "id": "g_136", "text": "You create lasting success when you trust your direction, {name}.", "actualCategory": "career_success", "gender": "female" },
+{ "id": "g_137", "text": "Your calm expands when you choose kinder thoughts.", "actualCategory": "positive_thinking", "gender": "female" },
+{ "id": "g_138", "text": "Your relationships thrive when compassion shapes your actions.", "actualCategory": "relationships", "gender": "female" },
+{ "id": "g_139", "text": "Your sleep deepens when you release the weight of the day.", "actualCategory": "sleep", "gender": "female" },
+{ "id": "g_140", "text": "Your gratitude reconnects you with moments of quiet joy.", "actualCategory": "gratitude", "gender": "any" },
+
+{ "id": "g_141", "text": "I let my breath dissolve tension within me.", "actualCategory": "stress_anxiety", "gender": "female" },
+{ "id": "g_142", "text": "I allow joy to surprise me in gentle ways.", "actualCategory": "happiness", "gender": "female" },
+{ "id": "g_143", "text": "I step into confidence by honoring my worth.", "actualCategory": "confidence", "gender": "female" },
+{ "id": "g_144", "text": "I welcome clarity by slowing down my thoughts.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_145", "text": "I grow closer to success by trusting my evolving abilities.", "actualCategory": "career_success", "gender": "female" },
+
+{ "id": "g_146", "text": "You soften your stress when you allow stillness to reach you.", "actualCategory": "stress_anxiety", "gender": "female" },
+{ "id": "g_147", "text": "You nurture motivation by choosing aligned action, {name}.", "actualCategory": "motivation", "gender": "female" },
+{ "id": "g_148", "text": "You create stronger bonds through open-hearted honesty.", "actualCategory": "relationships", "gender": "female" },
+{ "id": "g_149", "text": "You welcome peace when you exhale what no longer serves you.", "actualCategory": "mindfulness", "gender": "male" },
+{ "id": "g_150", "text": "You brighten your life by inviting small sparks of gratitude.", "actualCategory": "gratitude", "gender": "female" },
+
+{ "id": "g_151", "text": "I welcome peaceful thoughts into my mind.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_152", "text": "I choose actions that support my emotional well-being.", "actualCategory": "self_care", "gender": "female" },
+{ "id": "g_153", "text": "I release stress by returning to steady breathing.", "actualCategory": "stress_anxiety", "gender": "female" },
+{ "id": "g_154", "text": "I open myself to moments of gentle joy.", "actualCategory": "happiness", "gender": "female" },
+{ "id": "g_155", "text": "I create motivation through consistent, aligned steps.", "actualCategory": "motivation", "gender": "female" },
+
+{ "id": "g_156", "text": "My confidence deepens each time I trust my decisions.", "actualCategory": "confidence", "gender": "female" },
+{ "id": "g_157", "text": "My gratitude blossoms when I slow down and notice small gifts.", "actualCategory": "gratitude", "gender": "female" },
+{ "id": "g_158", "text": "My heart relaxes when I let go of emotional pressure.", "actualCategory": "self_care", "gender": "female" },
+
+{ "id": "g_159", "text": "You reconnect with strength when you honor your progress, {name}.", "actualCategory": "confidence", "gender": "female" },
+{ "id": "g_160", "text": "You rediscover calm when you breathe with intention, {name}.", "actualCategory": "mindfulness", "gender": "female" },
+
+{ "id": "g_161", "text": "I bring clarity into my day by simplifying my thoughts.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_162", "text": "I allow myself to release tension slowly and kindly.", "actualCategory": "stress_anxiety", "gender": "female" },
+{ "id": "g_163", "text": "I build my career through steady commitment and trust.", "actualCategory": "career_success", "gender": "female" },
+{ "id": "g_164", "text": "I nourish relationships that feel authentic and caring.", "actualCategory": "relationships", "gender": "female" },
+{ "id": "g_165", "text": "I guide my thoughts toward gentle optimism.", "actualCategory": "positive_thinking", "gender": "female" },
+
+{ "id": "g_166", "text": "You step into happiness when you embrace softer expectations.", "actualCategory": "happiness", "gender": "female" },
+{ "id": "g_167", "text": "You protect your peace when you honor your boundaries, {name}.", "actualCategory": "self_care", "gender": "female" },
+{ "id": "g_168", "text": "You find rest when you allow the day to fade away.", "actualCategory": "sleep", "gender": "female" },
+{ "id": "g_169", "text": "Your relationships strengthen through gentle communication.", "actualCategory": "relationships", "gender": "female" },
+{ "id": "g_170", "text": "Your motivation grows when you reconnect with purpose.", "actualCategory": "motivation", "gender": "female" },
+
+{ "id": "g_171", "text": "I let my breath guide me back to a calm center.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_172", "text": "I honor my emotional needs without hesitation.", "actualCategory": "self_care", "gender": "female" },
+{ "id": "g_173", "text": "I expand my confidence by taking aligned action.", "actualCategory": "confidence", "gender": "female" },
+{ "id": "g_174", "text": "I support my growth by choosing hopeful thoughts.", "actualCategory": "positive_thinking", "gender": "female" },
+{ "id": "g_175", "text": "I allow sleep to restore my body and spirit fully.", "actualCategory": "sleep", "gender": "female" },
+
+{ "id": "g_176", "text": "You move through stress more easily when you pause and breathe, {name}.", "actualCategory": "stress_anxiety", "gender": "female" },
+{ "id": "g_177", "text": "You elevate your relationships by showing honest vulnerability.", "actualCategory": "relationships", "gender": "female" },
+{ "id": "g_178", "text": "You cultivate positive energy by choosing kinder thoughts.", "actualCategory": "positive_thinking", "gender": "female" },
+{ "id": "g_179", "text": "You align with career success when you trust your inner compass.", "actualCategory": "career_success", "gender": "any" },
+{ "id": "g_180", "text": "You rediscover joy in the warmth of simple moments.", "actualCategory": "happiness", "gender": "female" },
+
+{ "id": "g_181", "text": "I embrace progress even when it feels slow.", "actualCategory": "career_success", "gender": "female" },
+{ "id": "g_182", "text": "I breathe patience into moments that feel overwhelming.", "actualCategory": "stress_anxiety", "gender": "female" },
+{ "id": "g_183", "text": "I protect my peace by softening my expectations.", "actualCategory": "self_care", "gender": "female" },
+{ "id": "g_184", "text": "I let gratitude shift my perspective with ease.", "actualCategory": "gratitude", "gender": "female" },
+{ "id": "g_185", "text": "I allow happiness to return in its own time.", "actualCategory": "happiness", "gender": "female" },
+
+{ "id": "g_186", "text": "You strengthen your confidence with every honest choice.", "actualCategory": "confidence", "gender": "female" },
+{ "id": "g_187", "text": "You reconnect with rest when you release the day's noise, {name}.", "actualCategory": "sleep", "gender": "female" },
+{ "id": "g_188", "text": "You guide your relationships with compassion and openness.", "actualCategory": "relationships", "gender": "female" },
+{ "id": "g_189", "text": "You inspire your own growth by embracing patience.", "actualCategory": "positive_thinking", "gender": "female" },
+{ "id": "g_190", "text": "You create balance by honoring what truly matters to you.", "actualCategory": "self_care", "gender": "female" },
+
+{ "id": "g_191", "text": "I trust my journey even when the path feels unclear.", "actualCategory": "positive_thinking", "gender": "female" },
+{ "id": "g_192", "text": "I build resilience by returning to the present moment.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_193", "text": "I let motivation rise naturally through purposeful choices.", "actualCategory": "motivation", "gender": "female" },
+{ "id": "g_194", "text": "I offer myself compassion during moments of uncertainty.", "actualCategory": "self_care", "gender": "female" },
+{ "id": "g_195", "text": "I call in calm by softening my internal pace.", "actualCategory": "stress_anxiety", "gender": "female" },
+
+{ "id": "g_196", "text": "You nurture success when you trust your evolving strengths, {name}.", "actualCategory": "career_success", "gender": "female" },
+{ "id": "g_197", "text": "You brighten your inner world by leaning into gratitude.", "actualCategory": "gratitude", "gender": "female" },
+{ "id": "g_198", "text": "You ground yourself when your breath becomes your anchor.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_199", "text": "You reconnect with joy when you allow softness into your day.", "actualCategory": "happiness", "gender": "female" },
+{ "id": "g_200", "text": "You build resilience by choosing peace moment by moment.", "actualCategory": "stress_anxiety", "gender": "female" },
+
+
+{ "id": "g_201", "text": "I allow calm to rise gently within me.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_202", "text": "I release tension by slowing my breath.", "actualCategory": "stress_anxiety", "gender": "female" },
+{ "id": "g_203", "text": "I choose thoughts that support my emotional clarity.", "actualCategory": "positive_thinking", "gender": "female" },
+{ "id": "g_204", "text": "I welcome small sparks of joy throughout my day.", "actualCategory": "happiness", "gender": "female" },
+{ "id": "g_205", "text": "I create momentum through steady, aligned action.", "actualCategory": "motivation", "gender": "female" },
+
+{ "id": "g_206", "text": "My confidence expands when I honor my own pace.", "actualCategory": "confidence", "gender": "female" },
+{ "id": "g_207", "text": "My gratitude grows as I notice life’s subtle blessings.", "actualCategory": "gratitude", "gender": "female" },
+{ "id": "g_208", "text": "My heart steadies when I offer myself compassion.", "actualCategory": "self_care", "gender": "female" },
+
+{ "id": "g_209", "text": "You reconnect with strength when you trust your journey, {name}.", "actualCategory": "confidence", "gender": "female" },
+{ "id": "g_210", "text": "You rediscover peace when you breathe with intention, {name}.", "actualCategory": "mindfulness", "gender": "female" },
+
+{ "id": "g_211", "text": "Your happiness expands as you embrace softer expectations.", "actualCategory": "happiness", "gender": "female" },
+{ "id": "g_212", "text": "Your motivation grows when you reconnect with your purpose.", "actualCategory": "motivation", "gender": "female" },
+{ "id": "g_213", "text": "Your relationships deepen when compassion leads the way.", "actualCategory": "relationships", "gender": "female" },
+{ "id": "g_214", "text": "Your breath gently guides you back to the present.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_215", "text": "Your gratitude anchors you during uncertain moments.", "actualCategory": "gratitude", "gender": "any" },
+
+{ "id": "g_216", "text": "I honor my emotional needs without apology.", "actualCategory": "self_care", "gender": "female" },
+{ "id": "g_217", "text": "I rest deeply when I allow the day to fall away.", "actualCategory": "sleep", "gender": "female" },
+{ "id": "g_218", "text": "I strengthen my resilience through patience and practice.", "actualCategory": "stress_anxiety", "gender": "female" },
+{ "id": "g_219", "text": "I choose hopeful thoughts that nourish my perspective.", "actualCategory": "positive_thinking", "gender": "female" },
+{ "id": "g_220", "text": "I build my career by trusting my steady growth.", "actualCategory": "career_success", "gender": "female" },
+
+{ "id": "g_221", "text": "You rediscover rest when you release the day's weight, {name}.", "actualCategory": "sleep", "gender": "female" },
+{ "id": "g_222", "text": "You nurture your relationships with gentle honesty.", "actualCategory": "relationships", "gender": "female" },
+{ "id": "g_223", "text": "You inspire growth by choosing compassionate thoughts.", "actualCategory": "positive_thinking", "gender": "female" },
+{ "id": "g_224", "text": "You find clarity when you return to your breath.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_225", "text": "You align with confidence when you honor your truth.", "actualCategory": "confidence", "gender": "male" },
+
+{ "id": "g_226", "text": "I allow happiness to flow in at its own pace.", "actualCategory": "happiness", "gender": "female" },
+{ "id": "g_227", "text": "I soften my expectations to create more peace.", "actualCategory": "self_care", "gender": "female" },
+{ "id": "g_228", "text": "I cultivate gratitude through intentional awareness.", "actualCategory": "gratitude", "gender": "female" },
+{ "id": "g_229", "text": "I invite calmness into moments of overwhelm.", "actualCategory": "stress_anxiety", "gender": "female" },
+{ "id": "g_230", "text": "I trust my ability to move forward with purpose.", "actualCategory": "career_success", "gender": "female" },
+
+{ "id": "g_231", "text": "You reconnect with joy when you honor simple pleasures.", "actualCategory": "happiness", "gender": "female" },
+{ "id": "g_232", "text": "You strengthen motivation through aligned daily choices.", "actualCategory": "motivation", "gender": "female" },
+{ "id": "g_233", "text": "You soften stress by embracing gentle stillness, {name}.", "actualCategory": "stress_anxiety", "gender": "female" },
+{ "id": "g_234", "text": "You create deeper bonds through mindful presence.", "actualCategory": "relationships", "gender": "female" },
+{ "id": "g_235", "text": "You expand your gratitude by noticing quiet beauty.", "actualCategory": "gratitude", "gender": "female" },
+
+{ "id": "g_236", "text": "Strength rises when you honor your emotional needs.", "actualCategory": "self_care", "gender": "female" },
+{ "id": "g_237", "text": "Calm returns when acceptance becomes your anchor.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_238", "text": "Peace grows when you release what drains your energy.", "actualCategory": "stress_anxiety", "gender": "female" },
+{ "id": "g_239", "text": "Joy meets you when you open space for lightness.", "actualCategory": "happiness", "gender": "female" },
+{ "id": "g_240", "text": "Stillness restores you when you pause long enough to feel it.", "actualCategory": "sleep", "gender": "female" },
+
+{ "id": "g_241", "text": "I grow stronger through consistency and gentle effort.", "actualCategory": "motivation", "gender": "female" },
+{ "id": "g_242", "text": "I approach my goals with clarity and confidence.", "actualCategory": "career_success", "gender": "female" },
+{ "id": "g_243", "text": "I welcome gratitude as a daily grounding practice.", "actualCategory": "gratitude", "gender": "female" },
+{ "id": "g_244", "text": "I open my heart to brighter possibilities.", "actualCategory": "positive_thinking", "gender": "female" },
+{ "id": "g_245", "text": "I trust my inner wisdom to guide each decision.", "actualCategory": "mindfulness", "gender": "female" },
+
+{ "id": "g_246", "text": "Hope grows when you give yourself room to breathe.", "actualCategory": "positive_thinking", "gender": "female" },
+{ "id": "g_247", "text": "Ease finds you when your heart slows its pace, {name}.", "actualCategory": "self_care", "gender": "female" },
+{ "id": "g_248", "text": "Compassion deepens your connections when you lead with openness.", "actualCategory": "relationships", "gender": "female" },
+{ "id": "g_249", "text": "Clarity greets you when you release lingering tension.", "actualCategory": "stress_anxiety", "gender": "female" },
+{ "id": "g_250", "text": "Purpose strengthens you as you move toward meaningful goals.", "actualCategory": "career_success", "gender": "female" }, 
+
+{ "id": "g_251", "text": "I treat myself with patience as I continue to grow.", "actualCategory": "self_care", "gender": "female" },
+{ "id": "g_252", "text": "You reconnect with comfort when you honor your needs, {name}.", "actualCategory": "self_care", "gender": "female" },
+{ "id": "g_253", "text": "My well-being improves when I choose gentle routines.", "actualCategory": "self_care", "gender": "female" },
+{ "id": "g_254", "text": "Strength rises when you respond to yourself with kindness.", "actualCategory": "self_care", "gender": "female" },
+
+{ "id": "g_255", "text": "I deepen my rest by releasing the day slowly.", "actualCategory": "sleep", "gender": "female" },
+{ "id": "g_256", "text": "You ease into sleep when you let your thoughts soften, {name}.", "actualCategory": "sleep", "gender": "female" },
+{ "id": "g_257", "text": "Your evenings grow calmer as you welcome stillness.", "actualCategory": "sleep", "gender": "female" },
+{ "id": "g_258", "text": "Peace settles in when you quiet the noise around you.", "actualCategory": "sleep", "gender": "female" },
+
+{ "id": "g_259", "text": "I breathe steadily through moments of tension.", "actualCategory": "stress_anxiety", "gender": "female" },
+{ "id": "g_260", "text": "You soften your stress when you release rushed expectations, {name}.", "actualCategory": "stress_anxiety", "gender": "female" },
+{ "id": "g_261", "text": "My mind settles when I stop resisting difficult emotions.", "actualCategory": "stress_anxiety", "gender": "female" },
+{ "id": "g_262", "text": "Relief arrives when you choose one slow breath.", "actualCategory": "stress_anxiety", "gender": "any" },
+
+{ "id": "g_263", "text": "I nurture my relationships with honest presence.", "actualCategory": "relationships", "gender": "female" },
+{ "id": "g_264", "text": "You create deeper bonds when you listen with openness.", "actualCategory": "relationships", "gender": "female" },
+{ "id": "g_265", "text": "My connections strengthen when I communicate with care.", "actualCategory": "relationships", "gender": "female" },
+{ "id": "g_266", "text": "Warmth grows when you offer compassion freely.", "actualCategory": "relationships", "gender": "female" },
+
+{ "id": "g_267", "text": "I allow happiness to appear in unexpected ways.", "actualCategory": "happiness", "gender": "female" },
+{ "id": "g_268", "text": "You welcome joy when you make space for lighter moments, {name}.", "actualCategory": "happiness", "gender": "female" },
+{ "id": "g_269", "text": "Your heart brightens when you notice subtle joys.", "actualCategory": "happiness", "gender": "female" },
+{ "id": "g_270", "text": "Joy grows whenever you honor simple pleasures.", "actualCategory": "happiness", "gender": "female" },
+
+{ "id": "g_271", "text": "I choose perspectives that lift my spirit.", "actualCategory": "positive_thinking", "gender": "female" },
+{ "id": "g_272", "text": "Your optimism softens the heaviness of the moment.", "actualCategory": "positive_thinking", "gender": "female" },
+{ "id": "g_273", "text": "My thoughts shift toward hope when I pause with intention.", "actualCategory": "positive_thinking", "gender": "female" },
+{ "id": "g_274", "text": "Brightness enters when you release limiting beliefs.", "actualCategory": "positive_thinking", "gender": "female" },
+
+{ "id": "g_275", "text": "I trust the confidence growing within me.", "actualCategory": "confidence", "gender": "female" },
+{ "id": "g_276", "text": "You rediscover strength when you honor your truth, {name}.", "actualCategory": "confidence", "gender": "female" },
+{ "id": "g_277", "text": "My courage expands each time I act with intention.", "actualCategory": "confidence", "gender": "female" },
+{ "id": "g_278", "text": "Confidence rises when you celebrate your quiet victories.", "actualCategory": "confidence", "gender": "female" },
+
+{ "id": "g_279", "text": "I create lasting motivation through aligned choices.", "actualCategory": "motivation", "gender": "female" },
+{ "id": "g_280", "text": "You build momentum by honoring your purpose, {name}.", "actualCategory": "motivation", "gender": "female" },
+{ "id": "g_281", "text": "My drive strengthens when I value steady progress.", "actualCategory": "motivation", "gender": "female" },
+{ "id": "g_282", "text": "Motivation blooms when you reconnect with your intentions.", "actualCategory": "motivation", "gender": "female" },
+
+{ "id": "g_283", "text": "I return to the present by observing my breath.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_284", "text": "You ground yourself when you stay with the current moment.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_285", "text": "My awareness expands when I slow my internal pace.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_286", "text": "Calm clarity appears when you settle into now.", "actualCategory": "mindfulness", "gender": "female" },
+
+{ "id": "g_287", "text": "I trust my evolving abilities as I pursue meaningful goals.", "actualCategory": "career_success", "gender": "female" },
+{ "id": "g_288", "text": "You align with success when you follow your authentic direction, {name}.", "actualCategory": "career_success", "gender": "female" },
+{ "id": "g_289", "text": "My work grows stronger when I act with clarity and purpose.", "actualCategory": "career_success", "gender": "female" },
+{ "id": "g_290", "text": "Success follows when you honor your long-term vision.", "actualCategory": "career_success", "gender": "any" },
+
+{ "id": "g_291", "text": "I cultivate gratitude by acknowledging small blessings.", "actualCategory": "gratitude", "gender": "female" },
+{ "id": "g_292", "text": "You brighten your world by appreciating gentle moments.", "actualCategory": "gratitude", "gender": "female" },
+{ "id": "g_293", "text": "My heart feels lighter when I choose appreciation.", "actualCategory": "gratitude", "gender": "female" },
+{ "id": "g_294", "text": "Thankfulness grows when you embrace everyday goodness.", "actualCategory": "gratitude", "gender": "female" },
+
+{ "id": "g_295", "text": "Ease arrives when you give yourself a softer rhythm.", "actualCategory": "self_care", "gender": "female" },
+{ "id": "g_296", "text": "Stillness reveals itself when you make room for quiet.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_297", "text": "Lightness returns when you let heavy thoughts drift away.", "actualCategory": "stress_anxiety", "gender": "female" },
+{ "id": "g_298", "text": "Joy warms you when you slow down enough to feel it.", "actualCategory": "happiness", "gender": "female" },
+{ "id": "g_299", "text": "Purpose strengthens you as you walk toward meaning.", "actualCategory": "career_success", "gender": "female" },
+{ "id": "g_300", "text": "Clarity greets you when your heart chooses presence.", "actualCategory": "mindfulness", "gender": "female" },
+
+{ "id": "g_301", "text": "I honor my emotional rhythm with patience.", "actualCategory": "self_care", "gender": "female" },
+{ "id": "g_302", "text": "I allow softer thoughts to shape my inner world.", "actualCategory": "positive_thinking", "gender": "female" },
+{ "id": "g_303", "text": "I ease tension by slowing my breath intentionally.", "actualCategory": "stress_anxiety", "gender": "female" },
+{ "id": "g_304", "text": "I welcome gentle moments of joy into my day.", "actualCategory": "happiness", "gender": "female" },
+{ "id": "g_305", "text": "I build motivation through meaningful small habits.", "actualCategory": "motivation", "gender": "female" },
+
+{ "id": "g_306", "text": "My confidence grows when I honor my worth.", "actualCategory": "confidence", "gender": "female" },
+{ "id": "g_307", "text": "My gratitude deepens as I notice tiny gifts around me.", "actualCategory": "gratitude", "gender": "female" },
+{ "id": "g_308", "text": "My heart opens when I offer myself understanding.", "actualCategory": "self_care", "gender": "female" },
+
+{ "id": "g_309", "text": "You rise stronger when you acknowledge your progress, {name}.", "actualCategory": "confidence", "gender": "female" },
+{ "id": "g_310", "text": "You rediscover peace when you breathe with presence, {name}.", "actualCategory": "mindfulness", "gender": "female" },
+
+{ "id": "g_311", "text": "Your happiness grows when you welcome softer expectations.", "actualCategory": "happiness", "gender": "female" },
+{ "id": "g_312", "text": "Your motivation strengthens when you reconnect with purpose.", "actualCategory": "motivation", "gender": "female" },
+{ "id": "g_313", "text": "Your relationships deepen when kindness guides your actions.", "actualCategory": "relationships", "gender": "female" },
+{ "id": "g_314", "text": "Your breath draws you back into the present moment.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_315", "text": "Your gratitude anchors you when life feels heavy.", "actualCategory": "gratitude", "gender": "any" },
+
+{ "id": "g_316", "text": "I give myself permission to release emotional weight.", "actualCategory": "self_care", "gender": "female" },
+{ "id": "g_317", "text": "I rest more deeply when I allow the day to soften.", "actualCategory": "sleep", "gender": "female" },
+{ "id": "g_318", "text": "I stay grounded by observing my thoughts without judgment.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_319", "text": "I support my growth through compassionate self-talk.", "actualCategory": "positive_thinking", "gender": "female" },
+{ "id": "g_320", "text": "I strengthen my resilience by meeting challenges gently.", "actualCategory": "stress_anxiety", "gender": "female" },
+
+{ "id": "g_321", "text": "You return to rest when you let the day fade away, {name}.", "actualCategory": "sleep", "gender": "female" },
+{ "id": "g_322", "text": "You nurture deeper relationships with mindful presence.", "actualCategory": "relationships", "gender": "female" },
+{ "id": "g_323", "text": "You brighten your world when you embrace simple joys.", "actualCategory": "happiness", "gender": "female" },
+{ "id": "g_324", "text": "You align with success when you trust your inner voice.", "actualCategory": "career_success", "gender": "female" },
+{ "id": "g_325", "text": "You soften stress when you allow yourself to pause.", "actualCategory": "stress_anxiety", "gender": "female" },
+
+{ "id": "g_326", "text": "Calm returns when you give yourself permission to slow down.", "actualCategory": "self_care", "gender": "female" },
+{ "id": "g_327", "text": "Hope expands when you open space for new possibilities.", "actualCategory": "positive_thinking", "gender": "female" },
+{ "id": "g_328", "text": "Stillness deepens when your breath leads the way.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_329", "text": "Warmth spreads when you notice the good around you.", "actualCategory": "gratitude", "gender": "female" },
+{ "id": "g_330", "text": "Lightness returns when you release heavy expectations.", "actualCategory": "stress_anxiety", "gender": "any" },
+
+{ "id": "g_331", "text": "I cultivate gratitude as a daily grounding ritual.", "actualCategory": "gratitude", "gender": "female" },
+{ "id": "g_332", "text": "I strengthen my confidence through aligned choices.", "actualCategory": "confidence", "gender": "female" },
+{ "id": "g_333", "text": "I open my heart to deeper emotional clarity.", "actualCategory": "self_care", "gender": "female" },
+{ "id": "g_334", "text": "I welcome inspiration to guide my next steps.", "actualCategory": "motivation", "gender": "female" },
+{ "id": "g_335", "text": "I trust the direction of my evolving path.", "actualCategory": "career_success", "gender": "female" },
+
+{ "id": "g_336", "text": "Joy enters when you loosen the grip of expectation.", "actualCategory": "happiness", "gender": "female" },
+{ "id": "g_337", "text": "Peace grows when you listen to your inner rhythm, {name}.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_338", "text": "Clarity appears when you release emotional clutter.", "actualCategory": "positive_thinking", "gender": "female" },
+{ "id": "g_339", "text": "Connection deepens when you choose empathy first.", "actualCategory": "relationships", "gender": "female" },
+{ "id": "g_340", "text": "Resilience strengthens when you meet stress with patience.", "actualCategory": "stress_anxiety", "gender": "female" },
+
+{ "id": "g_341", "text": "I move toward success with grounded confidence.", "actualCategory": "career_success", "gender": "female" },
+{ "id": "g_342", "text": "I let rest restore the parts of me that feel tired.", "actualCategory": "sleep", "gender": "female" },
+{ "id": "g_343", "text": "I create emotional balance through mindful awareness.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_344", "text": "I embrace positivity even when the path feels unclear.", "actualCategory": "positive_thinking", "gender": "female" },
+{ "id": "g_345", "text": "I trust my ability to return to calm.", "actualCategory": "stress_anxiety", "gender": "female" },
+
+{ "id": "g_346", "text": "Hope rises when you give yourself space to feel.", "actualCategory": "self_care", "gender": "female" },
+{ "id": "g_347", "text": "Ease meets you when breathing becomes your anchor.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_348", "text": "Joy finds you when you open your heart to small wonders.", "actualCategory": "happiness", "gender": "female" },
+{ "id": "g_349", "text": "Purpose guides you when you listen to your deeper needs.", "actualCategory": "career_success", "gender": "female" },
+{ "id": "g_350", "text": "Gratitude steadies you when life becomes overwhelming.", "actualCategory": "gratitude", "gender": "female" },
+
+{ "id": "g_351", "text": "I surrender to the quiet wisdom rising within me.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_352", "text": "I allow my spirit to open to guidance beyond worry.", "actualCategory": "self_care", "gender": "female" },
+{ "id": "g_353", "text": "I trust the sacred rhythm shaping my journey.", "actualCategory": "positive_thinking", "gender": "female" },
+{ "id": "g_354", "text": "I dissolve tension by returning to my inner stillness.", "actualCategory": "stress_anxiety", "gender": "female" },
+{ "id": "g_355", "text": "I welcome the quiet light that moves gently through me.", "actualCategory": "happiness", "gender": "female" },
+
+{ "id": "g_356", "text": "My breath becomes a bridge between my body and my soul.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_357", "text": "My energy stabilizes when I root myself in presence.", "actualCategory": "self_care", "gender": "female" },
+{ "id": "g_358", "text": "My heart expands as I release what dims my inner light.", "actualCategory": "gratitude", "gender": "female" },
+
+{ "id": "g_359", "text": "You awaken deeper wisdom when you listen inwardly, {name}.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_360", "text": "You align with sacred peace when you breathe with intention, {name}.", "actualCategory": "stress_anxiety", "gender": "female" },
+
+{ "id": "g_361", "text": "Your soul recognizes truth long before your mind does.", "actualCategory": "positive_thinking", "gender": "female" },
+{ "id": "g_362", "text": "Your spirit softens when you honor your divine timing.", "actualCategory": "self_care", "gender": "female" },
+{ "id": "g_363", "text": "Your breath carries ancient calm through your entire being.", "actualCategory": "sleep", "gender": "female" },
+{ "id": "g_364", "text": "Your heart steadies when you connect with what is eternal.", "actualCategory": "gratitude", "gender": "female" },
+{ "id": "g_365", "text": "Your guidance strengthens as you trust your intuitive voice.", "actualCategory": "confidence", "gender": "female" },
+
+{ "id": "g_366", "text": "I rise beyond fear by remembering who I truly am.", "actualCategory": "confidence", "gender": "female" },
+{ "id": "g_367", "text": "I open myself to insights carried by silence.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_368", "text": "I allow spiritual clarity to replace confusion.", "actualCategory": "positive_thinking", "gender": "female" },
+{ "id": "g_369", "text": "I breathe light into every tense corner of my being.", "actualCategory": "stress_anxiety", "gender": "female" },
+{ "id": "g_370", "text": "I trust the unfolding of the unseen path before me.", "actualCategory": "career_success", "gender": "female" },
+
+{ "id": "g_371", "text": "You deepen your inner knowing when you embrace stillness, {name}.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_372", "text": "You expand spiritually when you follow your intuitive nudges.", "actualCategory": "positive_thinking", "gender": "female" },
+{ "id": "g_373", "text": "You grow in harmony when compassion guides your actions.", "actualCategory": "relationships", "gender": "female" },
+{ "id": "g_374", "text": "You release burdens when you exhale with sacred intention.", "actualCategory": "stress_anxiety", "gender": "female" },
+{ "id": "g_375", "text": "You rise into purpose when you align with your highest self.", "actualCategory": "career_success", "gender": "female" },
+
+{ "id": "g_376", "text": "Stillness reveals truths hidden beneath my mind’s noise.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_377", "text": "Light enters when I loosen the grip of control.", "actualCategory": "happiness", "gender": "female" },
+{ "id": "g_378", "text": "Calm flows through me when I reconnect with presence.", "actualCategory": "stress_anxiety", "gender": "female" },
+{ "id": "g_379", "text": "Grace meets me when I surrender what no longer serves me.", "actualCategory": "self_care", "gender": "female" },
+{ "id": "g_380", "text": "Harmony returns when I choose awareness over reaction.", "actualCategory": "positive_thinking", "gender": "female" },
+
+{ "id": "g_381", "text": "I embrace spiritual growth with an open heart.", "actualCategory": "gratitude", "gender": "female" },
+{ "id": "g_382", "text": "I align my actions with the energy of higher purpose.", "actualCategory": "career_success", "gender": "female" },
+{ "id": "g_383", "text": "I tune into the whispers of my intuitive wisdom.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_384", "text": "I release old stories to make space for sacred truth.", "actualCategory": "self_care", "gender": "female" },
+{ "id": "g_385", "text": "I allow divine timing to guide each unfolding step.", "actualCategory": "positive_thinking", "gender": "female" },
+
+{ "id": "g_386", "text": "You soften into spiritual clarity when you quiet your mind, {name}.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_387", "text": "You strengthen your soul by choosing compassionate awareness.", "actualCategory": "relationships", "gender": "female" },
+{ "id": "g_388", "text": "You rise toward light when you embrace your sacred truth.", "actualCategory": "confidence", "gender": "female" },
+{ "id": "g_389", "text": "You find restoration when you surrender your worries.", "actualCategory": "sleep", "gender": "female" },
+{ "id": "g_390", "text": "You awaken purpose when you follow your inner guidance.", "actualCategory": "career_success", "gender": "female" },
+
+{ "id": "g_391", "text": "Energy flows more freely when I release resistance.", "actualCategory": "stress_anxiety", "gender": "female" },
+{ "id": "g_392", "text": "Intuition sharpens when I listen beneath the noise.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_393", "text": "Presence becomes sacred when I meet it without judgment.", "actualCategory": "positive_thinking", "gender": "female" },
+{ "id": "g_394", "text": "Calm deepens when I surrender my need for certainty.", "actualCategory": "self_care", "gender": "female" },
+{ "id": "g_395", "text": "Joy expands when I attune to the frequency of gratitude.", "actualCategory": "gratitude", "gender": "female" },
+
+{ "id": "g_396", "text": "Your spirit steadies when you honor your inner truth, {name}.", "actualCategory": "confidence", "gender": "female" },
+{ "id": "g_397", "text": "Your path illuminates when you trust divine guidance.", "actualCategory": "career_success", "gender": "any" },
+{ "id": "g_398", "text": "Your energy clears when you let go of fear's echoes.", "actualCategory": "stress_anxiety", "gender": "female" },
+{ "id": "g_399", "text": "Your heart awakens when you embrace moments of deep presence.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_400", "text": "Your soul expands when you welcome wisdom beyond thought.", "actualCategory": "positive_thinking", "gender": "female" }
+
+
+  ]
+}
