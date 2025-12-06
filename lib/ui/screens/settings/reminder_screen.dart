@@ -87,20 +87,26 @@ class _ReminderListScreenState extends State<ReminderListScreen>
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_ios_new,
-              color: Colors.black,
-              size: 26,
+          leadingWidth: 32, // 🔥 soldaki boşluğu azaltır
+          leading: Padding(
+            padding:
+                const EdgeInsets.only(left: 6), // 🔥 istediğin kadar kaydır
+            child: IconButton(
+              icon: const Icon(
+                Icons.arrow_back_ios_new,
+                color: Colors.white,
+                size: 22,
+              ),
+              onPressed: () => Navigator.pop(context),
             ),
-            onPressed: () => Navigator.pop(context),
           ),
+
           title: Text(
             t.reminders,
             style: const TextStyle(
-              color: Colors.black,
-              fontSize: 22,
-              fontWeight: FontWeight.w700,
+              color: Colors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
             ),
           ),
         ),
@@ -136,7 +142,7 @@ class _ReminderListScreenState extends State<ReminderListScreen>
                 opacity: CurvedAnimation(parent: _fade, curve: Curves.easeOut),
                 child: Column(
                   children: [
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 20),
 
                     // İçerik
                     Expanded(

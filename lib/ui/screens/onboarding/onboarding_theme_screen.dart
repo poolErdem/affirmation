@@ -67,7 +67,7 @@ class _OnboardingThemeScreenState extends State<OnboardingThemeScreen> {
                       t.back,
                       style: TextStyle(
                         color: Colors.white.withValues(alpha: 0.7),
-                        fontSize: 20,
+                        fontSize: 18,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -140,15 +140,7 @@ class _OnboardingThemeScreenState extends State<OnboardingThemeScreen> {
                                         spreadRadius: 2,
                                       )
                                     ]
-                                  : [
-                                      BoxShadow(
-                                        color: Colors.black.withValues(
-                                          alpha: 0.35,
-                                        ),
-                                        blurRadius: 12,
-                                        spreadRadius: 1,
-                                      )
-                                    ],
+                                  : [],
                             ),
                             child: Stack(
                               children: [

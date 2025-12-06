@@ -139,7 +139,7 @@ class _ReminderEditScreenState extends State<ReminderEditScreen>
         GestureDetector(
           onTap: () => Navigator.pop(context, data),
           child: const Icon(Icons.arrow_back_ios_new,
-              size: 26, color: Colors.black),
+              size: 26, color: Colors.white),
         ),
         const SizedBox(width: 12),
         Text(
@@ -147,7 +147,7 @@ class _ReminderEditScreenState extends State<ReminderEditScreen>
           style: const TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.w800,
-            color: Colors.black,
+            color: Colors.white,
           ),
         ),
       ],

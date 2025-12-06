@@ -94,24 +94,24 @@ class _LanguageScreenState extends State<LanguageScreen>
                             onTap: () => Navigator.pop(context),
                             child: const Icon(
                               Icons.arrow_back_ios_new,
-                              size: 26,
-                              color: Colors.black87,
+                              size: 22,
+                              color: Colors.white,
                             ),
                           ),
                           const SizedBox(width: 12),
                           Text(
                             t.language,
                             style: const TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.black87,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white,
                             ),
                           ),
                         ],
                       ),
                     ),
 
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 20),
 
                     // ⭐ Description
                     Padding(
@@ -121,7 +121,7 @@ class _LanguageScreenState extends State<LanguageScreen>
                         style: TextStyle(
                           fontSize: 15,
                           height: 1.32,
-                          color: Colors.black.withValues(alpha: 0.75),
+                          color: Colors.white,
                           fontWeight: FontWeight.w500,
                         ),
                       ),

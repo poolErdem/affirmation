@@ -27,10 +27,8 @@ class Constants {
   static const String dataBasePath = "assets/data";
   static const String categoriesJson = "categories.json";
   static const String themesJson = "themes.json";
-  static const String onboardingThemePath = "assets/data/themes/c16.jpg";
+  static const String onboardingThemePath = "assets/data/themes/l4.jpg";
   static const String generalThemePath = "assets/data/categories/general.jpg";
-  static const String backgorundThemePath =
-      "assets/data/categories/background.jpg";
   static const String favoriteThemePath =
       "assets/data/categories/favorites.jpg";
   static const String myAffirmationsThemePath =

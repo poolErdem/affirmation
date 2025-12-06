@@ -48,6 +48,7 @@ dependencies:
 
   confetti: ^0.7.0
 
+  permission_handler: ^11.3.1  # En güncel versiyon
 
 
 dev_dependencies:
@@ -122,8 +123,6 @@ flutter:
     - assets/data/themes/a8.jpg
     - assets/data/themes/a9.jpg
     - assets/data/themes/a10.jpg
-    - assets/data/themes/a11.jpg
-    - assets/data/themes/a12.jpg
 
     - assets/data/themes/c1.jpg
     - assets/data/themes/c2.jpg
@@ -135,13 +134,6 @@ flutter:
     - assets/data/themes/c8.jpg
     - assets/data/themes/c9.jpg
     - assets/data/themes/c10.jpg
-    - assets/data/themes/c11.jpg
-    - assets/data/themes/c12.jpg
-    - assets/data/themes/c13.jpg
-    - assets/data/themes/c14.jpg
-    - assets/data/themes/c15.jpg
-    - assets/data/themes/c16.jpg
-    - assets/data/themes/c17.jpg
 
     - assets/data/themes/d1.jpg
     - assets/data/themes/d2.jpg
@@ -153,13 +145,6 @@ flutter:
     - assets/data/themes/d8.jpg
     - assets/data/themes/d9.jpg
     - assets/data/themes/d10.jpg
-    - assets/data/themes/d11.jpg
-    - assets/data/themes/d12.jpg
-    - assets/data/themes/d13.jpg
-    - assets/data/themes/d14.jpg
-    - assets/data/themes/d15.jpg
-    - assets/data/themes/d16.jpg
-    - assets/data/themes/d17.jpg
 
     - assets/data/themes/l1.jpg
     - assets/data/themes/l2.jpg
@@ -171,6 +156,9 @@ flutter:
     - assets/data/themes/l8.jpg
     - assets/data/themes/l9.jpg
     - assets/data/themes/l10.jpg
+    - assets/data/themes/l11.jpg
+    - assets/data/themes/l12.jpg
+
 
     # Category Images
     - assets/data/categories/career.jpg

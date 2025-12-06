@@ -84,17 +84,25 @@ class _SettingsScreenState extends State<SettingsScreen>
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios_new,
-                color: Colors.black, size: 26),
-            onPressed: () => Navigator.pop(context),
+          leadingWidth: 32, // 🔥 soldaki boşluğu azaltır
+          leading: Padding(
+            padding:
+                const EdgeInsets.only(left: 6), // 🔥 istediğin kadar kaydır
+            child: IconButton(
+              icon: const Icon(
+                Icons.arrow_back_ios_new,
+                color: Colors.white,
+                size: 22,
+              ),
+              onPressed: () => Navigator.pop(context),
+            ),
           ),
           title: Text(
             t.settings,
             style: const TextStyle(
-              color: Colors.black,
-              fontSize: 22,
-              fontWeight: FontWeight.w700,
+              color: Colors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
             ),
           ),
         ),
@@ -140,8 +148,7 @@ class _SettingsScreenState extends State<SettingsScreen>
                       );
                     },
                   ),
-                  const SizedBox(height: 15),
-                  _section(t.general),
+                  const SizedBox(height: 25),
                   PremiumTile(
                     title: t.name,
                     icon: Icons.person_outline_rounded,
@@ -187,6 +194,33 @@ class _SettingsScreenState extends State<SettingsScreen>
     );
   }
 
+  Widget _section(String title) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 4, bottom: 10, top: 26),
+      child: Row(
+        children: [
+          Container(
+            width: 6,
+            height: 6,
+            decoration: const BoxDecoration(
+              color: Color(0xFFC9A85D),
+              shape: BoxShape.circle,
+            ),
+          ),
+          const SizedBox(width: 8),
+          Text(
+            title.toUpperCase(),
+            style: const TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w700,
+              color: Color(0xFF6A6A6A),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   // PREMIUM CARD ----------------------------------------------------
   Widget _buildPremiumCardV2({
     required BuildContext context,
@@ -208,7 +242,10 @@ class _SettingsScreenState extends State<SettingsScreen>
           gradient: LinearGradient(
             colors: isPremium
                 ? [const Color(0xFF1A1A1A), const Color(0xFF2D2D2D)]
-                : [const Color(0xFF3D3D3D), const Color(0xFF2A2A2A)],
+                : [
+                    const Color(0xFF3D3D3D),
+                    const Color.fromARGB(255, 104, 102, 102)
+                  ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -324,20 +361,23 @@ class _SettingsScreenState extends State<SettingsScreen>
                         );
                       },
                     ),
-                    const SizedBox(width: 20),
+                    const SizedBox(width: 25),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment:
+                            MainAxisAlignment.center, // 🔥 yazıyı aşağı indirir
+
                         children: [
                           Text(
                             isPremium ? t.premiumActive : t.getPremium,
                             style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
+                              fontSize: 21,
+                              fontWeight: FontWeight.w500,
                               color: isPremium ? Colors.amber : Colors.white,
                             ),
                           ),
-                          const SizedBox(height: 6),
+                          const SizedBox(height: 5),
                           Text(
                             isPremium
                                 ? "All features unlocked ✨"
@@ -360,34 +400,6 @@ class _SettingsScreenState extends State<SettingsScreen>
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  // SECTION ---------------------------------------------------------
-  Widget _section(String title) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 4, bottom: 10, top: 26),
-      child: Row(
-        children: [
-          Container(
-            width: 6,
-            height: 6,
-            decoration: const BoxDecoration(
-              color: Color(0xFFC9A85D),
-              shape: BoxShape.circle,
-            ),
-          ),
-          const SizedBox(width: 8),
-          Text(
-            title.toUpperCase(),
-            style: const TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w700,
-              color: Color(0xFF6A6A6A),
-            ),
-          ),
-        ],
       ),
     );
   }

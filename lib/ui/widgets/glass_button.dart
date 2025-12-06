@@ -13,7 +13,7 @@ class GlassButton extends StatefulWidget {
     super.key,
     required this.text,
     required this.onTap,
-    this.borderRadius = 50,
+    this.borderRadius = 20,
     this.blur = 14,
   });
 
@@ -29,7 +29,7 @@ class _GlassButtonState extends State<GlassButton>
   void initState() {
     super.initState();
 
-    // Premium "breathing" pulse animation
+    // Premium breathing effect
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 3),
@@ -57,51 +57,45 @@ class _GlassButtonState extends State<GlassButton>
           ),
           child: GestureDetector(
             onTap: () {
-              HapticFeedback.mediumImpact(); // premium hissiyat
+              HapticFeedback.mediumImpact();
               widget.onTap();
             },
             child: Container(
-              width: double.infinity,
               padding: const EdgeInsets.symmetric(vertical: 16),
+              width: double.infinity,
 
-              // Glow + gradient shine
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(widget.borderRadius),
 
-                // Outer glow + white aura
-                boxShadow: const [
+                // PREMIUM GOLD GLOW
+                boxShadow: [
                   BoxShadow(
-                    color: Color.fromARGB(71, 255, 193, 7), // amber glow %28
-                    blurRadius: 22,
-                    spreadRadius: 1,
-                  ),
-                  BoxShadow(
-                    color: Color.fromARGB(46, 255, 255, 255), // white aura %18
-                    blurRadius: 12,
-                    spreadRadius: -1,
+                    color: const Color(0xFFC9A85D).withValues(alpha: 0.40),
+                    blurRadius: 28,
+                    offset: const Offset(0, 8),
                   ),
                 ],
 
-                // Inner glass shine
+                // Inner gold shine + glass effect
                 gradient: const LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: [
-                    Color.fromARGB(51, 255, 255, 255), // %20
-                    Color.fromARGB(18, 255, 255, 255), // %7
+                    Color(0x33FFFFFF),
+                    Color(0x11FFFFFF),
                   ],
                 ),
               ),
 
-              // GOLD BORDER (foregroundDecoration yoksa gradient border olmuyor)
+              // GOLD BORDER (bizim premium border tonu)
               foregroundDecoration: GradientOutline(
                 gradient: const LinearGradient(
                   colors: [
-                    Color(0xFFFFE8B8), // soft gold
-                    Color(0xFFFFC878), // vivid gold
+                    Color(0xFFC9A85D), // soft gold
+                    Color(0xFFE4C98A), // bright gold
                   ],
                 ),
-                strokeWidth: 2,
+                strokeWidth: 1.7,
                 borderRadius: BorderRadius.circular(widget.borderRadius),
               ),
 
@@ -110,14 +104,13 @@ class _GlassButtonState extends State<GlassButton>
                   widget.text,
                   style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 20,
+                    fontSize: 17,
                     fontWeight: FontWeight.w700,
-                    letterSpacing: 0.6,
+                    letterSpacing: 0.3,
                     shadows: [
                       Shadow(
-                        color: Colors.black54,
-                        blurRadius: 4,
-                        offset: Offset(0, 1),
+                        color: Color(0xFFE4C98A),
+                        blurRadius: 0,
                       )
                     ],
                   ),
@@ -131,7 +124,7 @@ class _GlassButtonState extends State<GlassButton>
   }
 }
 
-/// GOLD GRADIENT OUTLINE BORDER (BoxBorder kullanılmıyor → override hatası YOK)
+/// PREMIUM GOLD OUTLINE BORDER
 class GradientOutline extends Decoration {
   final Gradient gradient;
   final double strokeWidth;
@@ -140,7 +133,7 @@ class GradientOutline extends Decoration {
   const GradientOutline({
     required this.gradient,
     this.strokeWidth = 2,
-    this.borderRadius = BorderRadius.zero,
+    required this.borderRadius,
   });
 
   @override
@@ -168,10 +161,10 @@ class _GradientOutlinePainter extends BoxPainter {
   void paint(Canvas canvas, Offset offset, ImageConfiguration config) {
     if (config.size == null) return;
 
-    final Rect rect = offset & config.size!;
-    final RRect rrect = borderRadius.toRRect(rect).deflate(strokeWidth / 2);
+    final rect = offset & config.size!;
+    final rrect = borderRadius.toRRect(rect).deflate(strokeWidth / 2);
 
-    final Paint paint = Paint()
+    final paint = Paint()
       ..shader = gradient.createShader(rect)
       ..style = PaintingStyle.stroke
       ..strokeWidth = strokeWidth;

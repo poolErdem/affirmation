@@ -67,7 +67,7 @@ class _PreferencesScreenState extends State<PreferencesScreen> {
                       t.back,
                       style: TextStyle(
                         color: Colors.white.withValues(alpha: 0.7),
-                        fontSize: 20,
+                        fontSize: 18,
                         fontWeight: FontWeight.w600,
                       ),
                     ),

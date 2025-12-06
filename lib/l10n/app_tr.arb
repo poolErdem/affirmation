@@ -14,7 +14,7 @@
   "getPremium": "Premium Al",
 
 "category": "Kategori",
-  "categoryTitle": "Bugün hissetmek istediğin enerjiyi seç",
+  "categoryTitle": "✨ Bugün hissetmek istediğin enerjiyi seç",
 
   "nameQuestion": "Adın ne?",
   "personalize": "Olumlamaları senin için kişiselleştireceğiz",
@@ -135,13 +135,15 @@
 
   "unlock": "AÇ",
   "limited": "SINIRLI",
-  "noAff": "Henüz onaylama yok\nİlkini oluştur! ✨",
-  "writeAff": "Onaylamanı yaz…",
-  "editAff": "Onaylamayı Düzenle",
-  "newAff": "Yeni Onaylama",
+  "noAff": "Henüz olumlama yok\nİlkini oluştur! ✨",
+  "writeAff": "Olumlamanı yaz…",
+  "editAff": "Onumlamanı Düzenle",
+  "newAff": "Yeni Olumlama",
 
   "howMany": "Kaç kere",
 "startAt": "Başlangıç saati",
 "endAt": "Bitiş saati",
-"repeatDays": "Günler"
+"repeatDays": "Günler",
+"themeTitle": "✨ Deneyimizini güzelleştirin"
+
 }

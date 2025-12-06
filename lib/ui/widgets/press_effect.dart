@@ -35,10 +35,9 @@ class _PressableState extends State<Pressable> {
             boxShadow: _pressed
                 ? [
                     BoxShadow(
-                      color: widget.glowColor,
-                      blurRadius: 32,
-                      spreadRadius: 1,
-                    )
+                        color: widget.glowColor.withValues(alpha: 0.35),
+                        blurRadius: 5,
+                        spreadRadius: 0)
                   ]
                 : [],
           ),

@@ -98,17 +98,17 @@ class _NameScreenState extends State<NameScreen>
                             onTap: () => Navigator.pop(context),
                             child: const Icon(
                               Icons.arrow_back_ios_new,
-                              size: 26,
-                              color: Colors.black87,
+                              size: 22,
+                              color: Colors.white,
                             ),
                           ),
                           const SizedBox(width: 12),
                           Text(
                             t.name,
                             style: const TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.black87,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white,
                             ),
                           ),
                         ],
@@ -121,7 +121,7 @@ class _NameScreenState extends State<NameScreen>
                         style: TextStyle(
                           fontSize: 15,
                           height: 1.4,
-                          color: Colors.black.withValues(alpha: 0.65),
+                          color: Colors.white,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -168,7 +168,7 @@ class _NameScreenState extends State<NameScreen>
                                 hintStyle: TextStyle(color: Colors.black38),
                               ),
                               style: const TextStyle(
-                                fontSize: 17,
+                                fontSize: 16,
                                 color: Colors.black87,
                                 fontWeight: FontWeight.w600,
                               ),
@@ -192,52 +192,79 @@ class _NameScreenState extends State<NameScreen>
                   parent: _fade,
                   curve: Curves.easeOut,
                 ),
-                child: ElevatedButton(
-                  onPressed: () async {
-                    final name = _controller.text.trim();
-                    context.read<AppState>().setUserName(name);
-
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text("Name saved"),
-                        duration: Duration(milliseconds: 900),
-                      ),
-                    );
-
-                    Navigator.pop(context);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    backgroundColor: Colors.black,
-                    foregroundColor: Colors.white,
-                    elevation: 10,
-                    shadowColor: Colors.black.withValues(alpha: 0.45),
-                    side: BorderSide(
-                      color: const Color(0xFFC9A85D).withValues(alpha: 0.35),
-                      width: 1.2,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18),
-                    ),
-                  ),
-                  child: const Text(
-                    "Save",
-                    style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w700,
-                      letterSpacing: 0.3,
-                      shadows: [
-                        Shadow(
-                          color: Color(0xFFC9A85D),
-                          offset: Offset(0, 0),
-                          blurRadius: 4,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 14, sigmaY: 14),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        gradient: const LinearGradient(
+                          colors: [
+                            Color(0xFFC9A85D),
+                            Color(0xFFE4C98A),
+                          ],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
                         ),
-                      ],
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(
+                          color: const Color(0xFF87652B),
+                          width: 1.4,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color:
+                                const Color(0xFFC9A85D).withValues(alpha: 0.40),
+                            blurRadius: 18,
+                            offset: const Offset(0, 6),
+                          ),
+                        ],
+                      ),
+                      child: Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(20),
+                          onTap: () async {
+                            final name = _controller.text.trim();
+                            context.read<AppState>().setUserName(name);
+
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("Name saved"),
+                                duration: Duration(milliseconds: 900),
+                              ),
+                            );
+
+                            Navigator.pop(context);
+                          },
+                          child: const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 16),
+                            child: Center(
+                              child: Text(
+                                "Save",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.white,
+                                  letterSpacing: 0.3,
+                                  shadows: [
+                                    Shadow(
+                                      color: Color(0xFFC9A85D),
+                                      offset: Offset(0, 0),
+                                      blurRadius: 4,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
+            )
           ],
         ),
       ),

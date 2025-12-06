@@ -26,36 +26,38 @@ class CategoriesScreen extends StatelessWidget {
         extendBodyBehindAppBar: true,
         backgroundColor: Colors.transparent,
 
-        // ------------------------------------------------------------
         // APPBAR (şeffaf)
-        // ------------------------------------------------------------
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_ios_new,
-              color: Colors.black,
-              size: 26,
+          leadingWidth: 40, // 🔥 soldaki boşluğu azaltır
+          leading: Padding(
+            padding:
+                const EdgeInsets.only(left: 6), // 🔥 istediğin kadar kaydır
+            child: IconButton(
+              icon: const Icon(
+                Icons.arrow_back_ios_new,
+                color: Colors.white,
+                size: 22,
+              ),
+              onPressed: () => Navigator.pop(context),
             ),
-            onPressed: () => Navigator.pop(context),
           ),
+
           title: Transform.translate(
             offset: const Offset(-8, 0),
             child: Text(
               t.categories,
               style: const TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.w800,
-                color: Colors.black,
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+                color: Colors.white,
               ),
             ),
           ),
         ),
 
-        // ------------------------------------------------------------
         // BODY → PREMIUM BACKDROP + NOISE
-        // ------------------------------------------------------------
         body: Stack(
           children: [
             Positioned.fill(
@@ -75,16 +77,16 @@ class CategoriesScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 18),
                     child: Text(
-                      "✨ ${t.categoryTitle}",
+                      t.categoryTitle,
                       style: TextStyle(
-                        fontSize: 14.5,
+                        fontSize: 14,
                         fontWeight: FontWeight.w500,
-                        color: Colors.black.withAlpha(140),
+                        color: Colors.white,
                       ),
                     ),
                   ),
 
-                  const SizedBox(height: 14),
+                  const SizedBox(height: 32),
 
                   // ------------------------------------------------------------
                   // GRID (premium style)
@@ -99,9 +101,9 @@ class CategoriesScreen extends StatelessWidget {
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
-                        mainAxisSpacing: 18,
-                        crossAxisSpacing: 18,
-                        childAspectRatio: 0.78,
+                        mainAxisSpacing: 24,
+                        crossAxisSpacing: 24,
+                        childAspectRatio: 1,
                       ),
                       itemBuilder: (_, index) {
                         final category = categories[index];
@@ -186,13 +188,14 @@ class CategoriesScreen extends StatelessWidget {
 
                                     // LOCK icon (premium style)
                                     if (isPremiumLocked)
-                                      const Positioned(
+                                      Positioned(
                                         top: 10,
                                         right: 10,
                                         child: Icon(
                                           Icons.lock_outline,
                                           color: Colors.white,
                                           size: 22,
+                                          fontWeight: FontWeight.w600,
                                         ),
                                       ),
 
@@ -202,16 +205,15 @@ class CategoriesScreen extends StatelessWidget {
                                             category.id ==
                                                 Constants.favoritesCategoryId ||
                                             category.id ==
-                                                Constants.myCategoryId ||
-                                            category.id == "self_care") &&
+                                                Constants.myCategoryId) &&
                                         !appState.preferences.isPremiumValid)
                                       Positioned(
                                         top: 10,
                                         left: 10,
                                         child: Container(
                                           padding: const EdgeInsets.symmetric(
-                                            horizontal: 10,
-                                            vertical: 6,
+                                            horizontal: 7,
+                                            vertical: 4,
                                           ),
                                           decoration: BoxDecoration(
                                             color: Colors.orange.shade700,
@@ -221,8 +223,8 @@ class CategoriesScreen extends StatelessWidget {
                                           child: Text(
                                             t.limited,
                                             style: const TextStyle(
-                                              fontSize: 11,
-                                              fontWeight: FontWeight.w700,
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w500,
                                               color: Colors.white,
                                             ),
                                           ),

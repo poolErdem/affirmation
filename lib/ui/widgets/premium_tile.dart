@@ -81,8 +81,8 @@ class _PremiumTileState extends State<PremiumTile> {
                         child: Text(
                           widget.title,
                           style: const TextStyle(
-                            fontSize: 16.5,
-                            fontWeight: FontWeight.w600,
+                            fontSize: 15.5,
+                            fontWeight: FontWeight.w400,
                             color: Colors.white,
                           ),
                         ),

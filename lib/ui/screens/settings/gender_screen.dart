@@ -112,7 +112,7 @@ class _GenderScreenState extends State<GenderScreen>
                             child: const Icon(
                               Icons.arrow_back_ios_new,
                               size: 26,
-                              color: Colors.black87,
+                              color: Colors.white,
                             ),
                           ),
                           const SizedBox(width: 12),
@@ -121,7 +121,7 @@ class _GenderScreenState extends State<GenderScreen>
                             style: const TextStyle(
                               fontSize: 22,
                               fontWeight: FontWeight.w700,
-                              color: Colors.black87,
+                              color: Colors.white,
                             ),
                           ),
                         ],
@@ -138,7 +138,7 @@ class _GenderScreenState extends State<GenderScreen>
                         style: TextStyle(
                           fontSize: 15,
                           height: 1.32,
-                          color: Colors.black.withValues(alpha: 0.75),
+                          color: Colors.white,
                           fontWeight: FontWeight.w500,
                         ),
                       ),

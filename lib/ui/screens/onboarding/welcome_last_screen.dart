@@ -63,55 +63,24 @@ class _WelcomeLastScreenState extends State<WelcomeLastScreen>
       extendBodyBehindAppBar: true,
       body: Stack(
         children: [
-          // ⭐ Background gradient - Orta kısımda açık ton
+          // 🌟 PREMIUM GOLD BACKGROUND
           Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Color.fromARGB(255, 83, 78, 73), // Üst koyu
-                  Color(0xFFFCEFD9), // Orta açık/gold
-                  Color(0xFFF7EEDD), // Alt açık
+                  Color(0xFF0D0C0A), // üst koyu luxury black
+                  Color(0xFF2C2418), // deep brown gold
+                  Color(0xFFC9A85D), // soft gold
+                  Color(0xFFF5E9C7), // premium light gold
                 ],
+                stops: [0.0, 0.35, 0.72, 1.0],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                stops: [0.0, 0.5, 1.0],
               ),
             ),
           ),
 
-          // ⭐ Sparkle
-          Positioned(
-            top: 110,
-            left: 0,
-            right: 0,
-            child: TweenAnimationBuilder<double>(
-              tween: Tween(begin: 0.0, end: 1.0),
-              duration: const Duration(milliseconds: 900),
-              builder: (_, v, __) => Opacity(
-                opacity: v,
-                child: ShaderMask(
-                  shaderCallback: (rect) {
-                    return const LinearGradient(
-                      colors: [
-                        Colors.white,
-                        Color(0xFFC9A85D),
-                        Colors.white,
-                      ],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ).createShader(rect);
-                  },
-                  child: const Icon(
-                    Icons.star_sharp,
-                    size: 42,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-          ),
-
-          // ⭐ Konfeti
+          // 🌟 CONFETTI (değişmiyor)
           Align(
             alignment: Alignment.topCenter,
             child: ConfettiWidget(
@@ -122,18 +91,20 @@ class _WelcomeLastScreenState extends State<WelcomeLastScreen>
               maxBlastForce: 30,
               minBlastForce: 10,
               gravity: 0.25,
-              colors: const [
-                Color(0xFFC9A85D),
-                Color(0xFFE8D5A6),
-                Color(0xFFFAF3D2),
+              colors: [
+                const Color(0xFFC9A85D),
+                const Color.fromARGB(255, 80, 118, 156),
+                const Color.fromARGB(255, 193, 108, 108),
+                const Color.fromARGB(255, 106, 184, 100),
+                const Color.fromARGB(255, 202, 194, 194),
               ],
               createParticlePath: _drawStar,
             ),
           ),
 
-          // ⭐ Content
+          // 🌟 MAIN CONTENT (Premium Typography)
           Positioned(
-            top: 285,
+            top: 280,
             left: 0,
             right: 0,
             child: ScaleTransition(
@@ -149,31 +120,70 @@ class _WelcomeLastScreenState extends State<WelcomeLastScreen>
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(
-                      Icons.auto_awesome,
-                      size: 50,
-                      color: Color(0xFFC9A85D),
-                    ),
-                    const SizedBox(height: 22),
-                    Text(
-                      title,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 34,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black87,
-                        height: 1.2,
-                        fontFamily: "Georgia",
+                    // main icon
+                    ShaderMask(
+                      shaderCallback: (rect) {
+                        return const LinearGradient(
+                          colors: [
+                            Color(0xFFF8E7B7),
+                            Color(0xFFC9A85D),
+                            Color(0xFFE4C98A),
+                          ],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ).createShader(rect);
+                      },
+                      child: const Icon(
+                        Icons.auto_awesome,
+                        size: 58,
+                        color: Colors.white,
                       ),
                     ),
-                    const SizedBox(height: 14),
+
+                    const SizedBox(height: 22),
+
+                    // ⭐ TITLE (gold gradient)
+                    ShaderMask(
+                      shaderCallback: (rect) {
+                        return const LinearGradient(
+                          colors: [
+                            Color(0xFFF9EDD0),
+                            Color(0xFFE4C98A),
+                            Color(0xFFC9A85D),
+                          ],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ).createShader(rect);
+                      },
+                      child: Text(
+                        title,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 36,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                          height: 1.2,
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(height: 16),
+
+                    // ⭐ Sub text
                     Text(
                       t.welcomeLast,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 17,
-                        color: Colors.black54,
-                        height: 1.4,
+                        color: Colors.white.withValues(alpha: 0.88),
+                        height: 1.45,
+                        shadows: [
+                          Shadow(
+                            color: Colors.black.withValues(alpha: 0.40),
+                            blurRadius: 6,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
                       ),
                     ),
                   ],

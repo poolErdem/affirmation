@@ -14,7 +14,7 @@
   "getPremium":  "Get Premium",
 
 "category": "Category",
-  "categoryTitle" : "Choose the energy you want to feel today",
+  "categoryTitle" : "✨ Choose the energy you want to feel today",
 
   "nameQuestion": "What’s your name?",
   "personalize": "We'll personalize your affirmations",
@@ -147,7 +147,8 @@
 "howMany": "How many times",
 "startAt": "Start at",
 "endAt": "End at",
-"repeatDays": "Repeat Days"
+"repeatDays": "Repeat Days",
+"themeTitle": "✨ Customize the mood of your experience"
 
 
 }

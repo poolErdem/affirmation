@@ -95,23 +95,23 @@ class _ContentPreferencesScreenState extends State<ContentPreferencesScreen>
                             onTap: () => Navigator.pop(context),
                             child: const Icon(
                               Icons.arrow_back_ios_new,
-                              size: 26,
-                              color: Colors.black87,
+                              size: 22,
+                              color: Colors.white,
                             ),
                           ),
                           const SizedBox(width: 12),
                           Text(
                             t.preferences,
                             style: const TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.black87,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white,
                             ),
                           ),
                         ],
                       ),
 
-                      const SizedBox(height: 12),
+                      const SizedBox(height: 20),
 
                       // ⭐ Description
                       Text(
@@ -119,7 +119,7 @@ class _ContentPreferencesScreenState extends State<ContentPreferencesScreen>
                         style: TextStyle(
                           fontSize: 15,
                           height: 1.35,
-                          color: Colors.black.withValues(alpha: 0.75),
+                          color: Colors.white,
                           fontWeight: FontWeight.w500,
                         ),
                       ),

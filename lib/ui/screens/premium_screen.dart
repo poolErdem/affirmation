@@ -67,8 +67,8 @@ class _PremiumScreenState extends State<PremiumScreen>
               top: -80,
               left: -50,
               child: Container(
-                width: 260,
-                height: 260,
+                width: 200,
+                height: 200,
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   color: Color(0xFFFFF2C0),
@@ -81,8 +81,8 @@ class _PremiumScreenState extends State<PremiumScreen>
               bottom: -110,
               right: -70,
               child: Container(
-                width: 300,
-                height: 300,
+                width: 200,
+                height: 200,
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   color: Color(0xFFFFD18F),
@@ -121,7 +121,7 @@ class _PremiumScreenState extends State<PremiumScreen>
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                           color: Colors.white,
-                          fontSize: 30,
+                          fontSize: 24,
                           fontWeight: FontWeight.w800,
                         ),
                       ),
@@ -140,7 +140,7 @@ class _PremiumScreenState extends State<PremiumScreen>
                         textAlign: TextAlign.center,
                       ),
 
-                      const SizedBox(height: 36),
+                      const SizedBox(height: 26),
 
                       Expanded(
                         child: SingleChildScrollView(
@@ -179,9 +179,8 @@ class _PremiumScreenState extends State<PremiumScreen>
             ),
 
             // ⭐ Close Button
-// CLOSE BUTTON
             Positioned(
-              top: 14,
+              top: 50,
               right: 22,
               child: GestureDetector(
                 behavior: HitTestBehavior.translucent, // ⭐ TIKLAMA GARANTİSİ
@@ -204,7 +203,7 @@ class _PremiumScreenState extends State<PremiumScreen>
                   child: const Icon(
                     Icons.close,
                     color: Colors.white,
-                    size: 24,
+                    size: 20,
                   ),
                 ),
               ),

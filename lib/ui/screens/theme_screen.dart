@@ -42,16 +42,26 @@ class _ThemeScreenState extends State<ThemeScreen> {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black87),
-            onPressed: () => Navigator.pop(context),
+          leadingWidth: 32, // 🔥 soldaki boşluğu azaltır
+          leading: Padding(
+            padding:
+                const EdgeInsets.only(left: 6), // 🔥 istediğin kadar kaydır
+            child: IconButton(
+              icon: const Icon(
+                Icons.arrow_back_ios_new,
+                color: Colors.white,
+                size: 22,
+              ),
+              onPressed: () => Navigator.pop(context),
+            ),
           ),
+
           title: Text(
             t.themes,
             style: const TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.w800,
-              color: Colors.black87,
+              fontSize: 18,
+              fontWeight: FontWeight.w500,
+              color: Colors.white,
             ),
           ),
         ),
@@ -74,16 +84,16 @@ class _ThemeScreenState extends State<ThemeScreen> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(20, 4, 20, 0),
                     child: Text(
-                      "✨ Customize the mood of your experience",
+                      t.themeTitle,
                       style: TextStyle(
                         fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black.withAlpha(140),
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white,
                       ),
                     ),
                   ),
 
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 22),
 
                   // ------------------------------------------------------------
                   // GROUP TABS — cam panel
@@ -91,7 +101,7 @@ class _ThemeScreenState extends State<ThemeScreen> {
                   SizedBox(
                     height: 46,
                     child: ListView.separated(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
                       scrollDirection: Axis.horizontal,
                       itemCount: groups.length,
                       separatorBuilder: (_, __) => const SizedBox(width: 10),
@@ -112,8 +122,8 @@ class _ThemeScreenState extends State<ThemeScreen> {
                                 ),
                                 child: Container(
                                   padding: const EdgeInsets.symmetric(
-                                    horizontal: 20,
-                                    vertical: 9,
+                                    horizontal: 15,
+                                    vertical: 10,
                                   ),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(22),
@@ -144,10 +154,10 @@ class _ThemeScreenState extends State<ThemeScreen> {
                                   child: Text(
                                     g,
                                     style: TextStyle(
-                                      fontSize: 14.5,
+                                      fontSize: 13,
                                       color: isSelected
                                           ? const Color(0xFFD4AF37)
-                                          : Colors.black87,
+                                          : Colors.white,
                                       fontWeight: isSelected
                                           ? FontWeight.w700
                                           : FontWeight.w600,
@@ -162,7 +172,7 @@ class _ThemeScreenState extends State<ThemeScreen> {
                     ),
                   ),
 
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 18),
 
                   // GRID
                   Expanded(child: _buildGrid(filteredThemes, appState)),
@@ -215,7 +225,7 @@ class _ThemeScreenState extends State<ThemeScreen> {
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(
                   color: isSelected
-                      ? const Color(0xFFD4AF37)
+                      ? Colors.white
                       : Colors.white.withValues(alpha: 0.18),
                   width: isSelected ? 2.2 : 1.3,
                 ),
@@ -263,8 +273,9 @@ class _ThemeScreenState extends State<ThemeScreen> {
                         right: 8,
                         child: Icon(
                           Icons.lock_outline,
-                          color: Colors.white.withValues(alpha: 0.9),
+                          color: Colors.white,
                           size: 22,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
 
@@ -275,7 +286,7 @@ class _ThemeScreenState extends State<ThemeScreen> {
                         right: 8,
                         child: Icon(
                           Icons.check_circle,
-                          color: Color(0xFFD4AF37),
+                          color: Colors.white,
                           size: 28,
                         ),
                       ),

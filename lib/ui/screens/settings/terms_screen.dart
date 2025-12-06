@@ -26,7 +26,7 @@ class TermsScreen extends StatelessWidget {
           elevation: 0,
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios_new,
-                color: Colors.black87, size: 26),
+                color: Colors.white, size: 26),
             onPressed: () => Navigator.pop(context),
           ),
           title: Transform.translate(

@@ -63,6 +63,7 @@ class AppState extends ChangeNotifier {
 
   // Cache → key: "gender|premium|cat1,cat2"
   final Map<String, List<Affirmation>> _categoryCache = {};
+  final Map<String, List<Affirmation>> _cachedAffirmations = {};
 
   // Lazy getter
   PurchaseState get purchaseState {
@@ -159,7 +160,7 @@ class AppState extends ChangeNotifier {
       _preferences = _preferences.copyWith(languageCode: _selectedLocale);
     }
 
-    _allAffirmations = await _repository.loadAllCategoriesItems();
+    await loadAllAffirmations(_preferences.languageCode);
 
     if (onboardingCompleted) {
       _currentIndex = randomIndex(_calculateInitialCount());
@@ -181,6 +182,25 @@ class AppState extends ChangeNotifier {
     print("   → Gender: ${_preferences.gender}");
     print("   → Content Prefs: ${_preferences.selectedContentPreferences}");
     print("   → Premium: ${_preferences.isPremiumValid}");
+  }
+
+  Future<void> loadAllAffirmations(String languageCode) async {
+    // Eğer cache’de varsa → direkt kullan
+    if (_cachedAffirmations.containsKey(languageCode)) {
+      _allAffirmations = _cachedAffirmations[languageCode]!;
+      print(
+          "⚡ CACHE HIT → $languageCode affirmations RAM’den yüklendi, aff sayısı: ${_allAffirmations.length}");
+      return;
+    }
+
+    print("🌀 LOAD → $languageCode affirmations JSON’dan yükleniyor...");
+
+    final loaded = await _repository.loadAllCategoriesItems();
+
+    _cachedAffirmations[languageCode] = loaded;
+    _allAffirmations = loaded;
+
+    print("📦 CACHE STORED → $languageCode affirmations cached");
   }
 
   int _calculateInitialCount() {
@@ -768,14 +788,11 @@ class AppState extends ChangeNotifier {
       print("🟥 Loading JSON for language = $code");
 
       final bundle = await _repository.load();
-      print("🟩 JSON LOADED SUCCESSFULLY");
 
       _themes = bundle.themes;
       _categories = bundle.categories;
 
-      _allAffirmations = await _repository.loadAllCategoriesItems();
-
-      print("🟩 All Affirmations count: ${_allAffirmations.length}");
+      await loadAllAffirmations(code);
 
       if (_categories.isNotEmpty &&
           !_categories.any((c) => c.id == _activeCategoryId)) {

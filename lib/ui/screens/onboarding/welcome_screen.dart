@@ -78,7 +78,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       color: Colors.white,
-                      fontSize: 42,
+                      fontSize: 40,
                       fontWeight: FontWeight.w700,
                       height: 1.2,
                     ),
@@ -112,7 +112,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     ),
                   ),
 
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 20),
 
                   // PRIVACY / TERMS TEXT
                   RichText(

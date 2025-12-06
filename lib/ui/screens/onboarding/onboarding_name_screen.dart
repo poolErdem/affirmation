@@ -67,7 +67,7 @@ class _OnboardingNameScreenState extends State<OnboardingNameScreen> {
                       t.back,
                       style: TextStyle(
                         color: Colors.white.withValues(alpha: 0.7),
-                        fontSize: 20,
+                        fontSize: 18,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -100,7 +100,7 @@ class _OnboardingNameScreenState extends State<OnboardingNameScreen> {
                     ),
                   ),
 
-                  const SizedBox(height: 60),
+                  const SizedBox(height: 30),
 
                   // GLASSY TEXT FIELD
                   ClipRRect(

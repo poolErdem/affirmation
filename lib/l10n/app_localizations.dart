@@ -174,7 +174,7 @@ abstract class AppLocalizations {
   /// No description provided for @categoryTitle.
   ///
   /// In en, this message translates to:
-  /// **'Choose the energy you want to feel today'**
+  /// **'✨ Choose the energy you want to feel today'**
   String get categoryTitle;
 
   /// No description provided for @nameQuestion.
@@ -842,6 +842,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Repeat Days'**
   String get repeatDays;
+
+  /// No description provided for @themeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'✨ Customize the mood of your experience'**
+  String get themeTitle;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

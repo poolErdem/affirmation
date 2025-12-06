@@ -1,5 +1,4 @@
 import 'package:affirmation/l10n/app_localizations.dart';
-import 'package:affirmation/models/user_preferences.dart';
 import 'package:affirmation/state/my_affirmation_state.dart';
 import 'package:affirmation/state/reminder_state.dart';
 import 'package:affirmation/ui/screens/onboarding/welcome_screen.dart';
@@ -37,7 +36,7 @@ void main() async {
   print("✅ MAIN → AppState initialize bitti.");
 
   final reminderState = ReminderState(appState: appState);
-  await reminderState.initialize(appState.preferences.isPremiumValid);
+  await reminderState.initialize();
   print("✅ MAIN → ReminderState initialize tamam!");
 
   runApp(

@@ -87,8 +87,6 @@ class AppRepository {
 
   // LOAD ALL CATEGORIES ITEMS
   Future<List<Affirmation>> loadAllCategoriesItems() async {
-    print("\n🔵 [LOAD-ALL] Tüm kategoriler yükleniyor...");
-
     final bundle = await load();
     final List<Affirmation> result = [];
 

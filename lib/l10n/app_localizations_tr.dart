@@ -45,7 +45,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get category => 'Kategori';
 
   @override
-  String get categoryTitle => 'Bugün hissetmek istediğin enerjiyi seç';
+  String get categoryTitle => '✨ Bugün hissetmek istediğin enerjiyi seç';
 
   @override
   String get nameQuestion => 'Adın ne?';
@@ -379,4 +379,7 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get repeatDays => 'Günler';
+
+  @override
+  String get themeTitle => '✨ Deneyimizini güzelleştirin';
 }

@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:affirmation/constants/constants.dart';
 import 'package:affirmation/l10n/app_localizations.dart';
 import 'package:affirmation/models/category.dart';
+import 'package:affirmation/state/reminder_state.dart';
 import 'package:affirmation/ui/screens/premium_screen.dart';
 import 'package:affirmation/ui/screens/theme_screen.dart';
 import 'package:affirmation/ui/screens/categories_screen.dart';
@@ -10,6 +11,7 @@ import 'package:affirmation/ui/screens/settings/settings_screen.dart';
 import 'package:affirmation/models/user_preferences.dart';
 import 'package:affirmation/state/app_state.dart';
 import 'package:affirmation/state/my_affirmation_state.dart';
+import 'package:affirmation/ui/widgets/my_aff_edit_popup.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -27,17 +29,12 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _actionAnim;
-  late Animation<Offset> _slideAnim;
-  late Animation<double> _fadeAnim;
 
   late PageController _pageController;
   late PageController _myAffPageController;
 
-  bool _editing = false;
-  String? _editingId;
   double _shareScale = 1.0;
 
-  bool _panelVisible = false;
   final TextEditingController _panelController = TextEditingController();
 
   @override
@@ -95,11 +92,6 @@ class _HomeScreenState extends State<HomeScreen>
       duration: const Duration(milliseconds: 350),
       vsync: this,
     );
-
-    _slideAnim = Tween(begin: const Offset(0, -0.3), end: Offset.zero)
-        .animate(CurvedAnimation(parent: _actionAnim, curve: Curves.easeOut));
-
-    _fadeAnim = CurvedAnimation(parent: _actionAnim, curve: Curves.easeInOut);
 
     _actionAnim.forward();
 
@@ -172,22 +164,15 @@ class _HomeScreenState extends State<HomeScreen>
             ),
           ),
 
-          _buildTopBar(context, isPremium),
-
           Align(
             alignment: Alignment.center,
             child: _buildAffirmationPager(appState),
           ),
 
-          Align(
-            alignment: const Alignment(0.90, 0.73),
-            child: SlideTransition(
-              position: _slideAnim,
-              child: FadeTransition(
-                opacity: _fadeAnim,
-                child: _buildMiddleActions(context),
-              ),
-            ),
+          Positioned(
+            right: 16,
+            bottom: 92,
+            child: _buildMiddleActions(context),
           ),
 
           Positioned(
@@ -207,7 +192,7 @@ class _HomeScreenState extends State<HomeScreen>
           if (appState.activeCategoryId == Constants.myCategoryId)
             _buildMyAffButtons(),
 
-          _buildMyPanel(context),
+          _buildTopBar(context, isPremium),
         ],
       ),
     );
@@ -238,12 +223,14 @@ class _HomeScreenState extends State<HomeScreen>
         );
       }
 
-      return SizedBox(
-        height: MediaQuery.of(context).size.height * 0.52,
+      return SizedBox.expand(
         child: PageView.builder(
           key: ValueKey(_myAffPageController),
           controller: _myAffPageController,
           scrollDirection: Axis.vertical,
+          physics: const BouncingScrollPhysics(
+            parent: AlwaysScrollableScrollPhysics(),
+          ),
           itemCount: items.length,
           onPageChanged: (index) {
             myState.setCurrentIndex(index);
@@ -251,12 +238,16 @@ class _HomeScreenState extends State<HomeScreen>
           },
           itemBuilder: (_, index) {
             final aff = items[index];
+
             return Center(
-              child: AffirmationCard(
-                key: ValueKey(aff.id),
-                affirmation: null,
-                customText: aff.text,
-                isMine: true,
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height * 0.52,
+                child: AffirmationCard(
+                  key: ValueKey(aff.id),
+                  affirmation: null,
+                  customText: aff.text,
+                  isMine: true,
+                ),
               ),
             );
           },
@@ -266,15 +257,19 @@ class _HomeScreenState extends State<HomeScreen>
 
     final items = appState.currentFeed;
 
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.52,
+    return SizedBox.expand(
       child: PageView.builder(
         controller: _pageController,
         scrollDirection: Axis.vertical,
+        physics: const BouncingScrollPhysics(
+          parent: AlwaysScrollableScrollPhysics(),
+        ),
         itemCount: items.length,
         onPageChanged: (index) {
           final last = items.length - 1;
+
           if (index == last) {
+            // Loop to start
             appState.setCurrentIndex(0);
             Future.microtask(() {
               if (_pageController.hasClients) {
@@ -284,324 +279,22 @@ class _HomeScreenState extends State<HomeScreen>
           } else {
             appState.setCurrentIndex(index);
           }
+
           _actionAnim.forward(from: 0);
         },
         itemBuilder: (_, index) {
           final aff = items[index];
+
           return Center(
-            child: AffirmationCard(
-              key: ValueKey(aff.id),
-              affirmation: aff,
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.52,
+              child: AffirmationCard(
+                key: ValueKey(aff.id),
+                affirmation: aff,
+              ),
             ),
           );
         },
-      ),
-    );
-  }
-
-// MY AFFIRMATION PANEL (ADD + EDIT)
-// -------------------------------------------------------------------
-  Widget _buildMyPanel(BuildContext context) {
-    final myAffState = context.read<MyAffirmationState>();
-    final fullHeight = MediaQuery.of(context).size.height;
-    final t = AppLocalizations.of(context)!;
-
-    return AnimatedPositioned(
-      duration: const Duration(milliseconds: 280),
-      curve: Curves.easeOut,
-      left: 0,
-      right: 0,
-      bottom: _panelVisible ? 0 : -fullHeight * 0.50, // tamamen saklanır
-      child: GestureDetector(
-        // ✔ KAYDIRARAK KAPAT
-        onVerticalDragUpdate: (details) {
-          if (details.primaryDelta! > 14) {
-            setState(() => _panelVisible = false);
-          }
-        },
-        onVerticalDragEnd: (details) {
-          if (details.primaryVelocity != null &&
-              details.primaryVelocity! > 200) {
-            setState(() => _panelVisible = false);
-          }
-        },
-
-        child: Container(
-          decoration: const BoxDecoration(
-            color: Color(0xFF1A1A1A), // ✔ premium gri
-            borderRadius: BorderRadius.vertical(top: Radius.circular(26)),
-            border: Border(
-              top: BorderSide(
-                color: Color(0x33FFFFFF),
-                width: 1.2,
-              ),
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: Color(0x66000000),
-                blurRadius: 30,
-                spreadRadius: 5,
-                offset: Offset(0, -6),
-              ),
-            ],
-          ),
-          child: SafeArea(
-            bottom: true,
-            child: Padding(
-              padding: EdgeInsets.only(
-                left: 20,
-                right: 20,
-                top: 16,
-                bottom: 16 + MediaQuery.of(context).viewInsets.bottom,
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  // ─────────────────────────── DRAG HANDLE
-                  Container(
-                    width: 50,
-                    height: 5,
-                    decoration: BoxDecoration(
-                      color: const Color(0x55FFFFFF),
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  // ─────────────────────────── TITLE
-                  Text(
-                    _editing ? t.editAff : t.newAff,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 0.5,
-                    ),
-                  ),
-
-                  const SizedBox(height: 16),
-
-                  // ─────────────────────────── INPUT FIELD
-                  Container(
-                    decoration: BoxDecoration(
-                      color: const Color(0x18FFFFFF),
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(
-                        color: const Color(0x33FFFFFF),
-                        width: 1,
-                      ),
-                    ),
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: TextField(
-                      controller: _panelController,
-                      maxLines: 3,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        height: 1.4,
-                      ),
-                      decoration: InputDecoration(
-                        hintText: t.writeAff,
-                        hintStyle: TextStyle(
-                          color: Color(0x66FFFFFF),
-                          fontSize: 15,
-                        ),
-                        border: InputBorder.none,
-                        isDense: true,
-                      ),
-                    ),
-                  ),
-
-                  const SizedBox(height: 20),
-
-                  // ─────────────────────────── BUTTONS ROW
-                  Row(
-                    children: [
-                      // DELETE ------------------------------
-                      if (_editing) ...[
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () async {
-                              if (_editingId != null) {
-                                final myState =
-                                    context.read<MyAffirmationState>();
-                                final currentIndex =
-                                    _myAffPageController.page?.round() ?? 0;
-
-                                await myAffState.remove(_editingId!);
-
-                                _panelController.clear();
-                                if (!mounted) return;
-
-                                setState(() {
-                                  _editing = false;
-                                  _editingId = null;
-                                  _panelVisible = false;
-                                });
-
-                                await Future.delayed(
-                                    const Duration(milliseconds: 100));
-                                if (!mounted) return;
-
-                                if (myState.items.isNotEmpty) {
-                                  if (_myAffPageController.hasClients) {
-                                    final newIndex =
-                                        currentIndex >= myState.items.length
-                                            ? myState.items.length - 1
-                                            : currentIndex;
-
-                                    _myAffPageController.jumpToPage(newIndex);
-                                  }
-                                }
-                              }
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(vertical: 14),
-                              decoration: BoxDecoration(
-                                color: const Color(0x22FF4444),
-                                borderRadius: BorderRadius.circular(14),
-                                border: Border.all(
-                                  color: const Color(0x66FF4444),
-                                  width: 1.5,
-                                ),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.delete_outline,
-                                    color: Colors.redAccent,
-                                    size: 20,
-                                  ),
-                                  SizedBox(width: 8),
-                                  Text(
-                                    t.delete,
-                                    style: TextStyle(
-                                      color: Colors.redAccent,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                      ],
-
-                      // SAVE / UPDATE ------------------------
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () async {
-                            final text = _panelController.text.trim();
-                            if (text.isEmpty) return;
-
-                            final scaffoldContext = context;
-                            final wasEditing = _editing;
-
-                            if (!wasEditing) {
-                              final isOver = await myAffState.isOverLimit();
-
-                              if (!mounted) return;
-                              if (isOver) {
-                                _showMyAffLimitDialog(scaffoldContext);
-                                return;
-                              }
-                            }
-
-                            if (wasEditing) {
-                              if (_editingId != null) {
-                                await myAffState.update(_editingId!, text);
-                              }
-                            } else {
-                              await myAffState.add(text);
-                            }
-
-                            _panelController.clear();
-                            if (!mounted) return;
-
-                            setState(() {
-                              _editing = false;
-                              _editingId = null;
-                              _panelVisible = false;
-                            });
-
-                            if (!wasEditing) {
-                              await Future.delayed(
-                                  const Duration(milliseconds: 100));
-                              if (!mounted) return;
-
-                              final myState =
-                                  context.read<MyAffirmationState>();
-                              if (myState.items.isNotEmpty) {
-                                if (_myAffPageController.hasClients) {
-                                  await _myAffPageController.animateToPage(
-                                    myState.items.length - 1,
-                                    duration: const Duration(milliseconds: 300),
-                                    curve: Curves.easeOut,
-                                  );
-                                }
-                              }
-                            }
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(vertical: 14),
-                            decoration: BoxDecoration(
-                              gradient: const LinearGradient(
-                                colors: [
-                                  Color(0xFF4A4A4A),
-                                  Color(0xFF2A2A2A),
-                                ],
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                              ),
-                              borderRadius: BorderRadius.circular(14),
-                              border: Border.all(
-                                color: Color(0x55FFFFFF),
-                                width: 1.5,
-                              ),
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Color(0x22FFFFFF),
-                                  blurRadius: 8,
-                                  spreadRadius: 0,
-                                ),
-                              ],
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Icon(
-                                  Icons.check_circle_outline,
-                                  color: Colors.white,
-                                  size: 20,
-                                ),
-                                const SizedBox(width: 8),
-                                Text(
-                                  _editing ? t.update : t.save,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                    letterSpacing: 0.5,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
       ),
     );
   }
@@ -610,6 +303,7 @@ class _HomeScreenState extends State<HomeScreen>
   // TOP BAR
   //────────────────────────────────────────
   Widget _buildTopBar(BuildContext context, bool isPremium) {
+    final reminderState = context.read<ReminderState>();
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 6),
@@ -627,19 +321,25 @@ class _HomeScreenState extends State<HomeScreen>
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               // ⚙️ SETTINGS
-              InkWell(
+              GestureDetector(
+                behavior: HitTestBehavior.opaque,
                 onTap: () {
+                  reminderState.testScheduleSingle();
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (_) => const SettingsScreen()),
                   );
                 },
-                child:
-                    const Icon(Icons.settings, color: Colors.white, size: 24),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child:
+                      const Icon(Icons.settings, color: Colors.white, size: 24),
+                ),
               ),
 
               // ⭐ PREMIUM BUTTON
               GestureDetector(
+                behavior: HitTestBehavior.opaque,
                 onTap: () {
                   if (isPremium) {
                     _showPremiumStatusDialog(context);
@@ -656,10 +356,7 @@ class _HomeScreenState extends State<HomeScreen>
                     shape: BoxShape.circle,
                     gradient: isPremium
                         ? const LinearGradient(
-                            colors: [
-                              Color(0xFFFFD700),
-                              Color(0xFFFFA500),
-                            ],
+                            colors: [Color(0xFFFFD700), Color(0xFFFFA500)],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
                           )
@@ -718,12 +415,18 @@ class _HomeScreenState extends State<HomeScreen>
       mainAxisSize: MainAxisSize.min,
       children: [
         // 🔊 VOLUME → GLOW VERSION
-        glowButton(
-          active: enabled,
-          icon: enabled ? Icons.volume_up : Icons.volume_off,
+        GestureDetector(
           onTap: () {
             playback.toggleVolume();
           },
+          child: glassButton(
+            enabled: enabled, // 🔥 işte bu! Glow aktif/pasif olur
+            child: Icon(
+              enabled ? Icons.volume_up : Icons.volume_off,
+              size: 26,
+              color: Colors.white,
+            ),
+          ),
         ),
 
         const SizedBox(height: 16),
@@ -774,7 +477,8 @@ class _HomeScreenState extends State<HomeScreen>
             final appState = context.read<AppState>();
             final aff = appState.affirmationAt(appState.currentIndex);
             if (aff == null) return;
-            Share.share(aff.text);
+            final filtered = aff.renderWithName(appState.userName ?? "");
+            Share.share(filtered);
           },
           child: AnimatedScale(
             scale: _shareScale,
@@ -922,7 +626,9 @@ class _HomeScreenState extends State<HomeScreen>
 
   Widget _buildThemeButton(BuildContext context) {
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
+        //await reminderState.initialize();
+        //await reminderState.testScheduleSingle();
         Navigator.push(
           context,
           MaterialPageRoute(builder: (_) => const ThemeScreen()),
@@ -980,11 +686,10 @@ class _HomeScreenState extends State<HomeScreen>
 
               final aff = myState.items[index];
 
-              _editing = true;
-              _editingId = aff.id;
-              _panelController.text = aff.text;
-
-              setState(() => _panelVisible = true);
+              _openMyAffPopup(
+                existingId: aff.id,
+                existingText: aff.text,
+              );
             },
           ),
 
@@ -994,10 +699,7 @@ class _HomeScreenState extends State<HomeScreen>
           _iconButton(
             icon: Icons.add,
             onTap: () {
-              _editing = false;
-              _editingId = null;
-              _panelController.clear();
-              setState(() => _panelVisible = true);
+              _openMyAffPopup();
             },
           ),
         ],
@@ -1194,60 +896,6 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  void _showMyAffLimitDialog(BuildContext context) {
-    final appState = context.read<AppState>();
-    final isPremium = appState.preferences.isPremiumValid;
-    final t = AppLocalizations.of(context)!;
-
-    String title;
-    String message;
-    List<Widget> actions;
-
-    if (!isPremium) {
-      title = t.myAffLimitTitle;
-      message = t.myAffLimit;
-      actions = [
-        TextButton(
-          onPressed: () => Navigator.pop(context),
-          child: const Text("Close"),
-        ),
-        TextButton(
-          onPressed: () {
-            Navigator.pop(context);
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => const PremiumScreen()),
-            );
-          },
-          child: const Text("Go Premium"),
-        ),
-      ];
-    } else {
-      title = "Premium Limit Reached";
-      message =
-          "You've reached your Premium limit (1000). You cannot add more custom affirmations.";
-
-      actions = [
-        TextButton(
-          onPressed: () => Navigator.pop(context),
-          child: const Text("OK"),
-        ),
-      ];
-    }
-
-    showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: Text(title),
-        content: Text(message),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(18),
-        ),
-        actions: actions,
-      ),
-    );
-  }
-
   //────────────────────────────────────────
   // PLAYBACK LIMIT DIALOG
   //────────────────────────────────────────
@@ -1304,7 +952,7 @@ class _HomeScreenState extends State<HomeScreen>
                 scale: 1 + (1 - value) * size,
                 child: const Icon(
                   Icons.star,
-                  color: Color.fromARGB(241, 212, 125, 196),
+                  color: Color.fromARGB(255, 239, 205, 91),
                   size: 28,
                 ),
               );
@@ -1318,16 +966,29 @@ class _HomeScreenState extends State<HomeScreen>
       entry.remove();
     }
 
-    showStar(50, 0, 0.4);
+    showStar(45, 110, 0.4);
 
     await Future.delayed(const Duration(milliseconds: 90));
-    showStar(25, -25, 0.5);
+    showStar(25, 75, 0.5);
 
     await Future.delayed(const Duration(milliseconds: 90));
-    showStar(15, -65, 0.6);
+    showStar(13, 35, 0.6);
 
     await Future.delayed(const Duration(milliseconds: 90));
-    showStar(8, -115, 0.6);
+    showStar(8, -10, 0.6);
+  }
+
+  void _openMyAffPopup({String? existingId, String? existingText}) {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (_) {
+        return MyAffEditPopup(
+          editingId: existingId,
+          initialText: existingText,
+        );
+      },
+    );
   }
 }
 

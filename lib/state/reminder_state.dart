@@ -1,10 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:affirmation/state/app_state.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
-
+import 'package:permission_handler/permission_handler.dart';
 import '../models/reminder.dart';
 
 @pragma('vm:entry-point')
@@ -21,27 +22,17 @@ class ReminderState extends ChangeNotifier {
   List<ReminderModel> _reminders = [];
 
   bool _loaded = false;
-  bool _isPremium = false;
   bool _adding = false;
   bool _updating = false;
   bool _deleting = false;
 
   List<ReminderModel> get reminders => List.unmodifiable(_reminders);
   bool get isLoaded => _loaded;
-  bool get isPremium => _isPremium;
-  int get limit => _isPremium ? 200 : 20;
-  bool get canAddReminder => _reminders.length < limit;
 
-  // --------------------------------------------------------
   // INITIALIZE
-  // --------------------------------------------------------
-  Future<void> initialize(bool premium) async {
+  Future<void> initialize() async {
     print("🚀 [REM] initialize() başlıyor...");
-    print("   • premium = $premium");
-
-    //removePrefs();
-
-    _isPremium = premium;
+    removePrefs();
 
     await _initNotifications();
 
@@ -62,9 +53,7 @@ class ReminderState extends ChangeNotifier {
     print("🏁 [REM] initialize() tamam! Sistem hazır 🎉\n");
   }
 
-// --------------------------------------------------------
 // ADD
-// --------------------------------------------------------
   Future<bool> addReminder(ReminderModel r) async {
     if (_adding) {
       print("⛔ [REM] addReminder İPTAL — zaten çalışıyor.");
@@ -75,10 +64,10 @@ class ReminderState extends ChangeNotifier {
     print("➕ [REM] addReminder() BAŞLADI — safe mode");
 
     try {
-      if (!canAddReminder) {
-        print("❌ [REM] addReminder → limit dolu.");
-        return false;
-      }
+      //if (!canAddReminder) {
+      //print("❌ [REM] addReminder → limit dolu.");
+      //return false;
+      //}
 
       _reminders.add(r);
       print("✅ Reminder listeye eklendi (len=${_reminders.length})");
@@ -243,6 +232,11 @@ class ReminderState extends ChangeNotifier {
             AndroidFlutterLocalNotificationsPlugin>()
         ?.createNotificationChannel(channel);
 
+    _notifications
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.requestExactAlarmsPermission();
+
     // Notification permission
     await _notifications
         .resolvePlatformSpecificImplementation<
@@ -252,6 +246,9 @@ class ReminderState extends ChangeNotifier {
     // Exact alarm permission
     final androidPlugin = _notifications.resolvePlatformSpecificImplementation<
         AndroidFlutterLocalNotificationsPlugin>();
+
+    final enabled = await androidPlugin?.areNotificationsEnabled();
+    print("enabled : $enabled");
 
     if (androidPlugin != null) {
       // Battery optimization kontrolü
@@ -277,10 +274,7 @@ class ReminderState extends ChangeNotifier {
     }
   }
 
-  // --------------------------------------------------------
   // SCHEDULE SINGLE REMINDER
-  // --------------------------------------------------------
-
   DateTime _computeBaseDay(DateTime now, int weekday, TimeOfDay startTime) {
     // Bugünkü gün mü?
     if (weekday == now.weekday) {
@@ -349,10 +343,135 @@ class ReminderState extends ChangeNotifier {
     }
   }
 
+  Future<void> checkPendingNotifications() async {
+    final pending = await _notifications.pendingNotificationRequests();
+    print("📋 Bekleyen notification sayısı: ${pending.length}");
+    for (var p in pending) {
+      print("   • ID: ${p.id}, Title: ${p.title}, Body: ${p.body}");
+    }
+  }
+
+  Future<void> testScheduleSingle() async {
+    print("🔔 [TEST] START for reminder:");
+
+    // 1. Permission Handler ile izin iste
+    final permissionStatus = await Permission.notification.request();
+    print("📱 Permission status: $permissionStatus");
+
+    if (permissionStatus.isDenied || permissionStatus.isPermanentlyDenied) {
+      print("❌ Notification permission NOT granted!");
+
+      if (permissionStatus.isPermanentlyDenied) {
+        // Kullanıcıyı ayarlara yönlendir
+        print("⚠️ Opening app settings...");
+        await openAppSettings();
+      }
+      return;
+    }
+
+    // 2. Exact alarm izni (Android 12+)
+    if (await Permission.scheduleExactAlarm.isDenied) {
+      final exactAlarmStatus = await Permission.scheduleExactAlarm.request();
+      print("⏰ Exact alarm permission: $exactAlarmStatus");
+    }
+
+    // 3. Test bildirimi zamanla
+    final now = tz.TZDateTime.now(tz.local);
+    final testTime = now.add(const Duration(seconds: 10));
+    print("⏰ Current time: $now");
+    print("⏰ Test time: $testTime");
+
+    await _notifications.zonedSchedule(
+      9999,
+      '🌟 Affirmation Time',
+      "yeah babe",
+      testTime,
+      const NotificationDetails(
+        android: AndroidNotificationDetails(
+          'affirmation_reminders',
+          'Affirmation Reminders',
+          channelDescription: 'Daily affirmation reminders',
+          importance: Importance.high,
+          priority: Priority.high,
+          playSound: true,
+          enableVibration: true,
+          icon: '@mipmap/ic_launcher', // App ikonunuz
+        ),
+      ),
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
+    );
+
+    print("✔ Notification scheduled for ID: 9999\n");
+
+    // 4. Pending notifications kontrolü
+    final pending = await _notifications.pendingNotificationRequests();
+    print("📋 Pending notifications: ${pending.length}");
+    for (var p in pending) {
+      print("  - ID: ${p.id}, Title: ${p.title}");
+    }
+  }
+
+// Hemen bildirim testi
+  Future<void> testImmediateNotification() async {
+    print("🔔 [TEST] Sending immediate notification...");
+
+    final permissionStatus = await Permission.notification.request();
+    if (!permissionStatus.isGranted) {
+      print("❌ Permission denied!");
+      return;
+    }
+
+    await _notifications.show(
+      9998,
+      '🌟 Test Notification',
+      'If you see this, notifications work!',
+      const NotificationDetails(
+        android: AndroidNotificationDetails(
+          'affirmation_reminders',
+          'Affirmation Reminders',
+          channelDescription: 'Test channel',
+          importance: Importance.high,
+          priority: Priority.high,
+          playSound: true,
+          enableVibration: true,
+          icon: '@mipmap/ic_launcher',
+        ),
+      ),
+    );
+
+    print("✔ Immediate notification sent!");
+  }
+
+  Future<bool> checkNotificationPermissions() async {
+    final notification = await Permission.notification.status;
+    final exactAlarm = await Permission.scheduleExactAlarm.status;
+
+    print("🔔 Notification permission: $notification");
+    print("⏰ Exact alarm permission: $exactAlarm");
+
+    return notification.isGranted;
+  }
+
+  Future<void> requestNotificationPermission() async {
+    if (Platform.isAndroid) {
+      final status = await Permission.notification.request();
+      print("🔔 Notification permission status: $status");
+
+      if (status.isDenied) {
+        print("❌ Notification permission denied!");
+      }
+    }
+  }
+
   Future<void> _scheduleSingle(ReminderModel r, DateTime time) async {
     print("🔔 [_scheduleSingle] START for reminder: ${r.id}");
     print("➡ categoryIds: ${r.categoryIds}");
 
+    final now = tz.TZDateTime.now(tz.local);
+    final testTime = now.add(const Duration(seconds: 10)); // 10 saniye sonra
+    print("now $testTime");
     // Category fallback
     final categorySet = r.categoryIds.isEmpty ? {"general"} : r.categoryIds;
 
@@ -376,9 +495,9 @@ class ReminderState extends ChangeNotifier {
 
     await _notifications.zonedSchedule(
       notifId,
-      'Affirmation Time 🌟',
+      '🌟 Affirmation Time',
       rendered,
-      tzTime,
+      testTime,
       const NotificationDetails(
         android: AndroidNotificationDetails(
           'affirmation_reminders',
@@ -390,8 +509,6 @@ class ReminderState extends ChangeNotifier {
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
-      matchDateTimeComponents:
-          DateTimeComponents.dayOfWeekAndTime, // 👈 EKLEYIN
     );
 
     print("✔ Notification scheduled.\n");
