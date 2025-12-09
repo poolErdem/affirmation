@@ -9,35 +9,6 @@ import 'package:affirmation/ui/widgets/shared_blur_background.dart';
 import 'package:share_plus/share_plus.dart';
 
 //-------------------------------------------
-// DATE FORMAT
-//-------------------------------------------
-String _monthName(int m) {
-  const names = [
-    "",
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec"
-  ];
-  return names[m];
-}
-
-String formatFavoriteDate(DateTime d) {
-  return "${d.day.toString().padLeft(2, '0')} "
-      "${_monthName(d.month)} "
-      "${d.year} • "
-      "${d.hour.toString().padLeft(2, '0')}:${d.minute.toString().padLeft(2, '0')}";
-}
-
-//-------------------------------------------
 // FAVORITES SCREEN
 //-------------------------------------------
 class FavoritesListScreen extends StatelessWidget {
@@ -241,4 +212,15 @@ class _FavoriteRow extends StatelessWidget {
       ),
     );
   }
+}
+
+String _monthName(int m) {
+  return Constants.months[m];
+}
+
+String formatFavoriteDate(DateTime d) {
+  return "${d.day.toString().padLeft(2, '0')} "
+      "${_monthName(d.month)} "
+      "${d.year} • "
+      "${d.hour.toString().padLeft(2, '0')}:${d.minute.toString().padLeft(2, '0')}";
 }

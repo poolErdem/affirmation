@@ -616,8 +616,7 @@ class AppState extends ChangeNotifier {
     final sorted = categories.toList()..sort();
     final cats = sorted.join(",");
     final gender = _preferences.gender;
-    final premium = _preferences.premiumActive ? "P" : "F";
-    return "$gender|$premium|$cats";
+    return "$gender|$cats";
   }
 
   void clearAffirmationCache() {
@@ -644,21 +643,12 @@ class AppState extends ChangeNotifier {
 
     late final List<Affirmation> list;
 
-    if (_preferences.premiumActive) {
-      // Premium → gender + category
-      list = _allAffirmations.where((a) {
-        final genderOk = matchGender(a, _preferences.gender);
-        final matchesCategory = effectiveCats.contains(a.categoryId);
-        return genderOk && matchesCategory;
-      }).toList();
-    } else {
-      // Free → zaten sadece 2 kategori gösteriyoruz,
-      // tekrar kategori süzmek gereksiz
-      list = _allAffirmations.where((a) {
-        final genderOk = matchGender(a, _preferences.gender);
-        return genderOk;
-      }).toList();
-    }
+    //gender + category
+    list = _allAffirmations.where((a) {
+      final genderOk = matchGender(a, _preferences.gender);
+      final matchesCategory = effectiveCats.contains(a.categoryId);
+      return genderOk && matchesCategory;
+    }).toList();
 
     print("🎯 [AFF] after filtering → ${list.length}");
 

@@ -73,6 +73,22 @@ class Constants {
     },
   };
 
+  static const List<String> months = [
+    "",
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec"
+  ];
+
   static const List<AffirmationCategory> baseCategories = [
     AffirmationCategory(
       id: favoritesCategoryId,
