@@ -203,7 +203,7 @@ class _PremiumScreenState extends State<PremiumScreen>
                   child: const Icon(
                     Icons.close,
                     color: Colors.white,
-                    size: 20,
+                    size: 15,
                   ),
                 ),
               ),

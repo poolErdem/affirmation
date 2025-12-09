@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:affirmation/models/user_preferences.dart';
 import 'package:affirmation/state/my_affirmation_state.dart';
 import 'package:flutter/material.dart';
@@ -33,9 +32,47 @@ class _MyAffEditPopupState extends State<MyAffEditPopup> {
 
   @override
   Widget build(BuildContext context) {
-    final myAff = context.read<MyAffirmationState>();
+    final myAff = context.watch<MyAffirmationState>();
     final t = AppLocalizations.of(context)!;
     final isEditing = widget.editingId != null;
+
+    // Gün bilgisi
+    final currentDay = myAff.todayChallengeDay;
+    final required = myAff.requiredForDay(currentDay);
+    final written = myAff.writtenCountForDay(currentDay);
+
+    bool missedAnyPreviousDay = false;
+
+    // 1) En son yazılan günü bul
+    int lastWrittenDay = 0;
+    for (int d = 1; d <= 21; d++) {
+      if (myAff.writtenCountForDay(d) > 0) {
+        lastWrittenDay = d;
+      }
+    }
+
+    // 2) Eğer en son yazdığı gün ile bugün arasında boş gün varsa → skip var
+    if (lastWrittenDay > 0 && currentDay > lastWrittenDay + 1) {
+      missedAnyPreviousDay = true;
+    }
+
+    // 3) Dün eksik mi? (eski kontrol de dursun)
+    bool missedYesterday = false;
+    if (!isEditing && currentDay > 1) {
+      if (myAff.realDaysPassed > 0) {
+        final y = currentDay - 1;
+        final reqY = myAff.requiredForDay(y);
+        final wY = myAff.writtenCountForDay(y);
+        missedYesterday = wY < reqY;
+      }
+    }
+
+    // 4) Kullanıcı challenge’ı aslında tamamlamış mı?
+    final bool completed =
+        (!missedYesterday && !missedAnyPreviousDay && written >= required);
+
+    print(
+        "isediting $isEditing lastAddTriggeredReset: ${myAff.lastAddTriggeredReset}");
 
     return Dialog(
       backgroundColor: Colors.transparent,
@@ -49,8 +86,8 @@ class _MyAffEditPopupState extends State<MyAffEditPopup> {
             decoration: BoxDecoration(
               gradient: const LinearGradient(
                 colors: [
-                  Color(0xFF1B1B1B),
-                  Color(0xFF111111),
+                  Color.fromARGB(255, 51, 50, 50),
+                  Color.fromARGB(255, 109, 105, 105),
                 ],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -62,7 +99,7 @@ class _MyAffEditPopupState extends State<MyAffEditPopup> {
               ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.4),
+                  color: Colors.black.withValues(alpha: 0.35),
                   blurRadius: 24,
                 ),
               ],
@@ -82,6 +119,82 @@ class _MyAffEditPopupState extends State<MyAffEditPopup> {
 
                 const SizedBox(height: 18),
 
+                // ---------- ❗ RESET MESSAGE ----------
+                if (!isEditing && !completed && myAff.lastAddTriggeredReset)
+                  Container(
+                    padding: const EdgeInsets.all(14),
+                    margin: const EdgeInsets.only(bottom: 12),
+                    decoration: BoxDecoration(
+                      color: Colors.orange.withValues(alpha: 0.20),
+                      borderRadius: BorderRadius.circular(14),
+                      border: Border.all(
+                        color: Colors.orange.withValues(alpha: 0.45),
+                        width: 1.2,
+                      ),
+                    ),
+                    child: Text(
+                      "⚠️ You missed challenge.\nYour 21-day journey has restarted.",
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        height: 1.4,
+                        fontSize: 14.5,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+
+                // ---------- ❗ MISSED YESTERDAY ----------
+                if (!isEditing && missedYesterday)
+                  Container(
+                    padding: const EdgeInsets.all(14),
+                    margin: const EdgeInsets.only(bottom: 12),
+                    decoration: BoxDecoration(
+                      color: Colors.red.withValues(alpha: 0.18),
+                      borderRadius: BorderRadius.circular(14),
+                      border: Border.all(
+                        color: Colors.red.withValues(alpha: 0.35),
+                        width: 1.2,
+                      ),
+                    ),
+                    child: const Text(
+                      "⚠️ You missed yesyerday's challenge.\nYour 21-day journey has restarted.",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        height: 1.4,
+                        fontSize: 14.5,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+
+                // ---------- CHALLENGE INFO ----------
+                if (!isEditing)
+                  Container(
+                    padding: const EdgeInsets.all(14),
+                    margin: const EdgeInsets.only(bottom: 14),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withValues(alpha: 0.10),
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(
+                        color: Colors.white.withValues(alpha: 0.20),
+                        width: 1.2,
+                      ),
+                    ),
+                    child: Text(
+                      completed
+                          ? "🎉 You have completed today's task! ($written / $required)"
+                          : "Day $currentDay — Today you must write $required affirmations.\nProgress: $written / $required",
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                        height: 1.4,
+                      ),
+                    ),
+                  ),
+
                 // INPUT
                 Container(
                   padding: const EdgeInsets.all(14),
@@ -99,9 +212,7 @@ class _MyAffEditPopupState extends State<MyAffEditPopup> {
                     decoration: InputDecoration(
                       hintText: t.writeAff,
                       border: InputBorder.none,
-                      hintStyle: const TextStyle(
-                        color: Colors.white54,
-                      ),
+                      hintStyle: const TextStyle(color: Colors.white54),
                     ),
                   ),
                 ),
@@ -110,6 +221,7 @@ class _MyAffEditPopupState extends State<MyAffEditPopup> {
 
                 Row(
                   children: [
+                    // DELETE
                     if (isEditing)
                       Expanded(
                         child: GestureDetector(
@@ -122,11 +234,11 @@ class _MyAffEditPopupState extends State<MyAffEditPopup> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(16),
                               border: Border.all(
-                                  color:
-                                      Colors.redAccent.withValues(alpha: 0.6)),
+                                color: Colors.redAccent.withValues(alpha: 0.6),
+                              ),
                               gradient: const LinearGradient(
                                 colors: [
-                                  Color(0x33FF4444),
+                                  Color.fromARGB(51, 217, 100, 100),
                                   Color(0x22FF4444),
                                 ],
                               ),
@@ -149,20 +261,21 @@ class _MyAffEditPopupState extends State<MyAffEditPopup> {
                           ),
                         ),
                       ),
+
                     if (isEditing) const SizedBox(width: 12),
+
+                    // SAVE
                     Expanded(
                       child: GestureDetector(
                         onTap: () async {
                           final text = controller.text.trim();
                           if (text.isEmpty) return;
 
-                          // Eğer yeni ekleme yapılıyorsa → limit kontrol et
                           if (!isEditing) {
                             final over = await myAff.isOverLimit();
                             if (over) {
-                              Navigator.pop(context); // popup kapansın
-                              showMyAffLimitDialog(
-                                  context); // limit dialog açılsın
+                              Navigator.pop(context);
+                              showMyAffLimitDialog(context);
                               return;
                             }
                           }
@@ -170,21 +283,32 @@ class _MyAffEditPopupState extends State<MyAffEditPopup> {
                           if (isEditing) {
                             await myAff.update(widget.editingId!, text);
                           } else {
-                            await myAff.add(text);
+                            try {
+                              await myAff.add(text);
+                              Navigator.pop(context);
+                            } catch (e) {
+                              if (e.toString() == "reset") {
+                                Navigator.pop(context);
+
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                      "⚠️ Challenge reset! You missed yesterday's task.",
+                                    ),
+                                    backgroundColor: Colors.red,
+                                  ),
+                                );
+                              }
+                            }
                           }
-
-                          Navigator.pop(context);
-
-                          // Ekledikten sonra son elemana scroll etmek istersen:
-                          // _myAffPageController.animateToPage(...)
                         },
                         child: Container(
                           padding: const EdgeInsets.symmetric(vertical: 16),
                           decoration: BoxDecoration(
                             gradient: const LinearGradient(
                               colors: [
-                                Color(0xFFC9A85D),
-                                Color(0xFFE4C98A),
+                                Color.fromARGB(255, 204, 179, 122),
+                                Color.fromARGB(255, 212, 192, 146),
                               ],
                             ),
                             borderRadius: BorderRadius.circular(16),
@@ -200,8 +324,9 @@ class _MyAffEditPopupState extends State<MyAffEditPopup> {
                               Text(
                                 isEditing ? t.update : t.save,
                                 style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w700),
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
                             ],
                           ),
@@ -250,7 +375,6 @@ class _MyAffEditPopupState extends State<MyAffEditPopup> {
       title = "Premium Limit Reached";
       message =
           "You've reached your Premium limit (1000). You cannot add more custom affirmations.";
-
       actions = [
         TextButton(
           onPressed: () => Navigator.pop(context),

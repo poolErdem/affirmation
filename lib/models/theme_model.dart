@@ -31,3 +31,7 @@ class ThemeModel {
         'soundAsset': soundAsset,
       };
 }
+
+extension ThemeVideoExt on ThemeModel {
+  bool get isVideo => imageAsset.toLowerCase().endsWith('.mp4');
+}

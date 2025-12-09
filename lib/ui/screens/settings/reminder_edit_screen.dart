@@ -84,7 +84,7 @@ class _ReminderEditScreenState extends State<ReminderEditScreen>
                   padding: const EdgeInsets.fromLTRB(20, 16, 20, 40),
                   children: [
                     _header(context),
-                    const SizedBox(height: 22),
+                    const SizedBox(height: 26),
 
                     // CATEGORY
                     _glassInfoBox(
@@ -139,14 +139,14 @@ class _ReminderEditScreenState extends State<ReminderEditScreen>
         GestureDetector(
           onTap: () => Navigator.pop(context, data),
           child: const Icon(Icons.arrow_back_ios_new,
-              size: 26, color: Colors.white),
+              size: 22, color: Colors.white),
         ),
         const SizedBox(width: 12),
         Text(
           t.editReminder,
           style: const TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.w800,
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
             color: Colors.white,
           ),
         ),
@@ -246,7 +246,7 @@ class _ReminderEditScreenState extends State<ReminderEditScreen>
                     style: const TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w600,
-                        color: Colors.black87)),
+                        color: Colors.white)),
                 Row(
                   children: [
                     Text(
@@ -303,7 +303,7 @@ class _ReminderEditScreenState extends State<ReminderEditScreen>
                   style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
-                      color: Colors.black87)),
+                      color: Colors.white)),
               trailing,
             ],
           ),
@@ -377,7 +377,7 @@ class _ReminderEditScreenState extends State<ReminderEditScreen>
         child: Text(
           t,
           style: const TextStyle(
-              fontSize: 18, fontWeight: FontWeight.w700, color: Colors.black87),
+              fontSize: 18, fontWeight: FontWeight.w700, color: Colors.white),
         ),
       ),
     );
@@ -404,7 +404,7 @@ class _ReminderEditScreenState extends State<ReminderEditScreen>
                   style: const TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
-                      color: Colors.black87)),
+                      color: Colors.white)),
               const SizedBox(height: 12),
               Row(
                 children: List.generate(7, (i) {

@@ -10,6 +10,7 @@ import 'package:affirmation/ui/screens/premium_screen.dart';
 import 'package:affirmation/ui/screens/settings/reminder_edit_screen.dart';
 import 'package:affirmation/ui/widgets/shared_blur_background.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
 class ReminderListScreen extends StatefulWidget {
@@ -407,7 +408,7 @@ class _ReminderListScreenState extends State<ReminderListScreen>
               id: active.id,
               enabled: active.enabled,
             );
-            await reminderState.updateReminder(updated);
+            await reminderState.updateReminder(updated, t);
           }
         }
       },
@@ -473,42 +474,53 @@ class _ReminderListScreenState extends State<ReminderListScreen>
                         color: Colors.white70,
                       ),
                     Switch(
-                      value: isOn,
-                      activeThumbColor: const Color(0xFFC9A85D),
-                      activeTrackColor:
-                          const Color(0xFFC9A85D).withValues(alpha: 0.50),
-                      inactiveThumbColor: Colors.white.withValues(alpha: 0.90),
-                      inactiveTrackColor: Colors.white.withValues(alpha: 0.25),
-                      onChanged: locked
-                          ? null
-                          : (v) async {
-                              if (v) {
-                                final draft = _drafts[slotIndex] ??
-                                    _defaultTemplate(slotIndex, isPremium);
+                        value: isOn,
+                        activeThumbColor: const Color(0xFFC9A85D),
+                        activeTrackColor:
+                            const Color(0xFFC9A85D).withValues(alpha: 0.50),
+                        inactiveThumbColor:
+                            Colors.white.withValues(alpha: 0.90),
+                        inactiveTrackColor:
+                            Colors.white.withValues(alpha: 0.25),
+                        onChanged: (v) async {
+                          if (v) {
+                            // 🔥 BURADA İZİN İSTE
+                            final status =
+                                await Permission.notification.request();
+                            if (!status.isGranted) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                    content: Text(
+                                        "Please allow notification permission.")),
+                              );
+                              return;
+                            }
 
-                                final model = (active ?? draft).copyWith(
-                                  id: _slotId(slotIndex),
-                                  enabled: true,
-                                  categoryIds: isPremium
-                                      ? (draft.categoryIds.isEmpty
-                                          ? {Constants.generalCategoryId}
-                                          : draft.categoryIds)
-                                      : {Constants.generalCategoryId},
-                                  isPremium: isPremium,
-                                );
+                            final draft = _drafts[slotIndex] ??
+                                _defaultTemplate(slotIndex, isPremium);
 
-                                if (active == null) {
-                                  await reminderState.addReminder(model);
-                                } else {
-                                  await reminderState.updateReminder(model);
-                                }
-                              } else {
-                                if (active != null) {
-                                  await reminderState.deleteReminder(active.id);
-                                }
-                              }
-                            },
-                    ),
+                            final model = (active ?? draft).copyWith(
+                              id: _slotId(slotIndex),
+                              enabled: true,
+                              categoryIds: isPremium
+                                  ? (draft.categoryIds.isEmpty
+                                      ? {Constants.generalCategoryId}
+                                      : draft.categoryIds)
+                                  : {Constants.generalCategoryId},
+                              isPremium: isPremium,
+                            );
+
+                            if (active == null) {
+                              await reminderState.addReminder(model, t);
+                            } else {
+                              await reminderState.updateReminder(model, t);
+                            }
+                          } else {
+                            if (active != null) {
+                              await reminderState.deleteReminder(active.id);
+                            }
+                          }
+                        }),
                   ],
                 ),
               ],

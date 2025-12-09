@@ -14,7 +14,7 @@
   "getPremium":  "Get Premium",
 
 "category": "Category",
-  "categoryTitle" : "✨ Choose the energy you want to feel today",
+  "categoryTitle" : "Choose the energy you want to feel today",
 
   "nameQuestion": "What’s your name?",
   "personalize": "We'll personalize your affirmations",
@@ -148,7 +148,10 @@
 "startAt": "Start at",
 "endAt": "End at",
 "repeatDays": "Repeat Days",
-"themeTitle": "✨ Customize the mood of your experience"
-
+"themeTitle": "Customize the mood of your experience",
+"selectThemeWarning" : "Please select at least one option", 
+"favoritesEmpty": "Your favorite list is empty",
+"myAffEmpty": "You haven't added any affirmations yet",
+"affTime": "🌟 Affirmation Time"
 
 }

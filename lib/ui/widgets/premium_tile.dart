@@ -58,7 +58,7 @@ class _PremiumTileState extends State<PremiumTile> {
                       end: Alignment.bottomRight,
                     ),
                     border: Border.all(
-                      color: const Color(0x55C9A85D),
+                      color: const Color.fromARGB(84, 229, 228, 224),
                       width: 1.2,
                     ),
                     boxShadow: [

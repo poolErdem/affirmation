@@ -26,7 +26,7 @@ class TermsScreen extends StatelessWidget {
           elevation: 0,
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios_new,
-                color: Colors.white, size: 26),
+                color: Colors.white, size: 22),
             onPressed: () => Navigator.pop(context),
           ),
           title: Transform.translate(
@@ -35,9 +35,9 @@ class TermsScreen extends StatelessWidget {
               t.terms,
               style: const TextStyle(
                 fontFamily: "Poppins",
-                color: Colors.black87,
-                fontSize: 21,
-                fontWeight: FontWeight.w700,
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
                 letterSpacing: -0.2,
               ),
             ),

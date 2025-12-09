@@ -102,10 +102,10 @@ class _ContentPreferencesScreenState extends State<ContentPreferencesScreen>
                           const SizedBox(width: 12),
                           Text(
                             t.preferences,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w500,
-                              color: Colors.white,
+                              color: Colors.white.withValues(alpha: 0.8),
                             ),
                           ),
                         ],
@@ -119,7 +119,7 @@ class _ContentPreferencesScreenState extends State<ContentPreferencesScreen>
                         style: TextStyle(
                           fontSize: 15,
                           height: 1.35,
-                          color: Colors.white,
+                          color: Colors.white.withValues(alpha: 0.8),
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -210,7 +210,7 @@ class _ContentPreferencesScreenState extends State<ContentPreferencesScreen>
                                             fontWeight: isSelected
                                                 ? FontWeight.w700
                                                 : FontWeight.w600,
-                                            color: Colors.black87,
+                                            color: Colors.white,
                                           ),
                                         ),
                                       ),

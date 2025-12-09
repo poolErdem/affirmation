@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:affirmation/ui/widgets/video_bg.dart';
 import 'package:flutter/material.dart';
 
 class SharedBlurBackground extends StatelessWidget {
@@ -13,25 +14,27 @@ class SharedBlurBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isVideo = imageAsset.toLowerCase().endsWith(".mp4");
+
     return Stack(
       children: [
-        // Ana ekrandaki aynı görsel
         Positioned.fill(
-          child: Image.asset(
-            imageAsset,
-            fit: BoxFit.cover,
-          ),
+          child: isVideo
+              ? VideoBg(assetPath: imageAsset)
+              : Image.asset(
+                  imageAsset,
+                  fit: BoxFit.cover,
+                ),
         ),
 
-        // BLUR (opacity yok!)
+        // Blur overlay
         Positioned.fill(
           child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 22, sigmaY: 22),
-            child: Container(color: Colors.transparent),
+            filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
+            child: Container(color: Colors.black.withValues(alpha: 0.15)),
           ),
         ),
 
-        // İçerik
         child,
       ],
     );

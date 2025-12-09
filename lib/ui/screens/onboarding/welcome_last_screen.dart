@@ -24,17 +24,17 @@ class _WelcomeLastScreenState extends State<WelcomeLastScreen>
 
     _fadeScale = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 900),
+      duration: const Duration(milliseconds: 3000),
     )..forward();
 
     _confettiController =
-        ConfettiController(duration: const Duration(milliseconds: 1400));
+        ConfettiController(duration: const Duration(milliseconds: 3000));
 
-    Future.delayed(const Duration(milliseconds: 200), () {
+    Future.delayed(const Duration(milliseconds: 3000), () {
       _confettiController.play();
     });
 
-    Future.delayed(const Duration(milliseconds: 4000), () {
+    Future.delayed(const Duration(milliseconds: 7000), () {
       if (!mounted) return;
       Navigator.pushReplacement(
         context,
@@ -68,10 +68,10 @@ class _WelcomeLastScreenState extends State<WelcomeLastScreen>
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Color(0xFF0D0C0A), // üst koyu luxury black
-                  Color(0xFF2C2418), // deep brown gold
-                  Color(0xFFC9A85D), // soft gold
-                  Color(0xFFF5E9C7), // premium light gold
+                  Color.fromARGB(255, 104, 97, 83), // üst koyu luxury black
+                  Color.fromARGB(255, 228, 211, 186), // deep brown gold
+                  Color.fromARGB(255, 228, 226, 222), // soft gold
+                  Color.fromARGB(255, 241, 237, 226), // premium light gold
                 ],
                 stops: [0.0, 0.35, 0.72, 1.0],
                 begin: Alignment.topCenter,
@@ -87,7 +87,7 @@ class _WelcomeLastScreenState extends State<WelcomeLastScreen>
               confettiController: _confettiController,
               blastDirectionality: BlastDirectionality.explosive,
               emissionFrequency: 0.2,
-              numberOfParticles: 40,
+              numberOfParticles: 32,
               maxBlastForce: 30,
               minBlastForce: 10,
               gravity: 0.25,
@@ -97,6 +97,7 @@ class _WelcomeLastScreenState extends State<WelcomeLastScreen>
                 const Color.fromARGB(255, 193, 108, 108),
                 const Color.fromARGB(255, 106, 184, 100),
                 const Color.fromARGB(255, 202, 194, 194),
+                const Color.fromARGB(255, 48, 46, 46),
               ],
               createParticlePath: _drawStar,
             ),
@@ -121,26 +122,7 @@ class _WelcomeLastScreenState extends State<WelcomeLastScreen>
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     // main icon
-                    ShaderMask(
-                      shaderCallback: (rect) {
-                        return const LinearGradient(
-                          colors: [
-                            Color(0xFFF8E7B7),
-                            Color(0xFFC9A85D),
-                            Color(0xFFE4C98A),
-                          ],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ).createShader(rect);
-                      },
-                      child: const Icon(
-                        Icons.auto_awesome,
-                        size: 58,
-                        color: Colors.white,
-                      ),
-                    ),
-
-                    const SizedBox(height: 22),
+                    const SizedBox(height: 15),
 
                     // ⭐ TITLE (gold gradient)
                     ShaderMask(
@@ -175,7 +157,8 @@ class _WelcomeLastScreenState extends State<WelcomeLastScreen>
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 17,
-                        color: Colors.white.withValues(alpha: 0.88),
+                        color: const Color.fromARGB(255, 121, 114, 114)
+                            .withValues(alpha: 0.88),
                         height: 1.45,
                         shadows: [
                           Shadow(

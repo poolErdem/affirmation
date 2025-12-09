@@ -1,5 +1,5 @@
 import 'package:affirmation/constants/constants.dart';
-import 'package:affirmation/ui/screens/onboarding/preferences_screen.dart';
+import 'package:affirmation/ui/screens/onboarding/onboarding_preferences_screen.dart';
 import 'package:affirmation/ui/widgets/glass_button.dart';
 import 'package:affirmation/ui/widgets/press_effect.dart';
 import 'package:flutter/material.dart';
@@ -82,7 +82,7 @@ class _OnboardingThemeScreenState extends State<OnboardingThemeScreen> {
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 30,
-                        fontWeight: FontWeight.w700,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
@@ -181,29 +181,6 @@ class _OnboardingThemeScreenState extends State<OnboardingThemeScreen> {
                                           size: 18, color: Colors.black),
                                     ),
                                   ),
-
-                                // GROUP LABEL
-                                Positioned(
-                                  bottom: 10,
-                                  left: 0,
-                                  right: 0,
-                                  child: Center(
-                                    child: Text(
-                                      theme.group.toUpperCase(),
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w700,
-                                        shadows: [
-                                          Shadow(
-                                            color: Colors.black,
-                                            blurRadius: 6,
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
                               ],
                             ),
                           ),
@@ -217,22 +194,20 @@ class _OnboardingThemeScreenState extends State<OnboardingThemeScreen> {
                     child: GlassButton(
                       text: t.continueLabel,
                       onTap: () async {
-                        if (selectedIndex == null) {
-                          // İstersen Toast gösterebilirim, şimdilik return
-                          return;
-                        }
-
                         final st = context.read<AppState>();
-                        final selectedTheme = st.themes[selectedIndex!];
 
-                        // 🔥 1) Tema kaydet
-                        await st.setSelectedTheme(selectedTheme.id);
+                        if (selectedIndex == null) {
+                          await st.setSelectedTheme("");
+                        } else {
+                          final selectedTheme = st.themes[selectedIndex!];
+                          await st.setSelectedTheme(selectedTheme.id);
+                        }
 
                         // 🔥 2) Sonraki ekrana git
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (_) => const PreferencesScreen(),
+                            builder: (_) => const OnboardingPreferencesScreen(),
                           ),
                         );
                       },

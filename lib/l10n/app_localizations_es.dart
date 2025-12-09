@@ -45,7 +45,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get category => 'Category';
 
   @override
-  String get categoryTitle => '✨ Choose the energy you want to feel today';
+  String get categoryTitle => 'Choose the energy you want to feel today';
 
   @override
   String get nameQuestion => 'What’s your name?';
@@ -381,5 +381,17 @@ class AppLocalizationsEs extends AppLocalizations {
   String get repeatDays => 'Repeat Days';
 
   @override
-  String get themeTitle => '✨ Customize the mood of your experience';
+  String get themeTitle => 'Customize the mood of your experience';
+
+  @override
+  String get selectThemeWarning => 'Please select at least one option';
+
+  @override
+  String get favoritesEmpty => 'Your favorite list is empty';
+
+  @override
+  String get myAffEmpty => 'You haven\'t added any affirmations yet';
+
+  @override
+  String get affTime => '🌟 Affirmation Time';
 }

@@ -26,7 +26,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
           elevation: 0,
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios_new,
-                color: Colors.white, size: 26),
+                color: Colors.white, size: 22),
             onPressed: () => Navigator.pop(context),
           ),
           title: Transform.translate(
@@ -36,8 +36,8 @@ class PrivacyPolicyScreen extends StatelessWidget {
               style: const TextStyle(
                 fontFamily: "Poppins",
                 color: Colors.white,
-                fontSize: 21,
-                fontWeight: FontWeight.w700,
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
                 letterSpacing: -0.2,
               ),
             ),

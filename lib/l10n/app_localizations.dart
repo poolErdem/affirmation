@@ -174,7 +174,7 @@ abstract class AppLocalizations {
   /// No description provided for @categoryTitle.
   ///
   /// In en, this message translates to:
-  /// **'✨ Choose the energy you want to feel today'**
+  /// **'Choose the energy you want to feel today'**
   String get categoryTitle;
 
   /// No description provided for @nameQuestion.
@@ -846,8 +846,32 @@ abstract class AppLocalizations {
   /// No description provided for @themeTitle.
   ///
   /// In en, this message translates to:
-  /// **'✨ Customize the mood of your experience'**
+  /// **'Customize the mood of your experience'**
   String get themeTitle;
+
+  /// No description provided for @selectThemeWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select at least one option'**
+  String get selectThemeWarning;
+
+  /// No description provided for @favoritesEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Your favorite list is empty'**
+  String get favoritesEmpty;
+
+  /// No description provided for @myAffEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'You haven\'t added any affirmations yet'**
+  String get myAffEmpty;
+
+  /// No description provided for @affTime.
+  ///
+  /// In en, this message translates to:
+  /// **'🌟 Affirmation Time'**
+  String get affTime;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

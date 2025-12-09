@@ -111,7 +111,7 @@ class _GenderScreenState extends State<GenderScreen>
                             onTap: () => Navigator.pop(context),
                             child: const Icon(
                               Icons.arrow_back_ios_new,
-                              size: 26,
+                              size: 22,
                               color: Colors.white,
                             ),
                           ),
@@ -119,8 +119,8 @@ class _GenderScreenState extends State<GenderScreen>
                           Text(
                             t.gender,
                             style: const TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.w700,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
                               color: Colors.white,
                             ),
                           ),
@@ -128,7 +128,7 @@ class _GenderScreenState extends State<GenderScreen>
                       ),
                     ),
 
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 20),
 
                     // ⭐ Açıklama
                     Padding(
@@ -138,7 +138,7 @@ class _GenderScreenState extends State<GenderScreen>
                         style: TextStyle(
                           fontSize: 15,
                           height: 1.32,
-                          color: Colors.white,
+                          color: Colors.white.withValues(alpha: 0.8),
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -230,7 +230,7 @@ class _GenderScreenState extends State<GenderScreen>
                                                 fontWeight: isSelected
                                                     ? FontWeight.w700
                                                     : FontWeight.w500,
-                                                color: Colors.black87,
+                                                color: Colors.white,
                                               ),
                                             ),
                                           ],

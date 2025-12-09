@@ -12,7 +12,13 @@ class UserPreferences {
   final PremiumPlan? premiumPlanId;
   final DateTime? premiumExpiresAt;
   final bool premiumActive;
-  final List<ReminderModel> reminders; // ⭐
+  final List<ReminderModel> reminders;
+
+  // ⭐ FAVORİ TARİHLERİ
+  final Map<String, int> favoriteTimestamps;
+
+  // ⭐ MY-AFF TARİHLERİ
+  final Map<String, int> myAffTimestamps;
 
   const UserPreferences({
     required this.selectedContentPreferences,
@@ -26,6 +32,8 @@ class UserPreferences {
     required this.premiumExpiresAt,
     required this.premiumActive,
     required this.reminders,
+    required this.favoriteTimestamps,
+    required this.myAffTimestamps, // ⭐ EKLENDİ
   });
 
   factory UserPreferences.initial({
@@ -56,6 +64,8 @@ class UserPreferences {
           isPremium: false,
         )
       ],
+      favoriteTimestamps: {},
+      myAffTimestamps: {}, // ⭐ EKLENDİ
     );
   }
 
@@ -71,15 +81,16 @@ class UserPreferences {
     DateTime? premiumExpiresAt,
     bool? premiumActive,
     List<ReminderModel>? reminders,
+    Map<String, int>? favoriteTimestamps,
+    Map<String, int>? myAffTimestamps, // ⭐ EKLENDİ
   }) {
     return UserPreferences(
       selectedContentPreferences:
           selectedContentPreferences ?? this.selectedContentPreferences,
       selectedThemeId: selectedThemeId ?? this.selectedThemeId,
       favoriteAffirmationIds:
-          favoriteAffirmationIds ?? this.favoriteAffirmationIds, // ✅ DÜZELTİLDİ
-      myAffirmationIds:
-          myAffirmationIds ?? this.myAffirmationIds, // ✅ DÜZELTİLDİ
+          favoriteAffirmationIds ?? this.favoriteAffirmationIds,
+      myAffirmationIds: myAffirmationIds ?? this.myAffirmationIds,
       languageCode: languageCode ?? this.languageCode,
       userName: userName ?? this.userName,
       gender: gender ?? this.gender,
@@ -88,7 +99,9 @@ class UserPreferences {
       premiumActive: premiumActive ?? this.premiumActive,
       reminders: reminders != null
           ? List<ReminderModel>.from(reminders)
-          : List<ReminderModel>.from(this.reminders), // ⭐ kopya
+          : List<ReminderModel>.from(this.reminders),
+      favoriteTimestamps: favoriteTimestamps ?? this.favoriteTimestamps,
+      myAffTimestamps: myAffTimestamps ?? this.myAffTimestamps,
     );
   }
 
@@ -111,6 +124,10 @@ class UserPreferences {
       reminders: (json['reminders'] as List<dynamic>? ?? [])
           .map((e) => ReminderModel.fromJson(e))
           .toList(),
+      favoriteTimestamps:
+          Map<String, int>.from(json['favoriteTimestamps'] ?? {}),
+      myAffTimestamps:
+          Map<String, int>.from(json['myAffTimestamps'] ?? {}), // ⭐ EKLENDİ
     );
   }
 
@@ -125,11 +142,15 @@ class UserPreferences {
         'premiumPlanId': premiumPlanToString(premiumPlanId),
         'premiumExpiresAt': premiumExpiresAt?.toIso8601String(),
         'premiumActive': premiumActive,
-        'reminders': reminders.map((r) => r.toJson()).toList(), // ⭐ EKLENDİ
+        'reminders': reminders.map((r) => r.toJson()).toList(),
+        'favoriteTimestamps': favoriteTimestamps,
+        'myAffTimestamps': myAffTimestamps, // ⭐ EKLENDİ
       };
 }
 
+// -----------------------------
 // GENDER ENUM + Helpers
+// -----------------------------
 enum Gender { male, female, other, none }
 
 Gender? genderFromString(String? value) {
@@ -173,7 +194,9 @@ String? premiumPlanToString(PremiumPlan? plan) {
   return plan.name;
 }
 
-// PREMIUM CHECK EXTENSION
+// -----------------------------
+// PREMIUM CHECK
+// -----------------------------
 extension UserPremiumExt on UserPreferences {
   bool get isPremiumValid {
     if (!premiumActive) return false;

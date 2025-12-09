@@ -61,6 +61,16 @@ class AppState extends ChangeNotifier {
   String? get userName => preferences.userName;
   String get activeCategoryId => _activeCategoryId;
 
+  Map<String, int> get favoriteTimestamps {
+    if (!_loaded) return const {};
+    return _preferences.favoriteTimestamps;
+  }
+
+  Map<String, int> get myAffTimestamps {
+    if (!_loaded) return const {};
+    return _preferences.myAffTimestamps;
+  }
+
   // Cache → key: "gender|premium|cat1,cat2"
   final Map<String, List<Affirmation>> _categoryCache = {};
   final Map<String, List<Affirmation>> _cachedAffirmations = {};
@@ -93,7 +103,6 @@ class AppState extends ChangeNotifier {
 
   // INITIALIZE
   Future<void> initialize() async {
-    print("🔥 initialize()");
     await purchaseState.initialize();
 
     final prefs = await SharedPreferences.getInstance();
@@ -110,8 +119,6 @@ class AppState extends ChangeNotifier {
     );
 
     playback.setLanguage(_selectedLocale);
-
-    print("🌐 Dil: → $_selectedLocale");
 
     _repository = AppRepository(languageCode: _selectedLocale);
 
@@ -132,7 +139,7 @@ class AppState extends ChangeNotifier {
       _preferences = UserPreferences.initial(
         defaultThemeId: _themes.isNotEmpty ? _themes.first.id : "",
         allCategoryIds: _categories.map((c) => c.id).toSet(),
-        allContentPreferenceIds: Constants.allContentPreferenceIds.toSet(),
+        allContentPreferenceIds: Constants.allCategories.toSet(),
       );
     }
 
@@ -236,41 +243,49 @@ class AppState extends ChangeNotifier {
       final premiumExpiresAtStr = prefs.getString('premiumExpiresAt');
       final myList = prefs.getString("myAffirmationIds");
       final favIds = prefs.getString("favoriteAffirmationIds");
+      final favTimestampsRaw = prefs.getString('favoriteTimestamps');
+      final myTimestampsRaw = prefs.getString('myAffTimestamps');
 
       final userName = prefs.getString("userName");
 
+      final favoriteTimestamps = parseTimestampMap(favTimestampsRaw ?? "");
+      final myAffTimestamps = parseTimestampMap(myTimestampsRaw ?? "");
+
       _preferences = UserPreferences(
-        selectedContentPreferences: lastContentPrefs != null
-            ? Set<String>.from(lastContentPrefs.split(","))
-            : <String>{},
-        selectedThemeId: lastTheme ?? "",
-        favoriteAffirmationIds:
-            favIds != null ? Set<String>.from(favIds.split(",")) : <String>{},
-        myAffirmationIds:
-            myList != null ? Set<String>.from(myList.split(",")) : <String>{},
-        languageCode: lastLanguage ?? "en",
-        userName: userName ?? "",
-        gender: genderFromString(gender ?? "none"),
-        premiumPlanId: premiumPlanId != null && premiumPlanId.isNotEmpty
-            ? premiumPlanFromString(premiumPlanId)
-            : null,
-        premiumExpiresAt: premiumExpiresAtStr != null
-            ? DateTime.tryParse(premiumExpiresAtStr)
-            : null,
-        premiumActive: premiumActive ?? false,
-        reminders: [
-          ReminderModel(
-            id: "free_default",
-            categoryIds: {"general"},
-            startTime: const TimeOfDay(hour: 2, minute: 0),
-            endTime: const TimeOfDay(hour: 8, minute: 0),
-            repeatCount: 20,
-            repeatDays: {1, 2, 3, 4, 5, 6, 7},
-            enabled: true,
-            isPremium: false,
-          )
-        ],
-      );
+          selectedContentPreferences: lastContentPrefs != null
+              ? Set<String>.from(lastContentPrefs.split(","))
+              : <String>{},
+          selectedThemeId: lastTheme ?? "",
+          favoriteAffirmationIds:
+              favIds != null ? Set<String>.from(favIds.split(",")) : <String>{},
+          myAffirmationIds:
+              myList != null ? Set<String>.from(myList.split(",")) : <String>{},
+          languageCode: lastLanguage ?? "en",
+          userName: userName ?? "",
+          gender: genderFromString(gender ?? "none"),
+          premiumPlanId: premiumPlanId != null && premiumPlanId.isNotEmpty
+              ? premiumPlanFromString(premiumPlanId)
+              : null,
+          premiumExpiresAt: premiumExpiresAtStr != null
+              ? DateTime.tryParse(premiumExpiresAtStr)
+              : null,
+          premiumActive: premiumActive ?? false,
+          reminders: [
+            ReminderModel(
+              id: "free_default",
+              categoryIds: {"general"},
+              startTime: const TimeOfDay(hour: 2, minute: 0),
+              endTime: const TimeOfDay(hour: 8, minute: 0),
+              repeatCount: 20,
+              repeatDays: {1, 2, 3, 4, 5, 6, 7},
+              enabled: true,
+              isPremium: false,
+            )
+          ],
+
+          // ⭐ Doğru ve güvenli timestamp map
+          favoriteTimestamps: favoriteTimestamps,
+          myAffTimestamps: myAffTimestamps);
 
       _activeCategoryId = Constants.generalCategoryId;
 
@@ -295,22 +310,36 @@ class AppState extends ChangeNotifier {
         _preferences.selectedContentPreferences.join(','),
       );
 
-      await prefs.setBool('premiumActive', false);
-      await prefs.setString('premiumPlanId',
-          premiumPlanToString(_preferences.premiumPlanId) ?? '');
+      await prefs.setBool('premiumActive', _preferences.premiumActive);
+      await prefs.setString(
+        'premiumPlanId',
+        premiumPlanToString(_preferences.premiumPlanId) ?? '',
+      );
       await prefs.setString(
         'premiumExpiresAt',
         _preferences.premiumExpiresAt?.toIso8601String() ?? '',
       );
 
-      prefs.setString(
+      // ⭐ FAVORİ IDS
+      await prefs.setString(
         "favoriteAffirmationIds",
         _preferences.favoriteAffirmationIds.join(','),
       );
-      prefs.setString(
+
+      // ⭐ MY AFFIRMATION IDS
+      await prefs.setString(
         "myAffirmationIds",
         _preferences.myAffirmationIds.join(','),
       );
+
+      // 🔥 FAVORITE TIMESTAMPS — nihai doğru kayıt
+      await prefs.setString(
+        "favoriteTimestamps",
+        encodeTimestampMap(_preferences.favoriteTimestamps),
+      );
+
+      await prefs.setString(
+          "myAffTimestamps", encodeTimestampMap(_preferences.myAffTimestamps));
 
       print(
           "✔ Kaydedildi → category=$_activeCategoryId | theme=${_preferences.selectedThemeId} | prefs=${_preferences.selectedContentPreferences}");
@@ -440,13 +469,17 @@ class AppState extends ChangeNotifier {
   }
 
   List<Affirmation> _calculateFavoriteFeed() {
-    print('📌 [FAVORITE FEED] Başladı');
+    final favIds = _preferences.favoriteAffirmationIds;
+    final stamps = _preferences.favoriteTimestamps;
 
-    final list = _allAffirmations.where((a) {
-      return _preferences.favoriteAffirmationIds.contains(a.id);
-    }).toList();
+    // 1) Favori listesi
+    final list = _allAffirmations.where((a) => favIds.contains(a.id)).toList();
 
-    print('✅ FOVORITE FEED toplam: ${list.length}');
+    list.sort((a, b) {
+      final tA = stamps[a.id] ?? 0;
+      final tB = stamps[b.id] ?? 0;
+      return tB.compareTo(tA); // en yeni en üstte
+    });
 
     return list;
   }
@@ -483,12 +516,12 @@ class AppState extends ChangeNotifier {
   }
 
   void setCurrentIndex(int index) {
-    final feed = currentFeed;
+    //final feed = currentFeed;
 
     _currentIndex = index;
     playback.setCurrentIndex(index);
 
-    if (feed.isNotEmpty) playback.updateAffirmations(feed);
+    //if (feed.isNotEmpty) playback.updateAffirmations(feed);
 
     notifyListeners();
   }
@@ -518,7 +551,7 @@ class AppState extends ChangeNotifier {
   }
 
   //🔥 OPTİMİZE: Kategori ID'sini günceller + dirty flag + playback
-  void setActiveCategoryIdOnly(String id, {bool keepIndex = false}) {
+  void setActiveCategoryIdOnly(String id) {
     print("🎯 setActiveCategoryIdOnly: $id");
 
     if (_activeCategoryId == id) {
@@ -552,7 +585,7 @@ class AppState extends ChangeNotifier {
     _categoryDirty = true;
     _favoriteDirty = true;
 
-    if (!keepIndex) {
+    if (_activeCategoryId != Constants.favoritesCategoryId) {
       assignRandomIndex();
     }
 
@@ -569,13 +602,13 @@ class AppState extends ChangeNotifier {
   Affirmation? affirmationAt(int index) {
     final list = currentFeed;
     if (list.isEmpty) return null;
-    if (index < 0 || index >= list.length) {
-      print(
-          "⚠️ WARNING: affirmationAt($index) → NULL (limit = ${currentFeed.length})");
 
+    if (index < 0 || index >= list.length) {
+      debugPrint(
+          "⚠️ WARNING: affirmationAt($index) → NULL (limit = ${list.length})");
       return null;
     }
-    print("📌 affirmationAt($index)  (limit = ${currentFeed.length})");
+
     return list[index];
   }
 
@@ -688,17 +721,22 @@ class AppState extends ChangeNotifier {
 
   void toggleFavorite(String id) {
     final favs = Set<String>.from(_preferences.favoriteAffirmationIds);
+    final stamps = Map<String, int>.from(_preferences.favoriteTimestamps);
 
     if (favs.contains(id)) {
       favs.remove(id);
+      stamps.remove(id);
     } else {
       favs.add(id);
+      stamps[id] = DateTime.now().millisecondsSinceEpoch;
     }
 
     _preferences = _preferences.copyWith(
       favoriteAffirmationIds: favs,
+      favoriteTimestamps: stamps,
     );
 
+    _favoriteDirty = true;
     notifyListeners();
     saveLastSettings();
   }
@@ -724,6 +762,60 @@ class AppState extends ChangeNotifier {
     await saveLastSettings(); // 🔥 garantili yazım
   }
 
+  Future<void> completeOnboarding() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool("onboarding_completed", true);
+    notifyListeners();
+  }
+
+// AppState sınıfında:
+
+// ⭐ Pozisyonları her affirmation için ayrı tutan Map
+  Map<String, Offset> affirmationPositions = {};
+
+// ⭐ Belirli bir affirmation'ın pozisyonunu döndürür
+  Offset getAffirmationPosition(String affirmationId) {
+    return affirmationPositions[affirmationId] ?? const Offset(40, 200);
+  }
+
+// ⭐ Pozisyonu kaydeder (hem hafızada hem SharedPreferences'ta)
+  Future<void> saveAffirmationPosition(
+      String affirmationId, double x, double y) async {
+    affirmationPositions[affirmationId] = Offset(x, y);
+
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString("aff_pos_$affirmationId", "$x,$y");
+
+    notifyListeners();
+  }
+
+// ⭐ Kaydedilmiş pozisyonu yükler
+  Future<void> loadAffirmationPosition(String affirmationId) async {
+    final prefs = await SharedPreferences.getInstance();
+    final saved = prefs.getString("aff_pos_$affirmationId");
+
+    if (saved != null) {
+      final parts = saved.split(',');
+      affirmationPositions[affirmationId] = Offset(
+        double.parse(parts[0]),
+        double.parse(parts[1]),
+      );
+      notifyListeners();
+    }
+  }
+
+// ⭐ (Opsiyonel) Tüm pozisyonları temizle
+  Future<void> clearAllPositions() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    for (var id in affirmationPositions.keys) {
+      await prefs.remove("aff_pos_$id");
+    }
+
+    affirmationPositions.clear();
+    notifyListeners();
+  }
+
   String get activeThemeImage {
     final theme = _themes.firstWhere(
       (t) => t.id == _preferences.selectedThemeId,
@@ -740,6 +832,11 @@ class AppState extends ChangeNotifier {
   }
 
   Future<void> setSelectedTheme(String id) async {
+    if (id.isEmpty) {
+      _preferences =
+          _preferences.copyWith(selectedThemeId: Constants.onboardingThemePath);
+    }
+
     _preferences = _preferences.copyWith(selectedThemeId: id);
 
     //await playThemeSound();
@@ -843,5 +940,31 @@ class AppState extends ChangeNotifier {
   void updatePreferences(UserPreferences newPrefs) {
     _preferences = newPrefs;
     notifyListeners();
+  }
+
+  bool get activeThemeIsVideo {
+    final t = activeTheme;
+    return t.imageAsset.toLowerCase().endsWith(".mp4");
+  }
+
+  String get activeThemeAsset {
+    final t = activeTheme;
+    return t.imageAsset;
+  }
+}
+
+extension ActiveThemeHelpers on AppState {
+  bool get activeThemeIsVideo =>
+      activeTheme.imageAsset.toLowerCase().endsWith('.mp4');
+
+  String get activeThemeAsset => activeTheme.imageAsset;
+}
+
+extension ActiveThemeExt on AppState {
+  ThemeModel? get activeTheme {
+    return themes.firstWhere(
+      (t) => t.id == preferences.selectedThemeId,
+      orElse: () => themes.first,
+    );
   }
 }

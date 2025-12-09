@@ -115,14 +115,16 @@ class _NameScreenState extends State<NameScreen>
                       ),
 
                       const SizedBox(height: 20),
-
-                      Text(
-                        t.nameDescription,
-                        style: TextStyle(
-                          fontSize: 15,
-                          height: 1.4,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        child: Text(
+                          t.nameDescription,
+                          style: TextStyle(
+                            fontSize: 15,
+                            height: 1.4,
+                            color: Colors.white.withValues(alpha: 0.8),
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
 

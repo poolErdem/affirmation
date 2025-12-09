@@ -1,4 +1,3 @@
-import 'package:affirmation/data/preferences.dart';
 import 'package:affirmation/models/category.dart';
 
 class Constants {
@@ -16,18 +15,16 @@ class Constants {
   static const freeGeneralLimit = 100;
   static const freeCategoryLimit = 100;
   static const freeFavoriteLimit = 20;
-  static const freeMyAffLimit = 100;
+  static const freeMyAffLimit = 4;
   static const premiumMyAffLimit = 1000;
   static const freeMyAffReadLimit = 10000;
   static const prefsKey = "my_affirmations";
-
   static const supportedLanguages = ['en', 'tr'];
-  static const List<String> allContentPreferenceIds = ContentPreferences.all;
-
   static const String dataBasePath = "assets/data";
   static const String categoriesJson = "categories.json";
   static const String themesJson = "themes.json";
-  static const String onboardingThemePath = "assets/data/themes/l4.jpg";
+  static const favoriteTimestampsKey = "favorite_timestamps";
+  static const String onboardingThemePath = "assets/data/themes/c2.jpg";
   static const String generalThemePath = "assets/data/categories/general.jpg";
   static const String favoriteThemePath =
       "assets/data/categories/favorites.jpg";
@@ -45,7 +42,8 @@ class Constants {
     "motivation",
     "mindfulness",
     "career_success",
-    "gratitude"
+    "gratitude",
+    "general"
   ];
 
   static const localizedLanguageNames = {

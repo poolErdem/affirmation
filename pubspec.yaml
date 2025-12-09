@@ -22,12 +22,12 @@ dependencies:
   universal_html: ^2.2.4
   
   # Monetization
-  google_mobile_ads: ^5.2.0
   in_app_purchase: ^3.2.2
   
   # Audio & Media
   audioplayers: ^6.1.0
   flutter_tts: ^4.2.0
+  video_player: ^2.8.2
   
   # Notifications & timezone 
   awesome_notifications: ^0.10.1
@@ -134,6 +134,11 @@ flutter:
     - assets/data/themes/c8.jpg
     - assets/data/themes/c9.jpg
     - assets/data/themes/c10.jpg
+    - assets/data/themes/c11.jpg
+    - assets/data/themes/c12.jpg
+    - assets/data/themes/c13.jpg
+    - assets/data/themes/c14.jpg
+    - assets/data/themes/c15.jpg
 
     - assets/data/themes/d1.jpg
     - assets/data/themes/d2.jpg
@@ -144,22 +149,8 @@ flutter:
     - assets/data/themes/d7.jpg
     - assets/data/themes/d8.jpg
     - assets/data/themes/d9.jpg
-    - assets/data/themes/d10.jpg
-
-    - assets/data/themes/l1.jpg
-    - assets/data/themes/l2.jpg
-    - assets/data/themes/l3.jpg
-    - assets/data/themes/l4.jpg
-    - assets/data/themes/l5.jpg
-    - assets/data/themes/l6.jpg
-    - assets/data/themes/l7.jpg
-    - assets/data/themes/l8.jpg
-    - assets/data/themes/l9.jpg
-    - assets/data/themes/l10.jpg
-    - assets/data/themes/l11.jpg
-    - assets/data/themes/l12.jpg
-
-
+    - assets/data/themes/e1.mp4
+    
     # Category Images
     - assets/data/categories/career.jpg
     - assets/data/categories/favorites.jpg

@@ -87,8 +87,8 @@ class _OnboardingGenderScreenState extends State<OnboardingGenderScreen> {
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                         color: Colors.white,
-                        fontSize: 34,
-                        fontWeight: FontWeight.w700,
+                        fontSize: 30,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
@@ -150,9 +150,9 @@ class _OnboardingGenderScreenState extends State<OnboardingGenderScreen> {
             filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
-              padding: const EdgeInsets.symmetric(vertical: 18),
+              padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(40),
+                borderRadius: BorderRadius.circular(36),
                 color: isSelected
                     ? Colors.white.withValues(alpha: 0.15)
                     : Colors.white.withValues(alpha: 0.05),
@@ -175,8 +175,8 @@ class _OnboardingGenderScreenState extends State<OnboardingGenderScreen> {
                   displayText, // 🔥 artık sadece gösterim
                   style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
                     letterSpacing: 0.3,
                   ),
                 ),

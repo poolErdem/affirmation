@@ -82,8 +82,8 @@ class _OnboardingNameScreenState extends State<OnboardingNameScreen> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 32,
-                        fontWeight: FontWeight.w700,
+                        fontSize: 30,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),

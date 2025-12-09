@@ -1,6 +1,7 @@
 import 'package:affirmation/l10n/app_localizations.dart';
 import 'package:affirmation/state/my_affirmation_state.dart';
 import 'package:affirmation/state/reminder_state.dart';
+import 'package:affirmation/ui/screens/home_screen.dart';
 import 'package:affirmation/ui/screens/onboarding/welcome_screen.dart';
 import 'package:affirmation/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -16,28 +17,18 @@ void main() async {
   tz.initializeTimeZones();
 
   final deviceTzName = DateTime.now().timeZoneName;
-  print("📌 MAIN → Device timezone name: $deviceTzName");
-
   final normalized = normalizeTimeZone(deviceTzName);
-  print("📌 MAIN → Normalized timezone: $normalized");
 
   tz.setLocalLocation(tz.getLocation(normalized));
-  print("🌍 MAIN → Local timezone set edildi: ${tz.local}");
-
-  //await admob.MobileAds.instance.initialize();
-  //print("✅ MAIN → AdMob hazır.");
 
   final myAffirmationState = MyAffirmationState();
   await myAffirmationState.initialize();
-  print("✅ MAIN → MyAffirmationState initialize bitti.");
 
   final appState = AppState();
   await appState.initialize();
-  print("✅ MAIN → AppState initialize bitti.");
 
   final reminderState = ReminderState(appState: appState);
   await reminderState.initialize();
-  print("✅ MAIN → ReminderState initialize tamam!");
 
   runApp(
     MultiProvider(
@@ -59,8 +50,6 @@ class AffirmationApp extends StatelessWidget {
     final appState = context.watch<AppState>();
     final myAffState = context.watch<MyAffirmationState>();
     final reminderState = context.watch<ReminderState>();
-
-    print("🟦 MaterialApp → BUILD with locale = ${appState.selectedLocale}");
 
     final allLoaded =
         appState.isLoaded && myAffState.isLoaded && reminderState.isLoaded;
@@ -98,7 +87,9 @@ class AffirmationApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      home: const WelcomeScreen(),
+      home: appState.onboardingCompleted
+          ? const HomeScreen()
+          : const WelcomeScreen(),
     );
   }
 }

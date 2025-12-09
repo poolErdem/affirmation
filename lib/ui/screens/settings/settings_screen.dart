@@ -199,21 +199,13 @@ class _SettingsScreenState extends State<SettingsScreen>
       padding: const EdgeInsets.only(left: 4, bottom: 10, top: 26),
       child: Row(
         children: [
-          Container(
-            width: 6,
-            height: 6,
-            decoration: const BoxDecoration(
-              color: Color(0xFFC9A85D),
-              shape: BoxShape.circle,
-            ),
-          ),
-          const SizedBox(width: 8),
+          const SizedBox(width: 3),
           Text(
             title.toUpperCase(),
             style: const TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w700,
-              color: Color(0xFF6A6A6A),
+              color: Colors.white,
             ),
           ),
         ],
@@ -241,10 +233,13 @@ class _SettingsScreenState extends State<SettingsScreen>
           borderRadius: BorderRadius.circular(28),
           gradient: LinearGradient(
             colors: isPremium
-                ? [const Color(0xFF1A1A1A), const Color(0xFF2D2D2D)]
+                ? [
+                    const Color.fromARGB(255, 114, 167, 205),
+                    const Color.fromARGB(255, 225, 218, 218)
+                  ]
                 : [
-                    const Color(0xFF3D3D3D),
-                    const Color.fromARGB(255, 104, 102, 102)
+                    const Color.fromARGB(255, 127, 126, 126),
+                    const Color.fromARGB(255, 183, 181, 181)
                   ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,

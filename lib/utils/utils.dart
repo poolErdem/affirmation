@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:math';
 import 'package:affirmation/l10n/app_localizations.dart';
 import 'package:affirmation/models/user_preferences.dart';
@@ -105,6 +106,8 @@ String normalizeTimeZone(String input) {
 
 String localizedCategoryName(AppLocalizations t, String key) {
   switch (key) {
+    case "general":
+      return t.general;
     case "self_care":
       return t.selfCare;
     case "sleep":
@@ -195,4 +198,33 @@ ThemeModel applyPremiumThemeFallback({
 bool canAccessTheme(ThemeModel theme, bool isPremium) {
   if (!theme.isPremiumLocked) return true;
   return isPremium;
+}
+
+Map<String, int> parseTimestampMap(String? raw) {
+  if (raw == null || raw.isEmpty) return {};
+
+  try {
+    final decoded = jsonDecode(raw);
+
+    if (decoded is Map) {
+      final result = <String, int>{};
+
+      decoded.forEach((key, value) {
+        if (key is String && value is num) {
+          result[key] = value.toInt();
+        }
+      });
+
+      return result;
+    }
+  } catch (_) {
+    // bozuk veri → boş map dön
+  }
+
+  return {};
+}
+
+String encodeTimestampMap(Map<String, int> map) {
+  if (map.isEmpty) return "{}";
+  return jsonEncode(map);
 }

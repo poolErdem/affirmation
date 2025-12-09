@@ -4,19 +4,25 @@ import 'package:affirmation/models/affirmation.dart';
 class MyAffirmation {
   final String id;
   final String text;
+  final int createdAt; // 🔥 ekledik
+
+  String get displayText => text;
 
   const MyAffirmation({
     required this.id,
     required this.text,
+    required this.createdAt,
   });
 
   MyAffirmation copyWith({
     String? id,
     String? text,
+    int? createdAt,
   }) {
     return MyAffirmation(
       id: id ?? this.id,
       text: text ?? this.text,
+      createdAt: createdAt ?? this.createdAt,
     );
   }
 
@@ -24,6 +30,7 @@ class MyAffirmation {
     return MyAffirmation(
       id: json['id'],
       text: json['text'],
+      createdAt: json['createdAt'] ?? DateTime.now().millisecondsSinceEpoch,
     );
   }
 
@@ -31,6 +38,7 @@ class MyAffirmation {
     return {
       'id': id,
       'text': text,
+      'createdAt': createdAt,
     };
   }
 }

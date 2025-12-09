@@ -8,6 +8,7 @@ import 'package:affirmation/state/app_state.dart';
 import 'package:affirmation/models/theme_model.dart';
 import 'package:affirmation/l10n/app_localizations.dart';
 import 'package:affirmation/ui/widgets/shared_blur_background.dart';
+import 'package:video_player/video_player.dart';
 
 class ThemeScreen extends StatefulWidget {
   const ThemeScreen({super.key});
@@ -19,7 +20,7 @@ class ThemeScreen extends StatefulWidget {
 class _ThemeScreenState extends State<ThemeScreen> {
   String selectedGroup = "All";
 
-  final groups = ["All", "Light", "Dark", "Colorful", "Abstract"];
+  final groups = ["All", "Colorful", "Live", "Dark", "Abstract"];
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,10 @@ class _ThemeScreenState extends State<ThemeScreen> {
         ? themes
         : themes.where((th) => th.group == selectedGroup).toList();
 
-    final bg = appState.activeThemeImage;
+    // 🔥 background artık select ile dinleniyor
+    final bg = context.select<AppState, String>(
+      (s) => s.activeThemeImage,
+    );
 
     return SharedBlurBackground(
       imageAsset: bg,
@@ -88,7 +92,7 @@ class _ThemeScreenState extends State<ThemeScreen> {
                       style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w500,
-                        color: Colors.white,
+                        color: Colors.white.withValues(alpha: 0.8),
                       ),
                     ),
                   ),
@@ -185,9 +189,7 @@ class _ThemeScreenState extends State<ThemeScreen> {
     );
   }
 
-  // ------------------------------------------------------------
   // GRID BUILDER (cam panel + premium glow + gold seçili tema)
-  // ------------------------------------------------------------
   Widget _buildGrid(List<ThemeModel> list, AppState appState) {
     return GridView.builder(
       padding: const EdgeInsets.all(16),
@@ -204,6 +206,8 @@ class _ThemeScreenState extends State<ThemeScreen> {
             item.isPremiumLocked && !appState.preferences.isPremiumValid;
         final isSelected = item.id == appState.preferences.selectedThemeId;
 
+        print("Theme item: ${item.imageAsset}");
+        print("isVideo: ${item.isVideo}");
         return GestureDetector(
           onTap: () {
             if (isLocked) {
@@ -214,6 +218,7 @@ class _ThemeScreenState extends State<ThemeScreen> {
               return;
             }
 
+            // 🔥 Video da olsa image de olsa aynı şekilde seç
             appState.setSelectedTheme(item.id);
             Navigator.pop(context);
           },
@@ -227,7 +232,7 @@ class _ThemeScreenState extends State<ThemeScreen> {
                   color: isSelected
                       ? Colors.white
                       : Colors.white.withValues(alpha: 0.18),
-                  width: isSelected ? 2.2 : 1.3,
+                  width: isSelected ? 2.5 : 1.3,
                 ),
                 boxShadow: isSelected
                     ? [
@@ -244,15 +249,16 @@ class _ThemeScreenState extends State<ThemeScreen> {
                 borderRadius: BorderRadius.circular(18),
                 child: Stack(
                   children: [
-                    // FOTO
+                    // FOTO + VİDEO AYRIMI
                     Positioned.fill(
-                      child: Image.asset(
-                        item.imageAsset,
-                        fit: BoxFit.cover,
-                      ),
+                      child: item.isVideo
+                          ? _VideoPreview(assetPath: item.imageAsset)
+                          : Image.asset(
+                              item.imageAsset,
+                              fit: BoxFit.cover,
+                            ),
                     ),
 
-                    // Üst + alt koyultma
                     Container(
                       decoration: const BoxDecoration(
                         gradient: LinearGradient(
@@ -266,7 +272,6 @@ class _ThemeScreenState extends State<ThemeScreen> {
                       ),
                     ),
 
-                    // KİLİT — premium tarz
                     if (isLocked)
                       Positioned(
                         top: 8,
@@ -275,11 +280,9 @@ class _ThemeScreenState extends State<ThemeScreen> {
                           Icons.lock_outline,
                           color: Colors.white,
                           size: 22,
-                          fontWeight: FontWeight.w600,
                         ),
                       ),
 
-                    // SEÇİLİ CHECK MARK (premium gold)
                     if (isSelected)
                       const Positioned(
                         top: 8,
@@ -290,29 +293,6 @@ class _ThemeScreenState extends State<ThemeScreen> {
                           size: 28,
                         ),
                       ),
-
-                    // ALT METİN — grup adı
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 8),
-                        child: Text(
-                          item.group,
-                          style: const TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white,
-                            shadows: [
-                              Shadow(
-                                blurRadius: 6,
-                                color: Colors.black,
-                                offset: Offset(0, 2),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
                   ],
                 ),
               ),
@@ -324,9 +304,7 @@ class _ThemeScreenState extends State<ThemeScreen> {
   }
 }
 
-// ------------------------------------------------------------
 // NOISE PAINTER — premium hissi için
-// ------------------------------------------------------------
 class NoisePainter extends CustomPainter {
   final double opacity;
   NoisePainter({this.opacity = 0.06});
@@ -351,4 +329,51 @@ class NoisePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+}
+
+class _VideoPreview extends StatefulWidget {
+  final String assetPath;
+
+  const _VideoPreview({required this.assetPath});
+
+  @override
+  State<_VideoPreview> createState() => _VideoPreviewState();
+}
+
+class _VideoPreviewState extends State<_VideoPreview> {
+  late VideoPlayerController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = VideoPlayerController.asset(widget.assetPath)
+      ..setLooping(true)
+      ..setVolume(0)
+      ..initialize().then((_) {
+        if (mounted) {
+          setState(() {});
+          _controller.play();
+        }
+      });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _controller.value.isInitialized
+        ? FittedBox(
+            fit: BoxFit.cover,
+            child: SizedBox(
+              width: _controller.value.size.width,
+              height: _controller.value.size.height,
+              child: VideoPlayer(_controller),
+            ),
+          )
+        : Container(color: Colors.black);
+  }
 }

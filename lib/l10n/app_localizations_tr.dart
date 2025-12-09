@@ -45,7 +45,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get category => 'Kategori';
 
   @override
-  String get categoryTitle => '✨ Bugün hissetmek istediğin enerjiyi seç';
+  String get categoryTitle => 'Bugün hissetmek istediğin enerjiyi seç';
 
   @override
   String get nameQuestion => 'Adın ne?';
@@ -108,7 +108,7 @@ class AppLocalizationsTr extends AppLocalizations {
   String get languageDescription => 'Uygulamada kullanmak istediğin dili seç';
 
   @override
-  String get genderDescription => 'Deneyimi tercihlerine göre kişiselleştireceğiz';
+  String get genderDescription => 'Deneyimini tercihlerine göre kişiselleştireceğiz';
 
   @override
   String get nameDescription => 'İsmin, onaylamaları kişiselleştirmemize yardımcı olur';
@@ -357,16 +357,16 @@ class AppLocalizationsTr extends AppLocalizations {
   String get limited => 'SINIRLI';
 
   @override
-  String get noAff => 'Henüz onaylama yok\nİlkini oluştur! ✨';
+  String get noAff => 'Henüz olumlama yok\nİlkini oluştur! ✨';
 
   @override
-  String get writeAff => 'Onaylamanı yaz…';
+  String get writeAff => 'Olumlamanı yaz…';
 
   @override
-  String get editAff => 'Onaylamayı Düzenle';
+  String get editAff => 'Onumlamanı Düzenle';
 
   @override
-  String get newAff => 'Yeni Onaylama';
+  String get newAff => 'Yeni Olumlama';
 
   @override
   String get howMany => 'Kaç kere';
@@ -381,5 +381,17 @@ class AppLocalizationsTr extends AppLocalizations {
   String get repeatDays => 'Günler';
 
   @override
-  String get themeTitle => '✨ Deneyimizini güzelleştirin';
+  String get themeTitle => 'Deneyimini güzelleştir';
+
+  @override
+  String get selectThemeWarning => 'Lütfen en az bir seçenek seç';
+
+  @override
+  String get favoritesEmpty => 'Favori listen boş';
+
+  @override
+  String get myAffEmpty => 'Henüz olumlama eklemedin';
+
+  @override
+  String get affTime => '🌟 Olumlama Zamanı';
 }

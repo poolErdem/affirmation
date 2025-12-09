@@ -14,7 +14,7 @@
   "getPremium": "Premium Al",
 
 "category": "Kategori",
-  "categoryTitle": "✨ Bugün hissetmek istediğin enerjiyi seç",
+  "categoryTitle": "Bugün hissetmek istediğin enerjiyi seç",
 
   "nameQuestion": "Adın ne?",
   "personalize": "Olumlamaları senin için kişiselleştireceğiz",
@@ -37,7 +37,7 @@
   "about": "Hakkında",
   "gender": "Cinsiyet",
   "languageDescription": "Uygulamada kullanmak istediğin dili seç",
-  "genderDescription": "Deneyimi tercihlerine göre kişiselleştireceğiz",
+  "genderDescription": "Deneyimini tercihlerine göre kişiselleştireceğiz",
   "nameDescription": "İsmin, onaylamaları kişiselleştirmemize yardımcı olur",
   "favoritesLimitMessage": "Ücretsiz favori limitine (5) ulaştın.\n\nPremium’a geçerek sınırsız favori kaydedebilirsin ✨",
   "myAffLimit": "Ücretsiz limitine (5) ulaştın.\n\nPremium’a geçerek 100’e kadar kendi onaylamanı kaydedebilirsin ✨",
@@ -144,6 +144,11 @@
 "startAt": "Başlangıç saati",
 "endAt": "Bitiş saati",
 "repeatDays": "Günler",
-"themeTitle": "✨ Deneyimizini güzelleştirin"
+"themeTitle": "Deneyimini güzelleştir",
+"selectThemeWarning" : "Lütfen en az bir seçenek seç",
+  "favoritesEmpty": "Favori listen boş",
+"myAffEmpty": "Henüz olumlama eklemedin",
+"affTime": "🌟 Olumlama Zamanı"
+
 
 }
