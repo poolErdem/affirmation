@@ -19,6 +19,7 @@ class AffirmationCard extends StatelessWidget {
   });
 
   /// ⭐ Kartın eski stilini %100 koruyan ortak style (artık static)
+  ///deneme.deniz
   static TextStyle provideTextStyle(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
 
