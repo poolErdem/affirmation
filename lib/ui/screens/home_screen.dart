@@ -539,13 +539,10 @@ class _HomeScreenState extends State<HomeScreen>
     final appState = context.read<AppState>();
     final currentIndex = context.select<AppState, int>((s) => s.currentIndex);
 
-    final currentAff = appState.affirmationAt(currentIndex);
-
-    final enabled =
-        context.select<AppState, bool>((s) => s.playback.volumeEnabled);
-
     final activeCategory =
         context.select<AppState, String>((s) => s.activeCategoryId);
+
+    final currentAff = appState.affirmationAt(currentIndex);
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -553,23 +550,6 @@ class _HomeScreenState extends State<HomeScreen>
         // ⭐ TEK IF — iki buton birden kontrol ediyor
         if (activeCategory != Constants.myCategoryId &&
             activeCategory != Constants.favoritesCategoryId) ...[
-          // 🔊 VOLUME BUTTON
-          GestureDetector(
-            onTap: () {
-              appState.playback.toggleVolume();
-            },
-            child: glassButton(
-              enabled: enabled,
-              child: Icon(
-                enabled ? Icons.volume_up : Icons.volume_off,
-                size: 26,
-                color: Colors.white,
-              ),
-            ),
-          ),
-          const SizedBox(height: 5),
-
-          // ❤️ FAVORITE BUTTON
           Builder(
             builder: (context) {
               final isFav = currentAff != null &&
@@ -604,26 +584,28 @@ class _HomeScreenState extends State<HomeScreen>
             },
           ),
           const SizedBox(height: 5),
-        ],
 
-        // 📤 SHARE (herkeste görünür)
-        GestureDetector(
-          onTapDown: (_) => setState(() => _shareScale = 0.85),
-          onTapUp: (_) => setState(() => _shareScale = 1.0),
-          onTapCancel: () => setState(() => _shareScale = 1.0),
-          onTap: () {
-            if (currentAff == null) return;
-            final filtered = currentAff.renderWithName(appState.userName ?? "");
-            Share.share(filtered);
-          },
-          child: AnimatedScale(
-            scale: _shareScale,
-            duration: const Duration(milliseconds: 140),
-            child: glassButton(
-              child: const Icon(Icons.ios_share, size: 26, color: Colors.white),
+          // 📤 SHARE (herkeste görünür)
+          GestureDetector(
+            onTapDown: (_) => setState(() => _shareScale = 0.85),
+            onTapUp: (_) => setState(() => _shareScale = 1.0),
+            onTapCancel: () => setState(() => _shareScale = 1.0),
+            onTap: () {
+              if (currentAff == null) return;
+              final filtered =
+                  currentAff.renderWithName(appState.userName ?? "");
+              Share.share(filtered);
+            },
+            child: AnimatedScale(
+              scale: _shareScale,
+              duration: const Duration(milliseconds: 140),
+              child: glassButton(
+                child:
+                    const Icon(Icons.ios_share, size: 26, color: Colors.white),
+              ),
             ),
           ),
-        ),
+        ],
       ],
     );
   }
@@ -631,6 +613,7 @@ class _HomeScreenState extends State<HomeScreen>
   Widget _buildPlayButton(BuildContext context) {
     final appState = context.read<AppState>();
     final enabled = appState.playback.autoReadEnabled;
+    final volumeEnabled = appState.playback.volumeEnabled; // varsa zaten var
 
     return Positioned(
       bottom: 100,
@@ -639,14 +622,30 @@ class _HomeScreenState extends State<HomeScreen>
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          // ▶️ PLAY / PAUSE BUTTON
           GestureDetector(
             onTap: () => appState.playback.toggleAutoRead(),
             child: glassButton(
-              enabled: enabled, // 🔥 işte bu! Glow aktif/pasif olur
+              enabled: enabled,
               child: Icon(
                 enabled ? Icons.pause : Icons.play_arrow,
                 color: Colors.white,
                 size: 24,
+              ),
+            ),
+          ),
+
+          const SizedBox(width: 10),
+
+          // 🔊 VOLUME BUTTON
+          GestureDetector(
+            onTap: () => appState.playback.toggleVolume(),
+            child: glassButton(
+              enabled: volumeEnabled,
+              child: Icon(
+                volumeEnabled ? Icons.volume_up : Icons.volume_off,
+                size: 26,
+                color: Colors.white,
               ),
             ),
           ),
@@ -796,6 +795,49 @@ class _HomeScreenState extends State<HomeScreen>
               ),
               child: const Icon(
                 Icons.color_lens,
+                color: Colors.white,
+                size: 24,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDirectionButton(BuildContext context) {
+    return Transform.scale(
+      scale: 0.87, // 🔥 glassButton ile aynı küçültme
+      child: GestureDetector(
+        onTap: () async {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const ThemeScreen()),
+          );
+        },
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(50),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 14, sigmaY: 14),
+            child: Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.white.withValues(alpha: 0.08),
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: Colors.white.withValues(alpha: 0.20),
+                  width: 1.3,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.15),
+                    blurRadius: 18,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: const Icon(
+                Icons.directions_car,
                 color: Colors.white,
                 size: 24,
               ),
