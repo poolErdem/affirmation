@@ -39,8 +39,8 @@
   "languageDescription": "Uygulamada kullanmak istediğin dili seç",
   "genderDescription": "Deneyimini tercihlerine göre kişiselleştireceğiz",
   "nameDescription": "İsmin, onaylamaları kişiselleştirmemize yardımcı olur",
-  "favoritesLimitMessage": "Ücretsiz favori limitine (5) ulaştın.\n\nPremium’a geçerek sınırsız favori kaydedebilirsin ✨",
-  "myAffLimit": "Ücretsiz limitine (5) ulaştın.\n\nPremium’a geçerek 100’e kadar kendi onaylamanı kaydedebilirsin ✨",
+  "favoritesLimitMessage": "Ücretsiz favori limitine (10) ulaştın.\n\nPremium’a geçerek sınırsız favori kaydedebilirsin ✨",
+  "myAffLimit": "Ücretsiz limitine (10) ulaştın.\n\nPremium’a geçerek 1000'ne kadar kendi onaylamanı kaydedebilirsin ✨",
   "voiceLimitMessage": "Ücretsiz ses önizlemen sona erdi. Sınırsız ve tam sesli okuma için Premium’a geç ✨",
   "myAffLimitTitle": "Kendi Onaylamaların Limiti",
   "myAff" : "Olumlamalarım",
@@ -148,7 +148,9 @@
 "selectThemeWarning" : "Lütfen en az bir seçenek seç",
   "favoritesEmpty": "Favori listen boş",
 "myAffEmpty": "Henüz olumlama eklemedin",
-"affTime": "🌟 Olumlama Zamanı"
+"affTime": "🌟 Olumlama Zamanı",
+"myAfflimitTitle": "Olumlama Yazma Limiti",
+"myAfflimitMessage": "Ücretsiz olumlama yazma limitine (10) ulaştın.\n\nDaha fazla olumlama ekleyebilmek için Premium’a geçebilirsin."
 
 
 }

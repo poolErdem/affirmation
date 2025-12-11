@@ -426,7 +426,7 @@ class _ReminderEditScreenState extends State<ReminderEditScreen>
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
                         color: selected
-                            ? const Color(0xFFC9A85D)
+                            ? const Color(0xFFAEE5FF) // 🔵 SERENE BLUE
                             : Colors.white.withValues(alpha: 0.25),
                       ),
                       child: Text(

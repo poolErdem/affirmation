@@ -1,8 +1,591 @@
 {
   "categoryId": "relationships",
   "affirmations": [
-    { "id": "rl_001", "text": "I deserve a love that feels gentle and safe.", "gender": "female" }
-    
+
+    { "id": "rl_001", "text": "I welcome healthy, supportive connections into my life.", "gender": "any" },
+{ "id": "rl_002", "text": "Love grows naturally when hearts feel safe, {name}.", "gender": "any" },
+{ "id": "rl_003", "text": "I communicate with honesty and kindness.", "gender": "female" },
+{ "id": "rl_004", "text": "My relationships thrive when I show up authentically.", "gender": "any" },
+{ "id": "rl_005", "text": "Connection deepens where understanding is nurtured.", "gender": "any" },
+
+{ "id": "rl_006", "text": "I attract people who value emotional honesty.", "gender": "male" },
+{ "id": "rl_007", "text": "Trust grows beautifully when both hearts feel seen, {name}.", "gender": "any" },
+{ "id": "rl_008", "text": "I allow love to show up in gentle ways.", "gender": "female" },
+{ "id": "rl_009", "text": "My relationships reflect the care I give them.", "gender": "any" },
+{ "id": "rl_010", "text": "Kindness is the foundation of strong connection.", "gender": "any" },
+
+{ "id": "rl_011", "text": "I attract relationships built on mutual respect.", "gender": "male" },
+{ "id": "rl_012", "text": "Warm connection forms when you listen with your heart, {name}.", "gender": "any" },
+{ "id": "rl_013", "text": "I open myself to meaningful emotional intimacy.", "gender": "female" },
+{ "id": "rl_014", "text": "My relationships flourish through compassion and effort.", "gender": "any" },
+{ "id": "rl_015", "text": "Love becomes stronger when nurtured with patience.", "gender": "any" },
+
+{ "id": "rl_016", "text": "I create space for genuine connection.", "gender": "male" },
+{ "id": "rl_017", "text": "Healthy love feels grounding and warm, {name}.", "gender": "any" },
+{ "id": "rl_018", "text": "I choose to show love through presence.", "gender": "female" },
+{ "id": "rl_019", "text": "My relationships deepen when I express my truth.", "gender": "any" },
+{ "id": "rl_020", "text": "Connection strengthens in moments of shared vulnerability.", "gender": "any" },
+
+{ "id": "rl_021", "text": "I let go of relationships that drain my energy.", "gender": "male" },
+{ "id": "rl_022", "text": "Warmth grows when you hold space for someone, {name}.", "gender": "any" },
+{ "id": "rl_023", "text": "I am open to receiving love fully.", "gender": "female" },
+{ "id": "rl_024", "text": "My boundaries protect the health of my relationships.", "gender": "any" },
+{ "id": "rl_025", "text": "Love blossoms where respect is mutual.", "gender": "any" },
+
+{ "id": "rl_026", "text": "I attract people who cherish emotional depth.", "gender": "male" },
+{ "id": "rl_027", "text": "Kind connection forms in the quiet moments, {name}.", "gender": "any" },
+{ "id": "rl_028", "text": "I communicate my needs with clarity and warmth.", "gender": "female" },
+{ "id": "rl_029", "text": "My relationships thrive through honest conversations.", "gender": "any" },
+{ "id": "rl_030", "text": "Love grows roots through consistent care.", "gender": "any" },
+
+{ "id": "rl_031", "text": "I choose relationships that feel emotionally safe.", "gender": "male" },
+{ "id": "rl_032", "text": "Your compassion strengthens every bond you nurture, {name}.", "gender": "any" },
+{ "id": "rl_033", "text": "I allow others to love me without fear.", "gender": "female" },
+{ "id": "rl_034", "text": "My heart stays open to meaningful connection.", "gender": "any" },
+{ "id": "rl_035", "text": "Healthy relationships thrive on mindful attention.", "gender": "any" },
+
+{ "id": "rl_036", "text": "I welcome emotional intimacy that feels supportive.", "gender": "male" },
+{ "id": "rl_037", "text": "Love strengthens in the presence of understanding, {name}.", "gender": "any" },
+{ "id": "rl_038", "text": "I cultivate relationships that nourish my spirit.", "gender": "female" },
+{ "id": "rl_039", "text": "My connections feel lighter when I release judgment.", "gender": "any" },
+{ "id": "rl_040", "text": "Trust grows when communication is honest.", "gender": "any" },
+
+{ "id": "rl_041", "text": "I attract relationships aligned with my values.", "gender": "male" },
+{ "id": "rl_042", "text": "True connection deepens when you slow down to feel, {name}.", "gender": "any" },
+{ "id": "rl_043", "text": "I welcome affection in all its gentle forms.", "gender": "female" },
+{ "id": "rl_044", "text": "My relationships become richer through empathy.", "gender": "any" },
+{ "id": "rl_045", "text": "Love expands where hearts feel heard.", "gender": "any" },
+
+{ "id": "rl_046", "text": "I am worthy of deep, loving relationships.", "gender": "male" },
+{ "id": "rl_047", "text": "Warm connection grows through honest presence, {name}.", "gender": "any" },
+{ "id": "rl_048", "text": "I express my feelings with courage.", "gender": "female" },
+{ "id": "rl_049", "text": "My relationships stay healthy through mutual care.", "gender": "any" },
+{ "id": "rl_050", "text": "Love becomes stronger when kindness leads the way.", "gender": "any" },
+
+{ "id": "rl_051", "text": "I release fears that limit intimacy.", "gender": "male" },
+{ "id": "rl_052", "text": "Connection thrives when both hearts feel safe, {name}.", "gender": "any" },
+{ "id": "rl_053", "text": "I welcome partners who honor emotional truth.", "gender": "female" },
+{ "id": "rl_054", "text": "My relationships evolve beautifully with openness.", "gender": "any" },
+{ "id": "rl_055", "text": "Healthy bonds grow where presence is shared.", "gender": "any" },
+
+{ "id": "rl_056", "text": "I choose honesty even when vulnerable.", "gender": "male" },
+{ "id": "rl_057", "text": "Love softens your world when you allow it in, {name}.", "gender": "any" },
+{ "id": "rl_058", "text": "I allow love to deepen at its natural pace.", "gender": "female" },
+{ "id": "rl_059", "text": "My emotional clarity helps my connections thrive.", "gender": "any" },
+{ "id": "rl_060", "text": "Trust unfolds where consistency meets care.", "gender": "any" },
+
+{ "id": "rl_061", "text": "I feel safe expressing my true emotions.", "gender": "male" },
+{ "id": "rl_062", "text": "Healthy love grows where you honor each other’s truth, {name}.", "gender": "any" },
+{ "id": "rl_063", "text": "I attract people who support my growth.", "gender": "female" },
+{ "id": "rl_064", "text": "My relationships reflect mutual respect.", "gender": "any" },
+{ "id": "rl_065", "text": "Connection strengthens through shared openness.", "gender": "any" },
+
+{ "id": "rl_066", "text": "I allow relationships to evolve naturally.", "gender": "male" },
+{ "id": "rl_067", "text": "Love expands when you listen deeply, {name}.", "gender": "any" },
+{ "id": "rl_068", "text": "I honor my needs while honoring others'.", "gender": "female" },
+{ "id": "rl_069", "text": "My emotional presence strengthens connection.", "gender": "any" },
+{ "id": "rl_070", "text": "Healthy love flourishes with mutual understanding.", "gender": "any" },
+
+{ "id": "rl_071", "text": "I open my heart to deeper connection.", "gender": "male" },
+{ "id": "rl_072", "text": "Warmth flows naturally between open hearts, {name}.", "gender": "any" },
+{ "id": "rl_073", "text": "I allow meaningful bonds to unfold.", "gender": "female" },
+{ "id": "rl_074", "text": "My relationships thrive when nurtured with care.", "gender": "any" },
+{ "id": "rl_075", "text": "Connection becomes beautiful when both souls feel seen.", "gender": "any" },
+
+{ "id": "rl_076", "text": "I create relationships built on emotional honesty.", "gender": "male" },
+{ "id": "rl_077", "text": "True connection grows where compassion is shared, {name}.", "gender": "any" },
+{ "id": "rl_078", "text": "I allow softness to guide how I love.", "gender": "female" },
+{ "id": "rl_079", "text": "My relationships deepen through mindful communication.", "gender": "any" },
+{ "id": "rl_080", "text": "Love thrives when hearts move with patience.", "gender": "any" },
+
+{ "id": "rl_081", "text": "I nurture the bonds that nourish me.", "gender": "male" },
+{ "id": "rl_082", "text": "Connection becomes easier when you lead with sincerity, {name}.", "gender": "any" },
+{ "id": "rl_083", "text": "I am open to giving and receiving love equally.", "gender": "female" },
+{ "id": "rl_084", "text": "My emotional presence enriches my relationships.", "gender": "any" },
+{ "id": "rl_085", "text": "Healthy partnerships grow from mutual devotion.", "gender": "any" },
+
+{ "id": "rl_086", "text": "I bring emotional clarity into my relationships.", "gender": "male" },
+{ "id": "rl_087", "text": "Love strengthens when appreciation is spoken, {name}.", "gender": "any" },
+{ "id": "rl_088", "text": "I attract partners who match my emotional depth.", "gender": "female" },
+{ "id": "rl_089", "text": "My relationships are grounded in mutual trust.", "gender": "any" },
+{ "id": "rl_090", "text": "Connection grows richer through gentle honesty.", "gender": "any" },
+
+{ "id": "rl_091", "text": "I honor my heart in every relationship.", "gender": "male" },
+{ "id": "rl_092", "text": "Love blooms when you show up authentically, {name}.", "gender": "any" },
+{ "id": "rl_093", "text": "I offer compassion to myself and others.", "gender": "female" },
+{ "id": "rl_094", "text": "My relationships evolve beautifully through empathy.", "gender": "any" },
+{ "id": "rl_095", "text": "Healthy love invites truth, patience, and presence.", "gender": "any" },
+
+{ "id": "rl_096", "text": "I allow love to deepen without fear.", "gender": "male" },
+{ "id": "rl_097", "text": "Connection strengthens when you feel truly seen, {name}.", "gender": "any" },
+{ "id": "rl_098", "text": "I welcome relationships that feel emotionally steady.", "gender": "female" },
+{ "id": "rl_099", "text": "My bonds flourish when nurtured consistently.", "gender": "any" },
+{ "id": "rl_100", "text": "Love transforms when embraced with openness.", "gender": "any" },
+{ "id": "rl_101", "text": "I welcome deeper emotional closeness into my life.", "gender": "any" },
+{ "id": "rl_102", "text": "Love grows beautifully when both hearts feel safe, {name}.", "gender": "any" },
+{ "id": "rl_103", "text": "I express my feelings with honesty and care.", "gender": "female" },
+{ "id": "rl_104", "text": "My relationships strengthen when I communicate clearly.", "gender": "any" },
+{ "id": "rl_105", "text": "Connection deepens when two souls feel seen.", "gender": "any" },
+
+{ "id": "rl_106", "text": "I attract people who value emotional maturity.", "gender": "male" },
+{ "id": "rl_107", "text": "Warmth fills the space between two open hearts, {name}.", "gender": "any" },
+{ "id": "rl_108", "text": "I let love unfold without rushing it.", "gender": "female" },
+{ "id": "rl_109", "text": "My relationships thrive when I lead with empathy.", "gender": "any" },
+{ "id": "rl_110", "text": "True connection grows when judgement fades.", "gender": "any" },
+
+{ "id": "rl_111", "text": "I attract emotionally supportive relationships.", "gender": "male" },
+{ "id": "rl_112", "text": "Love settles in the heart that listens deeply, {name}.", "gender": "any" },
+{ "id": "rl_113", "text": "I allow love to feel natural and comforting.", "gender": "female" },
+{ "id": "rl_114", "text": "My connections improve when I stay present.", "gender": "any" },
+{ "id": "rl_115", "text": "Healthy relationships bloom where trust is nurtured.", "gender": "any" },
+
+{ "id": "rl_116", "text": "I welcome relationships that honor my emotional needs.", "gender": "male" },
+{ "id": "rl_117", "text": "Connection becomes effortless when you embrace authenticity, {name}.", "gender": "any" },
+{ "id": "rl_118", "text": "I feel safe expressing my softer emotions.", "gender": "female" },
+{ "id": "rl_119", "text": "My relationships thrive when I communicate intentionally.", "gender": "any" },
+{ "id": "rl_120", "text": "Love strengthens through gentle consistency.", "gender": "any" },
+
+{ "id": "rl_121", "text": "I create space for love to grow.", "gender": "male" },
+{ "id": "rl_122", "text": "Your heart becomes lighter when connection feels mutual, {name}.", "gender": "any" },
+{ "id": "rl_123", "text": "I allow myself to receive love fully.", "gender": "female" },
+{ "id": "rl_124", "text": "My emotional clarity helps me build healthy bonds.", "gender": "any" },
+{ "id": "rl_125", "text": "Connection deepens when compassion rises.", "gender": "any" },
+
+{ "id": "rl_126", "text": "I trust the timing of healthy relationships.", "gender": "male" },
+{ "id": "rl_127", "text": "Love blooms where understanding becomes effortless, {name}.", "gender": "any" },
+{ "id": "rl_128", "text": "I nurture relationships by showing up consistently.", "gender": "female" },
+{ "id": "rl_129", "text": "My connections feel lighter when I release control.", "gender": "any" },
+{ "id": "rl_130", "text": "Affection grows in spaces filled with patience.", "gender": "any" },
+
+{ "id": "rl_131", "text": "I deserve relationships that feel emotionally safe.", "gender": "male" },
+{ "id": "rl_132", "text": "Love becomes beautiful when both hearts feel understood, {name}.", "gender": "any" },
+{ "id": "rl_133", "text": "I allow kindness to guide my emotional bonds.", "gender": "female" },
+{ "id": "rl_134", "text": "My relationships reflect the love I cultivate within.", "gender": "any" },
+{ "id": "rl_135", "text": "Connection grows stronger with shared presence.", "gender": "any" },
+
+{ "id": "rl_136", "text": "I welcome emotionally aligned connections.", "gender": "male" },
+{ "id": "rl_137", "text": "Healing begins when you allow someone to truly see you, {name}.", "gender": "any" },
+{ "id": "rl_138", "text": "I choose partners who honor emotional truth.", "gender": "female" },
+{ "id": "rl_139", "text": "My honesty builds deeper trust in relationships.", "gender": "any" },
+{ "id": "rl_140", "text": "Love grows when both hearts show up openly.", "gender": "any" },
+
+{ "id": "rl_141", "text": "I allow myself to be loved without shrinking.", "gender": "male" },
+{ "id": "rl_142", "text": "Connection flourishes when you embrace vulnerability, {name}.", "gender": "any" },
+{ "id": "rl_143", "text": "I express my truth with warmth and courage.", "gender": "female" },
+{ "id": "rl_144", "text": "My relationships deepen as I release defensiveness.", "gender": "any" },
+{ "id": "rl_145", "text": "Love becomes steady where trust is reciprocal.", "gender": "any" },
+
+{ "id": "rl_146", "text": "I build relationships through compassion.", "gender": "male" },
+{ "id": "rl_147", "text": "Your connections soften beautifully when you slow down, {name}.", "gender": "any" },
+{ "id": "rl_148", "text": "I allow emotional closeness to feel safe.", "gender": "female" },
+{ "id": "rl_149", "text": "My relationships thrive when I stay emotionally available.", "gender": "any" },
+{ "id": "rl_150", "text": "Love strengthens through intentional presence.", "gender": "any" },
+
+{ "id": "rl_151", "text": "I attract people who communicate with clarity.", "gender": "male" },
+{ "id": "rl_152", "text": "Warmth enters your relationships when you listen deeply, {name}.", "gender": "any" },
+{ "id": "rl_153", "text": "I honor my needs while loving others fully.", "gender": "female" },
+{ "id": "rl_154", "text": "My emotional awareness enriches my connections.", "gender": "any" },
+{ "id": "rl_155", "text": "Love thrives where empathy flows.", "gender": "any" },
+
+{ "id": "rl_156", "text": "I allow myself to give and receive affection.", "gender": "male" },
+{ "id": "rl_157", "text": "Connection grows stronger when hearts stay open, {name}.", "gender": "any" },
+{ "id": "rl_158", "text": "I communicate from a grounded, loving place.", "gender": "female" },
+{ "id": "rl_159", "text": "My relationships become healthier as I embrace honesty.", "gender": "any" },
+{ "id": "rl_160", "text": "Love settles deeply in spaces free of judgment.", "gender": "any" },
+
+{ "id": "rl_161", "text": "I choose emotionally aligned partners.", "gender": "male" },
+{ "id": "rl_162", "text": "Healthy love expands when you feel emotionally held, {name}.", "gender": "any" },
+{ "id": "rl_163", "text": "I open my heart to connection without fear.", "gender": "female" },
+{ "id": "rl_164", "text": "My emotional presence strengthens every bond.", "gender": "any" },
+{ "id": "rl_165", "text": "Connection blooms where two hearts show patience.", "gender": "any" },
+
+{ "id": "rl_166", "text": "I honor vulnerability as a path to deeper love.", "gender": "male" },
+{ "id": "rl_167", "text": "Love becomes transformational when shared with transparency, {name}.", "gender": "any" },
+{ "id": "rl_168", "text": "I release relational fears that no longer serve me.", "gender": "female" },
+{ "id": "rl_169", "text": "My relationships become clearer through thoughtful communication.", "gender": "any" },
+{ "id": "rl_170", "text": "Love strengthens where care is mutual.", "gender": "any" },
+
+{ "id": "rl_171", "text": "I express my emotions with confidence.", "gender": "male" },
+{ "id": "rl_172", "text": "Connection becomes deeper when you truly witness each other, {name}.", "gender": "any" },
+{ "id": "rl_173", "text": "I welcome emotionally mature love.", "gender": "female" },
+{ "id": "rl_174", "text": "My relationships evolve when I create emotional space.", "gender": "any" },
+{ "id": "rl_175", "text": "Healthy bonds grow from mutual understanding.", "gender": "any" },
+
+{ "id": "rl_176", "text": "I choose partners who appreciate emotional depth.", "gender": "male" },
+{ "id": "rl_177", "text": "Love feels safer when embraced with honesty, {name}.", "gender": "any" },
+{ "id": "rl_178", "text": "I let emotional closeness feel natural and grounding.", "gender": "female" },
+{ "id": "rl_179", "text": "My relationships grow stronger when I listen actively.", "gender": "any" },
+{ "id": "rl_180", "text": "Connection thrives where truth is gently spoken.", "gender": "any" },
+
+{ "id": "rl_181", "text": "I release relationships that dim my emotional light.", "gender": "male" },
+{ "id": "rl_182", "text": "Warmth flows into your life when connection meets honesty, {name}.", "gender": "any" },
+{ "id": "rl_183", "text": "I welcome relationships that honor my emotional boundaries.", "gender": "female" },
+{ "id": "rl_184", "text": "My relationships feel healthier as I trust myself more.", "gender": "any" },
+{ "id": "rl_185", "text": "Love expands in the presence of steady care.", "gender": "any" },
+
+{ "id": "rl_186", "text": "I create emotional safety in my relationships.", "gender": "male" },
+{ "id": "rl_187", "text": "Connection becomes richer when both people feel understood, {name}.", "gender": "any" },
+{ "id": "rl_188", "text": "I celebrate the love that grows gently within my life.", "gender": "female" },
+{ "id": "rl_189", "text": "My relationships deepen through presence and compassion.", "gender": "any" },
+{ "id": "rl_190", "text": "Healthy love mirrors mutual trust and steady communication.", "gender": "any" },
+
+{ "id": "rl_191", "text": "I allow my relationships to evolve naturally, knowing that genuine connection grows in cycles of openness, honesty, patience, and care—it does not demand perfection, only presence.", "gender": "female" },
+
+{ "id": "rl_192", "text": "Love strengthens when you show up with sincerity, {name}.", "gender": "any" },
+{ "id": "rl_193", "text": "I trust myself to navigate emotional closeness.", "gender": "male" },
+{ "id": "rl_194", "text": "My relationships feel more aligned as I honor my truth.", "gender": "any" },
+
+{ "id": "rl_195", "text": "Healthy relationships grow when both people make room for each other's emotions, communicate openly, and choose compassion over assumption.", "gender": "any" },
+
+{ "id": "rl_196", "text": "I give and receive love with clarity.", "gender": "female" },
+{ "id": "rl_197", "text": "Connection becomes steady where care is shared, {name}.", "gender": "any" },
+
+{ "id": "rl_198",  "text": "I invite relationships that support my emotional well-being and allow me to grow without fear, pressure, or self-doubt.", "gender": "any" },
+
+{ "id": "rl_199", "text": "My heart knows how to recognize genuine connection.", "gender": "male" },
+
+{ "id": "rl_200", "text": "Love deepens beautifully when both hearts commit to showing up with patience, emotional truth, curiosity, and an open willingness to understand each other fully.", "gender": "any" },
+
+{ "id": "rl_201", "text": "I welcome love that feels steady and real.", "gender": "any" },
+{ "id": "rl_202", "text": "Your connections deepen when you approach them with softness, {name}.", "gender": "any" },
+{ "id": "rl_203", "text": "I allow myself to be emotionally open.", "gender": "female" },
+{ "id": "rl_204", "text": "My relationships flourish through mutual understanding.", "gender": "any" },
+{ "id": "rl_205", "text": "Love strengthens where two hearts feel safe.", "gender": "any" },
+
+{ "id": "rl_206", "text": "I attract people who appreciate emotional honesty.", "gender": "male" },
+{ "id": "rl_207", "text": "Connection becomes richer when listening replaces assumption, {name}.", "gender": "any" },
+{ "id": "rl_208", "text": "I express my truth with calm confidence.", "gender": "female" },
+{ "id": "rl_209", "text": "My relationships grow through clarity and respect.", "gender": "any" },
+{ "id": "rl_210", "text": "Healthy connection blooms in emotional safety.", "gender": "any" },
+
+{ "id": "rl_211", "text": "I allow love to unfold naturally.", "gender": "male" },
+{ "id": "rl_212", "text": "Warmth expands in relationships rooted in honesty, {name}.", "gender": "any" },
+{ "id": "rl_213", "text": "I choose partners who understand emotional depth.", "gender": "female" },
+{ "id": "rl_214", "text": "My emotional presence elevates every connection I build.", "gender": "any" },
+{ "id": "rl_215", "text": "True love thrives when both hearts feel supported.", "gender": "any" },
+
+{ "id": "rl_216", "text": "I welcome relationships aligned with my emotional growth.", "gender": "male" },
+{ "id": "rl_217", "text": "Love becomes effortless when met with vulnerability, {name}.", "gender": "any" },
+{ "id": "rl_218", "text": "I speak with kindness, even in difficult moments.", "gender": "female" },
+{ "id": "rl_219", "text": "My relationships strengthen through emotional clarity.", "gender": "any" },
+{ "id": "rl_220", "text": "Connection deepens where patience lives.", "gender": "any" },
+
+{ "id": "rl_221", "text": "I honor what my heart needs in relationships.", "gender": "male" },
+{ "id": "rl_222", "text": "Your relationships grow beautifully when nurtured with sincerity, {name}.", "gender": "any" },
+{ "id": "rl_223", "text": "I allow healthy love to feel familiar.", "gender": "female" },
+{ "id": "rl_224", "text": "My relationships thrive as honesty becomes my foundation.", "gender": "any" },
+{ "id": "rl_225", "text": "Love grows in spaces free of pressure.", "gender": "any" },
+
+{ "id": "rl_226", "text": "I attract emotionally grounded partners.", "gender": "male" },
+{ "id": "rl_227", "text": "Warm connection forms when you embrace others with compassion, {name}.", "gender": "any" },
+{ "id": "rl_228", "text": "I allow myself to be loved without fear.", "gender": "female" },
+{ "id": "rl_229", "text": "My relationships evolve gracefully as I communicate openly.", "gender": "any" },
+{ "id": "rl_230", "text": "Connection becomes meaningful when empathy leads.", "gender": "any" },
+
+{ "id": "rl_231", "text": "I honor emotional balance in every relationship.", "gender": "male" },
+{ "id": "rl_232", "text": "Love expands through soft, honest presence, {name}.", "gender": "any" },
+{ "id": "rl_233", "text": "I welcome connection that celebrates who I am.", "gender": "female" },
+{ "id": "rl_234", "text": "My emotional strength enriches my relationships.", "gender": "any" },
+{ "id": "rl_235", "text": "Healthy love grows with gentle intention.", "gender": "any" },
+
+{ "id": "rl_236", "text": "I choose relationships that feel emotionally fulfilling.", "gender": "male" },
+{ "id": "rl_237", "text": "Your heart finds harmony when connection feels mutual, {name}.", "gender": "any" },
+{ "id": "rl_238", "text": "I express affection with openness and warmth.", "gender": "female" },
+{ "id": "rl_239", "text": "My relationships deepen when I speak from the heart.", "gender": "any" },
+{ "id": "rl_240", "text": "Love thrives in environments where both souls feel heard.", "gender": "any" },
+
+{ "id": "rl_241", 
+  "text": "I allow my relationships to be shaped by empathy, understanding, and emotional availability, trusting that healthy love grows steadily when both people choose patience over urgency.", 
+  "gender": "female" },
+
+{ "id": "rl_242", "text": "Connection feels lighter when you release expectations, {name}.", "gender": "any" },
+{ "id": "rl_243", "text": "I welcome love that honors mutual growth.", "gender": "male" },
+{ "id": "rl_244", "text": "My emotional honesty invites deeper trust.", "gender": "any" },
+
+{ "id": "rl_245", 
+  "text": "Healthy relationships flourish when communication is open, vulnerability is embraced, and both hearts create a safe space to be understood without judgment or pressure.", 
+  "gender": "any" },
+
+{ "id": "rl_246", "text": "I attract people who value emotional presence.", "gender": "female" },
+{ "id": "rl_247", "text": "Love expands where compassion becomes a habit, {name}.", "gender": "any" },
+{ "id": "rl_248", "text": "I allow my heart to trust again.", "gender": "male" },
+{ "id": "rl_249", "text": "My relationships deepen as I soften my defenses.", "gender": "any" },
+{ "id": "rl_250", "text": "Connection strengthens with every honest conversation.", "gender": "any" },
+
+{ "id": "rl_251", "text": "I welcome emotionally consistent love.", "gender": "male" },
+{ "id": "rl_252", "text": "Warmth grows where two hearts meet without fear, {name}.", "gender": "any" },
+{ "id": "rl_253", "text": "I express my needs with clarity and confidence.", "gender": "female" },
+{ "id": "rl_254", "text": "My relationships improve through mutual awareness.", "gender": "any" },
+{ "id": "rl_255", "text": "Connection deepens through shared emotional safety.", "gender": "any" },
+
+{ "id": "rl_256", "text": "I deserve emotional loyalty and consistency.", "gender": "male" },
+{ "id": "rl_257", "text": "Love becomes grounding when both people show up truthfully, {name}.", "gender": "any" },
+{ "id": "rl_258", "text": "I nurture relationships that feel emotionally aligned.", "gender": "female" },
+{ "id": "rl_259", "text": "My emotional availability enriches connection.", "gender": "any" },
+{ "id": "rl_260", "text": "Love grows in spaces filled with gentle affirmations.", "gender": "any" },
+
+{ "id": "rl_261", "text": "I feel supported in the relationships I choose.", "gender": "male" },
+{ "id": "rl_262", "text": "Connection becomes deeper when you choose understanding first, {name}.", "gender": "any" },
+{ "id": "rl_263", "text": "I open my heart to relationships that uplift me.", "gender": "female" },
+{ "id": "rl_264", "text": "My relationships thrive when communication feels safe.", "gender": "any" },
+{ "id": "rl_265", "text": "Love strengthens when resentment is replaced with clarity.", "gender": "any" },
+
+{ "id": "rl_266", 
+  "text": "I allow my relationships to grow through honest dialogue, emotional maturity, and a shared commitment to treating each other with consistency, compassion, and sincerity.", 
+  "gender": "any" },
+
+{ "id": "rl_267", "text": "Warm connection forms as you create space for others, {name}.", "gender": "any" },
+{ "id": "rl_268", "text": "I choose partnerships that feel emotionally reciprocal.", "gender": "female" },
+{ "id": "rl_269", "text": "My presence brings calm into my relationships.", "gender": "any" },
+
+{ "id": "rl_270", 
+  "text": "Healthy love grows when both hearts feel free to express themselves, safe to be imperfect, and supported through every emotional season of life.", 
+  "gender": "male" },
+
+{ "id": "rl_271", "text": "I attract relationships that feel emotionally steady.", "gender": "any" },
+{ "id": "rl_272", "text": "Connection becomes peaceful when you release the need to rush, {name}.", "gender": "any" },
+{ "id": "rl_273", "text": "I communicate with patience and intention.", "gender": "female" },
+{ "id": "rl_274", "text": "My emotional clarity guides healthier relationships.", "gender": "any" },
+{ "id": "rl_275", "text": "Love expands when both hearts show tenderness.", "gender": "any" },
+
+{ "id": "rl_276", "text": "I welcome love that feels emotionally nourishing.", "gender": "male" },
+{ "id": "rl_277", "text": "Warmth flows into your life when connection becomes mutual, {name}.", "gender": "any" },
+{ "id": "rl_278", "text": "I allow emotional intimacy to feel safe.", "gender": "female" },
+{ "id": "rl_279", "text": "My relationships grow stronger with every honest moment.", "gender": "any" },
+{ "id": "rl_280", "text": "Love thrives in the presence of heartfelt intention.", "gender": "any" },
+
+{ "id": "rl_281", "text": "I choose relationships rooted in understanding.", "gender": "male" },
+{ "id": "rl_282", "text": "Connection deepens where two hearts find balance, {name}.", "gender": "any" },
+{ "id": "rl_283", "text": "I express affection confidently and sincerely.", "gender": "female" },
+{ "id": "rl_284", "text": "My relationships reflect my emotional growth.", "gender": "any" },
+{ "id": "rl_285", "text": "Love strengthens where communication stays gentle.", "gender": "any" },
+
+{ "id": "rl_286", 
+  "text": "I allow my relationships to unfold without force, trusting that the bonds built on mutual respect, kindness, and emotional transparency will naturally deepen over time.", 
+  "gender": "any" },
+
+{ "id": "rl_287", "text": "Warm connection grows when you lead with openness, {name}.", "gender": "any" },
+{ "id": "rl_288", "text": "I choose love that honors my emotional needs.", "gender": "female" },
+{ "id": "rl_289", "text": "My presence brings harmony to my relationships.", "gender": "any" },
+
+{ "id": "rl_290", 
+  "text": "Healthy relationships evolve when both people commit to understanding each other's emotional worlds, communicating with respect, and showing up with consistency even in difficult moments.", 
+  "gender": "male" },
+
+{ "id": "rl_291", "text": "I attract emotionally authentic connections.", "gender": "any" },
+{ "id": "rl_292", "text": "Love becomes tender when you embrace vulnerability, {name}.", "gender": "any" },
+{ "id": "rl_293", "text": "I express my emotions with steady confidence.", "gender": "female" },
+{ "id": "rl_294", "text": "My relationships thrive as I deepen my emotional awareness.", "gender": "any" },
+{ "id": "rl_295", "text": "Connection grows stronger when two hearts feel valued.", "gender": "any" },
+
+{ "id": "rl_296", "text": "I choose partners who support my emotional evolution.", "gender": "male" },
+{ "id": "rl_297", "text": "Your relationships brighten when honesty becomes your language, {name}.", "gender": "any" },
+{ "id": "rl_298", "text": "I welcome relational harmony into my life.", "gender": "female" },
+{ "id": "rl_299", "text": "My emotional strength elevates every bond I build.", "gender": "any" },
+
+{ "id": "rl_300", "text": "Love becomes profoundly stable when both hearts choose to communicate gently, honor each other's emotional boundaries, and create a shared environment where trust can grow freely and consistently.", "gender": "any" },
+
+{ "id": "rl_301", "text": "I welcome connections that feel emotionally safe.", "gender": "any" },
+{ "id": "rl_302", "text": "Love grows beautifully when shared with honesty, {name}.", "gender": "any" },
+{ "id": "rl_303", "text": "I allow myself to communicate openly.", "gender": "female" },
+{ "id": "rl_304", "text": "My relationships strengthen through mutual care.", "gender": "any" },
+{ "id": "rl_305", "text": "Connection feels easier when both hearts stay present.", "gender": "any" },
+
+{ "id": "rl_306", "text": "I attract emotionally reliable partners.", "gender": "male" },
+{ "id": "rl_307", "text": "Warmth grows when you share your truth gently, {name}.", "gender": "any" },
+{ "id": "rl_308", "text": "I embrace emotional closeness with confidence.", "gender": "female" },
+{ "id": "rl_309", "text": "My relationships reflect the honesty I bring.", "gender": "any" },
+{ "id": "rl_310", "text": "Love strengthens when communication stays open.", "gender": "any" },
+
+{ "id": "rl_311", "text": "I welcome love that honors my emotional needs.", "gender": "male" },
+{ "id": "rl_312", "text": "Connection deepens when both hearts choose sincerity, {name}.", "gender": "any" },
+{ "id": "rl_313", "text": "I let affection flow naturally.", "gender": "female" },
+{ "id": "rl_314", "text": "My emotional clarity strengthens connection.", "gender": "any" },
+{ "id": "rl_315", "text": "Healthy love grows with patience and care.", "gender": "any" },
+
+{ "id": "rl_316", "text": "I create space for meaningful connection.", "gender": "male" },
+{ "id": "rl_317", "text": "Warm connection expands when you listen fully, {name}.", "gender": "any" },
+{ "id": "rl_318", "text": "I honor my feelings in every relationship.", "gender": "female" },
+{ "id": "rl_319", "text": "My presence enriches the bonds I form.", "gender": "any" },
+{ "id": "rl_320", "text": "Love grows stronger when nurtured daily.", "gender": "any" },
+
+{ "id": "rl_321", 
+  "text": "I allow my relationships to evolve gently, trusting that honesty and consistency will guide them in the right direction.", 
+  "gender": "any" },
+
+{ "id": "rl_322", "text": "Connection feels lighter when you let go of pressure, {name}.", "gender": "any" },
+{ "id": "rl_323", "text": "I attract people who value emotional presence.", "gender": "female" },
+{ "id": "rl_324", "text": "My relationships improve when I express myself clearly.", "gender": "any" },
+{ "id": "rl_325", "text": "Love thrives in emotionally safe environments.", "gender": "any" },
+
+{ "id": "rl_326", "text": "I deserve emotional depth in my connections.", "gender": "male" },
+{ "id": "rl_327", "text": "Warmth grows between hearts that choose understanding, {name}.", "gender": "any" },
+{ "id": "rl_328", "text": "I express affection with honesty.", "gender": "female" },
+{ "id": "rl_329", "text": "My emotional awareness strengthens all relationships.", "gender": "any" },
+{ "id": "rl_330", "text": "Connection becomes meaningful through shared truth.", "gender": "any" },
+
+{ "id": "rl_331", "text": "I build relationships rooted in respect.", "gender": "male" },
+{ "id": "rl_332", "text": "Love deepens when you approach others with sincerity, {name}.", "gender": "any" },
+{ "id": "rl_333", "text": "I allow closeness to feel safe again.", "gender": "female" },
+{ "id": "rl_334", "text": "My relationships strengthen through emotional presence.", "gender": "any" },
+{ "id": "rl_335", "text": "Healthy love forms when both people feel equally valued.", "gender": "any" },
+
+{ "id": "rl_336", 
+  "text": "I show up with emotional honesty, knowing that real connection requires openness and a willingness to understand each other.", 
+  "gender": "any" },
+
+{ "id": "rl_337", "text": "Warmth expands when you give others space to be real, {name}.", "gender": "any" },
+{ "id": "rl_338", "text": "I welcome relationships that feel aligned and balanced.", "gender": "female" },
+{ "id": "rl_339", "text": "My relationships thrive when kindness leads my actions.", "gender": "any" },
+{ "id": "rl_340", "text": "Love grows through consistent emotional care.", "gender": "any" },
+
+{ "id": "rl_341", "text": "I choose partnership that feels emotionally secure.", "gender": "male" },
+{ "id": "rl_342", "text": "Connection deepens when you hold space for honesty, {name}.", "gender": "any" },
+{ "id": "rl_343", "text": "I allow my emotions to be heard and understood.", "gender": "female" },
+{ "id": "rl_344", "text": "My presence fosters harmony in relationships.", "gender": "any" },
+{ "id": "rl_345", "text": "Healthy connection grows where judgment fades.", "gender": "any" },
+
+{ "id": "rl_346", "text": "I express emotional truth with confidence.", "gender": "male" },
+{ "id": "rl_347", "text": "Warm affection flows when you soften your defenses, {name}.", "gender": "any" },
+{ "id": "rl_348", "text": "I choose connection that honors my boundaries.", "gender": "female" },
+{ "id": "rl_349", "text": "My relationships deepen as I communicate clearly.", "gender": "any" },
+{ "id": "rl_350", "text": "Love becomes grounded through mutual trust.", "gender": "any" },
+
+{ "id": "rl_351", 
+  "text": "I welcome love that meets me with honesty, patience, and the emotional depth I’ve always deserved.", 
+  "gender": "female" },
+
+{ "id": "rl_352", "text": "Connection feels more peaceful when you let it unfold, {name}.", "gender": "any" },
+{ "id": "rl_353", "text": "I attract emotionally aligned partners.", "gender": "any" },
+{ "id": "rl_354", "text": "My relationships evolve naturally as I grow.", "gender": "any" },
+{ "id": "rl_355", "text": "Love expands where hearts feel supported.", "gender": "any" },
+
+{ "id": "rl_356", "text": "I choose partners who communicate openly.", "gender": "male" },
+{ "id": "rl_357", "text": "Warmth grows through gentle, consistent presence, {name}.", "gender": "any" },
+{ "id": "rl_358", "text": "I allow connections to strengthen gradually.", "gender": "female" },
+{ "id": "rl_359", "text": "My emotional awareness deepens every bond I form.", "gender": "any" },
+{ "id": "rl_360", "text": "Healthy love thrives where patience and honesty meet.", "gender": "any" },
+
+{ "id": "rl_361", 
+  "text": "I allow connection to flow without fear, trusting that mutual care will shape it into something steady and meaningful.", 
+  "gender": "any" },
+
+{ "id": "rl_362", "text": "Love becomes easier when you stay present with others, {name}.", "gender": "any" },
+{ "id": "rl_363", "text": "I express affection with emotional confidence.", "gender": "female" },
+{ "id": "rl_364", "text": "My relationships reflect the emotional safety I cultivate.", "gender": "any" },
+{ "id": "rl_365", "text": "Connection deepens through shared vulnerability.", "gender": "any" },
+
+{ "id": "rl_366", "text": "I choose partnership that feels emotionally reciprocal.", "gender": "male" },
+{ "id": "rl_367", "text": "Warmth grows when you speak from the heart, {name}.", "gender": "any" },
+{ "id": "rl_368", "text": "I invite love that feels steady and nurturing.", "gender": "female" },
+{ "id": "rl_369", "text": "My emotional openness strengthens connection.", "gender": "any" },
+{ "id": "rl_370", "text": "Love evolves beautifully through gentle communication.", "gender": "any" },
+
+{ "id": "rl_371", "text": "I attract relationships built on shared emotional values.", "gender": "male" },
+{ "id": "rl_372", "text": "Connection expands when you let others see your true self, {name}.", "gender": "any" },
+{ "id": "rl_373", "text": "I allow relationships to grow at a natural pace.", "gender": "female" },
+{ "id": "rl_374", "text": "My relationships deepen when I show up authentically.", "gender": "any" },
+{ "id": "rl_375", "text": "Healthy love thrives in honesty and acceptance.", "gender": "any" },
+
+{ "id": "rl_376", 
+  "text": "I allow space for emotional connection, knowing that care, presence, and honesty are the pillars of a lasting bond.", 
+  "gender": "any" },
+
+{ "id": "rl_377", "text": "Warm affection grows where kindness leads, {name}.", "gender": "any" },
+{ "id": "rl_378", "text": "I welcome relationships that feel emotionally aligned.", "gender": "female" },
+{ "id": "rl_379", "text": "My vulnerability helps deepen meaningful connection.", "gender": "any" },
+{ "id": "rl_380", "text": "Love blossoms when shared with patience.", "gender": "any" },
+
+{ "id": "rl_381", "text": "I choose relationships grounded in emotional truth.", "gender": "male" },
+{ "id": "rl_382", "text": "Connection becomes softer when you offer understanding, {name}.", "gender": "any" },
+{ "id": "rl_383", "text": "I allow closeness to feel natural and safe.", "gender": "female" },
+{ "id": "rl_384", "text": "My emotional presence supports deeper connection.", "gender": "any" },
+{ "id": "rl_385", "text": "Healthy love grows where two hearts feel respected.", "gender": "any" },
+
+{ "id": "rl_386", "text": "I communicate with clarity and care.", "gender": "male" },
+{ "id": "rl_387", "text": "Warmth increases when you speak with sincerity, {name}.", "gender": "any" },
+{ "id": "rl_388", "text": "I choose love that honors my emotional rhythms.", "gender": "female" },
+{ "id": "rl_389", "text": "My relationships flourish with mutual appreciation.", "gender": "any" },
+{ "id": "rl_390", "text": "Love strengthens through gentle consistency.", "gender": "any" },
+
+{ "id": "rl_391", 
+  "text": "I allow love to grow at a pace that feels safe, trusting that steady emotional presence creates lasting connection.", 
+  "gender": "any" },
+
+{ "id": "rl_392", "text": "Connection feels lighter when expectations soften, {name}.", "gender": "any" },
+{ "id": "rl_393", "text": "I welcome emotionally steady partners.", "gender": "female" },
+{ "id": "rl_394", "text": "My emotional grounding supports healthier relationships.", "gender": "any" },
+{ "id": "rl_395", "text": "Love deepens where communication remains open.", "gender": "any" },
+
+{ "id": "rl_396", "text": "I choose relationships that embrace emotional growth.", "gender": "male" },
+{ "id": "rl_397", "text": "Warmth flows where your presence feels sincere, {name}.", "gender": "any" },
+{ "id": "rl_398", "text": "I allow affection to flourish naturally.", "gender": "female" },
+{ "id": "rl_399", "text": "My emotional honesty helps love grow stronger.", "gender": "any" },
+
+{ "id": "rl_400", 
+  "text": "Love becomes beautifully stable when both hearts commit to clarity, compassion, and showing up with emotional intention.", 
+  "gender": "any" },
+
+  { "id": "rl_401", "text": "I welcome relationships that honor my emotional truth.", "gender": "any" },
+{ "id": "rl_402", "text": "Love feels lighter when shared with sincerity, {name}.", "gender": "any" },
+{ "id": "rl_403", "text": "I express myself with clarity and warmth.", "gender": "female" },
+{ "id": "rl_404", "text": "My presence brings balance into my relationships.", "gender": "any" },
+{ "id": "rl_405", "text": "Connection deepens when hearts feel heard.", "gender": "any" },
+
+{ "id": "rl_406", "text": "I attract emotionally steady partners.", "gender": "male" },
+{ "id": "rl_407", "text": "Compassion strengthens every bond you nurture, {name}.", "gender": "any" },
+{ "id": "rl_408", "text": "I allow closeness to feel natural.", "gender": "female" },
+{ "id": "rl_409", "text": "My relationships grow through honest presence.", "gender": "any" },
+{ "id": "rl_410", "text": "Love thrives where patience lives.", "gender": "any" },
+
+{ "id": "rl_411", "text": "I create emotional harmony in my connections.", "gender": "male" },
+{ "id": "rl_412", "text": "Warmth grows when you show up authentically, {name}.", "gender": "any" },
+{ "id": "rl_413", "text": "I open my heart to meaningful love.", "gender": "female" },
+{ "id": "rl_414", "text": "My relationships strengthen through understanding.", "gender": "any" },
+{ "id": "rl_415", "text": "Connection becomes easier when expectations soften.", "gender": "any" },
+
+{ "id": "rl_416", "text": "I honor my emotions in every relationship.", "gender": "male" },
+{ "id": "rl_417", "text": "Love expands when kindness leads, {name}.", "gender": "any" },
+{ "id": "rl_418", "text": "I attract love that feels emotionally aligned.", "gender": "female" },
+{ "id": "rl_419", "text": "My honesty builds deeper connection.", "gender": "any" },
+{ "id": "rl_420", "text": "Healthy relationships grow through shared intention.", "gender": "any" },
+
+{ "id": "rl_421", "text": "I choose partners who value emotional maturity.", "gender": "male" },
+{ "id": "rl_422", "text": "Connection strengthens when you slow down and listen, {name}.", "gender": "any" },
+{ "id": "rl_423", "text": "I communicate my needs with confidence.", "gender": "female" },
+{ "id": "rl_424", "text": "My relationships reflect the care I offer.", "gender": "any" },
+{ "id": "rl_425", "text": "Love deepens where honesty is welcomed.", "gender": "any" },
+
+{ "id": "rl_426", "text": "I welcome emotionally supportive relationships.", "gender": "male" },
+{ "id": "rl_427", "text": "Warm affection flows where openness exists, {name}.", "gender": "any" },
+{ "id": "rl_428", "text": "I allow connection to grow at its own pace.", "gender": "female" },
+{ "id": "rl_429", "text": "My presence brings steadiness into my relationships.", "gender": "any" },
+{ "id": "rl_430", "text": "Love thrives through gentle consistency.", "gender": "any" },
+
+{ "id": "rl_431", "text": "I choose partners who respect my boundaries.", "gender": "male" },
+{ "id": "rl_432", "text": "Connection feels peaceful when shared with sincerity, {name}.", "gender": "any" },
+{ "id": "rl_433", "text": "I express affection with emotional clarity.", "gender": "female" },
+{ "id": "rl_434", "text": "My relationships flourish through empathy.", "gender": "any" },
+{ "id": "rl_435", "text": "Healthy love thrives in mutual understanding.", "gender": "any" },
+
+{ "id": "rl_436", "text": "I attract relationships that celebrate emotional depth.", "gender": "male" },
+{ "id": "rl_437", "text": "Warmth enters your relationships when you stay present, {name}.", "gender": "any" },
+{ "id": "rl_438", "text": "I welcome connection that feels grounded and real.", "gender": "female" },
+{ "id": "rl_439", "text": "My emotional openness strengthens every bond.", "gender": "any" },
+{ "id": "rl_440", "text": "Love becomes steady when both hearts feel supported.", "gender": "any" },
+
+{ "id": "rl_441", "text": "I choose relationships that honor my emotional balance.", "gender": "male" },
+{ "id": "rl_442", "text": "Connection deepens when you show gentle honesty, {name}.", "gender": "any" },
+{ "id": "rl_443", "text": "I allow love to grow without rushing it.", "gender": "female" },
+{ "id": "rl_444", "text": "My relationships become healthier as I trust myself.", "gender": "any" },
+{ "id": "rl_445", "text": "Love thrives in the presence of mutual care.", "gender": "any" },
+
+{ "id": "rl_446", "text": "I attract harmonious and emotionally grounded partnerships.", "gender": "male" },
+{ "id": "rl_447", "text": "Warm connection forms when you let your guard down, {name}.", "gender": "any" },
+{ "id": "rl_448", "text": "I speak my truth with steadiness and care.", "gender": "female" },
+{ "id": "rl_449", "text": "My presence invites deeper connection.", "gender": "any" },
+{ "id": "rl_450", "text": "Love strengthens where both hearts choose compassion.", "gender": "any" }
+
 ]
 
 }

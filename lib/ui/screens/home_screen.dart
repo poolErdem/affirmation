@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 import 'dart:ui';
 import 'package:affirmation/constants/constants.dart';
@@ -5,6 +6,9 @@ import 'package:affirmation/l10n/app_localizations.dart';
 import 'package:affirmation/models/affirmation.dart';
 import 'package:affirmation/models/category.dart';
 import 'package:affirmation/models/my_affirmation.dart';
+import 'package:affirmation/ui/screens/custom_share_screen.dart';
+import 'package:affirmation/ui/screens/favorites_list_screen.dart';
+import 'package:affirmation/ui/screens/my_affirmation_list_screen.dart';
 import 'package:affirmation/ui/screens/premium_screen.dart';
 import 'package:affirmation/ui/screens/theme_screen.dart';
 import 'package:affirmation/ui/screens/categories_screen.dart';
@@ -12,14 +16,15 @@ import 'package:affirmation/ui/screens/settings/settings_screen.dart';
 import 'package:affirmation/models/user_preferences.dart';
 import 'package:affirmation/state/app_state.dart';
 import 'package:affirmation/state/my_affirmation_state.dart';
+import 'package:affirmation/ui/widgets/affirmation_swiper.dart';
 import 'package:affirmation/ui/widgets/video_bg.dart';
 import 'package:affirmation/utils/utils.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
-
-import '../widgets/affirmation_card.dart';
 
 class HomeScreen extends StatefulWidget {
   final String? initialCategoryId;
@@ -42,7 +47,13 @@ class _HomeScreenState extends State<HomeScreen>
   late PageController _pageController;
   late PageController _myAffPageController;
 
+  final GlobalKey _captureKey = GlobalKey();
+
   double _shareScale = 1.0;
+
+  double _heartScale = 1.0;
+  Color _heartColor = Colors.white;
+  bool _heartAnimating = false;
 
   final TextEditingController _panelController = TextEditingController();
 
@@ -56,10 +67,11 @@ class _HomeScreenState extends State<HomeScreen>
     appState = Provider.of<AppState>(context, listen: false);
     myState = Provider.of<MyAffirmationState>(context, listen: false);
 
+    // ⭐ PageController'lar başlangıç index'i ile kuruluyor
     _pageController = PageController(initialPage: appState.currentIndex);
     _myAffPageController = PageController(initialPage: myState.currentIndex);
 
-    // ⭐ FAVORİDEN GELİYORSA jump yap
+    // ⭐ FAVORİ veya MY-AFF üzerinden gelindiyse doğru sayfaya atla
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final initialId = widget.initialAffirmationId;
       if (initialId == null) return;
@@ -73,11 +85,11 @@ class _HomeScreenState extends State<HomeScreen>
       late final List<Affirmation> feed;
 
       if (active == Constants.favoritesCategoryId) {
-        feed = app.favoritesFeed; // Affirmation list
+        feed = app.favoritesFeed;
       } else if (active == Constants.myCategoryId) {
         feed = my.items.map((m) => m.toAffirmation()).toList();
       } else {
-        return; // diğer kategorilerde jump yok
+        return; // genel kategorilerde atlama yok
       }
 
       // ---- INDEX BUL ----
@@ -89,13 +101,13 @@ class _HomeScreenState extends State<HomeScreen>
       }
     });
 
-    // ⭐ Playback limit
+    // ⭐ Playback limit event
     appState.playback.onLimitReached = () {
       if (!mounted) return;
       _showPlaybackDialog(context);
     };
 
-    // ⭐ Pending share
+    // ⭐ Pending share event
     Future.microtask(() {
       final shareText = appState.pendingShareText;
       if (shareText != null && shareText.isNotEmpty) {
@@ -104,22 +116,22 @@ class _HomeScreenState extends State<HomeScreen>
       }
     });
 
+    // ⭐ Playback index değiştiğinde PageView'i güncelle
     appState.playback.onIndexChanged = (newIndex) {
       if (!mounted) return;
 
       if (_pageController.hasClients) {
-        _pageController.jumpToPage(
-          newIndex,
-        );
+        _pageController.jumpToPage(newIndex);
       }
     };
 
+    // ⭐ Action Anim (kalp butonu animasyonu falan için)
     _actionAnim = AnimationController(
       duration: const Duration(milliseconds: 350),
       vsync: this,
     )..forward();
 
-    // Başlangıçta playback'i durdur
+    // ⭐ Uygulama açılır açılmaz autoplay'i durdur
     WidgetsBinding.instance.addPostFrameCallback((_) {
       appState.playback.forceStop();
     });
@@ -154,12 +166,16 @@ class _HomeScreenState extends State<HomeScreen>
     final backgroundImage = appState.activeThemeImage;
     final isVideo = backgroundImage.toLowerCase().endsWith(".mp4");
 
+    final isMyCategory = context.select<AppState, bool>(
+      (s) =>
+          s.activeCategoryId == Constants.myCategoryId ||
+          s.activeCategoryId == Constants.favoritesCategoryId,
+    );
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: Stack(
         children: [
-          // ⭐ NEW PREMIUM BACKGROUND
-
           Positioned.fill(
             child: Stack(
               children: [
@@ -196,49 +212,73 @@ class _HomeScreenState extends State<HomeScreen>
               ],
             ),
           ),
+          RepaintBoundary(
+            key: _captureKey,
+            child: Positioned.fill(
+              child: Stack(
+                children: [
+                  // BACKGROUND
+                  isVideo
+                      ? VideoBg(assetPath: backgroundImage)
+                      : Image.asset(
+                          backgroundImage,
+                          fit: BoxFit.cover,
+                          width: double.infinity,
+                          height: double.infinity,
+                        ),
 
-          Align(
-            alignment: Alignment.center,
-            child: _buildAffirmationPager(appState, myState),
+                  // Overlay
+                  Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.black.withValues(alpha: 0.25),
+                          Colors.black.withValues(alpha: 0.45),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  // Noise
+                  IgnorePointer(
+                    child: CustomPaint(
+                      painter: HomeNoisePainter(opacity: 0.04),
+                    ),
+                  ),
+
+                  // Affirmation
+                  Align(
+                    alignment: Alignment.center,
+                    child: _buildAffirmationPager(appState, myState),
+                  ),
+                ],
+              ),
+            ),
           ),
-
           Positioned(
             right: 16,
-            bottom: 80,
+            bottom: 99,
             child: _buildMiddleActions(context),
           ),
-
           Positioned(
             left: 16,
-            bottom: 24,
+            bottom: 42,
             child: _buildCategoryButton(context),
           ),
-
+          if (isMyCategory)
+            Positioned(
+              right: 16,
+              bottom: 100,
+              child: _buildDirectionButton(context),
+            ),
           Positioned(
             right: 16,
-            bottom: 24,
+            bottom: 42,
             child: _buildThemeButton(context),
           ),
-
-          Positioned(
-            right: 100,
-            bottom: 24,
-            child: _buildDebugNextDayButton(context),
-          ),
-
-          Builder(
-            builder: (context) {
-              final isMyCategory = context.select<AppState, bool>(
-                (s) =>
-                    s.activeCategoryId != Constants.myCategoryId &&
-                    s.activeCategoryId != Constants.favoritesCategoryId,
-              );
-              return isMyCategory
-                  ? _buildPlayButton(context)
-                  : const SizedBox.shrink();
-            },
-          ),
-
+          if (!isMyCategory) _buildPlayButton(context),
           _buildTopBar(context, isPremium),
         ],
       ),
@@ -280,79 +320,18 @@ class _HomeScreenState extends State<HomeScreen>
         );
       }
 
-      return SizedBox.expand(
-        child: PageView.builder(
-            key: ValueKey(_myAffPageController),
-            controller: _myAffPageController,
-            scrollDirection: Axis.vertical,
-            physics: const FastPagePhysics(
-              parent: AlwaysScrollableScrollPhysics(),
-            ),
-            itemCount: items.length,
-            onPageChanged: (index) {
-              print("currentIndex: $index");
-              print("item: ${items[index].text}");
+      return AffirmationSwiper(
+        items: items,
+        controller: _myAffPageController,
+        actionAnim: _actionAnim,
+        onPageChanged: (index) {
+          print("currentIndex: $index");
+          print("item: ${items[index].text}");
 
-              if (isMy) {
-                myState.setCurrentIndex(index);
-              } else {
-                appState.setCurrentIndex(index);
-              }
-
-              _actionAnim.forward(from: 0);
-            },
-            itemBuilder: (_, index) {
-              final aff = items[index];
-              final app = context.watch<AppState>();
-
-              // İlk açılışta pozisyonu yükle
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                app.loadAffirmationPosition(aff.id);
-              });
-
-              return Center(
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.52,
-                  child: Stack(
-                    children: [
-                      // 🔹 SADECE ARKA PLAN KARTI (yazı olmadan)
-                      AffirmationCard(
-                        key: ValueKey(aff.id),
-                        affirmation: aff,
-                        isMine: isMy,
-                        showText:
-                            false, // ⭐ AffirmationCard'a bu parametreyi ekleyin
-                      ),
-
-                      // 🔹 SÜRÜKLENEBİLİR YAZI
-                      Positioned(
-                        left: app.getAffirmationPosition(aff.id).dx,
-                        top: app.getAffirmationPosition(aff.id).dy,
-                        child: GestureDetector(
-                          onPanUpdate: (details) {
-                            final currentPos =
-                                app.getAffirmationPosition(aff.id);
-                            final newX = currentPos.dx + details.delta.dx;
-                            final newY = currentPos.dy + details.delta.dy;
-                            app.saveAffirmationPosition(aff.id, newX, newY);
-                          },
-                          child: Container(
-                            width: MediaQuery.of(context).size.width - 48,
-                            padding: const EdgeInsets.all(20),
-                            child: Text(
-                              aff.text,
-                              textAlign: TextAlign.center,
-                              style: AffirmationCard.provideTextStyle(
-                                  context), // static yapın
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            }),
+          // MY AFF tarafı kendi index'ini günceller
+          myState.setCurrentIndex(index);
+          _actionAnim.forward(from: 0);
+        },
       );
     }
 
@@ -361,82 +340,28 @@ class _HomeScreenState extends State<HomeScreen>
     // ───────────────────────────────────────────
     final items = appState.currentFeed;
 
-    return SizedBox.expand(
-      child: PageView.builder(
-          controller: _pageController,
-          scrollDirection: Axis.vertical,
-          physics: const FastPagePhysics(
-            parent: AlwaysScrollableScrollPhysics(),
-          ),
-          itemCount: items.length,
-          onPageChanged: (index) {
-            final last = items.length - 1;
+    return AffirmationSwiper(
+      items: items,
+      controller: _pageController,
+      actionAnim: _actionAnim,
+      onPageChanged: (index) {
+        final last = items.length - 1;
 
-            if (index == last) {
-              appState.setCurrentIndex(0);
-              Future.microtask(() {
-                if (_pageController.hasClients) {
-                  _pageController.jumpToPage(0);
-                }
-              });
-            } else {
-              appState.setCurrentIndex(index);
+        if (index == last) {
+          // Sonsuz döngü — başa sar
+          appState.setCurrentIndex(0);
+
+          Future.microtask(() {
+            if (_pageController.hasClients) {
+              _pageController.jumpToPage(0);
             }
+          });
+        } else {
+          appState.setCurrentIndex(index);
+        }
 
-            _actionAnim.forward(from: 0);
-          },
-          // Widget tarafında:
-          itemBuilder: (_, index) {
-            final aff = items[index];
-            final app = context.watch<AppState>();
-
-            // İlk açılışta pozisyonu yükle
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              app.loadAffirmationPosition(aff.id);
-            });
-
-            return Center(
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height * 0.52,
-                child: Stack(
-                  children: [
-                    // 🔹 SADECE ARKA PLAN KARTI (yazı olmadan)
-                    AffirmationCard(
-                      key: ValueKey(aff.id),
-                      affirmation: aff,
-                      isMine: false,
-                      showText:
-                          false, // ⭐ AffirmationCard'a bu parametreyi ekleyin
-                    ),
-
-                    // 🔹 SÜRÜKLENEBİLİR YAZI
-                    Positioned(
-                      left: app.getAffirmationPosition(aff.id).dx,
-                      top: app.getAffirmationPosition(aff.id).dy,
-                      child: GestureDetector(
-                        onPanUpdate: (details) {
-                          final currentPos = app.getAffirmationPosition(aff.id);
-                          final newX = currentPos.dx + details.delta.dx;
-                          final newY = currentPos.dy + details.delta.dy;
-                          app.saveAffirmationPosition(aff.id, newX, newY);
-                        },
-                        child: Container(
-                          width: MediaQuery.of(context).size.width - 48,
-                          padding: const EdgeInsets.all(20),
-                          child: Text(
-                            aff.text,
-                            textAlign: TextAlign.center,
-                            style: AffirmationCard.provideTextStyle(
-                                context), // static yapın
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          }),
+        _actionAnim.forward(from: 0);
+      },
     );
   }
 
@@ -534,7 +459,7 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  // FAVORITE + SHARE + PLAY + SES +
+  // FAVORITE + SHARE
   Widget _buildMiddleActions(BuildContext context) {
     final appState = context.read<AppState>();
     final currentIndex = context.select<AppState, int>((s) => s.currentIndex);
@@ -544,10 +469,12 @@ class _HomeScreenState extends State<HomeScreen>
 
     final currentAff = appState.affirmationAt(currentIndex);
 
+    print("favorite Aff ID: ${currentAff?.id}");
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        // ⭐ TEK IF — iki buton birden kontrol ediyor
+        // ⭐ Favori ve Share sadece normal kategorilerde görünür
         if (activeCategory != Constants.myCategoryId &&
             activeCategory != Constants.favoritesCategoryId) ...[
           Builder(
@@ -563,45 +490,71 @@ class _HomeScreenState extends State<HomeScreen>
 
                   final wasFav = appState.isFavorite(currentAff.id);
 
-                  if (!wasFav &&
-                      appState.isOverFavoriteLimit() &&
-                      !appState.preferences.isPremiumValid) {
-                    _showFavoriteLimitDialog(context);
-                    return;
-                  }
-
+                  // Favori toggle
                   appState.toggleFavorite(currentAff.id);
-                  if (!wasFav) _runTripleStarSparkle();
+                  print("favorite Liked Aff ID: ${currentAff.id}");
+
+                  final isNowFav = appState.isFavorite(currentAff.id);
+
+                  if (!wasFav && isNowFav) {
+                    // Yeni favori oldu → pembe + zıplama + floating heart
+                    setState(() => _heartColor = Colors.pinkAccent);
+
+                    _animateHeart();
+                    runFloatingHeart();
+                  } else if (wasFav && !isNowFav) {
+                    // Favoriden çıkarıldı → tekrar beyaz
+                    setState(() => _heartColor = Colors.white);
+                  }
                 },
                 child: glassButton(
-                  child: Icon(
-                    isFav ? Icons.favorite : Icons.favorite_border,
-                    size: 28,
-                    color: Colors.white,
+                  child: Transform.scale(
+                    scale: _heartScale, // ⭐ Zıplama animasyonu buradan gelir
+                    child: Icon(
+                      isFav ? Icons.favorite : Icons.favorite_border,
+                      size: 28,
+                      color: isFav
+                          ? _heartColor // ⭐ Pembe kalıcı renk
+                          : Colors.white.withValues(alpha: 0.85),
+                    ),
                   ),
                 ),
               );
             },
           ),
+
           const SizedBox(height: 5),
 
-          // 📤 SHARE (herkeste görünür)
+          // 📤 SHARE BUTTON
           GestureDetector(
             onTapDown: (_) => setState(() => _shareScale = 0.85),
             onTapUp: (_) => setState(() => _shareScale = 1.0),
             onTapCancel: () => setState(() => _shareScale = 1.0),
-            onTap: () {
+            onTap: () async {
               if (currentAff == null) return;
-              final filtered =
-                  currentAff.renderWithName(appState.userName ?? "");
-              Share.share(filtered);
+
+              final file = await _captureAffirmationCard();
+
+              if (!mounted) return;
+
+              Navigator.push(
+                context,
+                PageRouteBuilder(
+                  opaque: false,
+                  pageBuilder: (_, __, ___) =>
+                      CustomShareScreen(imageFile: file),
+                ),
+              );
             },
             child: AnimatedScale(
               scale: _shareScale,
               duration: const Duration(milliseconds: 140),
               child: glassButton(
-                child:
-                    const Icon(Icons.ios_share, size: 26, color: Colors.white),
+                child: const Icon(
+                  Icons.ios_share,
+                  size: 26,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
@@ -611,12 +564,14 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   Widget _buildPlayButton(BuildContext context) {
-    final appState = context.read<AppState>();
-    final enabled = appState.playback.autoReadEnabled;
-    final volumeEnabled = appState.playback.volumeEnabled; // varsa zaten var
+    final appState = context.watch<AppState>();
 
+    final enabled = appState.playback.autoReadEnabled;
+    final volumeEnabled = appState.playback.volumeEnabled;
+
+    print("read enable: $enabled, volume enable: $volumeEnabled");
     return Positioned(
-      bottom: 100,
+      bottom: 110,
       left: 0,
       right: 0,
       child: Row(
@@ -629,7 +584,7 @@ class _HomeScreenState extends State<HomeScreen>
               enabled: enabled,
               child: Icon(
                 enabled ? Icons.pause : Icons.play_arrow,
-                color: Colors.white,
+                color: enabled ? Colors.redAccent : Colors.white,
                 size: 24,
               ),
             ),
@@ -645,7 +600,7 @@ class _HomeScreenState extends State<HomeScreen>
               child: Icon(
                 volumeEnabled ? Icons.volume_up : Icons.volume_off,
                 size: 26,
-                color: Colors.white,
+                color: volumeEnabled ? Colors.redAccent : Colors.white,
               ),
             ),
           ),
@@ -806,44 +761,30 @@ class _HomeScreenState extends State<HomeScreen>
   }
 
   Widget _buildDirectionButton(BuildContext context) {
+    final appState = context.read<AppState>();
+    final activeId = appState.activeCategoryId;
+
     return Transform.scale(
-      scale: 0.87, // 🔥 glassButton ile aynı küçültme
-      child: GestureDetector(
-        onTap: () async {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => const ThemeScreen()),
-          );
+      scale: 1,
+      child: IconButton(
+        icon:
+            const Icon(Icons.arrow_forward_ios, color: Colors.white, size: 22),
+        onPressed: () {
+          if (activeId == Constants.myCategoryId) {
+            // 👉 My Affirmations
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (_) => const MyAffirmationListScreen()),
+            );
+          } else if (activeId == Constants.favoritesCategoryId) {
+            // 👉 Favorites
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const FavoritesListScreen()),
+            );
+          }
         },
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(50),
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 14, sigmaY: 14),
-            child: Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.08),
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: Colors.white.withValues(alpha: 0.20),
-                  width: 1.3,
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.15),
-                    blurRadius: 18,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
-              ),
-              child: const Icon(
-                Icons.directions_car,
-                color: Colors.white,
-                size: 24,
-              ),
-            ),
-          ),
-        ),
       ),
     );
   }
@@ -973,6 +914,47 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
+  void _animateHeart() {
+    if (_heartAnimating) return;
+    _heartAnimating = true;
+
+    // İlk büyüme
+    setState(() => _heartScale = 1.3);
+
+    Future.delayed(const Duration(milliseconds: 120), () {
+      if (!mounted) return;
+      // Geri dön
+      setState(() => _heartScale = 1.0);
+
+      Future.delayed(const Duration(milliseconds: 150), () {
+        if (!mounted) return;
+        _heartAnimating = false;
+      });
+    });
+  }
+
+  Future<File> _captureAffirmationCard() async {
+    try {
+      final boundary = _captureKey.currentContext!.findRenderObject()
+          as RenderRepaintBoundary;
+
+      // Yüksek kalite PNG için pixelRatio 3.0
+      final image = await boundary.toImage(pixelRatio: 3.0);
+
+      final byteData = await image.toByteData(format: ImageByteFormat.png);
+      final pngBytes = byteData!.buffer.asUint8List();
+
+      final tempDir = await getTemporaryDirectory();
+      final file = File('${tempDir.path}/affirmation_share.png');
+      await file.writeAsBytes(pngBytes);
+
+      return file;
+    } catch (e) {
+      print("❌ Screenshot error: $e");
+      rethrow;
+    }
+  }
+
   //────────────────────────────────────────
   // FAVORITES ve MY AFFS LIMIT DIALOG
   //────────────────────────────────────────
@@ -1060,71 +1042,64 @@ class _HomeScreenState extends State<HomeScreen>
   //────────────────────────────────────────
   // SPARKLE EFFECT
   //────────────────────────────────────────
-  void _runTripleStarSparkle() async {
+  void runFloatingHeart() async {
     final overlay = Overlay.of(context);
 
-    Future<void> showStar(double dx, double dy, double size) async {
+    Future<void> showHeart() async {
+      final screen = MediaQuery.of(context).size;
+
+      // Başlangıç: sağ alt
+      final start = Offset(screen.width * 0.75, screen.height * 0.75);
+
+      // Bitiş: ekranın ortası
+      final end = Offset(screen.width * 0.5, screen.height * 0.45);
+
+      // Kavis için kontrol noktası
+      final control = Offset(screen.width * 0.70, screen.height * 0.60);
+
       final entry = OverlayEntry(
-        builder: (_) => Positioned(
-          top: MediaQuery.of(context).size.height * 0.60 + dy,
-          right: MediaQuery.of(context).size.width * 0.30 - dx,
-          child: TweenAnimationBuilder<double>(
-            tween: Tween(begin: 1, end: 0),
-            duration: const Duration(milliseconds: 600),
-            builder: (_, value, __) {
-              return Transform.scale(
-                scale: 1 + (1 - value) * size,
-                child: const Icon(
-                  Icons.star,
-                  color: Color.fromARGB(255, 239, 205, 91),
-                  size: 28,
+        builder: (_) {
+          return TweenAnimationBuilder<double>(
+            tween: Tween(begin: 0, end: 1),
+            duration: const Duration(milliseconds: 1800),
+            builder: (_, t, child) {
+              // Quadratic Bezier: B(t) = (1−t)² P0 + 2(1−t)t P1 + t² P2
+              final x = (1 - t) * (1 - t) * start.dx +
+                  2 * (1 - t) * t * control.dx +
+                  t * t * end.dx;
+
+              final y = (1 - t) * (1 - t) * start.dy +
+                  2 * (1 - t) * t * control.dy +
+                  t * t * end.dy;
+
+              final position = Offset(x, y);
+
+              return Positioned(
+                left: position.dx,
+                top: position.dy,
+                child: Transform.scale(
+                  scale: 0.8 + t * 0.6, // büyüme
+                  child: Opacity(
+                    opacity: (1 - t).clamp(0.0, 1.0),
+                    child: const Icon(
+                      Icons.favorite,
+                      color: Colors.pinkAccent,
+                      size: 36,
+                    ),
+                  ),
                 ),
               );
             },
-          ),
-        ),
+          );
+        },
       );
 
       overlay.insert(entry);
-      await Future.delayed(const Duration(milliseconds: 620));
+      await Future.delayed(const Duration(milliseconds: 1850));
       entry.remove();
     }
 
-    showStar(45, 110, 0.4);
-
-    await Future.delayed(const Duration(milliseconds: 90));
-    showStar(25, 75, 0.5);
-
-    await Future.delayed(const Duration(milliseconds: 90));
-    showStar(13, 35, 0.6);
-
-    await Future.delayed(const Duration(milliseconds: 90));
-    showStar(8, -10, 0.6);
-  }
-
-  /// test için
-  Widget _buildDebugNextDayButton(BuildContext context) {
-    return GestureDetector(
-      onTap: () async {
-        final myAff = context.read<MyAffirmationState>();
-
-        await myAff.simulateNextDay();
-
-        print(
-            "🔥 simulateNextDay çağrıldı → Yeni challengeDay: ${myAff.todayChallengeDay}");
-      },
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-        decoration: BoxDecoration(
-          color: Colors.redAccent.withValues(alpha: 0.7),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: const Text(
-          "Next Day",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-        ),
-      ),
-    );
+    showHeart();
   }
 }
 
@@ -1147,16 +1122,4 @@ class HomeNoisePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}
-
-class FastPagePhysics extends BouncingScrollPhysics {
-  const FastPagePhysics({super.parent});
-
-  @override
-  double get dragStartDistanceMotionThreshold => 3.5;
-
-  @override
-  double applyPhysicsToUserOffset(ScrollMetrics position, double offset) {
-    return offset * 1.35; // kaydırma hızını %35 artırır
-  }
 }

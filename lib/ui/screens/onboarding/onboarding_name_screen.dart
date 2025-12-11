@@ -73,7 +73,7 @@ class _OnboardingNameScreenState extends State<OnboardingNameScreen> {
                     ),
                   ),
 
-                  const SizedBox(height: 70),
+                  const SizedBox(height: 95),
 
                   // TITLE
                   Center(
@@ -160,6 +160,8 @@ class _OnboardingNameScreenState extends State<OnboardingNameScreen> {
                       },
                     ),
                   ),
+
+                  const SizedBox(height: 95), // 🔥 BUTONU BİRAZ YUKARI ALIR
                 ],
               ),
             ),

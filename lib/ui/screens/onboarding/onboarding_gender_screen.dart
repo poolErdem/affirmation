@@ -80,7 +80,7 @@ class _OnboardingGenderScreenState extends State<OnboardingGenderScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 70),
+                  const SizedBox(height: 95),
                   Center(
                     child: Text(
                       t.identifyGender,
@@ -102,7 +102,7 @@ class _OnboardingGenderScreenState extends State<OnboardingGenderScreen> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 50),
+                  const SizedBox(height: 32),
 
                   // BUTTONS
                   _buildGenderButton(

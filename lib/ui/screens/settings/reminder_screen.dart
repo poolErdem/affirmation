@@ -468,16 +468,14 @@ class _ReminderListScreenState extends State<ReminderListScreen>
                 Row(
                   children: [
                     if (locked)
-                      const Icon(
-                        Icons.lock_outline_rounded,
-                        size: 20,
-                        color: Colors.white70,
-                      ),
+                      Icon(Icons.lock_outline_rounded,
+                          size: 20,
+                          color: Colors.white.withValues(alpha: 0.85)),
                     Switch(
                         value: isOn,
-                        activeThumbColor: const Color(0xFFC9A85D),
+                        activeThumbColor: const Color(0xFFAEE5FF), // soft blue
                         activeTrackColor:
-                            const Color(0xFFC9A85D).withValues(alpha: 0.50),
+                            const Color(0xFFAEE5FF).withValues(alpha: 0.50),
                         inactiveThumbColor:
                             Colors.white.withValues(alpha: 0.90),
                         inactiveTrackColor:

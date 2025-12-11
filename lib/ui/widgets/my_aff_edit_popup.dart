@@ -67,9 +67,23 @@ class _MyAffEditPopupState extends State<MyAffEditPopup> {
       }
     }
 
-    // 4) Kullanıcı challenge’ı aslında tamamlamış mı?
-    final bool completed =
-        (!missedYesterday && !missedAnyPreviousDay && written >= required);
+    print(
+        "currentday: $currentDay, missedYesterday: $missedYesterday, missedAnyPreviousDay: $missedAnyPreviousDay");
+    print(
+        "written: $written, required: $required, missedAnyPreviousDay: $missedAnyPreviousDay");
+
+    //final bool missed = (!missedYesterday && !missedAnyPreviousDay);
+    final bool todayCompleted = written >= required;
+
+    var text = "";
+    if (currentDay == 1) {
+      text = "Your 21-day journey has restarted today.";
+    }
+
+    if (currentDay == 1 && myAff.lastAddTriggeredReset) {
+      text =
+          "⚠️ You missed challenge.\nYour 21-day journey has restarted today.";
+    }
 
     print(
         "isediting $isEditing lastAddTriggeredReset: ${myAff.lastAddTriggeredReset}");
@@ -120,7 +134,7 @@ class _MyAffEditPopupState extends State<MyAffEditPopup> {
                 const SizedBox(height: 18),
 
                 // ---------- ❗ RESET MESSAGE ----------
-                if (!isEditing && !completed && myAff.lastAddTriggeredReset)
+                if (!isEditing && currentDay == 1)
                   Container(
                     padding: const EdgeInsets.all(14),
                     margin: const EdgeInsets.only(bottom: 12),
@@ -133,34 +147,9 @@ class _MyAffEditPopupState extends State<MyAffEditPopup> {
                       ),
                     ),
                     child: Text(
-                      "⚠️ You missed challenge.\nYour 21-day journey has restarted.",
+                      text,
                       textAlign: TextAlign.center,
                       style: const TextStyle(
-                        color: Colors.white,
-                        height: 1.4,
-                        fontSize: 14.5,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-
-                // ---------- ❗ MISSED YESTERDAY ----------
-                if (!isEditing && missedYesterday)
-                  Container(
-                    padding: const EdgeInsets.all(14),
-                    margin: const EdgeInsets.only(bottom: 12),
-                    decoration: BoxDecoration(
-                      color: Colors.red.withValues(alpha: 0.18),
-                      borderRadius: BorderRadius.circular(14),
-                      border: Border.all(
-                        color: Colors.red.withValues(alpha: 0.35),
-                        width: 1.2,
-                      ),
-                    ),
-                    child: const Text(
-                      "⚠️ You missed yesyerday's challenge.\nYour 21-day journey has restarted.",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
                         color: Colors.white,
                         height: 1.4,
                         fontSize: 14.5,
@@ -183,7 +172,7 @@ class _MyAffEditPopupState extends State<MyAffEditPopup> {
                       ),
                     ),
                     child: Text(
-                      completed
+                      todayCompleted
                           ? "🎉 You have completed today's task! ($written / $required)"
                           : "Day $currentDay — Today you must write $required affirmations.\nProgress: $written / $required",
                       textAlign: TextAlign.center,
@@ -282,6 +271,8 @@ class _MyAffEditPopupState extends State<MyAffEditPopup> {
 
                           if (isEditing) {
                             await myAff.update(widget.editingId!, text);
+                            Navigator.pop(
+                                context); // ⭐ UPDATE SONRASI POPUP'I KAPAT
                           } else {
                             try {
                               await myAff.add(text);
@@ -289,7 +280,6 @@ class _MyAffEditPopupState extends State<MyAffEditPopup> {
                             } catch (e) {
                               if (e.toString() == "reset") {
                                 Navigator.pop(context);
-
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                     content: Text(

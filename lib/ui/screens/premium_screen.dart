@@ -2,11 +2,11 @@ import 'dart:ui';
 import 'dart:math';
 
 import 'package:affirmation/models/user_preferences.dart';
-import 'package:affirmation/ui/widgets/shared_blur_background.dart';
-import 'package:affirmation/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../state/app_state.dart';
+import 'package:affirmation/state/app_state.dart';
+import 'package:affirmation/l10n/app_localizations.dart';
+import 'package:affirmation/ui/widgets/shared_blur_background.dart';
 
 class PremiumScreen extends StatefulWidget {
   const PremiumScreen({super.key});
@@ -18,7 +18,7 @@ class PremiumScreen extends StatefulWidget {
 class _PremiumScreenState extends State<PremiumScreen>
     with SingleTickerProviderStateMixin {
   String _selectedPlan = "yearly";
-  final bool _loading = false;
+  bool _loading = false;
 
   late AnimationController _fade;
 
@@ -43,7 +43,6 @@ class _PremiumScreenState extends State<PremiumScreen>
     final t = AppLocalizations.of(context)!;
     final isPremium = appState.preferences.isPremiumValid;
     final purchase = appState.purchaseState;
-
     final bg = appState.activeThemeImage;
 
     return SharedBlurBackground(
@@ -53,16 +52,9 @@ class _PremiumScreenState extends State<PremiumScreen>
         extendBodyBehindAppBar: true,
         body: Stack(
           children: [
-            // ⭐ Noise Layer
-            Positioned.fill(
-              child: IgnorePointer(
-                child: CustomPaint(
-                  painter: _NoisePainter(opacity: 0.055),
-                ),
-              ),
-            ),
+            Positioned.fill(child: CustomPaint(painter: _NoisePainter())),
 
-            // ⭐ Top Glow
+            // Gold Glow
             Positioned(
               top: -80,
               left: -50,
@@ -71,12 +63,11 @@ class _PremiumScreenState extends State<PremiumScreen>
                 height: 200,
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Color(0xFFFFF2C0),
+                  color: Color(0x33FFF3C1),
                 ),
               ),
             ),
 
-            // ⭐ Bottom Glow
             Positioned(
               bottom: -110,
               right: -70,
@@ -85,12 +76,11 @@ class _PremiumScreenState extends State<PremiumScreen>
                 height: 200,
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Color(0xFFFFD18F),
+                  color: Color(0x33FFCE80),
                 ),
               ),
             ),
 
-            // ⭐ FULL SCREEN BLUR SOFTENER
             Positioned.fill(
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 90, sigmaY: 90),
@@ -109,13 +99,8 @@ class _PremiumScreenState extends State<PremiumScreen>
                   child: Column(
                     children: [
                       const SizedBox(height: 40),
-
-                      // ⭐ Premium Badge (Glass Orb)
                       _premiumBadge(),
-
                       const SizedBox(height: 24),
-
-                      // ⭐ TITLE
                       Text(
                         isPremium ? "${t.youarePremium} ✨" : t.goPremium,
                         textAlign: TextAlign.center,
@@ -125,32 +110,25 @@ class _PremiumScreenState extends State<PremiumScreen>
                           fontWeight: FontWeight.w800,
                         ),
                       ),
-
                       const SizedBox(height: 10),
-
                       Text(
                         isPremium
                             ? "Enjoy unlimited access forever."
-                            : "Unlock all content. No ads. Total freedom.",
-                        style: TextStyle(
-                          color: Colors.white.withValues(alpha: 0.75),
+                            : "Unlock All Features",
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          color: Color(0xFFECECEC),
                           fontSize: 15,
                           height: 1.35,
                         ),
-                        textAlign: TextAlign.center,
                       ),
-
-                      const SizedBox(height: 26),
-
+                      const SizedBox(height: 38),
                       Expanded(
                         child: SingleChildScrollView(
                           child: Column(
                             children: [
-                              _benefit("All Categories & Themes"),
-                              _benefit("Unlimited Favorites"),
-                              _benefit("My Affirmations"),
-                              _benefit("Premium Backgrounds"),
-                              const SizedBox(height: 28),
+                              _comparisonTable(),
+                              const SizedBox(height: 32),
                               if (!isPremium) ...[
                                 _planTile(
                                   id: "monthly",
@@ -163,9 +141,14 @@ class _PremiumScreenState extends State<PremiumScreen>
                                   price: purchase.yearlyPriceLabel,
                                   highlight: true,
                                 ),
-                                const SizedBox(height: 20),
-                                _buyButton(),
+                                _planTile(
+                                  id: "lifetime",
+                                  title: "Lifetime Access",
+                                  price: purchase.lifeTimePriceLabel,
+                                ),
                                 const SizedBox(height: 12),
+                                _buyButton(purchase),
+                                const SizedBox(height: 10),
                                 _restoreButton(purchase),
                               ],
                             ],
@@ -178,45 +161,21 @@ class _PremiumScreenState extends State<PremiumScreen>
               ),
             ),
 
-            // ⭐ Close Button
             Positioned(
               top: 50,
               right: 22,
               child: GestureDetector(
-                behavior: HitTestBehavior.translucent, // ⭐ TIKLAMA GARANTİSİ
-                onTap: () {
-                  print("❌ Close tapped");
-                  Navigator.pop(context);
-                },
+                onTap: () => Navigator.pop(context),
                 child: Container(
                   padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     shape: BoxShape.circle,
-                    color: Colors.black.withValues(alpha: 0.5),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.3),
-                        blurRadius: 12,
-                      ),
-                    ],
+                    color: Color(0x55000000),
                   ),
-                  child: const Icon(
-                    Icons.close,
-                    color: Colors.white,
-                    size: 15,
-                  ),
+                  child: const Icon(Icons.close, color: Colors.white, size: 15),
                 ),
               ),
             ),
-
-            // ⭐ Loading Overlay
-            if (_loading)
-              Container(
-                color: Colors.black.withValues(alpha: 0.55),
-                child: const Center(
-                  child: CircularProgressIndicator(color: Colors.white),
-                ),
-              ),
           ],
         ),
       ),
@@ -224,49 +183,55 @@ class _PremiumScreenState extends State<PremiumScreen>
   }
 
   //───────────────────────────────────────────────────────────────
-  // ⭐ GLASS PREMIUM BADGE
-  Widget _premiumBadge() {
-    return Stack(
-      alignment: Alignment.center,
+  // Comparison Table
+  Widget _comparisonTable() {
+    return Column(
       children: [
-        Container(
-          width: 118,
-          height: 118,
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            color: Color(0xFFFFF0C6),
-          ),
-        ),
-        BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 22, sigmaY: 22),
-          child: Container(
-            width: 118,
-            height: 118,
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              gradient: LinearGradient(
-                colors: [
-                  Color(0xFFFFF3C1),
-                  Color(0xFFFFCE80),
-                ],
+        Row(
+          children: const [
+            Expanded(child: SizedBox()),
+            SizedBox(
+              width: 60,
+              child: Text(
+                "Premium",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Color(0xFFFFE08F),
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
-          ),
+            SizedBox(width: 12),
+            SizedBox(
+              width: 60,
+              child: Text(
+                "Basic",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Color(0xFFE0E0E0),
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+          ],
         ),
-        const Icon(Icons.workspace_premium, size: 48, color: Colors.white),
+        const SizedBox(height: 14),
+        _featureRow("Favorites", premium: true, basic: true),
+        _featureRow("All Categories & Themes", premium: true, basic: false),
+        _featureRow("Unlimited My Affirmations", premium: true, basic: false),
+        _featureRow("Voice Affirmations", premium: true, basic: false),
       ],
     );
   }
 
-  //───────────────────────────────────────────────────────────────
-  // ⭐ BENEFIT LINE
-  Widget _benefit(String text) {
+  Widget _featureRow(String text,
+      {required bool premium, required bool basic}) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
         children: [
-          const Icon(Icons.check_circle, color: Color(0xFFFFE08F), size: 22),
-          const SizedBox(width: 12),
           Expanded(
             child: Text(
               text,
@@ -277,13 +242,49 @@ class _PremiumScreenState extends State<PremiumScreen>
               ),
             ),
           ),
+          SizedBox(
+            width: 60,
+            child: Icon(
+              premium ? Icons.check : Icons.remove,
+              color: premium ? Colors.white : Color(0x55FFFFFF),
+            ),
+          ),
+          SizedBox(
+            width: 60,
+            child: Icon(
+              basic ? Icons.check : Icons.remove,
+              color: basic ? Colors.white : Color(0x33FFFFFF),
+            ),
+          ),
         ],
       ),
     );
   }
 
   //───────────────────────────────────────────────────────────────
-  // ⭐ PLAN TILE
+  // Premium Badge
+  Widget _premiumBadge() {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0x55FFD27A),
+            blurRadius: 18,
+            spreadRadius: 1,
+          ),
+        ],
+      ),
+      child: const Icon(
+        Icons.workspace_premium,
+        size: 48,
+        color: Colors.white,
+      ),
+    );
+  }
+
+  //───────────────────────────────────────────────────────────────
+  // Plan Tile
   Widget _planTile({
     required String id,
     required String title,
@@ -295,61 +296,41 @@ class _PremiumScreenState extends State<PremiumScreen>
     return GestureDetector(
       onTap: () => setState(() => _selectedPlan = id),
       child: AnimatedContainer(
-        duration: const Duration(milliseconds: 180),
-        margin: const EdgeInsets.only(bottom: 16),
-        padding: const EdgeInsets.all(20),
+        duration: const Duration(milliseconds: 170),
+        margin: const EdgeInsets.only(bottom: 8),
+        padding: const EdgeInsets.all(18),
         decoration: BoxDecoration(
+          color: const Color(0x14141414),
           borderRadius: BorderRadius.circular(20),
-          gradient: highlight
-              ? LinearGradient(
-                  colors: [
-                    Colors.white.withValues(alpha: 0.22),
-                    Colors.white.withValues(alpha: 0.05),
-                  ],
-                )
-              : null,
-          color: highlight ? null : Colors.white.withValues(alpha: 0.09),
           border: Border.all(
-            color: selected
-                ? const Color(0xFFFFE08F)
-                : Colors.white.withValues(alpha: 0.20),
-            width: selected ? 2 : 1.2,
+            color: selected ? Colors.white : const Color(0x40FFFFFF),
+            width: selected ? 2.2 : 1.2,
           ),
           boxShadow: selected
-              ? [
-                  const BoxShadow(
-                    color: Color(0x33FFD27A),
-                    blurRadius: 22,
-                    spreadRadius: 1,
+              ? const [
+                  BoxShadow(
+                    color: Color(0x40FFFFFF),
+                    blurRadius: 20,
                   ),
                 ]
               : [],
         ),
         child: Row(
           children: [
-            Icon(
-              selected ? Icons.radio_button_checked : Icons.radio_button_off,
-              color: selected
-                  ? const Color(0xFF4A3D2F)
-                  : Colors.white.withValues(alpha: 0.7),
-            ),
-            const SizedBox(width: 14),
             Expanded(
               child: Text(
                 title,
-                style: TextStyle(
-                  color: selected ? const Color(0xFF3A2E20) : Colors.white,
-                  fontWeight: FontWeight.bold,
+                style: const TextStyle(
+                  color: Colors.white,
                   fontSize: 16,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
             ),
             Text(
               price,
               style: TextStyle(
-                color: selected
-                    ? const Color(0xFF3A2E20)
-                    : Colors.white.withValues(alpha: 0.85),
+                color: selected ? Colors.white : Colors.white70,
                 fontSize: 15,
               ),
             ),
@@ -360,8 +341,9 @@ class _PremiumScreenState extends State<PremiumScreen>
   }
 
   //───────────────────────────────────────────────────────────────
-  // ⭐ BUY BUTTON
-  Widget _buyButton() {
+  //───────────────────────────────────────────────────────────────
+  // BUY BUTTON
+  Widget _buyButton(purchase) {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -378,14 +360,16 @@ class _PremiumScreenState extends State<PremiumScreen>
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
           padding: const EdgeInsets.symmetric(vertical: 16),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
         ),
         onPressed: _loading
             ? null
             : () async {
-                // backend purchase logic...
+                setState(() => _loading = true);
+
+                final ps = context.read<AppState>().purchaseState;
+                await ps.buyPlan(_selectedPlan);
+
+                setState(() => _loading = false);
               },
         child: const Text(
           "Continue",
@@ -400,14 +384,13 @@ class _PremiumScreenState extends State<PremiumScreen>
   }
 
   //───────────────────────────────────────────────────────────────
-  // ⭐ RESTORE BUTTON
   Widget _restoreButton(purchase) {
     return TextButton(
       onPressed: () => purchase.restorePurchases(),
-      child: Text(
+      child: const Text(
         "Restore Purchases",
         style: TextStyle(
-          color: Colors.white.withValues(alpha: 0.75),
+          color: Colors.white,
           decoration: TextDecoration.underline,
         ),
       ),
@@ -416,16 +399,13 @@ class _PremiumScreenState extends State<PremiumScreen>
 }
 
 //──────────────────────────────────────────────────────────────────
-// ⭐ NOISE PAINTER
+// Noise Painter
 class _NoisePainter extends CustomPainter {
-  final double opacity;
   final Random _rand = Random();
-
-  _NoisePainter({required this.opacity});
 
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()..color = Colors.black.withValues(alpha: opacity);
+    final paint = Paint()..color = const Color(0xFF1A1A1A);
 
     for (int i = 0; i < size.width * size.height / 70; i++) {
       final dx = _rand.nextDouble() * size.width;

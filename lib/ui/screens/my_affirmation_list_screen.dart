@@ -39,15 +39,12 @@ class _MyAffirmationListScreenState extends State<MyAffirmationListScreen> {
       child: Scaffold(
         extendBodyBehindAppBar: true,
         backgroundColor: Colors.transparent,
-
-        // ⭐ FAB (+)
         floatingActionButton: FloatingActionButton(
-          backgroundColor: const Color.fromARGB(255, 126, 30, 186),
-          foregroundColor: Colors.white,
+          backgroundColor: const Color(0xFFAEE5FF), // 🔵 Serene Blue
+          foregroundColor: Colors.black,
           onPressed: _onAddPressed,
-          child: const Icon(Icons.add, size: 28),
+          child: const Icon(Icons.add, size: 30),
         ),
-
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -82,7 +79,6 @@ class _MyAffirmationListScreenState extends State<MyAffirmationListScreen> {
             ),
           ),
         ),
-
         body: Stack(
           children: [
             Positioned.fill(
@@ -92,6 +88,7 @@ class _MyAffirmationListScreenState extends State<MyAffirmationListScreen> {
                 ),
               ),
             ),
+
             SafeArea(
               child: items.isEmpty
                   ? const _EmptyMyAffs()
@@ -132,13 +129,44 @@ class _MyAffirmationListScreenState extends State<MyAffirmationListScreen> {
                       }).toList(),
                     ),
             ),
+
+            /// ⭐ TEST BUTONU — SAĞ ALT KÖŞE
+            Positioned(
+              left: 16,
+              bottom: 16,
+              child: _buildDebugNextDayButton(context),
+            ),
           ],
         ),
       ),
     );
   }
 
-  // 🔥 Popup açan fonksiyon
+  /// test için
+  Widget _buildDebugNextDayButton(BuildContext context) {
+    return GestureDetector(
+      onTap: () async {
+        final myAff = context.read<MyAffirmationState>();
+
+        await myAff.simulateNextDay();
+
+        print(
+            "🔥 simulateNextDay çağrıldı → Yeni challengeDay: ${myAff.todayChallengeDay}");
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+        decoration: BoxDecoration(
+          color: Colors.redAccent.withValues(alpha: 0.7),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: const Text(
+          "Next Day",
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+      ),
+    );
+  }
+
   void _openMyAffPopup({String? existingId, String? existingText}) {
     showDialog(
       context: context,
@@ -152,15 +180,14 @@ class _MyAffirmationListScreenState extends State<MyAffirmationListScreen> {
     );
   }
 
-  // 🔥 Limit uyarı popup
   void _showMyAffLimitDialog() {
     final t = AppLocalizations.of(context)!;
 
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        title: Text("title"), // t.limitTitle
-        content: Text("limitleri aştın terbiyesiz"), // t.limitMessage
+        title: Text(t.myAfflimitTitle),
+        content: Text(t.myAfflimitMessage),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(18),
         ),
@@ -184,7 +211,6 @@ class _MyAffirmationListScreenState extends State<MyAffirmationListScreen> {
     );
   }
 
-  // 🔥 FAB'a basıldığında limit kontrolü
   void _onAddPressed() {
     final myState = context.read<MyAffirmationState>();
     final appState = context.read<AppState>();
@@ -222,8 +248,8 @@ class _EmptyMyAffs extends StatelessWidget {
   }
 }
 
-// ROW
-class _MyAffRow extends StatelessWidget {
+// ROW – PREMIUM EDITION
+class _MyAffRow extends StatefulWidget {
   final MyAffirmation aff;
   final VoidCallback onEdit;
 
@@ -233,9 +259,18 @@ class _MyAffRow extends StatelessWidget {
   });
 
   @override
+  State<_MyAffRow> createState() => _MyAffRowState();
+}
+
+class _MyAffRowState extends State<_MyAffRow>
+    with SingleTickerProviderStateMixin {
+  bool _pressed = false;
+
+  @override
   Widget build(BuildContext context) {
-    final app = context.read<AppState>();
+    final aff = widget.aff;
     final myState = context.read<MyAffirmationState>();
+    final app = context.read<AppState>();
 
     final dt = DateTime.fromMillisecondsSinceEpoch(aff.createdAt);
 
@@ -244,7 +279,9 @@ class _MyAffRow extends StatelessWidget {
         "${dt.hour.toString().padLeft(2, '0')}:${dt.minute.toString().padLeft(2, '0')}";
 
     return GestureDetector(
-      behavior: HitTestBehavior.opaque,
+      onTapDown: (_) => setState(() => _pressed = true),
+      onTapUp: (_) => setState(() => _pressed = false),
+      onTapCancel: () => setState(() => _pressed = false),
       onTap: () {
         app.setActiveCategoryIdOnly(Constants.myCategoryId);
 
@@ -259,74 +296,117 @@ class _MyAffRow extends StatelessWidget {
           (route) => false,
         );
       },
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-        decoration: BoxDecoration(
-          color: Colors.white.withValues(alpha: 0.08),
-          borderRadius: BorderRadius.circular(18),
-          border: Border.all(
-            color: Colors.white.withValues(alpha: 0.20),
-            width: 1.2,
+      child: AnimatedScale(
+        scale: _pressed ? 0.97 : 1.0,
+        duration: const Duration(milliseconds: 120),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          decoration: BoxDecoration(
+            color: Colors.white.withValues(alpha: 0.07),
+            borderRadius: BorderRadius.circular(18),
+            border: Border.all(
+              color: Colors.white.withValues(alpha: 0.22),
+              width: 1.2,
+            ),
+
+            // 🔵 soft-blue glow hover
+            boxShadow: _pressed
+                ? [
+                    BoxShadow(
+                      color: const Color(0xFFAEE5FF).withValues(alpha: 0.35),
+                      blurRadius: 17,
+                      offset: const Offset(0, 6),
+                    )
+                  ]
+                : [],
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // TEXT
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      aff.text,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        height: 1.35,
+                        fontFamily: "Poppins",
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    Text(
+                      formatted,
+                      style: TextStyle(
+                        color: Colors.white.withValues(alpha: 0.65),
+                        fontSize: 12,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(width: 12),
+
+              // Share
+              GestureDetector(
+                onTap: () => Share.share(aff.text),
+                child: const Icon(Icons.ios_share,
+                    color: Color(0xFFAEE5FF), size: 22), // 🔵 serene blue
+              ),
+              const SizedBox(width: 14),
+
+              // EDIT
+              GestureDetector(
+                onTap: widget.onEdit,
+                child: const Icon(
+                  Icons.edit,
+                  color: Color(0xFFAEE5FF), // 🔵 premium edit
+                  size: 22,
+                ),
+              ),
+              const SizedBox(width: 14),
+
+              // DELETE
+              GestureDetector(
+                onTap: () => myState.remove(aff.id),
+                child: Icon(
+                  Icons.delete,
+                  color: Colors.redAccent.shade100, // pastel delete
+                  size: 24,
+                ),
+              ),
+            ],
           ),
         ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // TEXT
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    aff.text,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      height: 1.35,
-                      fontFamily: "Poppins",
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  const SizedBox(height: 6),
-                  Text(
-                    formatted,
-                    style: const TextStyle(
-                      color: Colors.white70,
-                      fontSize: 12,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+      ),
+    );
+  }
 
-            // SHARE
-            GestureDetector(
-              onTap: () => Share.share(aff.text),
-              child: const Icon(Icons.ios_share, color: Colors.white, size: 22),
-            ),
-            const SizedBox(width: 14),
+  /// test için
+  Widget _buildDebugNextDayButton(BuildContext context) {
+    return GestureDetector(
+      onTap: () async {
+        final myAff = context.read<MyAffirmationState>();
 
-            // EDIT
-            GestureDetector(
-              onTap: onEdit,
-              child: const Icon(
-                Icons.edit,
-                color: Colors.yellowAccent,
-                size: 22,
-              ),
-            ),
-            const SizedBox(width: 14),
+        await myAff.simulateNextDay();
 
-            // DELETE
-            GestureDetector(
-              onTap: () => myState.remove(aff.id),
-              child: const Icon(
-                Icons.delete,
-                color: Colors.redAccent,
-                size: 24,
-              ),
-            ),
-          ],
+        print(
+            "🔥 simulateNextDay çağrıldı → Yeni challengeDay: ${myAff.todayChallengeDay}");
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+        decoration: BoxDecoration(
+          color: Colors.redAccent.withValues(alpha: 0.7),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: const Text(
+          "Next Day",
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
       ),
     );
@@ -340,7 +420,6 @@ Map<String, List<MyAffirmation>> groupByDate(List<MyAffirmation> items) {
   for (var aff in items) {
     final dt = DateTime.fromMillisecondsSinceEpoch(aff.createdAt);
     final key = "${dt.year}-${dt.month}-${dt.day}";
-
     groups.putIfAbsent(key, () => []);
     groups[key]!.add(aff);
   }

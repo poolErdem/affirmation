@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:affirmation/constants/affirmation_defaults.dart';
 import 'package:affirmation/constants/constants.dart';
 import 'package:affirmation/models/reminder.dart';
 import 'package:affirmation/state/playback_state.dart';
@@ -169,18 +168,14 @@ class AppState extends ChangeNotifier {
 
     await loadAllAffirmations(_preferences.languageCode);
 
-    if (onboardingCompleted) {
-      _currentIndex = randomIndex(_calculateInitialCount());
-      print("🎲 Random onboarding tamam, index = $_currentIndex");
-    } else {
-      _currentIndex = randomIndex(Constants.freeGeneralLimit);
-      print("🎲 Random onboarding tamamlamamış, index = $_currentIndex");
-    }
+    _currentIndex = randomIndex(_calculateInitialCount());
+    print("🎲 Random , index = $_currentIndex");
 
     _loaded = true;
     _generalDirty = true;
     _categoryDirty = true;
     _favoriteDirty = true;
+
     clearAffirmationCache();
     notifyListeners();
 
@@ -217,7 +212,7 @@ class AppState extends ChangeNotifier {
           _preferences.selectedContentPreferences.contains(a.actualCategory);
     }).length;
 
-    return _preferences.premiumActive ? count : count.clamp(0, 200);
+    return count;
   }
 
   // SAVE / LOAD
@@ -416,14 +411,6 @@ class AppState extends ChangeNotifier {
 
     print('🔍 GENERAL FEED (raw) count: ${list.length}');
 
-    if (!_preferences.premiumActive) {
-      const limit = Constants.freeGeneralLimit;
-      final limited = list.length > limit ? list.sublist(0, limit) : list;
-      print('⛔ Free mode → ${limited.length} affirmation kullanılacak');
-      return limited;
-    }
-
-    print('👑 Premium → full general feed (${list.length}) döndürüldü');
     return list;
   }
 
@@ -446,17 +433,6 @@ class AppState extends ChangeNotifier {
 
     print('🔍 CATEGORY FEED (raw) count = ${list.length}');
 
-    if (!_preferences.premiumActive) {
-      const limit = Constants.freeCategoryLimit;
-
-      final limited = list.length > limit ? list.sublist(0, limit) : list;
-
-      print(
-          '⛔ Free mode → kategori için ${limited.length} affirmation kullanılacak');
-      return limited;
-    }
-
-    print('👑 Premium → full kategori feed (${list.length}) döndürüldü');
     return list;
   }
 
@@ -485,18 +461,11 @@ class AppState extends ChangeNotifier {
   }
 
   List<Affirmation> get currentFeed {
-    // GENERAL boş veya unset → general
     if (_activeCategoryId.isEmpty) return generalFeed;
     if (_activeCategoryId == Constants.generalCategoryId) return generalFeed;
 
-    // FAVORITES
     if (_activeCategoryId == Constants.favoritesCategoryId) {
-      final fav = favoritesFeed;
-
-      if (fav.isEmpty) {
-        return [AffirmationDefaults.emptyFavorites(selectedLocale)];
-      }
-      return fav;
+      return favoritesFeed;
     }
 
     return categoryFeed;
@@ -516,12 +485,13 @@ class AppState extends ChangeNotifier {
   }
 
   void setCurrentIndex(int index) {
-    //final feed = currentFeed;
+    final feed = currentFeed;
 
     _currentIndex = index;
     playback.setCurrentIndex(index);
 
-    //if (feed.isNotEmpty) playback.updateAffirmations(feed);
+    if (feed.isNotEmpty) playback.updateAffirmations(feed);
+    print("🎲 set Current Index affirmation = ${feed[_currentIndex].text}");
 
     notifyListeners();
   }
@@ -621,6 +591,8 @@ class AppState extends ChangeNotifier {
 
   void clearAffirmationCache() {
     _categoryCache.clear();
+    _generalDirty = true;
+    _categoryDirty = true;
     print("🧽 [AFF-CACHE] cache cleared");
   }
 
@@ -692,6 +664,9 @@ class AppState extends ChangeNotifier {
 
     playback.updateAffirmations(feed);
     playback.setCurrentIndex(_currentIndex);
+    print("🎲 Random index = $_currentIndex");
+    print("🎲 Random affirmation = ${feed[_currentIndex].text}");
+
     return;
   }
 
@@ -699,14 +674,6 @@ class AppState extends ChangeNotifier {
   void toggleFabExpanded() {
     _fabExpanded = !_fabExpanded;
     notifyListeners();
-  }
-
-  bool isOverFavoriteLimit() {
-    final currentCount = _preferences.favoriteAffirmationIds.length;
-
-    final limit = Constants.freeFavoriteLimit;
-
-    return currentCount >= limit;
   }
 
   void toggleFavorite(String id) {
@@ -758,17 +725,12 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
-// AppState sınıfında:
-
-// ⭐ Pozisyonları her affirmation için ayrı tutan Map
   Map<String, Offset> affirmationPositions = {};
 
-// ⭐ Belirli bir affirmation'ın pozisyonunu döndürür
   Offset getAffirmationPosition(String affirmationId) {
     return affirmationPositions[affirmationId] ?? const Offset(40, 200);
   }
 
-// ⭐ Pozisyonu kaydeder (hem hafızada hem SharedPreferences'ta)
   Future<void> saveAffirmationPosition(
       String affirmationId, double x, double y) async {
     affirmationPositions[affirmationId] = Offset(x, y);

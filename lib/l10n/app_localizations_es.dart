@@ -394,4 +394,10 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get affTime => '🌟 Affirmation Time';
+
+  @override
+  String get myAfflimitTitle => 'Affirmation Limit';
+
+  @override
+  String get myAfflimitMessage => 'You\'ve reached your free limit (10).\n\nUpgrade to Premium and save up to 100 custom affirmations ✨';
 }

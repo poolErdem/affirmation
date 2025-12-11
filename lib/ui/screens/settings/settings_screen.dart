@@ -138,7 +138,7 @@ class _SettingsScreenState extends State<SettingsScreen>
                       _pulseController,
                     ]),
                     builder: (context, child) {
-                      return _buildPremiumCardV2(
+                      return _buildPremiumCard(
                         context: context,
                         isPremium: isPremium,
                         shineValue: _shineController.value,
@@ -202,10 +202,10 @@ class _SettingsScreenState extends State<SettingsScreen>
           const SizedBox(width: 3),
           Text(
             title.toUpperCase(),
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w700,
-              color: Colors.white,
+              color: Colors.white.withValues(alpha: 0.75), // 🔥 GÜNCEL
             ),
           ),
         ],
@@ -214,7 +214,7 @@ class _SettingsScreenState extends State<SettingsScreen>
   }
 
   // PREMIUM CARD ----------------------------------------------------
-  Widget _buildPremiumCardV2({
+  Widget _buildPremiumCard({
     required BuildContext context,
     required bool isPremium,
     required double shineValue,
@@ -231,95 +231,73 @@ class _SettingsScreenState extends State<SettingsScreen>
         margin: const EdgeInsets.symmetric(horizontal: 4),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(28),
-          gradient: LinearGradient(
-            colors: isPremium
-                ? [
-                    const Color.fromARGB(255, 114, 167, 205),
-                    const Color.fromARGB(255, 225, 218, 218)
-                  ]
-                : [
-                    const Color.fromARGB(255, 127, 126, 126),
-                    const Color.fromARGB(255, 183, 181, 181)
-                  ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+
+          /// ⭐ GLASS BACKGROUND
+          color: isPremium
+              ? Colors.amber.withAlpha(35) // hafif gold tint
+              : Colors.white.withAlpha(22), // diğer tile’larla uyumlu
+
+          /// ⭐ OUTLINE
+          border: Border.all(
+            color: isPremium
+                ? Colors.amber.withAlpha(120)
+                : Colors.white.withAlpha(40),
+            width: 1.6,
           ),
-          boxShadow: [
-            BoxShadow(
-              color: isPremium
-                  ? Colors.amber.withValues(alpha: 0.4 + pulseValue * 0.2)
-                  : Colors.black.withValues(alpha: 0.25),
-              blurRadius: 30 + pulseValue * 10,
-              offset: const Offset(0, 10),
-            ),
-          ],
+
+          /// ⭐ SHADOW (sadece premiumda)
+          boxShadow: isPremium
+              ? [
+                  BoxShadow(
+                    color: Colors.amber.withAlpha(120),
+                    blurRadius: 28,
+                    offset: const Offset(0, 10),
+                  )
+                ]
+              : [],
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(28),
           child: Stack(
             children: [
-              Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: isPremium
-                        ? [
-                            Colors.amber.withValues(alpha: 0.15),
-                            Colors.orange.withValues(alpha: 0.08),
-                          ]
-                        : [
-                            Colors.white.withValues(alpha: 0.05),
-                            Colors.transparent,
-                          ],
-                  ),
-                ),
-              ),
-              if (isPremium)
-                ..._particles.map(
-                  (p) => _buildParticle(
-                    p,
-                    particleValue,
-                    Size(MediaQuery.of(context).size.width - 40, 160),
-                  ),
-                ),
+              /// ⭐ BLUR (premium + non-premium)
               BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                filter: ImageFilter.blur(sigmaX: 14, sigmaY: 14),
                 child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(28),
-                    border: Border.all(
-                      color: isPremium
-                          ? Colors.amber.withValues(alpha: 0.6)
-                          : Colors.white.withValues(alpha: 0.2),
-                      width: 1.5,
-                    ),
-                  ),
+                  color: Colors.transparent,
                 ),
               ),
-              ShaderMask(
-                blendMode: BlendMode.srcATop,
-                shaderCallback: (rect) {
-                  return LinearGradient(
-                    begin: Alignment(-1 + shineValue * 2, 0),
-                    end: Alignment(1 + shineValue * 2, 0),
-                    colors: [
-                      Colors.white.withValues(alpha: 0),
-                      Colors.white.withValues(alpha: isPremium ? 0.3 : 0.1),
-                      Colors.white.withValues(alpha: 0),
-                    ],
-                  ).createShader(rect);
-                },
-                child: const SizedBox.expand(),
-              ),
+
+              /// ⭐ PREMIUM SHINE EFFECT
+              if (isPremium)
+                ShaderMask(
+                  blendMode: BlendMode.srcATop,
+                  shaderCallback: (rect) {
+                    return LinearGradient(
+                      begin: Alignment(-1 + shineValue * 2, 0),
+                      end: Alignment(1 + shineValue * 2, 0),
+                      colors: [
+                        Colors.white.withAlpha(0),
+                        Colors.white.withAlpha(110),
+                        Colors.white.withAlpha(0),
+                      ],
+                    ).createShader(rect);
+                  },
+                  child: Container(),
+                ),
+
+              /// ⭐ CARD CONTENT
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                 child: Row(
                   children: [
+                    // ICON
                     AnimatedBuilder(
                       animation: _pulseController,
                       builder: (context, child) {
                         return Transform.scale(
-                          scale: 1 + pulseValue * 0.15,
+                          scale: 1 + (isPremium ? pulseValue * 0.12 : 0),
                           child: Container(
                             padding: const EdgeInsets.all(14),
                             decoration: BoxDecoration(
@@ -330,19 +308,20 @@ class _SettingsScreenState extends State<SettingsScreen>
                                         Color(0xFFFFD700),
                                         Color(0xFFFFA500),
                                       ],
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
                                     )
                                   : LinearGradient(
                                       colors: [
-                                        Colors.white.withValues(alpha: 0.2),
-                                        Colors.white.withValues(alpha: 0.1),
+                                        Colors.white24,
+                                        Colors.white12,
                                       ],
                                     ),
                               boxShadow: isPremium
                                   ? [
                                       BoxShadow(
-                                        color:
-                                            Colors.amber.withValues(alpha: 0.5),
-                                        blurRadius: 25,
+                                        color: Colors.amber.withAlpha(150),
+                                        blurRadius: 22,
                                       )
                                     ]
                                   : null,
@@ -350,25 +329,26 @@ class _SettingsScreenState extends State<SettingsScreen>
                             child: Icon(
                               Icons.workspace_premium,
                               color: Colors.white,
-                              size: 36,
+                              size: 34,
                             ),
                           ),
                         );
                       },
                     ),
-                    const SizedBox(width: 25),
+
+                    const SizedBox(width: 24),
+
+                    // TEXTS
                     Expanded(
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment:
-                            MainAxisAlignment.center, // 🔥 yazıyı aşağı indirir
-
                         children: [
                           Text(
                             isPremium ? t.premiumActive : t.getPremium,
                             style: TextStyle(
-                              fontSize: 21,
-                              fontWeight: FontWeight.w500,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
                               color: isPremium ? Colors.amber : Colors.white,
                             ),
                           ),
@@ -379,15 +359,17 @@ class _SettingsScreenState extends State<SettingsScreen>
                                 : "Unlock unlimited access",
                             style: TextStyle(
                               fontSize: 14,
-                              color: Colors.white.withValues(alpha: 0.7),
+                              color: Colors.white.withAlpha(180),
                             ),
                           ),
                         ],
                       ),
                     ),
+
                     Icon(
                       Icons.arrow_forward_ios,
-                      color: Colors.white.withValues(alpha: 0.7),
+                      size: 18,
+                      color: Colors.white.withAlpha(170),
                     ),
                   ],
                 ),

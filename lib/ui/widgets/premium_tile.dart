@@ -38,7 +38,7 @@ class _PremiumTileState extends State<PremiumTile> {
           borderRadius: BorderRadius.circular(24),
           child: Stack(
             children: [
-              // GLASS BACKGROUND
+              // GLASS BACKDROP
               BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 14, sigmaY: 14),
                 child: Container(
@@ -58,7 +58,7 @@ class _PremiumTileState extends State<PremiumTile> {
                       end: Alignment.bottomRight,
                     ),
                     border: Border.all(
-                      color: const Color.fromARGB(84, 229, 228, 224),
+                      color: Colors.white.withValues(alpha: 0.18),
                       width: 1.2,
                     ),
                     boxShadow: [
@@ -71,12 +71,15 @@ class _PremiumTileState extends State<PremiumTile> {
                   ),
                   child: Row(
                     children: [
+                      // ⭐ ICON — Soft Blue Accent
                       Icon(
                         widget.icon,
                         size: 24,
-                        color: const Color(0xFFC9A85D), // GOLD
+                        color: const Color(0xFFAEE5FF), // <— SENİN MAVİ ACCENT
                       ),
+
                       const SizedBox(width: 20),
+
                       Expanded(
                         child: Text(
                           widget.title,
@@ -87,6 +90,8 @@ class _PremiumTileState extends State<PremiumTile> {
                           ),
                         ),
                       ),
+
+                      // RIGHT ARROW — soft white
                       Icon(
                         Icons.chevron_right,
                         color: Colors.white.withValues(alpha: 0.7),
@@ -97,7 +102,7 @@ class _PremiumTileState extends State<PremiumTile> {
                 ),
               ),
 
-              // PRESS OVERLAY (frosted dim)
+              // PRESSED OVERLAY
               if (_pressed)
                 Positioned.fill(
                   child: Container(

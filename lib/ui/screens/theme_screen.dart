@@ -33,10 +33,7 @@ class _ThemeScreenState extends State<ThemeScreen> {
         ? themes
         : themes.where((th) => th.group == selectedGroup).toList();
 
-    // 🔥 background artık select ile dinleniyor
-    final bg = context.select<AppState, String>(
-      (s) => s.activeThemeImage,
-    );
+    final bg = context.select<AppState, String>((s) => s.activeThemeImage);
 
     return SharedBlurBackground(
       imageAsset: bg,
@@ -46,10 +43,9 @@ class _ThemeScreenState extends State<ThemeScreen> {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          leadingWidth: 32, // 🔥 soldaki boşluğu azaltır
+          leadingWidth: 32,
           leading: Padding(
-            padding:
-                const EdgeInsets.only(left: 6), // 🔥 istediğin kadar kaydır
+            padding: const EdgeInsets.only(left: 6),
             child: IconButton(
               icon: const Icon(
                 Icons.arrow_back_ios_new,
@@ -59,7 +55,6 @@ class _ThemeScreenState extends State<ThemeScreen> {
               onPressed: () => Navigator.pop(context),
             ),
           ),
-
           title: Text(
             t.themes,
             style: const TextStyle(
@@ -69,14 +64,14 @@ class _ThemeScreenState extends State<ThemeScreen> {
             ),
           ),
         ),
+
+        // BODY
         body: Stack(
           children: [
-            // Hafif premium noise efekti
+            // Noise layer
             Positioned.fill(
               child: IgnorePointer(
-                child: CustomPaint(
-                  painter: NoisePainter(opacity: 0.05),
-                ),
+                child: CustomPaint(painter: NoisePainter(opacity: 0.05)),
               ),
             ),
 
@@ -99,9 +94,9 @@ class _ThemeScreenState extends State<ThemeScreen> {
 
                   const SizedBox(height: 22),
 
-                  // ------------------------------------------------------------
-                  // GROUP TABS — cam panel
-                  // ------------------------------------------------------------
+                  // ----------------------------------------------------
+                  // GROUP FILTER TABS (Glass + Soft Blue Accent)
+                  // ----------------------------------------------------
                   SizedBox(
                     height: 46,
                     child: ListView.separated(
@@ -120,10 +115,8 @@ class _ThemeScreenState extends State<ThemeScreen> {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(22),
                               child: BackdropFilter(
-                                filter: ImageFilter.blur(
-                                  sigmaX: 10,
-                                  sigmaY: 10,
-                                ),
+                                filter:
+                                    ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                                 child: Container(
                                   padding: const EdgeInsets.symmetric(
                                     horizontal: 15,
@@ -133,38 +126,36 @@ class _ThemeScreenState extends State<ThemeScreen> {
                                     borderRadius: BorderRadius.circular(22),
                                     border: Border.all(
                                       color: isSelected
-                                          ? const Color(0xFFD4AF37)
+                                          ? const Color(0xFFAEE5FF)
                                           : Colors.white.withValues(alpha: 0.3),
-                                      width: 1.5,
+                                      width: 1.6,
                                     ),
                                     gradient: LinearGradient(
                                       colors: isSelected
                                           ? [
                                               Colors.white
-                                                  .withValues(alpha: 0.20),
+                                                  .withValues(alpha: 0.18),
                                               Colors.white
                                                   .withValues(alpha: 0.05),
                                             ]
                                           : [
                                               Colors.white
-                                                  .withValues(alpha: 0.15),
+                                                  .withValues(alpha: 0.12),
                                               Colors.white
                                                   .withValues(alpha: 0.04),
                                             ],
-                                      begin: Alignment.topLeft,
-                                      end: Alignment.bottomRight,
                                     ),
                                   ),
                                   child: Text(
                                     g,
                                     style: TextStyle(
                                       fontSize: 13,
-                                      color: isSelected
-                                          ? const Color(0xFFD4AF37)
-                                          : Colors.white,
                                       fontWeight: isSelected
                                           ? FontWeight.w700
                                           : FontWeight.w600,
+                                      color: isSelected
+                                          ? const Color(0xFFAEE5FF)
+                                          : Colors.white,
                                     ),
                                   ),
                                 ),
@@ -178,7 +169,7 @@ class _ThemeScreenState extends State<ThemeScreen> {
 
                   const SizedBox(height: 18),
 
-                  // GRID
+                  // THEMES GRID
                   Expanded(child: _buildGrid(filteredThemes, appState)),
                 ],
               ),
@@ -189,7 +180,9 @@ class _ThemeScreenState extends State<ThemeScreen> {
     );
   }
 
-  // GRID BUILDER (cam panel + premium glow + gold seçili tema)
+  // ----------------------------------------------------
+  // THEMES GRID
+  // ----------------------------------------------------
   Widget _buildGrid(List<ThemeModel> list, AppState appState) {
     return GridView.builder(
       padding: const EdgeInsets.all(16),
@@ -206,8 +199,6 @@ class _ThemeScreenState extends State<ThemeScreen> {
             item.isPremiumLocked && !appState.preferences.isPremiumValid;
         final isSelected = item.id == appState.preferences.selectedThemeId;
 
-        print("Theme item: ${item.imageAsset}");
-        print("isVideo: ${item.isVideo}");
         return GestureDetector(
           onTap: () {
             if (isLocked) {
@@ -218,7 +209,6 @@ class _ThemeScreenState extends State<ThemeScreen> {
               return;
             }
 
-            // 🔥 Video da olsa image de olsa aynı şekilde seç
             appState.setSelectedTheme(item.id);
             Navigator.pop(context);
           },
@@ -228,17 +218,21 @@ class _ThemeScreenState extends State<ThemeScreen> {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
+
+                // Soft-blue accent border instead of gold
                 border: Border.all(
                   color: isSelected
-                      ? Colors.white
+                      ? const Color(0xFFAEE5FF)
                       : Colors.white.withValues(alpha: 0.18),
-                  width: isSelected ? 2.5 : 1.3,
+                  width: isSelected ? 2.3 : 1.3,
                 ),
+
+                // Soft glow
                 boxShadow: isSelected
                     ? [
                         BoxShadow(
                           color:
-                              const Color(0xFFD4AF37).withValues(alpha: 0.45),
+                              const Color(0xFFAEE5FF).withValues(alpha: 0.40),
                           blurRadius: 18,
                           spreadRadius: 2,
                         ),
@@ -249,16 +243,14 @@ class _ThemeScreenState extends State<ThemeScreen> {
                 borderRadius: BorderRadius.circular(18),
                 child: Stack(
                   children: [
-                    // FOTO + VİDEO AYRIMI
+                    // Photo / Video preview
                     Positioned.fill(
                       child: item.isVideo
                           ? _VideoPreview(assetPath: item.imageAsset)
-                          : Image.asset(
-                              item.imageAsset,
-                              fit: BoxFit.cover,
-                            ),
+                          : Image.asset(item.imageAsset, fit: BoxFit.cover),
                     ),
 
+                    // Softer gradient top-bottom
                     Container(
                       decoration: const BoxDecoration(
                         gradient: LinearGradient(
@@ -272,17 +264,19 @@ class _ThemeScreenState extends State<ThemeScreen> {
                       ),
                     ),
 
+                    // LOCK ICON (soft blue)
                     if (isLocked)
-                      Positioned(
+                      const Positioned(
                         top: 8,
                         right: 8,
                         child: Icon(
-                          Icons.lock_outline,
-                          color: Colors.white,
+                          Icons.lock_outline_rounded,
+                          color: Color(0xFFAEE5FF),
                           size: 22,
                         ),
                       ),
 
+                    // CHECKMARK (white — good contrast)
                     if (isSelected)
                       const Positioned(
                         top: 8,
@@ -304,7 +298,9 @@ class _ThemeScreenState extends State<ThemeScreen> {
   }
 }
 
-// NOISE PAINTER — premium hissi için
+// -----------------------------------------------------------
+// NOISE LAYER
+// -----------------------------------------------------------
 class NoisePainter extends CustomPainter {
   final double opacity;
   NoisePainter({this.opacity = 0.06});
@@ -328,12 +324,14 @@ class NoisePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+  bool shouldRepaint(_) => false;
 }
 
+// -----------------------------------------------------------
+// VIDEO PREVIEW (loop, muted)
+// -----------------------------------------------------------
 class _VideoPreview extends StatefulWidget {
   final String assetPath;
-
   const _VideoPreview({required this.assetPath});
 
   @override

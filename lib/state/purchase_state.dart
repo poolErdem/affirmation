@@ -12,10 +12,8 @@ class PurchaseState extends ChangeNotifier {
   final AppState appState;
   StreamSubscription<List<PurchaseDetails>>? _subscription;
 
-  // Constructor
   PurchaseState(this.appState);
 
-  /// Store ürünleri
   final Map<String, ProductDetails> products = {};
 
   bool _listenerInitialized = false;
@@ -38,26 +36,71 @@ class PurchaseState extends ChangeNotifier {
       }
 
       await initStoreAvailability();
-      _isInitialized = true;
 
+      if (storeAvailable) {
+        await fetchProducts();
+      }
+
+      _isInitialized = true;
       print("✅ PurchaseState initialized");
     } catch (e) {
       print("❌ PurchaseState initialize error: $e");
     }
   }
 
-  String get monthlyPriceLabel {
-    return isTurkey ? "₺29,99 / ay" : "€2.99 / month";
+  //────────────────────────────────────────
+  // PRICE LABELS
+  //────────────────────────────────────────
+
+  String get monthlyPriceLabel => isTurkey ? "₺29,99 / ay" : "€2.99 / month";
+
+  String get yearlyPriceLabel => isTurkey ? "₺199,99 / yıl" : "€29.99 / year";
+
+  String get lifeTimePriceLabel =>
+      isTurkey ? "₺399,99 / ömür boyu" : "€29.99 / lifetime";
+
+  bool get productsReady => products.isNotEmpty && storeAvailable;
+
+  //────────────────────────────────────────
+  // BUY PLAN — SAFE ENTRY POINT
+  //────────────────────────────────────────
+  Future<void> buyPlan(String id) async {
+    try {
+      if (!storeAvailable) {
+        debugPrint("❌ Store not available");
+        return;
+      }
+
+      const validPlans = [
+        Constants.monthly,
+        Constants.yearly,
+        Constants.lifetime,
+      ];
+
+      if (!validPlans.contains(id)) {
+        debugPrint("❌ Invalid plan ID: $id");
+        return;
+      }
+
+      final product = products[id];
+      if (product == null) {
+        debugPrint("❌ Product not loaded: $id");
+        return;
+      }
+
+      final param = PurchaseParam(productDetails: product);
+
+      await InAppPurchase.instance.buyNonConsumable(purchaseParam: param);
+
+      debugPrint("✅ Purchase request sent → $id");
+    } catch (e) {
+      debugPrint("❌ Purchase error: $e");
+    }
   }
 
-  String get yearlyPriceLabel {
-    return isTurkey ? "₺199,99 / yıl" : "€29.99 / year";
-  }
-
-  String get lifeTimePriceLabel {
-    return isTurkey ? "₺399,99 / ömür boyu" : "€29.99 / life time";
-  }
-
+  //────────────────────────────────────────
+  // STORE AVAILABILITY
+  //────────────────────────────────────────
   Future<void> initStoreAvailability() async {
     try {
       storeAvailable = await InAppPurchase.instance.isAvailable();
@@ -72,15 +115,7 @@ class PurchaseState extends ChangeNotifier {
   // FETCH PRODUCTS
   //────────────────────────────────────────
   Future<void> fetchProducts() async {
-    if (!_isInitialized) {
-      print("⚠️ PurchaseState initialize edilmedi → fetchProducts atlandı");
-      return;
-    }
-
-    if (!storeAvailable) {
-      print("⚠️ Store kapalı → fetchProducts atlandı");
-      return;
-    }
+    if (!storeAvailable) return;
 
     const ids = {Constants.monthly, Constants.yearly, Constants.lifetime};
 
@@ -92,12 +127,11 @@ class PurchaseState extends ChangeNotifier {
         return;
       }
 
-      products.clear();
-      for (final p in response.productDetails) {
-        products[p.id] = p;
-      }
+      products
+        ..clear()
+        ..addEntries(response.productDetails.map((p) => MapEntry(p.id, p)));
 
-      print("🛒 Products loaded: ${products.keys.toList()}");
+      print("🛒 Products loaded: ${products.keys}");
     } catch (e) {
       print("❌ fetchProducts exception: $e");
     }
@@ -123,50 +157,41 @@ class PurchaseState extends ChangeNotifier {
     }
   }
 
-  //────────────────────────────────────────
-  // DISPOSE
-  //────────────────────────────────────────
-  Future<void> disposeState() async {
-    print("🧹 Disposing PurchaseState...");
-    try {
-      await _subscription?.cancel();
-      _subscription = null;
-      _listenerInitialized = false;
-      _isInitialized = false;
-      products.clear();
-      print("✅ PurchaseState disposed");
-    } catch (e) {
-      print("❌ Dispose error: $e");
-    }
-  }
-
   @override
   void dispose() {
-    disposeState();
+    _subscription?.cancel();
     super.dispose();
   }
 
   //────────────────────────────────────────
-  // PURCHASE HANDLER
+  // HANDLE PURCHASE UPDATES
   //────────────────────────────────────────
-  void _handlePurchaseUpdates(List<PurchaseDetails> purchases) {
+  Future<void> _handlePurchaseUpdates(List<PurchaseDetails> purchases) async {
     for (final purchase in purchases) {
-      print("💰 Purchase update: ${purchase.productID} → ${purchase.status}");
+      print("💰 Update: ${purchase.productID} → ${purchase.status}");
 
-      switch (purchase.status) {
-        case PurchaseStatus.purchased:
-        case PurchaseStatus.restored:
+      if (purchase.status == PurchaseStatus.purchased ||
+          purchase.status == PurchaseStatus.restored) {
+        final verified = _verifyPurchase(purchase);
+
+        if (verified) {
           _activatePlan(purchase.productID);
-          break;
-
-        default:
-          break;
+        }
       }
 
       if (purchase.pendingCompletePurchase) {
-        InAppPurchase.instance.completePurchase(purchase);
+        await InAppPurchase.instance.completePurchase(purchase);
       }
     }
+  }
+
+  //────────────────────────────────────────
+  // VERIFY PURCHASE (client-side minimum)
+  //────────────────────────────────────────
+  bool _verifyPurchase(PurchaseDetails p) {
+    if (p.status == PurchaseStatus.purchased) return true;
+    if (p.status == PurchaseStatus.restored) return true;
+    return false;
   }
 
   //────────────────────────────────────────
@@ -206,19 +231,16 @@ class PurchaseState extends ChangeNotifier {
     required PremiumPlan plan,
     required DateTime? expiry,
   }) async {
-    print("⭐ Updating premium → $plan active=$active");
+    print("⭐ Updating premium → $plan / Active=$active");
 
-    // 1) Yeni preferences üret
     final updated = appState.preferences.copyWith(
       premiumActive: active,
       premiumPlanId: plan,
       premiumExpiresAt: expiry,
     );
 
-    // 2) AppState üzerinden premium bilgilerini güncelle
     appState.updatePreferences(updated);
 
-    // 3) Storage güncelley
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool("premiumActive", active);
     await prefs.setString("premiumPlanId", plan.name);
@@ -228,29 +250,29 @@ class PurchaseState extends ChangeNotifier {
     );
 
     appState.clearAffirmationCache();
-
-    // 4) PurchaseState dinleyicilerini tetikle
     notifyListeners();
   }
 
   //────────────────────────────────────────
-  // RESTORE
+  // RESTORE PURCHASES
   //────────────────────────────────────────
   Future<void> restorePurchases() async {
     if (defaultTargetPlatform == TargetPlatform.iOS) {
-      print("🍏 iOS restorePurchases() çağrıldı");
+      print("🍏 iOS restorePurchases()");
       try {
         await InAppPurchase.instance.restorePurchases();
       } catch (e) {
         print("❌ Restore error: $e");
       }
     } else {
-      print("🤖 Android → restorePurchases() kullanılmıyor");
+      print("🤖 Android: restorePurchases() opsiyonel");
     }
   }
 
+  //────────────────────────────────────────
+  // LOCALE CHECK
+  //────────────────────────────────────────
   bool get isTurkey {
-    // Örnek: 'tr_TR', 'en_US'
     final locale = Platform.localeName.toLowerCase();
     return locale.endsWith("tr");
   }

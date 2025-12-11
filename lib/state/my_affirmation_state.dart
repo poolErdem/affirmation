@@ -148,7 +148,6 @@ class MyAffirmationState extends ChangeNotifier {
 
     final int today = challengeDay;
 
-    // 1) Kullanıcının en son affirmation yazdığı günü bul
     int lastWrittenDay = 0;
 
     for (int d = 1; d <= 21; d++) {
@@ -157,7 +156,6 @@ class MyAffirmationState extends ChangeNotifier {
       }
     }
 
-    // 2) Bugün ile son yazılan gün arasında boş gün var mı?
     //    Örn: Son gün 1 → Bugün 3 → reset
     if (lastWrittenDay > 0 && today > lastWrittenDay + 1) {
       _resetChallenge();

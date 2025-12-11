@@ -29,22 +29,21 @@ class CategoriesScreen extends StatelessWidget {
     final t = AppLocalizations.of(context)!;
     final bg = appState.activeThemeImage;
 
-    print("🎬 SharedBlurBackground → $bg");
-
     return SharedBlurBackground(
       imageAsset: bg,
       child: Scaffold(
         extendBodyBehindAppBar: true,
         backgroundColor: Colors.transparent,
 
-        // APPBAR (şeffaf)
+        // ---------------------------------------------------------
+        // APPBAR
+        // ---------------------------------------------------------
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          leadingWidth: 40, // 🔥 soldaki boşluğu azaltır
+          leadingWidth: 40,
           leading: Padding(
-            padding:
-                const EdgeInsets.only(left: 6), // 🔥 istediğin kadar kaydır
+            padding: const EdgeInsets.only(left: 6),
             child: IconButton(
               icon: const Icon(
                 Icons.arrow_back_ios_new,
@@ -54,7 +53,6 @@ class CategoriesScreen extends StatelessWidget {
               onPressed: () => Navigator.pop(context),
             ),
           ),
-
           title: Transform.translate(
             offset: const Offset(-8, 0),
             child: Text(
@@ -68,9 +66,12 @@ class CategoriesScreen extends StatelessWidget {
           ),
         ),
 
-        // BODY → PREMIUM BACKDROP + NOISE
+        // ---------------------------------------------------------
+        // BODY
+        // ---------------------------------------------------------
         body: Stack(
           children: [
+            // Premium noise overlay
             Positioned.fill(
               child: IgnorePointer(
                 child: CustomPaint(
@@ -78,6 +79,7 @@ class CategoriesScreen extends StatelessWidget {
                 ),
               ),
             ),
+
             SafeArea(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,15 +92,18 @@ class CategoriesScreen extends StatelessWidget {
                     child: Text(
                       t.categoryTitle,
                       style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.white.withValues(alpha: 0.8)),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white.withValues(alpha: 0.80),
+                      ),
                     ),
                   ),
 
                   const SizedBox(height: 32),
 
-                  // GRID (premium style)
+                  // ---------------------------------------------------------
+                  // GRID
+                  // ---------------------------------------------------------
                   Expanded(
                     child: GridView.builder(
                       padding: const EdgeInsets.symmetric(
@@ -111,23 +116,19 @@ class CategoriesScreen extends StatelessWidget {
                         crossAxisCount: 2,
                         mainAxisSpacing: 24,
                         crossAxisSpacing: 24,
-                        childAspectRatio:
-                            0.78, // 🔥 KARE + ALT YAZI İÇİN EK ALAN
+                        childAspectRatio: 0.78,
                       ),
                       itemBuilder: (_, index) {
                         final category = categories[index];
-
                         final isSelected = category.id == activeId;
                         final isPremiumLocked = category.isPremiumLocked &&
                             !appState.preferences.isPremiumValid;
 
+                        // ---------------------------------------------------
+                        // TAP HANDLER
+                        // ---------------------------------------------------
                         return GestureDetector(
                           onTap: () {
-                            if (!appState.isLoaded) {
-                              debugPrint(
-                                  "⛔ AppState not loaded yet — ignoring tap");
-                              return;
-                            }
                             if (isPremiumLocked) {
                               Navigator.push(
                                 context,
@@ -139,9 +140,8 @@ class CategoriesScreen extends StatelessWidget {
 
                             if (category.id == Constants.favoritesCategoryId) {
                               appState.setActiveCategoryIdOnly(
-                                  Constants.favoritesCategoryId); // 🔥🔥 ÖNEMLİ
-
-                              Navigator.pop(context); // kategori panelini kapat
+                                  Constants.favoritesCategoryId);
+                              Navigator.pop(context);
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -153,9 +153,8 @@ class CategoriesScreen extends StatelessWidget {
 
                             if (category.id == Constants.myCategoryId) {
                               appState.setActiveCategoryIdOnly(
-                                  Constants.myCategoryId); // 🔥🔥 ÖNEMLİ
-
-                              Navigator.pop(context); // kategori panelini kapat
+                                  Constants.myCategoryId);
+                              Navigator.pop(context);
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -168,136 +167,99 @@ class CategoriesScreen extends StatelessWidget {
                             appState.setActiveCategoryIdOnly(category.id);
                             Navigator.pop(context);
                           },
+
+                          // ---------------------------------------------------
+                          // CATEGORY CARD
+                          // ---------------------------------------------------
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              // ⭐ KARE KUTU
-                              SizedBox(
-                                width: double.infinity,
-                                child: AspectRatio(
-                                  aspectRatio: 1, // 🔥 KARE GARANTİ
-                                  child: AnimatedScale(
-                                    scale: isSelected ? 1.06 : 1.0,
-                                    duration: const Duration(milliseconds: 160),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        border: Border.all(
-                                          color: isSelected
-                                              ? Colors.white
-                                              : Colors.white
-                                                  .withValues(alpha: 0.18),
-                                          width: isSelected ? 2.9 : 1.2,
-                                        ),
-                                        boxShadow: isSelected
-                                            ? [
-                                                BoxShadow(
-                                                  color: const Color.fromARGB(
-                                                          255, 223, 219, 205)
-                                                      .withValues(alpha: 0.45),
-                                                  blurRadius: 18,
-                                                  spreadRadius: 2,
-                                                ),
-                                              ]
-                                            : [
-                                                BoxShadow(
-                                                  color: Colors.black
-                                                      .withValues(alpha: 0.15),
-                                                  blurRadius: 10,
-                                                  offset: const Offset(0, 4),
-                                                ),
-                                              ],
+                              AspectRatio(
+                                aspectRatio: 1,
+                                child: AnimatedScale(
+                                  scale: isSelected ? 1.06 : 1.0,
+                                  duration: const Duration(milliseconds: 160),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+
+                                      // UPDATED: modern soft-blue border & glow
+                                      border: Border.all(
+                                        color: isSelected
+                                            ? const Color(0xFFAEE5FF)
+                                            : Colors.white
+                                                .withValues(alpha: 0.18),
+                                        width: isSelected ? 2.4 : 1.2,
                                       ),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(20),
-                                        child: Stack(
-                                          children: [
-                                            // IMAGE
-                                            Positioned.fill(
-                                              child: Image.asset(
-                                                category.imageAsset,
-                                                fit: BoxFit.cover,
+
+                                      boxShadow: isSelected
+                                          ? [
+                                              BoxShadow(
+                                                color: const Color(0xFFAEE5FF)
+                                                    .withValues(alpha: 0.45),
+                                                blurRadius: 18,
+                                                spreadRadius: 2,
+                                              ),
+                                            ]
+                                          : [
+                                              BoxShadow(
+                                                color: Colors.black
+                                                    .withValues(alpha: 0.15),
+                                                blurRadius: 10,
+                                                offset: const Offset(0, 4),
+                                              ),
+                                            ],
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(20),
+                                      child: Stack(
+                                        children: [
+                                          // IMAGE
+                                          Positioned.fill(
+                                            child: Image.asset(
+                                              category.imageAsset,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+
+                                          // Softer gradient overlay
+                                          Container(
+                                            decoration: const BoxDecoration(
+                                              gradient: LinearGradient(
+                                                begin: Alignment.topCenter,
+                                                end: Alignment.bottomCenter,
+                                                colors: [
+                                                  Color(0x00000000),
+                                                  Color(0x44000000),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+
+                                          // LOCK ICON (updated: serene blue)
+                                          if (isPremiumLocked)
+                                            const Positioned(
+                                              top: 10,
+                                              right: 10,
+                                              child: Icon(
+                                                Icons.lock_outline_rounded,
+                                                color: Color(0xFFAEE5FF),
+                                                size: 22,
                                               ),
                                             ),
 
-                                            // GRADIENT OVERLAY
-                                            Container(
-                                              decoration: const BoxDecoration(
-                                                gradient: LinearGradient(
-                                                  begin: Alignment.topCenter,
-                                                  end: Alignment.bottomCenter,
-                                                  colors: [
-                                                    Color(0x00000000),
-                                                    Color(0x66000000),
-                                                  ],
-                                                ),
+                                          // CHECKMARK (keep white — good contrast)
+                                          if (isSelected)
+                                            const Positioned(
+                                              top: 10,
+                                              right: 10,
+                                              child: Icon(
+                                                Icons.check_circle,
+                                                color: Colors.white,
+                                                size: 28,
                                               ),
                                             ),
-
-                                            // 🔐 PREMIUM LOCK
-                                            if (isPremiumLocked)
-                                              const Positioned(
-                                                top: 10,
-                                                right: 10,
-                                                child: Icon(
-                                                  Icons.lock_outline,
-                                                  color: Colors.white,
-                                                  size: 22,
-                                                ),
-                                              ),
-
-                                            // 🔥 LİMİTED BADGE (General / Favorites / MyAff)
-                                            if ((category.id ==
-                                                        Constants
-                                                            .generalCategoryId ||
-                                                    category.id ==
-                                                        Constants
-                                                            .favoritesCategoryId ||
-                                                    category.id ==
-                                                        Constants
-                                                            .myCategoryId) &&
-                                                !appState
-                                                    .preferences.isPremiumValid)
-                                              Positioned(
-                                                top: 10,
-                                                left: 10,
-                                                child: Container(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                      horizontal: 7,
-                                                      vertical: 4),
-                                                  decoration: BoxDecoration(
-                                                    color:
-                                                        Colors.orange.shade700,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            14),
-                                                  ),
-                                                  child: Text(
-                                                    t.limited,
-                                                    style: const TextStyle(
-                                                      fontSize: 10,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-
-                                            // ✅ SEÇİLİ → BEYAZ CHECK
-                                            if (isSelected)
-                                              const Positioned(
-                                                top: 10,
-                                                right: 10,
-                                                child: Icon(
-                                                  Icons.check_circle,
-                                                  color: Colors.white,
-                                                  size: 28,
-                                                ),
-                                              ),
-                                          ],
-                                        ),
+                                        ],
                                       ),
                                     ),
                                   ),
@@ -306,16 +268,16 @@ class CategoriesScreen extends StatelessWidget {
 
                               const SizedBox(height: 10),
 
-                              // ⭐ ALTTA METİN
+                              // CATEGORY TITLE
                               Text(
                                 _titleCase(
                                     localizedCategoryName(t, category.id)),
-                                textAlign: TextAlign.left,
                                 maxLines: 2,
-                                style: const TextStyle(
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w600,
-                                  color: Colors.white,
+                                  color: Colors.white.withValues(alpha: 0.95),
                                 ),
                               ),
                             ],
@@ -342,7 +304,9 @@ class CategoriesScreen extends StatelessWidget {
   }
 }
 
-/// NoisePainter — premium glossy efekt için
+// ---------------------------------------------------------
+// NoisePainter
+// ---------------------------------------------------------
 class NoisePainter extends CustomPainter {
   final double opacity;
   NoisePainter({this.opacity = 0.06});
@@ -366,5 +330,5 @@ class NoisePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+  bool shouldRepaint(_) => false;
 }

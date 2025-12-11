@@ -27,7 +27,7 @@ class _OnboardingThemeScreenState extends State<OnboardingThemeScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          // BACKGROUND
+          // BACKGROUND IMAGE
           Positioned.fill(
             child: Image.asset(
               Constants.onboardingThemePath,
@@ -35,7 +35,7 @@ class _OnboardingThemeScreenState extends State<OnboardingThemeScreen> {
             ),
           ),
 
-          // PREMIUM GRADIENT
+          // PREMIUM DARK GRADIENT
           Positioned.fill(
             child: Container(
               decoration: const BoxDecoration(
@@ -60,7 +60,7 @@ class _OnboardingThemeScreenState extends State<OnboardingThemeScreen> {
                 children: [
                   const SizedBox(height: 18),
 
-                  // BACK
+                  // BACK BUTTON
                   GestureDetector(
                     onTap: () => Navigator.pop(context),
                     child: Text(
@@ -73,13 +73,13 @@ class _OnboardingThemeScreenState extends State<OnboardingThemeScreen> {
                     ),
                   ),
 
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 15),
 
                   // TITLE
                   Center(
                     child: Text(
                       t.pickTheme,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 30,
                         fontWeight: FontWeight.w600,
@@ -87,25 +87,28 @@ class _OnboardingThemeScreenState extends State<OnboardingThemeScreen> {
                     ),
                   ),
 
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 4),
 
                   Center(
                     child: Text(
                       t.changeLater,
                       style: TextStyle(
-                        color: Colors.white70,
+                        color: Colors.white.withValues(alpha: 0.75),
                         fontSize: 15,
                       ),
                     ),
                   ),
 
-                  const SizedBox(height: 32),
+                  const SizedBox(height: 20),
 
-                  // GRID
+                  // THEMES GRID
                   Expanded(
                     child: GridView.builder(
                       itemCount: themes.length,
-                      padding: const EdgeInsets.only(bottom: 20),
+
+                      // 🔥 Boşluk oluşturan kritik kısım
+                      padding: const EdgeInsets.only(bottom: 60),
+
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3,
@@ -120,22 +123,25 @@ class _OnboardingThemeScreenState extends State<OnboardingThemeScreen> {
                         return GestureDetector(
                           onTap: () => setState(() => selectedIndex = index),
                           child: AnimatedContainer(
-                            duration: const Duration(milliseconds: 220),
+                            duration: const Duration(milliseconds: 200),
                             curve: Curves.easeOut,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
+
+                              // Soft-blue selection border
                               border: Border.all(
                                 color: isSelected
-                                    ? Colors.white
+                                    ? const Color(0xFFAEE5FF)
                                     : Colors.white.withValues(alpha: 0.25),
-                                width: isSelected ? 2.2 : 1.4,
+                                width: isSelected ? 2.4 : 1.3,
                               ),
+
+                              // Glow
                               boxShadow: isSelected
                                   ? [
                                       BoxShadow(
-                                        color: Colors.white.withValues(
-                                          alpha: 0.25,
-                                        ),
+                                        color: const Color(0xFFAEE5FF)
+                                            .withValues(alpha: 0.45),
                                         blurRadius: 18,
                                         spreadRadius: 2,
                                       )
@@ -144,6 +150,7 @@ class _OnboardingThemeScreenState extends State<OnboardingThemeScreen> {
                             ),
                             child: Stack(
                               children: [
+                                // Theme Image
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(20),
                                   child: Image.asset(
@@ -154,14 +161,14 @@ class _OnboardingThemeScreenState extends State<OnboardingThemeScreen> {
                                   ),
                                 ),
 
-                                // GRADIENT ON CARD
+                                // SOFT GRADIENT
                                 Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
                                     gradient: const LinearGradient(
                                       colors: [
-                                        Colors.black54,
-                                        Colors.transparent,
+                                        Color(0x55000000),
+                                        Color(0x00000000),
                                       ],
                                       begin: Alignment.bottomCenter,
                                       end: Alignment.topCenter,
@@ -169,16 +176,19 @@ class _OnboardingThemeScreenState extends State<OnboardingThemeScreen> {
                                   ),
                                 ),
 
-                                // SELECTED CHECK
+                                // SELECT CHECKMARK
                                 if (isSelected)
                                   const Positioned(
                                     top: 8,
                                     right: 8,
                                     child: CircleAvatar(
                                       radius: 16,
-                                      backgroundColor: Colors.white,
-                                      child: Icon(Icons.check,
-                                          size: 18, color: Colors.black),
+                                      backgroundColor: Color(0xFFAEE5FF),
+                                      child: Icon(
+                                        Icons.check,
+                                        size: 18,
+                                        color: Colors.black,
+                                      ),
                                     ),
                                   ),
                               ],
@@ -189,30 +199,35 @@ class _OnboardingThemeScreenState extends State<OnboardingThemeScreen> {
                     ),
                   ),
 
-                  // CONTINUE BUTTON (glassy like onboarding theme)
-                  Pressable(
-                    child: GlassButton(
-                      text: t.continueLabel,
-                      onTap: () async {
-                        final st = context.read<AppState>();
+                  // ⭐ CONTINUE BUTTON — artık nefes alıyor
+                  Padding(
+                    padding: const EdgeInsets.only(top: 6),
+                    child: Pressable(
+                      child: GlassButton(
+                        text: t.continueLabel,
+                        onTap: () async {
+                          final st = context.read<AppState>();
 
-                        if (selectedIndex == null) {
-                          await st.setSelectedTheme("");
-                        } else {
-                          final selectedTheme = st.themes[selectedIndex!];
-                          await st.setSelectedTheme(selectedTheme.id);
-                        }
+                          if (selectedIndex == null) {
+                            await st.setSelectedTheme("c2");
+                          } else {
+                            final selectedTheme = st.themes[selectedIndex!];
+                            await st.setSelectedTheme(selectedTheme.id);
+                          }
 
-                        // 🔥 2) Sonraki ekrana git
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const OnboardingPreferencesScreen(),
-                          ),
-                        );
-                      },
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) =>
+                                  const OnboardingPreferencesScreen(),
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   ),
+
+                  const SizedBox(height: 42),
                 ],
               ),
             ),

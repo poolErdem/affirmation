@@ -12,14 +12,12 @@ class Constants {
   static const myCategoryId = 'myaffirmations';
 
   // Limits
-  static const freeGeneralLimit = 100;
   static const freeCategoryLimit = 100;
-  static const freeFavoriteLimit = 20;
-  static const freeMyAffLimit = 4;
+  static const freeMyAffLimit = 100;
   static const premiumMyAffLimit = 1000;
   static const freeMyAffReadLimit = 10000;
   static const prefsKey = "my_affirmations";
-  static const supportedLanguages = ['en', 'tr'];
+  static const supportedLanguages = ['en', 'tr', 'de', 'es'];
   static const String dataBasePath = "assets/data";
   static const String categoriesJson = "categories.json";
   static const String themesJson = "themes.json";

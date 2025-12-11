@@ -114,10 +114,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String get nameDescription => 'İsmin, onaylamaları kişiselleştirmemize yardımcı olur';
 
   @override
-  String get favoritesLimitMessage => 'Ücretsiz favori limitine (5) ulaştın.\n\nPremium’a geçerek sınırsız favori kaydedebilirsin ✨';
+  String get favoritesLimitMessage => 'Ücretsiz favori limitine (10) ulaştın.\n\nPremium’a geçerek sınırsız favori kaydedebilirsin ✨';
 
   @override
-  String get myAffLimit => 'Ücretsiz limitine (5) ulaştın.\n\nPremium’a geçerek 100’e kadar kendi onaylamanı kaydedebilirsin ✨';
+  String get myAffLimit => 'Ücretsiz limitine (10) ulaştın.\n\nPremium’a geçerek 1000\'ne kadar kendi onaylamanı kaydedebilirsin ✨';
 
   @override
   String get voiceLimitMessage => 'Ücretsiz ses önizlemen sona erdi. Sınırsız ve tam sesli okuma için Premium’a geç ✨';
@@ -394,4 +394,10 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get affTime => '🌟 Olumlama Zamanı';
+
+  @override
+  String get myAfflimitTitle => 'Olumlama Yazma Limiti';
+
+  @override
+  String get myAfflimitMessage => 'Ücretsiz olumlama yazma limitine (10) ulaştın.\n\nDaha fazla olumlama ekleyebilmek için Premium’a geçebilirsin.';
 }

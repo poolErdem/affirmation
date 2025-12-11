@@ -872,6 +872,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'🌟 Affirmation Time'**
   String get affTime;
+
+  /// No description provided for @myAfflimitTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Affirmation Limit'**
+  String get myAfflimitTitle;
+
+  /// No description provided for @myAfflimitMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve reached your free limit (10).\n\nUpgrade to Premium and save up to 100 custom affirmations ✨'**
+  String get myAfflimitMessage;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -27,9 +27,9 @@
     {"id":"c15","imageAsset":"assets/data/themes/c15.jpg","group":"Colorful","isPremiumLocked":false,"soundAsset":null},
  
 
-    {"id":"d1","imageAsset":"assets/data/themes/d1.jpg","group":"Dark","isPremiumLocked":false,"soundAsset":null},
-    {"id":"d2","imageAsset":"assets/data/themes/d2.jpg","group":"Dark","isPremiumLocked":false,"soundAsset":null},
-    {"id":"d3","imageAsset":"assets/data/themes/d3.jpg","group":"Dark","isPremiumLocked":false,"soundAsset":null},
+    {"id":"d1","imageAsset":"assets/data/themes/d1.jpg","group":"Dark","isPremiumLocked":true,"soundAsset":null},
+    {"id":"d2","imageAsset":"assets/data/themes/d2.jpg","group":"Dark","isPremiumLocked":true,"soundAsset":null},
+    {"id":"d3","imageAsset":"assets/data/themes/d3.jpg","group":"Dark","isPremiumLocked":true,"soundAsset":null},
     {"id":"d4","imageAsset":"assets/data/themes/d4.jpg","group":"Dark","isPremiumLocked":false,"soundAsset":null},
     {"id":"d5","imageAsset":"assets/data/themes/d5.jpg","group":"Dark","isPremiumLocked":false,"soundAsset":null},
     {"id":"d6","imageAsset":"assets/data/themes/d6.jpg","group":"Dark","isPremiumLocked":false,"soundAsset":null},

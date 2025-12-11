@@ -6,8 +6,6 @@ class Affirmation {
   final String language;
   final String gender; // "female", "male", "any"
 
-  String get displayText => text;
-
   Affirmation({
     required this.id,
     required this.text,

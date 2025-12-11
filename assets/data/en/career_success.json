@@ -305,7 +305,189 @@
 { "id": "cs_297", "text": "My ideas lead me toward meaningful breakthroughs, {name}.", "gender": "female" },
 { "id": "cs_298", "text": "I allow my skills to evolve in ways that surprise even me.", "gender": "female" },
 { "id": "cs_299", "text": "My ambition and intuition work together to shape my success.", "gender": "female" },
-{ "id": "cs_300", "text": "I trust the path that leads me into my next level, {name}.", "gender": "female" }
+{ "id": "cs_300", "text": "I trust the path that leads me into my next level, {name}.", "gender": "female" },
+
+{ "id": "cs_301", "text": "I am building a career that reflects my true potential.", "gender": "any" },
+{ "id": "cs_302", "text": "Opportunities rise naturally as I step into my power.", "gender": "any" },
+{ "id": "cs_303", "text": "I trust myself to make bold, strategic moves.", "gender": "any" },
+{ "id": "cs_304", "text": "Success follows the consistency I show every day.", "gender": "any" },
+{ "id": "cs_305", "text": "I attract work that values my skills and ambition.", "gender": "any" },
+
+{ "id": "cs_306", "text": "I show up with clarity, purpose, and confidence.", "gender": "any" },
+{ "id": "cs_307", "text": "My career expands in ways that support my growth.", "gender": "any" },
+{ "id": "cs_308", "text": "I move through challenges with strategic focus.", "gender": "any" },
+{ "id": "cs_309", "text": "I choose actions that elevate my professional path.", "gender": "any" },
+{ "id": "cs_310", "text": "My work ethic opens doors others can’t see yet.", "gender": "any" },
+
+{ "id": "cs_311", "text": "I am becoming a master of my craft.", "gender": "any" },
+{ "id": "cs_312", "text": "Every step I take builds lasting success.", "gender": "any" },
+{ "id": "cs_313", "text": "I trust myself to create meaningful impact.", "gender": "any" },
+{ "id": "cs_314", "text": "My skills grow stronger with every challenge I face.", "gender": "any" },
+{ "id": "cs_315", "text": "I make decisions that align with my long-term vision.", "gender": "any" },
+
+{ "id": "cs_316", "text": "I bring value, quality, and intention to everything I do.", "gender": "any" },
+{ "id": "cs_317", "text": "My ambition is guided, focused, and unstoppable.", "gender": "any" },
+{ "id": "cs_318", "text": "I am worthy of opportunities that elevate my career.", "gender": "any" },
+{ "id": "cs_319", "text": "I choose progress over perfection.", "gender": "any" },
+{ "id": "cs_320", "text": "My career grows because I continue to grow.", "gender": "any" },
+
+{ "id": "cs_321", "text": "I walk into work with confidence and intention.", "gender": "any" },
+{ "id": "cs_322", "text": "Every challenge strengthens my professional power.", "gender": "any" },
+{ "id": "cs_323", "text": "I trust myself to navigate complex decisions wisely.", "gender": "any" },
+{ "id": "cs_324", "text": "My career path becomes clearer as I move forward.", "gender": "any" },
+{ "id": "cs_325", "text": "I am becoming the person my goals require.", "gender": "any" },
+
+{ "id": "cs_326", "text": "I show up with discipline and determination.", "gender": "any" },
+{ "id": "cs_327", "text": "My strengths naturally attract the right opportunities.", "gender": "any" },
+{ "id": "cs_328", "text": "I make bold decisions that elevate my future.", "gender": "any" },
+{ "id": "cs_329", "text": "My contributions are valuable and recognized.", "gender": "any" },
+{ "id": "cs_330", "text": "I handle responsibility with confidence and clarity.", "gender": "any" },
+
+{ "id": "cs_331", "text": "I am committed to becoming excellent at what I do.", "gender": "any" },
+{ "id": "cs_332", "text": "Success flows to me through consistent aligned action.", "gender": "any" },
+{ "id": "cs_333", "text": "I trust myself to take smart, strategic risks.", "gender": "any" },
+{ "id": "cs_334", "text": "My career expands as I expand my mindset.", "gender": "any" },
+{ "id": "cs_335", "text": "I am worthy of advancement, growth, and recognition.", "gender": "any" },
+
+{ "id": "cs_336", "text": "I create results that speak louder than my fears.", "gender": "any" },
+{ "id": "cs_337", "text": "Momentum builds because I keep moving.", "gender": "any" },
+{ "id": "cs_338", "text": "I choose clarity over hesitation.", "gender": "any" },
+{ "id": "cs_339", "text": "My work reflects my ambition and discipline.", "gender": "any" },
+{ "id": "cs_340", "text": "I take actions today that my future self will thank me for.", "gender": "any" },
+
+{ "id": "cs_341", "text": "I am stepping into a new level of professional growth.", "gender": "any" },
+{ "id": "cs_342", "text": "My ideas carry value and impact.", "gender": "any" },
+{ "id": "cs_343", "text": "I am confident in my ability to succeed.", "gender": "any" },
+{ "id": "cs_344", "text": "My goals feel achievable because I continue to evolve.", "gender": "any" },
+{ "id": "cs_345", "text": "I move through my career with intention and strength.", "gender": "any" },
+
+{ "id": "cs_346", "text": "I trust my talent, my effort, and my direction.", "gender": "any" },
+{ "id": "cs_347", "text": "Success finds me because I am prepared for it.", "gender": "any" },
+{ "id": "cs_348", "text": "I lead myself with clarity and confidence.", "gender": "any" },
+{ "id": "cs_349", "text": "My ambition is powerful, grounded, and focused.", "gender": "any" },
+{ "id": "cs_350", "text": "I am ready for the opportunities that are coming my way.", "gender": "any" },
+
+{ "id": "cs_351", "text": "I make decisions that elevate my long-term success.", "gender": "any" },
+{ "id": "cs_352", "text": "I step into every challenge with strategic confidence.", "gender": "any" },
+{ "id": "cs_353", "text": "My work reflects my dedication and skill.", "gender": "any" },
+{ "id": "cs_354", "text": "I know how to create momentum in my career.", "gender": "any" },
+{ "id": "cs_355", "text": "I am ready for positions that require my expertise.", "gender": "any" },
+
+{ "id": "cs_356", "text": "I build success through steady, intentional action.", "gender": "any" },
+{ "id": "cs_357", "text": "My ambition fuels my progress every single day.", "gender": "any" },
+{ "id": "cs_358", "text": "I trust myself to handle big responsibilities.", "gender": "any" },
+{ "id": "cs_359", "text": "I choose focus over distraction.", "gender": "any" },
+{ "id": "cs_360", "text": "I bring discipline and clarity into my work.", "gender": "any" },
+
+{ "id": "cs_361", "text": "I am becoming the leader I once needed.", "gender": "any" },
+{ "id": "cs_362", "text": "My potential grows when I stay consistent.", "gender": "any" },
+{ "id": "cs_363", "text": "I trust my instincts in high-pressure situations.", "gender": "any" },
+{ "id": "cs_364", "text": "Success expands when I move with purpose.", "gender": "any" },
+{ "id": "cs_365", "text": "I am confident in the value I deliver.", "gender": "any" },
+
+{ "id": "cs_366", "text": "I take action even when the path is unfamiliar.", "gender": "any" },
+{ "id": "cs_367", "text": "My work speaks for itself through excellence.", "gender": "any" },
+{ "id": "cs_368", "text": "I stay committed to my goals, even on slow days.", "gender": "any" },
+
+{ "id": "cs_369", "text": "I welcome opportunities that match my ambition.", "gender": "any" },
+{ "id": "cs_370", "text": "I am ready to outperform my past self.", "gender": "any" },
+{ "id": "cs_371", "text": "My career grows each time I choose focus over fear.", "gender": "any" },
+{ "id": "cs_372", "text": "I take decisive action that moves my goals forward.", "gender": "any" },
+{ "id": "cs_373", "text": "I trust my ability to rise in high-pressure moments.", "gender": "any" },
+
+{ "id": "cs_374", "text": "I bring clarity, strength, and expertise to every task.", "gender": "any" },
+{ "id": "cs_375", "text": "My consistency is building unstoppable momentum.", "gender": "any" },
+{ "id": "cs_376", "text": "I choose discipline because I respect my future.", "gender": "any" },
+{ "id": "cs_377", "text": "I am becoming someone who delivers excellence naturally.", "gender": "any" },
+{ "id": "cs_378", "text": "I trust the direction my ambition is taking me.", "gender": "any" },
+
+{ "id": "cs_379", "text": "I step into meetings with confidence and authority.", "gender": "any" },
+{ "id": "cs_380", "text": "My ideas carry weight because they come from expertise.", "gender": "any" },
+{ "id": "cs_381", "text": "I give myself permission to aim higher.", "gender": "any" },
+{ "id": "cs_382", "text": "I create results that make my future self proud.", "gender": "any" },
+{ "id": "cs_383", "text": "I choose to lead with clarity and strong decision-making.", "gender": "any" },
+
+{ "id": "cs_384", "text": "I stay focused because my goals matter deeply.", "gender": "any" },
+{ "id": "cs_385", "text": "I rise in my career by showing up powerfully every day.", "gender": "any" },
+{ "id": "cs_386", "text": "My ambition is a strength I honor, not hide.", "gender": "any" },
+{ "id": "cs_387", "text": "I turn challenges into sharper skills.", "gender": "any" },
+{ "id": "cs_388", "text": "I am capable of achieving extraordinary success.", "gender": "any" },
+
+{ "id": "cs_389", "text": "I trust myself to navigate the unknown with strategy.", "gender": "any" },
+{ "id": "cs_390", "text": "My work builds long-term impact and stability.", "gender": "any" },
+{ "id": "cs_391", "text": "I choose patience and persistence over shortcuts.", "gender": "any" },
+{ "id": "cs_392", "text": "I am aligning my actions with the future I want.", "gender": "any" },
+{ "id": "cs_393", "text": "I lead myself like someone destined for success.", "gender": "any" },
+
+{ "id": "cs_394", "text": "I show up even when motivation fades.", "gender": "any" },
+{ "id": "cs_395", "text": "My growth compounds with every deliberate effort.", "gender": "any" },
+{ "id": "cs_396", "text": "I take responsibility for the success I desire.", "gender": "any" },
+{ "id": "cs_397", "text": "I bring competitive energy and calm precision to my work.", "gender": "any" },
+{ "id": "cs_398", "text": "I choose to stand out rather than fit in.", "gender": "any" },
+
+{ "id": "cs_399", "text": "I am building a professional life I’m proud of.", "gender": "any" },
+{ "id": "cs_400", "text": "My value increases as I refine my skills.", "gender": "any" },
+{ "id": "cs_401", "text": "I am prepared for bigger opportunities than ever before.", "gender": "any" },
+{ "id": "cs_402", "text": "I trust myself to execute my vision effectively.", "gender": "any" },
+{ "id": "cs_403", "text": "I bring ambition, precision, and resilience into my work.", "gender": "any" },
+
+{ "id": "cs_404", "text": "I am becoming the kind of person success gravitates toward.", "gender": "any" },
+{ "id": "cs_405", "text": "My work reflects excellence because I expect it from myself.", "gender": "any" },
+{ "id": "cs_406", "text": "I stay consistent because my goals deserve it.", "gender": "any" },
+{ "id": "cs_407", "text": "I make choices that strengthen my professional identity.", "gender": "any" },
+{ "id": "cs_408", "text": "I am capable of thriving in demanding situations.", "gender": "any" },
+
+{ "id": "cs_409", "text": "I move with confidence because I trust my preparation.", "gender": "any" },
+{ "id": "cs_410", "text": "My ambition is turning into real, measurable progress.", "gender": "any" },
+{ "id": "cs_411", "text": "I take steps today that create a powerful tomorrow.", "gender": "any" },
+{ "id": "cs_412", "text": "I am building mastery through patience and repetition.", "gender": "any" },
+{ "id": "cs_413", "text": "I communicate with clarity, certainty, and purpose.", "gender": "any" },
+
+{ "id": "cs_414", "text": "I trust myself in moments that require leadership.", "gender": "any" },
+{ "id": "cs_415", "text": "My work ethic sets me apart.", "gender": "any" },
+{ "id": "cs_416", "text": "I lean into challenges because they sharpen my direction.", "gender": "any" },
+{ "id": "cs_417", "text": "I stay committed to the vision even when progress is slow.", "gender": "any" },
+{ "id": "cs_418", "text": "I am ready for the success I have been preparing for.", "gender": "any" },
+
+{ "id": "cs_419", "text": "I make moves that position me for long-term success.", "gender": "any" },
+{ "id": "cs_420", "text": "My discipline outperforms motivation every time.", "gender": "any" },
+{ "id": "cs_421", "text": "I operate with clarity, strategy, and precision.", "gender": "any" },
+{ "id": "cs_422", "text": "I trust my decisions because they come from strength, not fear.", "gender": "any" },
+{ "id": "cs_423", "text": "I am building a career with impact and intention.", "gender": "any" },
+
+{ "id": "cs_424", "text": "I walk into every room like I belong there.", "gender": "any" },
+{ "id": "cs_425", "text": "My work ethic is my competitive advantage.", "gender": "any" },
+{ "id": "cs_426", "text": "I stay calm under pressure because I trust my preparation.", "gender": "any" },
+{ "id": "cs_427", "text": "I choose the hard things because they create real growth.", "gender": "any" },
+{ "id": "cs_428", "text": "I don’t wait for momentum—I create it.", "gender": "any" },
+
+{ "id": "cs_429", "text": "I am becoming someone whose results speak loudly.", "gender": "any" },
+{ "id": "cs_430", "text": "My ambition drives me, but my consistency sustains me.", "gender": "any" },
+{ "id": "cs_431", "text": "I approach my goals with patience and tactical focus.", "gender": "any" },
+{ "id": "cs_432", "text": "I take action even when comfort tries to hold me back.", "gender": "any" },
+{ "id": "cs_433", "text": "I know how to show up when it matters most.", "gender": "any" },
+
+{ "id": "cs_434", "text": "I own my strengths and I refine my weaknesses.", "gender": "any" },
+{ "id": "cs_435", "text": "I am committed to mastery, not mediocrity.", "gender": "any" },
+{ "id": "cs_436", "text": "I execute with confidence because I have done the work.", "gender": "any" },
+{ "id": "cs_437", "text": "I stay focused on what I can control and release the rest.", "gender": "any" },
+{ "id": "cs_438", "text": "I rise professionally because I refuse to stay small.", "gender": "any" },
+
+{ "id": "cs_439", "text": "I choose actions that align with the career I want.", "gender": "any" },
+{ "id": "cs_440", "text": "My mindset is my strongest business tool.", "gender": "any" },
+{ "id": "cs_441", "text": "I create results others don’t expect because I work when they don’t.", "gender": "any" },
+{ "id": "cs_442", "text": "I stay strategic, calm, and forward-thinking.", "gender": "any" },
+{ "id": "cs_443", "text": "I am becoming the professional version of myself I once admired.", "gender": "any" },
+
+{ "id": "cs_444", "text": "I take responsibility for both my success and my growth.", "gender": "any" },
+{ "id": "cs_445", "text": "My decisions are guided by logic, vision, and confidence.", "gender": "any" },
+{ "id": "cs_446", "text": "I am unshakeable because I know what I bring to the table.", "gender": "any" },
+{ "id": "cs_447", "text": "I release hesitation and act with conviction.", "gender": "any" },
+{ "id": "cs_448", "text": "I elevate my career by elevating my standards.", "gender": "any" },
+
+{ "id": "cs_449", "text": "I show up like someone who’s already successful.", "gender": "any" },
+{ "id": "cs_450", "text": "I move with patience, intelligence, and relentless ambition.", "gender": "any" }
+
   ]
 }
     

@@ -40,6 +40,7 @@ class PlaybackState extends ChangeNotifier {
   void forceStop() {
     _isReading = false;
     _autoReadEnabled = false;
+    _volumeEnabled = false;
     _limitTimer?.cancel();
     _tts.stop();
     notifyListeners();

@@ -90,9 +90,9 @@ class FavoritesListScreen extends StatelessWidget {
 }
 
 //-------------------------------------------
-// FAVORITE ROW WITH DATE BELOW TEXT
+// FAVORITE ROW – PREMIUM SERENE MIND STYLE
 //-------------------------------------------
-class _FavoriteRow extends StatelessWidget {
+class _FavoriteRow extends StatefulWidget {
   final Affirmation affirmation;
   final String displayText;
   final int? timestamp;
@@ -104,13 +104,28 @@ class _FavoriteRow extends StatelessWidget {
   });
 
   @override
+  State<_FavoriteRow> createState() => _FavoriteRowState();
+}
+
+class _FavoriteRowState extends State<_FavoriteRow>
+    with SingleTickerProviderStateMixin {
+  bool _pressed = false;
+
+  @override
   Widget build(BuildContext context) {
-    final date = timestamp != null
-        ? formatFavoriteDate(DateTime.fromMillisecondsSinceEpoch(timestamp!))
+    final aff = widget.affirmation;
+
+    final date = widget.timestamp != null
+        ? formatFavoriteDate(
+            DateTime.fromMillisecondsSinceEpoch(widget.timestamp!))
         : null;
 
     return GestureDetector(
-      behavior: HitTestBehavior.opaque,
+      onTapDown: (_) => setState(() => _pressed = true),
+      onTapUp: (_) => setState(() => _pressed = false),
+      onTapCancel: () => setState(() => _pressed = false),
+
+      // 🧊 SATIR TIKLANDIĞINDA HOME’A GÖTÜR
       onTap: () {
         final app = context.read<AppState>();
         app.setActiveCategoryIdOnly(Constants.favoritesCategoryId);
@@ -120,100 +135,123 @@ class _FavoriteRow extends StatelessWidget {
           MaterialPageRoute(
             builder: (_) => HomeScreen(
               initialCategoryId: Constants.favoritesCategoryId,
-              initialAffirmationId: affirmation.id,
+              initialAffirmationId: aff.id,
             ),
           ),
           (route) => false,
         );
       },
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-        decoration: BoxDecoration(
-          color: Colors.white.withValues(alpha: 0.08),
-          borderRadius: BorderRadius.circular(18),
-          border: Border.all(
-            color: Colors.white.withValues(alpha: 0.20),
-            width: 1.2,
-          ),
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // ------------------------------
-            // LEFT SIDE (TEXT + DATE)
-            // ------------------------------
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    displayText,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      height: 1.35,
-                      fontFamily: "Poppins",
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  if (date != null) ...[
-                    const SizedBox(height: 6),
-                    Text(
-                      date,
-                      style: TextStyle(
-                        color: Colors.white.withValues(alpha: 0.60),
-                        fontSize: 13,
-                        height: 1.2,
-                        fontFamily: "Poppins",
-                        fontWeight: FontWeight.w400,
-                      ),
+
+      child: AnimatedScale(
+        scale: _pressed ? 0.97 : 1.0,
+        duration: const Duration(milliseconds: 120),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          decoration: BoxDecoration(
+            color: Colors.white.withValues(alpha: 0.07),
+            borderRadius: BorderRadius.circular(18),
+            border: Border.all(
+              color: Colors.white.withValues(alpha: 0.22),
+              width: 1.2,
+            ),
+
+            // 🔵 Soft-blue glow hover
+            boxShadow: _pressed
+                ? [
+                    BoxShadow(
+                      color: const Color(0xFFAEE5FF).withValues(alpha: 0.35),
+                      blurRadius: 18,
+                      offset: const Offset(0, 6),
                     ),
                   ]
+                : [],
+          ),
+
+          // ------------------------------
+          // CONTENT
+          // ------------------------------
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // LEFT TEXT
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.displayText,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        height: 1.35,
+                        fontFamily: "Poppins",
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    if (date != null) ...[
+                      const SizedBox(height: 6),
+                      Text(
+                        date,
+                        style: TextStyle(
+                          color: Colors.white.withValues(alpha: 0.60),
+                          fontSize: 13,
+                          height: 1.2,
+                          fontFamily: "Poppins",
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ]
+                  ],
+                ),
+              ),
+
+              const SizedBox(width: 10),
+
+              // RIGHT SIDE BUTTONS
+              Column(
+                children: [
+                  // SHARE
+                  GestureDetector(
+                    onTap: () {
+                      final renderedText = aff.renderWithName(
+                        context.read<AppState>().preferences.userName,
+                      );
+                      Share.share(renderedText);
+                    },
+                    child: Icon(
+                      Icons.ios_share,
+                      color: const Color(0xFFAEE5FF), // 🔵 serene blue
+                      size: 22,
+                    ),
+                  ),
+
+                  const SizedBox(height: 12),
+
+                  // UN-FAVORITE
+                  GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () {
+                      context.read<AppState>().toggleFavorite(aff.id);
+                    },
+                    child: Icon(
+                      Icons.favorite,
+                      color: Colors.pinkAccent.shade100, // pastel, premium
+                      size: 24,
+                    ),
+                  ),
                 ],
               ),
-            ),
-
-            const SizedBox(width: 10),
-
-            // ------------------------------
-            // RIGHT SIDE BUTTONS
-            // ------------------------------
-            Column(
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    final rendered = affirmation.renderWithName(
-                      context.read<AppState>().userName ?? "",
-                    );
-                    Share.share(rendered);
-                  },
-                  child: Icon(
-                    Icons.ios_share,
-                    color: Colors.white.withValues(alpha: 0.85),
-                    size: 22,
-                  ),
-                ),
-                const SizedBox(height: 12),
-                GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: () {
-                    context.read<AppState>().toggleFavorite(affirmation.id);
-                  },
-                  child: const Icon(
-                    Icons.favorite,
-                    color: Colors.pinkAccent,
-                    size: 24,
-                  ),
-                ),
-              ],
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
+//-------------------------------------------
+// DATE FORMATTER
+//-------------------------------------------
 String _monthName(int m) {
   return Constants.months[m];
 }

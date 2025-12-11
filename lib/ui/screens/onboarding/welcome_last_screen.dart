@@ -1,9 +1,10 @@
 import 'dart:math';
 import 'package:affirmation/l10n/app_localizations.dart';
 import 'package:affirmation/state/app_state.dart';
+import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:confetti/confetti.dart';
+
 import '../home_screen.dart';
 
 class WelcomeLastScreen extends StatefulWidget {
@@ -22,19 +23,23 @@ class _WelcomeLastScreenState extends State<WelcomeLastScreen>
   void initState() {
     super.initState();
 
+    // ⭐ Daha hızlı, daha temiz giriş animasyonu
     _fadeScale = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 3000),
+      duration: const Duration(milliseconds: 1400),
     )..forward();
 
+    // ⭐ Confetti
     _confettiController =
-        ConfettiController(duration: const Duration(milliseconds: 3000));
+        ConfettiController(duration: const Duration(milliseconds: 2200));
 
-    Future.delayed(const Duration(milliseconds: 3000), () {
+    // ⭐ Confetti 1sn sonra başlasın
+    Future.delayed(const Duration(milliseconds: 1000), () {
       _confettiController.play();
     });
 
-    Future.delayed(const Duration(milliseconds: 7000), () {
+    // ⭐ HomeScreen’e daha hızlı geçiş (4s)
+    Future.delayed(const Duration(milliseconds: 4000), () {
       if (!mounted) return;
       Navigator.pushReplacement(
         context,
@@ -63,15 +68,15 @@ class _WelcomeLastScreenState extends State<WelcomeLastScreen>
       extendBodyBehindAppBar: true,
       body: Stack(
         children: [
-          // 🌟 PREMIUM GOLD BACKGROUND
+          // ⭐ Blue + Gold Premium Background
           Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Color.fromARGB(255, 104, 97, 83), // üst koyu luxury black
-                  Color.fromARGB(255, 228, 211, 186), // deep brown gold
-                  Color.fromARGB(255, 228, 226, 222), // soft gold
-                  Color.fromARGB(255, 241, 237, 226), // premium light gold
+                  Color(0xFF0E1621), // dark premium blue
+                  Color(0xFF26384A), // deep blue
+                  Color(0xFFE4C98A), // soft gold
+                  Color(0xFFF3EFE7), // light champagne
                 ],
                 stops: [0.0, 0.35, 0.72, 1.0],
                 begin: Alignment.topCenter,
@@ -80,32 +85,31 @@ class _WelcomeLastScreenState extends State<WelcomeLastScreen>
             ),
           ),
 
-          // 🌟 CONFETTI (değişmiyor)
+          // ⭐ Brand Confetti — Blue + Gold
           Align(
             alignment: Alignment.topCenter,
             child: ConfettiWidget(
               confettiController: _confettiController,
               blastDirectionality: BlastDirectionality.explosive,
-              emissionFrequency: 0.2,
-              numberOfParticles: 32,
-              maxBlastForce: 30,
-              minBlastForce: 10,
-              gravity: 0.25,
+              emissionFrequency: 0.18,
+              numberOfParticles: 26,
+              maxBlastForce: 22,
+              minBlastForce: 8,
+              gravity: 0.20,
               colors: [
-                const Color(0xFFC9A85D),
-                const Color.fromARGB(255, 80, 118, 156),
-                const Color.fromARGB(255, 193, 108, 108),
-                const Color.fromARGB(255, 106, 184, 100),
-                const Color.fromARGB(255, 202, 194, 194),
-                const Color.fromARGB(255, 48, 46, 46),
+                Color(0xFFC9A85D), // gold
+                Color(0xFF4C98FF), // blue
+                Color(0xFF8AA4C2), // soft blue
+                Color(0xFFF3EFE7), // champagne white
+                Color(0xFF1A1D1F), // dark accent
               ],
               createParticlePath: _drawStar,
             ),
           ),
 
-          // 🌟 MAIN CONTENT (Premium Typography)
+          // ⭐ Main Content
           Positioned(
-            top: 280,
+            top: MediaQuery.of(context).size.height * 0.26,
             left: 0,
             right: 0,
             child: ScaleTransition(
@@ -119,12 +123,8 @@ class _WelcomeLastScreenState extends State<WelcomeLastScreen>
                   curve: Curves.easeOut,
                 ),
                 child: Column(
-                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    // main icon
-                    const SizedBox(height: 15),
-
-                    // ⭐ TITLE (gold gradient)
+                    // ⭐ Gradient Gold Title
                     ShaderMask(
                       shaderCallback: (rect) {
                         return const LinearGradient(
@@ -151,22 +151,24 @@ class _WelcomeLastScreenState extends State<WelcomeLastScreen>
 
                     const SizedBox(height: 16),
 
-                    // ⭐ Sub text
-                    Text(
-                      t.welcomeLast,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 17,
-                        color: const Color.fromARGB(255, 121, 114, 114)
-                            .withValues(alpha: 0.88),
-                        height: 1.45,
-                        shadows: [
-                          Shadow(
-                            color: Colors.black.withValues(alpha: 0.40),
-                            blurRadius: 6,
-                            offset: const Offset(0, 2),
-                          ),
-                        ],
+                    // ⭐ Sub text — daha soft premium
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      child: Text(
+                        t.welcomeLast,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 17,
+                          color: Colors.white.withValues(alpha: 0.88),
+                          height: 1.45,
+                          shadows: [
+                            Shadow(
+                              color: Colors.black.withValues(alpha: 0.35),
+                              blurRadius: 6,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -180,7 +182,7 @@ class _WelcomeLastScreenState extends State<WelcomeLastScreen>
   }
 }
 
-// ⭐ Star Path
+// ⭐ Star particles for confetti
 Path _drawStar(Size size) {
   const numberOfPoints = 5;
   final halfWidth = size.width / 2;

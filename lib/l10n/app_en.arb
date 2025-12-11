@@ -40,7 +40,7 @@
   "genderDescription": "We’ll personalize the experience based on your preference",
   "nameDescription": "Your name helps us personalize your affirmations",
   "favoritesLimitMessage": "You've reached your free favorites limit (5).\n\nUpgrade to Premium ✨",
-  "myAffLimit": "You've reached your free limit (5).\n\nUpgrade to Premium and save up to 100 custom affirmations ✨",
+  "myAffLimit": "You've reached your free limit (5).\n\nUpgrade to Premium and save up to 5000 custom affirmations ✨",
   "voiceLimitMessage": "Your free voice preview is finished. Go Premium to enjoy full, unlimited voice reading ✨",
   "myAffLimitTitle" : "My Affirmations Limit",
   "myAff" : "My Affirmations",
@@ -152,6 +152,9 @@
 "selectThemeWarning" : "Please select at least one option", 
 "favoritesEmpty": "Your favorite list is empty",
 "myAffEmpty": "You haven't added any affirmations yet",
-"affTime": "🌟 Affirmation Time"
+"affTime": "🌟 Affirmation Time",
+"myAfflimitTitle": "Affirmation Limit",
+"myAfflimitMessage": "You've reached your free limit (10).\n\nUpgrade to Premium and save up to 5000 custom affirmations ✨"
+
 
 }

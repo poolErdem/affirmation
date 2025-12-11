@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:affirmation/constants/constants.dart';
 import 'package:affirmation/state/app_state.dart';
 import 'package:affirmation/ui/screens/onboarding/welcome_last_screen.dart';
@@ -17,13 +18,35 @@ class OnboardingPreferencesScreen extends StatefulWidget {
 }
 
 class _OnboardingPreferencesScreenState
-    extends State<OnboardingPreferencesScreen> {
+    extends State<OnboardingPreferencesScreen>
+    with SingleTickerProviderStateMixin {
   final Set<String> selected = {};
+
+  late AnimationController _shakeController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _shakeController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 700),
+    );
+  }
+
+  @override
+  void dispose() {
+    _shakeController.dispose();
+    super.dispose();
+  }
+
+  void _triggerCuteShake() {
+    _shakeController.forward(from: 0);
+  }
 
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context)!;
-
     final prefs = Constants.allCategories;
 
     return Scaffold(
@@ -37,7 +60,7 @@ class _OnboardingPreferencesScreenState
             ),
           ),
 
-          // DARK CINEMATIC GRADIENT
+          // GRADIENT
           Positioned.fill(
             child: Container(
               decoration: const BoxDecoration(
@@ -62,7 +85,7 @@ class _OnboardingPreferencesScreenState
                 children: [
                   const SizedBox(height: 12),
 
-                  // Back
+                  // BACK
                   GestureDetector(
                     onTap: () => Navigator.pop(context),
                     child: Text(
@@ -75,14 +98,13 @@ class _OnboardingPreferencesScreenState
                     ),
                   ),
 
-                  const SizedBox(height: 35),
+                  const SizedBox(height: 30),
 
-                  // TITLE
                   Center(
                     child: Text(
                       t.choosePreferences,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 28,
                         height: 1.2,
@@ -92,88 +114,110 @@ class _OnboardingPreferencesScreenState
                   ),
 
                   const SizedBox(height: 10),
+
                   Center(
                     child: Text(
                       t.youCanChangeLater,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white70,
                         fontSize: 15,
-                        fontWeight: FontWeight.w400,
                       ),
                     ),
                   ),
 
-                  const SizedBox(height: 28),
+                  const SizedBox(height: 39),
 
-                  // GRID
+                  // ⭐ CUTE SHAKE GRID ⭐
                   Expanded(
-                    child: GridView.builder(
-                      padding: const EdgeInsets.only(bottom: 95),
-                      itemCount: prefs.length,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 16,
-                        mainAxisSpacing: 20,
-                        childAspectRatio: 2.9,
-                      ),
-                      itemBuilder: (context, index) {
-                        final item = prefs[index]; // "self_care"
-                        final isSelected =
-                            selected.contains(item); // doğru selection kontrolü
-                        final text =
-                            localizedCategoryName(t, item); // localized label
+                    child: AnimatedBuilder(
+                      animation: _shakeController,
+                      builder: (context, _) {
+                        final progress = Curves.easeInOutCubic
+                            .transform(_shakeController.value);
 
-                        return GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              isSelected
-                                  ? selected.remove(item)
-                                  : selected.add(item);
-                            });
-                          },
-                          child: AnimatedContainer(
-                            duration: const Duration(milliseconds: 180),
-                            curve: Curves.easeOut,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(40),
-                              border: Border.all(
-                                color: isSelected
-                                    ? Colors.white
-                                    : Colors.white.withValues(alpha: 0.55),
-                                width: isSelected ? 2.2 : 1.6,
-                              ),
-                              color: isSelected
-                                  ? Colors.white.withValues(alpha: 0.15)
-                                  : Colors.white.withValues(alpha: 0.05),
-                              boxShadow: isSelected
-                                  ? [
-                                      BoxShadow(
-                                        color: Colors.white
-                                            .withValues(alpha: 0.25),
-                                        blurRadius: 14,
-                                        spreadRadius: 1,
-                                      )
-                                    ]
-                                  : [],
-                            ),
-                            child: Center(
-                              child: Text(
-                                text,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
+                        return GridView.builder(
+                          padding: const EdgeInsets.only(bottom: 95),
+                          itemCount: prefs.length,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 16,
+                            mainAxisSpacing: 20,
+                            childAspectRatio: 2.9,
+                          ),
+                          itemBuilder: (context, index) {
+                            final item = prefs[index];
+                            final isSelected = selected.contains(item);
+                            final text = localizedCategoryName(t, item);
+
+                            // 🍬 Sevimli micro-bounce amplitüdü
+                            const double amp = 1.1;
+
+                            // Her kutu farklı fazla oynuyor → doğal görünüm
+                            final double phase = index * 0.9;
+
+                            // X ve Y mikro hareket
+                            final dx = sin(progress * 22 + phase) * amp;
+                            final dy = cos(progress * 26 + phase) * amp;
+
+                            return Transform.translate(
+                              offset: _shakeController.isAnimating
+                                  ? Offset(dx, dy)
+                                  : Offset.zero,
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    isSelected
+                                        ? selected.remove(item)
+                                        : selected.add(item);
+                                  });
+                                },
+                                child: AnimatedContainer(
+                                  duration: const Duration(milliseconds: 180),
+                                  curve: Curves.easeOut,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(40),
+                                    border: Border.all(
+                                      color: isSelected
+                                          ? Colors.white
+                                          : Colors.white
+                                              .withValues(alpha: 0.55),
+                                      width: isSelected ? 2.2 : 1.6,
+                                    ),
+                                    color: isSelected
+                                        ? Colors.white.withValues(alpha: 0.15)
+                                        : Colors.white.withValues(alpha: 0.05),
+                                    boxShadow: isSelected
+                                        ? [
+                                            BoxShadow(
+                                              color: Colors.white
+                                                  .withValues(alpha: 0.25),
+                                              blurRadius: 14,
+                                              spreadRadius: 1,
+                                            )
+                                          ]
+                                        : [],
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      text,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
+                            );
+                          },
                         );
                       },
                     ),
                   ),
 
-                  // ⭐️⭐️⭐️ PREMIUM GLASS BUTTON + PRESS EFFECT ⭐️⭐️⭐️
+                  // CONTINUE BUTTON
                   Pressable(
                     child: GlassButton(
                       text: t.continueLabel,
@@ -181,6 +225,8 @@ class _OnboardingPreferencesScreenState
                         final st = context.read<AppState>();
 
                         if (selected.isEmpty) {
+                          _triggerCuteShake();
+
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(t.selectThemeWarning),
@@ -188,11 +234,11 @@ class _OnboardingPreferencesScreenState
                               duration: const Duration(seconds: 2),
                             ),
                           );
-                          return; // ❗ İLERİ GİTME
+
+                          return;
                         }
 
                         await st.setSelectedContentPreferences(selected);
-
                         await st.completeOnboarding();
 
                         Navigator.push(
@@ -203,6 +249,8 @@ class _OnboardingPreferencesScreenState
                       },
                     ),
                   ),
+
+                  const SizedBox(height: 42),
                 ],
               ),
             ),
