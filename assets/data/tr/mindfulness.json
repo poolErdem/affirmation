@@ -1,5 +1,567 @@
-[
+{
+  "categoryId": "mindfulness",
+  "affirmations": [
 
-        { "id": "hp_001", "text": "Joy flows toward me more easily when I make space for simple pleasures.", "preferences": ["happiness"], "gender": "female" }
+{ "id": "m_001", "text": "Bugün nefesimin beni yumuşakça merkezlediğini hissediyorum.", "gender": "any" },
+{ "id": "m_002", "text": "Her nefes alışımda içimde daha fazla sakinlik beliriyor.", "gender": "female" },
+{ "id": "m_003", "text": "Bugün anda kalmak bana huzur veriyor.", "gender": "any" },
+{ "id": "m_004", "text": "Düşüncelerim yavaşladıkça etrafımdaki dünya daha berrak oluyor.", "gender": "any" },
+{ "id": "m_005", "text": "Nefesimin ritmi bana doğal bir denge sunuyor.", "gender": "male" },
+
+{ "id": "m_006", "text": "Bugün zihnimdeki sis hafifçe aralanıyor.", "gender": "any" },
+{ "id": "m_007", "text": "Her anda var olmak beni derin bir huzura götürüyor.", "gender": "female" },
+{ "id": "m_008", "text": "Nefesimin sıcaklığı içimi yumuşatıyor.", "gender": "any" },
+
+{ "id": "m_009", "text": "Bugün kalbinle kurduğun bağ seni daha da güçlendiriyor, {name}.", "gender": "any" },
+
+{ "id": "m_010", "text": "Dinginlik bugün içimde sessizce kök salıyor.", "gender": "male" },
+{ "id": "m_011", "text": "Her nefes bana yeni bir alan açıyor.", "gender": "any" },
+{ "id": "m_012", "text": "Bugün bedenim ve zihnim aynı yumuşak ritimde buluşuyor.", "gender": "female" },
+{ "id": "m_013", "text": "Kendimi olduğum yerde kabul etmek bana huzur veriyor.", "gender": "any" },
+{ "id": "m_014", "text": "Nefesimin sakinliği beni yavaşça gevşetiyor.", "gender": "any" },
+
+{ "id": "m_015", "text": "Bugün etrafımdaki sesler bile daha yumuşak geliyor.", "gender": "male" },
+{ "id": "m_016", "text": "Anda kalmak beni hafifçe aydınlatıyor.", "gender": "any" },
+{ "id": "m_017", "text": "Zihnimin dalgaları bugün daha sakin bir ritimde.", "gender": "female" },
+{ "id": "m_018", "text": "Bedenimin verdiği mesajları daha net duyuyorum.", "gender": "any" },
+{ "id": "m_019", "text": "Bugün içsel alanım daha geniş ve daha huzurlu hissediliyor.", "gender": "any" },
+
+{ "id": "m_020", "text": "Her nefeste içimde bir hafiflik beliriyor.", "gender": "male" },
+{ "id": "m_021", "text": "Dingin bir anda kalmak ruhumu yeniliyor.", "gender": "any" },
+
+{ "id": "m_022", "text": "Bugün kalbinin ritmine kulak verdiğinde daha da derinleşiyorsun, {name}.", "gender": "any" },
+
+{ "id": "m_023", "text": "Her şeyin yavaşladığı bu an bana iyi geliyor.", "gender": "female" },
+{ "id": "m_024", "text": "Bugün nefesimle kurduğum bağ beni köklendiriyor.", "gender": "any" },
+{ "id": "m_025", "text": "Zihnimdeki hareketlilik yumuşakça azalıyor.", "gender": "any" },
+{ "id": "m_026", "text": "Bugün içsel sessizliğim bana derin bir netlik sunuyor.", "gender": "male" },
+{ "id": "m_027", "text": "Nefesimin akışı beni doğal bir uyuma davet ediyor.", "gender": "any" },
+
+{ "id": "m_028", "text": "Her anda farkındalıkla kalmak beni hafifçe besliyor.", "gender": "female" },
+{ "id": "m_029", "text": "Bugün zihnimde tatlı bir durgunluk taşıyorum.", "gender": "any" },
+{ "id": "m_030", "text": "Nefesimin sakin melodisi beni rahatlattıkça gevşiyorum.", "gender": "any" },
+
+{ "id": "m_031", "text": "Bugün içime doğru attığım her adım bana huzur getiriyor.", "gender": "male" },
+{ "id": "m_032", "text": "Zihnimin berraklığı yavaşça ortaya çıkıyor.", "gender": "any" },
+
+{ "id": "m_033", "text": "Anda kaldığında ortaya çıkan sessizlik seni sarıyor, {name}.", "gender": "any" },
+
+{ "id": "m_034", "text": "Bugün bedenimin verdiği küçük sinyalleri daha iyi duyuyorum.", "gender": "female" },
+{ "id": "m_035", "text": "Her nefes bana bir adım daha huzur sunuyor.", "gender": "any" },
+{ "id": "m_036", "text": "Zihnimdeki ağırlık bugün hafifçe çözülüyor.", "gender": "any" },
+{ "id": "m_037", "text": "Bugün içimde daha sıcak bir sessizlik taşıyorum.", "gender": "male" },
+{ "id": "m_038", "text": "Her farkındalık anı beni derin bir huzura götürüyor.", "gender": "any" },
+
+{ "id": "m_039", "text": "Bugün nefesimin akışı beni olduğum yere yumuşakça getiriyor.", "gender": "female" },
+{ "id": "m_040", "text": "Zihnimdeki gürültü azalırken kalbim daha net duyuluyor.", "gender": "any" },
+{ "id": "m_041", "text": "Bugün sessizliği içimde bir armağan gibi hissediyorum.", "gender": "any" },
+{ "id": "m_042", "text": "Her nefes, içimdeki dalgaları nazikçe yatıştırıyor.", "gender": "male" },
+{ "id": "m_043", "text": "Bugün içimde beliren hafif dinginlik beni yeniliyor.", "gender": "any" },
+
+{ "id": "m_044", "text": "Kalbimde oluşan sakinlik beni daha açık bir alana taşıyor.", "gender": "female" },
+{ "id": "m_045", "text": "Her anda farkındalıkla kalmak beni hafifçe dengeliyor.", "gender": "any" },
+{ "id": "m_046", "text": "Bugün nefesimin ritmi beni daha derine çağırıyor.", "gender": "any" },
+{ "id": "m_047", "text": "Zihnim bugün daha sessiz, daha yumuşak.", "gender": "male" },
+{ "id": "m_048", "text": "Her nefes alışımda yeni bir hafiflik buluyorum.", "gender": "any" },
+{ "id": "m_049", "text": "Bugün içimde yavaşça genişleyen bir huzur alanı var.", "gender": "female" },
+{ "id": "m_050", "text": "Sessizliğin ince dokunuşu bugün beni şefkatle sarıyor.", "gender": "any" },
+
+
+{ "id": "m_051", "text": "Bugün nefesimin beni yumuşakça merkezlediğini hissediyorum.", "gender": "any" },
+{ "id": "m_052", "text": "Her nefeste bedenim biraz daha gevşiyor.", "gender": "female" },
+{ "id": "m_053", "text": "Bugün zihnim daha sakin bir ritimde akıyor.", "gender": "any" },
+{ "id": "m_054", "text": "Nefesimin sıcaklığı içime derin bir huzur yayıyor.", "gender": "any" },
+{ "id": "m_055", "text": "Bu anda olmak bana yumuşak bir berraklık getiriyor.", "gender": "male" },
+
+{ "id": "m_056", "text": "Bugün düşüncelerim sessizce uzaklaşıyor.", "gender": "any" },
+{ "id": "m_057", "text": "Nefesimi izledikçe içsel alanım genişliyor.", "gender": "female" },
+{ "id":"m_058", "text": "Bugün sessizlik bana güven veriyor.", "gender": "any" },
+{ "id": "m_059", "text": "Her nefes alışımda yeni bir hafiflik buluyorum.", "gender": "male" },
+{ "id": "m_060", "text": "Bugün zihnimde tatlı bir durgunluk taşıyorum.", "gender": "any" },
+
+{ "id": "m_061", "text": "Nefesim beni doğal bir sakinliğe çağırıyor.", "gender": "female" },
+{ "id": "m_062", "text": "Bugün farkındalıkla kalmak bana huzur veriyor.", "gender": "any" },
+{ "id": "m_063", "text": "Her şey yavaşladığında içimde bir rahatlık beliriyor.", "gender": "any" },
+{ "id": "m_064", "text": "Nefesimin akışı bana köklenmişlik hissi sunuyor.", "gender": "male" },
+{ "id": "m_065", "text": "Bugün anda kalmak daha kolay geliyor.", "gender": "any" },
+
+{ "id": "m_066", "text": "Sessizlik bugün içime yumuşakça yerleşiyor.", "gender": "female" },
+{ "id": "m_067", "text": "Her nefes içimde yeni bir alan açıyor.", "gender": "any" },
+{ "id": "m_068", "text": "Bugün zihnimdeki gürültü hafifçe eriyor.", "gender": "any" },
+{ "id": "m_069", "text": "Nefes verirken içimdeki ağırlığın yumuşadığını hissediyorum.", "gender": "male" },
+{ "id": "m_070", "text": "Bugün bedenimin ritmine nazikçe uyumlanıyorum.", "gender": "any" },
+
+{ "id": "m_071", "text": "Her anda farkındalıkla kalmak beni dengeliyor.", "gender": "female" },
+{ "id": "m_072", "text": "Nefesimin dingin akışı beni yumuşatıyor.", "gender": "any" },
+{ "id": "m_073", "text": "Bugün zihnim daha geniş bir alan gibi hissediliyor.", "gender": "any" },
+{ "id": "m_074", "text": "Duygularım nefesimle beraber sakinleşiyor.", "gender": "male" },
+{ "id": "m_075", "text": "Bugün içimde tatlı bir sessizlik taşıyorum.", "gender": "any" },
+
+{ "id": "m_076", "text": "Her nefeste içimde hafif bir sıcaklık beliriyor.", "gender": "female" },
+{ "id": "m_077", "text": "Bugün bedenim ve zihnim aynı yumuşak ritimde buluşuyor.", "gender": "any" },
+{ "id": "m_078", "text": "Nefesim beni yavaşça gevşetiyor.", "gender": "any" },
+{ "id": "m_079", "text": "Bugün zihnimdeki dalgalar daha sakin bir ritim tutuyor.", "gender": "male" },
+{ "id": "m_080", "text": "Anda kalmanın huzuru içime işliyor.", "gender": "any" },
+
+{ "id": "m_081", "text": "Bugün nefesim bana sade bir berraklık sunuyor.", "gender": "female" },
+{ "id": "m_082", "text": "Her şey yavaşladığında nefesim bana yol gösteriyor.", "gender": "any" },
+{ "id": "m_083", "text": "Bugün içimde derin bir dinginlik alanı oluşuyor.", "gender": "any" },
+{ "id": "m_084", "text": "Her nefeste gevşemenin tadını çıkarıyorum.", "gender": "male" },
+{ "id": "m_085", "text": "Bugün nefesimle kurduğum bağ beni hafifletiyor.", "gender": "any" },
+
+{ "id": "m_086", "text": "Dingin düşünceler bugün zihnimde daha fazla yer buluyor.", "gender": "female" },
+{ "id": "m_087", "text": "Nefesimin sıcaklığı kalbimde yumuşak bir alan açıyor.", "gender": "any" },
+{ "id": "m_088", "text": "Bugün içimde hafifçe yayılan bir huzur hissediyorum.", "gender": "any" },
+{ "id": "m_089", "text": "Her farkındalık anı beni biraz daha rahatlatıyor.", "gender": "male" },
+{ "id": "m_090", "text": "Bugün nefesim beni olduğum yere sevgiyle getiriyor.", "gender": "any" },
+
+{ "id": "m_091", "text": "Zihnim bugün daha açık ve daha sükunet dolu.", "gender": "female" },
+{ "id": "m_092", "text": "Her nefes alışımda içimde hafif bir açıklık büyüyor.", "gender": "any" },
+{ "id": "m_093", "text": "Bugün bedenimin verdiği mesajları daha net duyuyorum.", "gender": "any" },
+{ "id": "m_094", "text": "Nefesim bana doğal bir denge alanı sunuyor.", "gender": "male" },
+{ "id": "m_095", "text": "Bugün zihnimde tatlı bir dinginlik kök salıyor.", "gender": "any" },
+
+{ "id": "m_096", "text": "Her nefeste kalbimde hafif bir açıklık beliriyor.", "gender": "female" },
+{ "id": "m_097", "text": "Bugün farkındalık beni daha derin bir sessizliğe taşıyor.", "gender": "any" },
+{ "id": "m_098", "text": "Nefesimin ritmi bugün beni sabitliyor.", "gender": "any" },
+{ "id": "m_099", "text": "Dingin nefes alış verişleri beni yumuşakça gevşetiyor.", "gender": "male" },
+{ "id": "m_100", "text": "Bugün bedenimle kurduğum bağ beni huzura davet ediyor.", "gender": "any" },
+{ "id": "m_101", "text": "Bugün nefesim beni derin bir farkındalık alanına taşıyor.", "gender": "any" },
+{ "id": "m_102", "text": "Sessizlik içimde yavaşça kök salıyor.", "gender": "female" },
+{ "id": "m_103", "text": "Bugün zihnimin derinliklerinde tatlı bir açıklık hissediyorum.", "gender": "any" },
+{ "id": "m_104", "text": "Her nefeste ruhum biraz daha sakinleşiyor.", "gender": "male" },
+{ "id": "m_105", "text": "Bugün farkındalık beni daha yumuşak bir alana taşıyor.", "gender": "any" },
+
+{ "id": "m_106", "text": "Anda kalmak bugün içimde sessiz bir güce dönüşüyor.", "gender": "any" },
+{ "id": "m_107", "text": "Bedenimin yavaş ritmi beni derin bir huzura davet ediyor.", "gender": "female" },
+{ "id": "m_108", "text": "Bugün nefesimle bir olmak bana netlik kazandırıyor.", "gender": "any" },
+
+{ "id": "m_109", "text": "Gerçek huzur kalbin sessizliğinde bulunur. — Lao Tzu", "gender": "any" },
+
+{ "id": "m_110", "text": "Zihnim bugün daha açık bir gökyüzü gibi hissediliyor.", "gender": "male" },
+{ "id": "m_111", "text": "Her farkındalık anı içimde yeni bir ışık uyandırıyor.", "gender": "any" },
+{ "id": "m_112", "text": "Bugün nefesim beni hafifçe köklendiriyor.", "gender": "female" },
+{ "id": "m_113", "text": "Sessizlik içimde yumuşak bir rehber gibi dolaşıyor.", "gender": "any" },
+
+{ "id": "m_114", "text": "Şimdi burada olmak yaşamın en saf biçimidir. — Eckhart Tolle", "gender": "any" },
+
+{ "id": "m_115", "text": "Bugün zihnimdeki gölgeler nazikçe dağılıyor.", "gender": "male" },
+{ "id": "m_116", "text": "Her nefesim beni biraz daha berraklaştırıyor.", "gender": "any" },
+{ "id": "m_117", "text": "Bugün içimde derin ve sakin bir akış taşıyorum.", "gender": "any" },
+{ "id":"m_118", "text": "Bedenimi dinledikçe içimde hafif bir açıklık beliriyor.", "gender": "female" },
+{ "id": "m_119", "text": "Dinginlik bugün içime su gibi akıyor.", "gender": "any" },
+
+{ "id": "m_120", "text": "Her anda bilinçli kalmak beni özgürleştiriyor.", "gender": "male" },
+
+{ "id": "m_121", "text": "Zihnin sustuğu yerde bilgelik konuşur. — Osho", "gender": "any" },
+
+{ "id": "m_122", "text": "Bugün nefesimle kurduğum bağ beni aydınlatıyor.", "gender": "any" },
+{ "id": "m_123", "text": "Her nefeste içimde hafif bir boşluk açılıyor.", "gender": "female" },
+{ "id": "m_124", "text": "Bugün farkındalık beni daha sade bir huzura taşıyor.", "gender": "any" },
+{ "id": "m_125", "text": "Zihnimdeki dalgalar bugün nazikçe yatışıyor.", "gender": "any" },
+{ "id": "m_126", "text": "Sessizliği dinledikçe içimde yeni bir alan oluşuyor.", "gender": "male" },
+
+{ "id": "m_127", "text": "Bugün ruhuma doğru attığım her adım beni yumuşatıyor.", "gender": "any" },
+{ "id": "m_128", "text": "Her farkındalık anı içimde bir nefes kadar hafif hissediliyor.", "gender": "female" },
+{ "id": "m_129", "text": "Bugün zihnimdeki açıklık beni yeniliyor.", "gender": "any" },
+
+{ "id": "m_130", "text": "Sükunet içsel gücün başlangıcıdır. — Seneca", "gender": "any" },
+
+{ "id": "m_131", "text": "Nefesimin derinliği beni daha huzurlu kılıyor.", "gender": "male" },
+{ "id": "m_132", "text": "Bugün sessizliği içimde bir iyileşme alanı gibi hissediyorum.", "gender": "any" },
+{ "id": "m_133", "text": "Farkındalıkla aldığım her nefes beni daha açık yapıyor.", "gender": "female" },
+{ "id": "m_134", "text": "Bugün içimde beliren sakinlik bana netlik getiriyor.", "gender": "any" },
+{ "id": "m_135", "text": "Her nefeste duygularım daha dengeli geliyor.", "gender": "any" },
+
+{ "id": "m_136", "text": "Bugün anda kalmak içimde tatlı bir huzur uyandırıyor.", "gender": "male" },
+{ "id": "m_137", "text": "Nefesimin ritmi bana yumuşak bir rehber oluyor.", "gender": "any" },
+{ "id": "m_138", "text": "Bugün sessizlik bana olduğum hâliyle yeterli olduğumu hissettiriyor.", "gender": "female" },
+{ "id": "m_139", "text": "İçimdeki açıklık giderek daha belirgin hissediliyor.", "gender": "any" },
+
+{ "id": "m_140", "text": "Zihin sakinleştiğinde dünya daha net görünür. — Thich Nhat Hanh", "gender": "any" },
+
+{ "id": "m_141", "text": "Bugün nefesim beni hafif bir huzur alanına getiriyor.", "gender": "any" },
+{ "id": "m_142", "text": "Her şeyin yavaşladığı bu an beni derinden besliyor.", "gender": "female" },
+{ "id": "m_143", "text": "Farkındalık bugün içimde tatlı bir açıklığa dönüşüyor.", "gender": "any" },
+{ "id": "m_144", "text": "Bugün nefes verirken içimdeki gerilimin azaldığını hissediyorum.", "gender": "any" },
+{ "id": "m_145", "text": "Dingin nefesler bugün ruhumu genişletiyor.", "gender": "male" },
+
+{ "id": "m_146", "text": "Her nefeste içimde yeni bir hafiflik doğuyor.", "gender": "any" },
+{ "id": "m_147", "text": "Bugün kalbimde sessiz ve sakin bir alan açılıyor.", "gender": "female" },
+{ "id": "m_148", "text": "Zihnim bugün daha dingin bir akışın içinde.", "gender": "any" },
+{ "id": "m_149", "text": "Nefesimin yumuşak dokunuşu beni gevşetiyor.", "gender": "male" },
+{ "id": "m_150", "text": "Bugün sessizlik içimde derin bir huzura dönüşüyor.", "gender": "any" },
+{ "id": "m_151", "text": "Bugün nefesimin içimde açtığı derin alanı hissediyorum.", "gender": "any" },
+{ "id": "m_152", "text": "Her nefes beni daha yumuşak bir sessizliğe taşıyor.", "gender": "female" },
+{ "id": "m_153", "text": "Bugün düşüncelerim nefesimin ritmiyle hafifçe çözülüyor.", "gender": "any" },
+{ "id": "m_154", "text": "Ruhum nefesimle birlikte daha berrak bir sakinliğe akıyor.", "gender": "male" },
+{ "id": "m_155", "text": "Bugün içimde yükselen dinginlik bana derin bir netlik getiriyor.", "gender": "any" },
+
+{ "id": "m_156", "text": "Her nefes alışım içimdeki gerginliği yavaşça eritiyor.", "gender": "female" },
+{ "id":"m_157", "text": "Bugün sessizlik bana daha parlak bir huzur sunuyor.", "gender": "any" },
+{ "id": "m_158", "text": "Nefes verirken içimdeki ağırlığın akıp gittiğini hissediyorum.", "gender": "any" },
+{ "id": "m_159", "text": "Bugün ruhum nefesimin yumuşak akışında dinleniyor.", "gender": "male" },
+{ "id": "m_160", "text": "Her anda derin bir farkındalık beni hafifçe çevreliyor.", "gender": "any" },
+
+{ "id": "m_161", "text": "Bugün nefesim bedenimi ve zihnimi aynı çizgide buluşturuyor.", "gender": "female" },
+{ "id": "m_162", "text": "Her sessizlik anı içimde yeni bir alan açıyor.", "gender": "any" },
+{ "id": "m_163", "text": "Bugün içimdeki dalgalar daha sakin bir ritim tutuyor.", "gender": "any" },
+{ "id": "m_164", "text": "Nefesimin derinliği bana içsel bir güven sunuyor.", "gender": "male" },
+{ "id": "m_165", "text": "Bugün varlığım nefesimin sıcaklığında yumuşuyor.", "gender": "any" },
+
+{ "id": "m_166", "text": "Her nefes alışım beni daha açık bir farkındalığa taşıyor.", "gender": "female" },
+{ "id": "m_167", "text": "Bugün zihnimdeki sis yavaşça aralanıyor.", "gender": "any" },
+{ "id": "m_168", "text": "Nefesim beni merkeze çağırıyor.", "gender": "any" },
+{ "id": "m_169", "text": "Bugün içimdeki sessizlik daha parlak hissediliyor.", "gender": "male" },
+{ "id": "m_170", "text": "Her nefeste içimde doğan hafifliği hissediyorum.", "gender": "any" },
+
+{ "id": "m_171", "text": "Bugün nefesim bana derin bir teslimiyet sunuyor.", "gender": "female" },
+{ "id": "m_172", "text": "Zihnim nefesimin yumuşak dalgalarında dinleniyor.", "gender": "any" },
+{ "id": "m_173", "text": "Bugün sessizlik içimde incelikle genişliyor.", "gender": "any" },
+{ "id": "m_174", "text": "Her nefes verirken yenilenmiş hissediyorum.", "gender": "male" },
+{ "id": "m_175", "text": "Bugün farkındalık ruhumu hafifçe besliyor.", "gender": "any" },
+
+{ "id": "m_176", "text": "Nefesimle uyumlandıkça içimde dingin bir gücün ortaya çıktığını hissediyorum.", "gender": "female" },
+{ "id": "m_177", "text": "Bugün düşüncelerim daha geniş bir boşluk içinde akıyor.", "gender": "any" },
+{ "id": "m_178", "text": "Nefesimin ritmi beni daha net bir varlığa davet ediyor.", "gender": "any" },
+{ "id": "m_179", "text": "Bugün içimde ruhsal bir açıklık hissediyorum.", "gender": "male" },
+{ "id": "m_180", "text": "Her nefeste içimde doğan sessizliği seviyorum.", "gender": "any" },
+
+{ "id": "m_181", "text": "Bugün nefesim beni doğal bir dengeye taşıyor.", "gender": "female" },
+{ "id": "m_182", "text": "Farkındalık bugün içimde yumuşak bir ışık gibi yayılıyor.", "gender": "any" },
+{ "id": "m_183", "text": "Nefesim sayesinde içimde yeni bir alan açılıyor.", "gender": "any" },
+{ "id": "m_184", "text": "Bugün sessizliğin iyileştirici yönünü fark ediyorum.", "gender": "male" },
+{ "id":"m_185", "text": "Her nefes beni daha parlak bir huzura götürüyor.", "gender": "any" },
+
+{ "id": "m_186", "text": "Bugün ruhum nefesimin akışında özgürleşiyor.", "gender": "female" },
+{ "id": "m_187", "text": "Zihnim nefesimin ritmini takip ederken sakinleşiyor.", "gender": "any" },
+{ "id": "m_188", "text": "Bugün bedenimdeki gerginliğin yumuşadığını hissediyorum.", "gender": "any" },
+{ "id": "m_189", "text": "Her farkındalık anı içimde hafif bir ışık uyandırıyor.", "gender": "male" },
+{ "id": "m_190", "text": "Bugün nefesimle bağ kurmak bana derin bir açıklık getiriyor.", "gender": "any" },
+
+{ "id": "m_191", "text": "Nefesimin sıcaklığı kalbimi yumuşatıyor.", "gender": "female" },
+{ "id": "m_192", "text": "Bugün ruhum daha düzenli bir ritim hissediyor.", "gender": "any" },
+{ "id": "m_193", "text": "Nefes alış verişim beni daha berrak bir alana taşıyor.", "gender": "any" },
+{ "id": "m_194", "text": "Bugün sessizlik içimde bir güven duygusu oluşturuyor.", "gender": "male" },
+{ "id": "m_195", "text": "Her nefes yeni bir başlangıç gibi geliyor.", "gender": "any" },
+
+{ "id": "m_196", "text": "Bugün nefesim beni ruhsal bir açıklığa yönlendiriyor.", "gender": "female" },
+{ "id": "m_197", "text": "Farkındalık içimde zarifçe genişliyor.", "gender": "any" },
+{ "id": "m_198", "text": "Bugün nefesimin akışı beni sakin bir benliğe taşıyor.", "gender": "any" },
+{ "id": "m_199", "text": "Her sessizlik anında içimde yeni bir hafiflik doğuyor.", "gender": "male" },
+{ "id": "m_200", "text": "Bugün farkındalık beni derinden yumuşatıyor.", "gender": "any" },
+
+{ "id": "m_201", "text": "Nefesim bugün beni daha derin bir bilince taşıyor.", "gender": "female" },
+{ "id": "m_202", "text": "Her nefes alışımda içsel alanım biraz daha genişliyor.", "gender": "any" },
+{ "id": "m_203", "text": "Bugün sessizliğin içinde saklı olan huzuru hissediyorum.", "gender": "any" },
+{ "id": "m_204", "text": "Nefesimin ritmi beni sabitliyor.", "gender": "male" },
+{ "id": "m_205", "text": "Bugün içimdeki duruluk beni yeniliyor.", "gender": "any" },
+
+{ "id": "m_206", "text": "Her farkındalık anı içimde bir dinginlik çiçeği açıyor.", "gender": "female" },
+{ "id": "m_207", "text": "Bugün nefesimle kurduğum bağ beni daha açık yapıyor.", "gender": "any" },
+{ "id": "m_208", "text": "Nefes verirken içimdeki gerginliğin azaldığını hissediyorum.", "gender": "any" },
+{ "id": "m_209", "text": "Bugün sessizlik beni şefkatle kucaklıyor.", "gender": "male" },
+{ "id": "m_210", "text": "Her nefes içimde yeni bir dinginlik bırakıyor.", "gender": "any" },
+
+{ "id": "m_211", "text": "Bugün nefesim beni daha sakin bir bilinç düzeyine taşıyor.", "gender": "female" },
+{ "id": "m_212", "text": "Zihnim nefesimin derinliğinde dinleniyor.", "gender": "any" },
+{ "id": "m_213", "text": "Bugün içimde hafif bir manevi açıklık hissediyorum.", "gender": "any" },
+{ "id": "m_214", "text": "Her sessizlik anı beni daha huzurlu yapıyor.", "gender": "male" },
+{ "id": "m_215", "text": "Bugün nefesim beni şimdiye bağlıyor.", "gender": "any" },
+
+{ "id": "m_216", "text": "Nefesimin sakin ritmi beni derin bir varlığa taşıyor.", "gender": "female" },
+{ "id": "m_217", "text": "Bugün düşüncelerim nefesimin sıcaklığında çözülüyor.", "gender": "any" },
+{ "id": "m_218", "text": "Farkındalık bugün içimde su gibi akıyor.", "gender": "any" },
+{ "id": "m_219", "text": "Bugün nefesim bana sessiz bir güç sunuyor.", "gender": "male" },
+{ "id": "m_220", "text": "Her nefeste içimde yeni bir netlik beliriyor.", "gender": "any" },
+
+{ "id": "m_221", "text": "Bugün sessizliğin derinliği beni içine alıyor.", "gender": "female" },
+{ "id": "m_222", "text": "Nefesime odaklandıkça içimde geniş bir alan açılıyor.", "gender": "any" },
+{ "id": "m_223", "text": "Bugün içimdeki dalgalar daha uyumlu hissediliyor.", "gender": "any" },
+{ "id": "m_224", "text": "Nefesimin yumuşak iniş çıkışları beni sabitliyor.", "gender": "male" },
+{ "id": "m_225", "text": "Bugün farkındalık içimde bir ışık gibi yayılıyor.", "gender": "any" },
+
+{ "id": "m_226", "text": "Her nefes beni yumuşakça içime döndürüyor.", "gender": "female" },
+{ "id": "m_227", "text": "Bugün nefesimle birleştiğimde varlığım daha net hissediliyor.", "gender": "any" },
+{ "id": "m_228", "text": "Sessizlik içimde hafif bir huzur olarak büyüyor.", "gender": "any" },
+{ "id": "m_229", "text": "Bugün nefesimin akışı beni derinden gevşetiyor.", "gender": "male" },
+{ "id": "m_230", "text": "Her anda var olmak beni hafifçe besliyor.", "gender": "any" },
+
+{ "id": "m_231", "text": "Bugün nefesim beni daha spiritüel bir alana taşıyor.", "gender": "female" },
+{ "id": "m_232", "text": "Zihnimdeki yoğunluk nefesimle birlikte azalıyor.", "gender": "any" },
+{ "id": "m_233", "text": "Bugün farkındalık içimde derin bir açıklık oluşturuyor.", "gender": "any" },
+{ "id": "m_234", "text": "Nefesimin sakinliği beni daha huzurlu yapıyor.", "gender": "male" },
+{ "id": "m_235", "text": "Bugün sessizlik bana net bir yön veriyor.", "gender": "any" },
+
+{ "id": "m_236", "text": "Her nefeste içimde yeni bir sükunet beliriyor.", "gender": "female" },
+{ "id": "m_237", "text": "Bugün nefesim beni merkezime yaklaştırıyor.", "gender": "any" },
+{ "id": "m_238", "text": "Nefesimin derinliği içimde bir dinginlik yaratıyor.", "gender": "any" },
+{ "id": "m_239", "text": "Sessizlik bugün içimde kökleniyor.", "gender": "male" },
+{ "id": "m_240", "text": "Bugün ruhum nefesimin ritmine güveniyor.", "gender": "any" },
+
+{ "id": "m_241", "text": "Her farkındalık anı beni daha açık bir ruh haline taşıyor.", "gender": "female" },
+{ "id": "m_242", "text": "Bugün nefesim içimdeki titreşimi yumuşatıyor.", "gender": "any" },
+{ "id": "m_243", "text": "Nefesimin sıcaklığı bana ruhsal bir huzur sunuyor.", "gender": "any" },
+{ "id": "m_244", "text": "Bugün sessizliğin derinliği beni sarıp sarmalıyor.", "gender": "male" },
+{ "id": "m_245", "text": "Her nefes alış verişinde bedenim daha hafif hissediliyor.", "gender": "any" },
+
+{ "id": "m_246", "text": "Bugün düşüncelerim nefesin devinimiyle yumuşuyor.", "gender": "female" },
+{ "id": "m_247", "text": "Nefesim beni daha açık bir farkındalığa çağırıyor.", "gender": "any" },
+{ "id": "m_248", "text": "Bugün içimde hafif bir ruhsal açıklık hissediyorum.", "gender": "any" },
+{ "id": "m_249", "text": "Sessizlik bugün beni daha derin bir alanla buluşturuyor.", "gender": "male" },
+{ "id": "m_250", "text": "Her nefes beni yumuşak bir huzura taşıyor.", "gender": "any" },
+
+{ "id": "m_251", "text": "Bugün nefesimin açtığı içsel kapılar daha geniş hissediliyor.", "gender": "female" },
+{ "id": "m_252", "text": "Zihnim nefesimin sıcaklığında yumuşuyor.", "gender": "any" },
+{ "id": "m_253", "text": "Bugün farkındalık beni ruhsal bir hafifliğe götürüyor.", "gender": "any" },
+{ "id": "m_254", "text": "Her nefeste içimde doğan sakinliği takdir ediyorum.", "gender": "male" },
+{ "id": "m_255", "text": "Bugün sessizlik beni daha içten bir alana bağlıyor.", "gender": "any" },
+
+{ "id": "m_256", "text": "Nefesimin akışı içimde manevi bir berraklık uyandırıyor.", "gender": "female" },
+{ "id": "m_257", "text": "Bugün nefesimle birleştiğimde içimde yeni bir denge hissediyorum.", "gender": "any" },
+{ "id": "m_258", "text": "Her farkındalık anı içimdeki yükleri hafifletiyor.", "gender": "any" },
+{ "id": "m_259", "text": "Bugün sessizliğin titreşimi beni derinden rahatlatıyor.", "gender": "male" },
+{ "id": "m_260", "text": "Nefesim bana bugün daha derin bir bağlılık sunuyor.", "gender": "any" },
+
+{ "id": "m_261", "text": "Bugün ruhum nefesimle aynı çizgide ilerliyor.", "gender": "female" },
+{ "id": "m_262", "text": "Her sessizlik anı bana manevi bir açıklık getiriyor.", "gender": "any" },
+{ "id": "m_263", "text": "Bugün nefesimin kutsal bir ritim gibi aktığını hissediyorum.", "gender": "any" },
+{ "id": "m_264", "text": "Sessizlik içimde bugün daha yumuşak bir tonda duyuluyor.", "gender": "male" },
+{ "id": "m_265", "text": "Her nefeste içimde yenilenen bir alan açılıyor.", "gender": "any" },
+
+{ "id": "m_266", "text": "Bugün nefesim ruhumda sakin bir ritim oluşturuyor.", "gender": "female" },
+{ "id": "m_267", "text": "Zihnimdeki dağınıklık nefesimle hafifçe çözülüyor.", "gender": "any" },
+{ "id": "m_268", "text": "Bugün farkındalık içimde zarif bir duruluğa dönüşüyor.", "gender": "any" },
+{ "id": "m_269", "text": "Her sessizlik anı beni daha net bir varlığa taşıyor.", "gender": "male" },
+{ "id": "m_270", "text": "Bugün nefesim beni içsel bir ışığın etrafında topluyor.", "gender": "any" },
+
+{ "id": "m_271", "text": "Her nefes alışım beni daha sakin bir bilince götürüyor.", "gender": "female" },
+{ "id": "m_272", "text": "Bugün sessizliğin içimde bir huzur köprüsü kurduğunu hissediyorum.", "gender": "any" },
+{ "id": "m_273", "text": "Nefesimin ruhuma verdiği yumuşak dokunuşu seviyorum.", "gender": "any" },
+{ "id": "m_274", "text": "Bugün zihnim nefesimin ritmiyle uyum içinde.", "gender": "male" },
+{ "id": "m_275", "text": "Her anda farkındalık beni daha açık bir alana davet ediyor.", "gender": "any" },
+
+{ "id": "m_276", "text": "Bugün nefesim beni sessiz bir derinliğe götürüyor.", "gender": "female" },
+{ "id": "m_277", "text": "Her nefeste içimde büyüyen huzuru duyuyorum.", "gender": "any" },
+{ "id": "m_278", "text": "Bugün ruhum nefesimin sade enerjisinde dinleniyor.", "gender": "any" },
+{ "id": "m_279", "text": "Sessizlik içimde bugün daha köklü bir his bırakıyor.", "gender": "male" },
+{ "id": "m_280", "text": "Bugün nefesim bana daha güçlü bir varlık hissi sunuyor.", "gender": "any" },
+
+{ "id": "m_281", "text": "Her farkındalık anında içimde hafif bir ışık beliriyor.", "gender": "female" },
+{ "id": "m_282", "text": "Bugün nefesim beni daha yumuşak bir bilinç alanına taşıyor.", "gender": "any" },
+{ "id": "m_283", "text": "Nefesimin akışı içimdeki düğümleri çözüyor.", "gender": "any" },
+{ "id": "m_284", "text": "Bugün içimdeki sessizlik beni güvenle sarıyor.", "gender": "male" },
+{ "id": "m_285", "text": "Her nefes alış verişi beni daha derin bir huzura bağlıyor.", "gender": "any" },
+
+{ "id": "m_286", "text": "Bugün nefesimin beni taşıdığı huzur alanını takdir ediyorum.", "gender": "female" },
+{ "id": "m_287", "text": "Farkındalık içimde bugün daha parlak hissediliyor.", "gender": "any" },
+{ "id": "m_288", "text": "Nefes verirken bedenimdeki gerginliğin çözüldüğünü hissediyorum.", "gender": "any" },
+{ "id": "m_289", "text": "Bugün ruhum nefesimin sıcaklığında yumuşuyor.", "gender": "male" },
+{ "id": "m_290", "text": "Her nefes beni şimdiye sağlam bir şekilde getiriyor.", "gender": "any" },
+
+{ "id": "m_291", "text": "Bugün sessizlik içimde yeni bir netlik oluşturuyor.", "gender": "female" },
+{ "id": "m_292", "text": "Her nefes alışım manevi bir açıklık yaratıyor.", "gender": "any" },
+{ "id": "m_293", "text": "Bugün içimde yavaşça yayılan huzurun farkındayım.", "gender": "any" },
+{ "id": "m_294", "text": "Nefesimin ritmi bugün beni derinden sabitliyor.", "gender": "male" },
+{ "id": "m_295", "text": "Her farkındalık anı içimde bir ışık çiçeği açıyor.", "gender": "any" },
+
+{ "id": "m_296", "text": "Bugün nefesim beni daha geniş bir bilinç alanına götürüyor.", "gender": "female" },
+{ "id": "m_297", "text": "Zihnim nefesimin devinimiyle yumuşakça çözülüyor.", "gender": "any" },
+{ "id": "m_298", "text": "Bugün sessizlik içimde bir bilgelik gibi hissediliyor.", "gender": "any" },
+{ "id": "m_299", "text": "Her nefeste bedenim daha sakin bir ritme kavuşuyor.", "gender": "male" },
+{ "id": "m_300", "text": "Bugün nefesimin taşıdığı huzurun içinde dinleniyorum.", "gender": "any" }, 
+
+{ "id": "m_301", "text": "Bugün nefesim beni kozmik bir dinginliğin içine taşıyor.", "gender": "any" },
+{ "id": "m_302", "text": "Her nefeste içimde yıldız tozu gibi bir hafiflik beliriyor.", "gender": "female" },
+{ "id": "m_303", "text": "Bugün zihnim gökyüzü kadar geniş hissediliyor.", "gender": "any" },
+{ "id": "m_304", "text": "Nefesimin ritmi içimde ışıkla dolu bir açıklık yaratıyor.", "gender": "any" },
+{ "id": "m_305", "text": "Bugün sessizlik kalbime evrenin sakinliğini getiriyor.", "gender": "male" },
+
+{ "id": "m_306", "text": "Her anda farkındalığın ışığı içimde parlıyor.", "gender": "any" },
+{ "id":"m_307", "text": "Bugün nefesim ruhumu daha geniş bir boşluğa açıyor.", "gender": "female" },
+{ "id": "m_308", "text": "Kozmik bir huzur bugün bedenimin her yerine dokunuyor.", "gender": "any" },
+{ "id": "m_309", "text": "Nefes verirken içimdeki gölgeler hafifçe çözülüyor.", "gender": "male" },
+{ "id": "m_310", "text": "Bugün farkındalık içimde zarif bir galaksi gibi yayılıyor.", "gender": "any" },
+
+{ "id": "m_311", "text": "Her nefeste içimde evrenle uyumlanan bir ritim hissediyorum.", "gender": "female" },
+{ "id": "m_312", "text": "Bugün zihnimdeki sessizlik yıldızlara benzer bir parlaklık taşıyor.", "gender": "any" },
+{ "id": "m_313", "text": "Nefesimin sıcaklığı kalbime mistik bir yumuşaklık getiriyor.", "gender": "any" },
+{ "id": "m_314", "text": "Bugün ruhum ışık kadar hafif hissediliyor.", "gender": "male" },
+{ "id": "m_315", "text": "Her farkındalık anında içimde yeni bir evren açılıyor.", "gender": "any" },
+
+{ "id": "m_316", "text": "Bugün nefesim beni görünmez bir huzur akışına bağlıyor.", "gender": "female" },
+{ "id": "m_317", "text": "Zihnimdeki duruluk bugün daha derin bir ışık taşıyor.", "gender": "any" },
+{ "id": "m_318", "text": "Her nefeste içsel alemlerimde bir genişlik hissediyorum.", "gender": "any" },
+{ "id": "m_319", "text": "Bugün sessizlik beni yıldızlar kadar sessiz bir huzura götürüyor.", "gender": "male" },
+{ "id":"m_320", "text": "Nefesimin akışı içimde mistik bir açıklık oluşturuyor.", "gender": "any" },
+
+{ "id": "m_321", "text": "Bugün ruhum nefesimde saklı olan derin bilgeliğe açılıyor.", "gender": "female" },
+{ "id": "m_322", "text": "Her anda kozmik bir uyumun beni çevrelediğini hissediyorum.", "gender": "any" },
+{ "id": "m_323", "text": "Bugün nefesim bedenimde ışıklı bir uyum yaratıyor.", "gender": "any" },
+{ "id": "m_324", "text": "Sessizlik içimde yıldızların sakinliğini taşıyor.", "gender": "male" },
+{ "id": "m_325", "text": "Bugün farkındalığım içime göksel bir hafiflik veriyor.", "gender": "any" },
+
+{ "id": "m_326", "text": "Her nefes beni evrensel bir huzurla dolduruyor.", "gender": "female" },
+{ "id": "m_327", "text": "Bugün içimdeki alan daha geniş, daha aydınlık.", "gender": "any" },
+{ "id": "m_328", "text": "Nefesimin ritmi ruhumda kozmik bir düzen yaratıyor.", "gender": "any" },
+{ "id": "m_329", "text": "Bugün sessizlik içimde bir ışık yolu gibi açılıyor.", "gender": "male" },
+{ "id": "m_330", "text": "Her anda zihnimdeki ağırlık hafifçe çözülüyor.", "gender": "any" },
+
+{ "id": "m_331", "text": "Bugün nefesim beni daha yüksek bir bilinç düzeyine taşıyor.", "gender": "female" },
+{ "id": "m_332", "text": "Her nefes alışım ruhuma mistik bir netlik bırakıyor.", "gender": "any" },
+{ "id": "m_333", "text": "Bugün içimdeki sessizlik evrensel bir huzura dönüşüyor.", "gender": "any" },
+{ "id": "m_334", "text": "Nefesimin sıcaklığı içimde ışık gibi yayılıyor.", "gender": "male" },
+{ "id": "m_335", "text": "Bugün ruhumun alanı geniş, yumuşak ve berrak hissediliyor.", "gender": "any" },
+
+{ "id": "m_336", "text": "Bugün kozmik sakinlik içime ince bir huzur bırakıyor.", "gender": "female" },
+{ "id": "m_337", "text": "Her nefeste içimdeki ışığı biraz daha duyumsuyorum.", "gender": "any" },
+{ "id": "m_338", "text": "Bugün sessizlik beni evrensel bir ritme bağlıyor.", "gender": "any" },
+{ "id": "m_339", "text": "Nefesimin derinliği ruhumda mistik bir kapı aralıyor.", "gender": "male" },
+{ "id": "m_340", "text": "Her anda içimde yayılan ferahlığı hissediyorum.", "gender": "any" },
+
+{ "id": "m_341", "text": "Bugün nefesim beni sessiz ve sonsuz bir alana taşıyor.", "gender": "female" },
+{ "id": "m_342", "text": "Zihnim bugün göksel bir berraklıkla genişliyor.", "gender": "any" },
+{ "id": "m_343", "text": "Nefes alış verişim beni ışıklı bir dengeye ulaştırıyor.", "gender": "any" },
+{ "id": "m_344", "text": "Bugün içimdeki huzur yıldızların sabrı kadar sakin.", "gender": "male" },
+{ "id": "m_345", "text": "Her nefes içimde evrenin dingin sesini yansıtıyor.", "gender": "any" },
+
+{ "id": "m_346", "text": "Bugün nefesim bilinç alanımda yumuşak bir ışık uyandırıyor.", "gender": "female" },
+{ "id": "m_347", "text": "Ruhum nefesimin akışında serbestçe genişliyor.", "gender": "any" },
+{ "id": "m_348", "text": "Bugün sessizlik içimde kutsal bir ferahlık gibi hissediliyor.", "gender": "any" },
+{ "id": "m_349", "text": "Her anda zihnimdeki fazlalıklar çözülüyor.", "gender": "male" },
+{ "id": "m_350", "text": "Bugün nefesim beni daha aydınlık bir varoluşa bağlıyor.", "gender": "any" },
+
+{ "id": "m_351", "text": "Bugün içimde doğan huzur evrenle uyumlanıyor.", "gender": "female" },
+{ "id": "m_352", "text": "Her nefes alışımda ruhumda yeni bir açıklık beliriyor.", "gender": "any" },
+
+{ "id": "m_353", "text": "Bugün nefesinin ışığı seni daha yukarı taşıyor, {name}.", "gender": "any" },
+
+{ "id": "m_354", "text": "Sessizlik bugün içime derin bir evren hissi bırakıyor.", "gender": "male" },
+{ "id": "m_355", "text": "Nefesimin derinliği içimde mistik bir huzur yaratıyor.", "gender": "any" },
+{ "id": "m_356", "text": "Bugün zihnim göksel bir boşluk kadar ferah hissediliyor.", "gender": "female" },
+{ "id": "m_357", "text": "Her nefes içimde saklı bilgeliği açığa çıkarıyor.", "gender": "any" },
+{ "id": "m_358", "text": "Bugün ruhum nefesimin sadeliğinde dinleniyor.", "gender": "any" },
+
+{ "id": "m_359", "text": "Bugün nefesim beni kozmik bir huzur kapısından içeri alıyor.", "gender": "male" },
+{ "id": "m_360", "text": "Her anda farkındalık içimde yıldız gibi titreşiyor.", "gender": "any" },
+
+{ "id": "m_361", "text": "Bugün evrenin sakinliği nefesinde akıyor, {name}.", "gender": "any" },
+
+{ "id": "m_362", "text": "Zihnim nefesimin ışığında daha açık hissediliyor.", "gender": "female" },
+{ "id": "m_363", "text": "Bugün içsel alanımda yumuşak bir kozmik denge var.", "gender": "any" },
+{ "id": "m_364", "text": "Her nefes beni ruhsal bir hafifliğe bağlıyor.", "gender": "any" },
+{ "id": "m_365", "text": "Sessizlik bugün içimde farklı bir parlaklık taşıyor.", "gender": "male" },
+{ "id": "m_366", "text": "Bugün nefesim beni evrenle aynı ritme getiriyor.", "gender": "any" },
+
+{ "id": "m_367", "text": "Her nefes alışımda ışığa biraz daha yaklaşmış hissediyorum.", "gender": "female" },
+{ "id": "m_368", "text": "Bugün ruhum nefesimin taşıdığı bilgeliğe açılıyor.", "gender": "any" },
+{ "id": "m_369", "text": "Nefesimin ritmi içimde sessiz bir bilgelik uyandırıyor.", "gender": "any" },
+{ "id": "m_370", "text": "Bugün içimdeki boşluk daha parlak hissediliyor.", "gender": "male" },
+{ "id": "m_371", "text": "Her anda nefesimin ışığını duyumsuyorum.", "gender": "any" },
+
+{ "id": "m_372", "text": "Bugün sessizlik beni görünmez bir huzur alanına taşıyor.", "gender": "female" },
+{ "id": "m_373", "text": "Nefesimle kurduğum bağ bana ruhsal bir açıklık veriyor.", "gender": "any" },
+{ "id": "m_374", "text": "Bugün evrenin dinginliği içimde karşılık buluyor.", "gender": "any" },
+{ "id": "m_375", "text": "Her nefes beni daha hafif bir varoluşa bağlıyor.", "gender": "male" },
+{ "id": "m_376", "text": "Bugün farkındalık içimde mistik bir uyum yaratıyor.", "gender": "any" },
+
+{ "id": "m_377", "text": "Bugün nefesimin bıraktığı iz ruhumda genişliyor.", "gender": "female" },
+{ "id": "m_378", "text": "Her anda içimde kozmik bir dinginlik uyanıyor.", "gender": "any" },
+
+{ "id": "m_379", "text": "Nefesinin taşıdığı ışığı bugün daha fazla hissediyorsun, {name}.", "gender": "any" },
+
+{ "id": "m_380", "text": "Bugün sessizlik ruhumu göksel bir huzura taşıyor.", "gender": "male" },
+{ "id": "m_381", "text": "Nefesim içimde yıldız tozu gibi hafif bir parlaklık bırakıyor.", "gender": "any" },
+{ "id": "m_382", "text": "Bugün ruhum nefesimin ışığıyla genişliyor.", "gender": "female" },
+{ "id": "m_383", "text": "Her nefes içimde yeni bir bilinç kapısı açıyor.", "gender": "any" },
+{ "id": "m_384", "text": "Bugün nefesim beni evrensel bir uyumla birleştiriyor.", "gender": "any" },
+
+{ "id": "m_385", "text": "Bugün sessizliğin içindeki bilgeliği daha net duyuyorum.", "gender": "male" },
+{ "id": "m_386", "text": "Her nefes alışımda ruhumda hafif bir açıklık oluşuyor.", "gender": "any" },
+{ "id": "m_387", "text": "Bugün nefesim beni daha huzurlu bir titreşime getiriyor.", "gender": "female" },
+{ "id": "m_388", "text": "Her anda içimde mistik bir sakinlik büyüyor.", "gender": "any" },
+{ "id": "m_389", "text": "Bugün içimde yeni bir ışık beliriyor.", "gender": "male" },
+
+{ "id": "m_390", "text": "Bugün nefesim beni evrenin sakin kalbine bağlıyor.", "gender": "any" },
+{ "id": "m_391", "text": "Her nefeste içimde yıldız gibi parlayan bir huzur hissediyorum.", "gender": "female" },
+{ "id": "m_392", "text": "Bugün ruhum nefesimin dinginliğinde çözülüyor.", "gender": "any" },
+{ "id": "m_393", "text": "Her anda farkındalık içimde kozmik bir düzen oluşturuyor.", "gender": "any" },
+
+{ "id": "m_394", "text": "Nefesinin dinginliği bugün sana bilgelik getiriyor, {name}.", "gender": "any" },
+
+{ "id": "m_395", "text": "Bugün sessizlik beni yıldızların sabrı gibi sarmalıyor.", "gender": "male" },
+{ "id": "m_396", "text": "Nefesim içimde mistik bir hafiflik bırakıyor.", "gender": "any" },
+{ "id": "m_397", "text": "Bugün ruhum daha parlak bir açıklığa açılıyor.", "gender": "female" },
+{ "id": "m_398", "text": "Her nefes içimde evrensel bir huzur uyandırıyor.", "gender": "any" },
+
+{ "id": "m_399", "text": "Bugün nefesim beni sessiz bir kozmik uyuma davet ediyor.", "gender": "male" },
+{ "id": "m_400", "text": "Her anda nefesimin ışığını evrenle birlikte hissediyorum.", "gender": "any" },
+{ "id": "m_401", "text": "Bugün nefesimin derinliği beni daha geniş bir farkındalığa taşıyor.", "gender": "any" },
+{ "id": "m_402", "text": "Her nefeste içimde ışıklı bir dinginlik büyüyor.", "gender": "female" },
+{ "id": "m_403", "text": "Bugün sessizliğin titreşimi bedenimi yumuşakça sarmalıyor.", "gender": "any" },
+{ "id": "m_404", "text": "Nefes verirken zihnimdeki gölgelerin hafifçe dağıldığını hissediyorum.", "gender": "any" },
+{ "id": "m_405", "text": "Bugün içimde kozmik bir huzur kıpırdıyor.", "gender": "male" },
+
+{ "id": "m_406", "text": "Her nefeste ruhumda hafif bir açıklık beliriyor.", "gender": "any" },
+{ "id": "m_407", "text": "Bugün nefesim beni daha dingin bir bilinç alanına çağırıyor.", "gender": "female" },
+{ "id": "m_408", "text": "Sessizlik bugün içimde ışık gibi parlıyor.", "gender": "any" },
+{ "id": "m_409", "text": "Nefesimin ritmi beni kozmik bir huzura bağlıyor.", "gender": "male" },
+{ "id": "m_410", "text": "Bugün içimde doğan sakinliği sevgiyle karşılıyorum.", "gender": "any" },
+
+{ "id": "m_411", "text": "Her nefes alışımda ruhumda derin bir netlik hissediyorum.", "gender": "female" },
+
+{ "id": "m_412", "text": "Gerçek huzur kalbin sessizliğinde başlar. — Lao Tzu", "gender": "any" },
+
+{ "id": "m_413", "text": "Bugün nefesimin akışı bedenimi yumuşakça gevşetiyor.", "gender": "any" },
+{ "id": "m_414", "text": "Her anda içimde hafif bir mistik açıklık beliriyor.", "gender": "male" },
+{ "id": "m_415", "text": "Bugün ruhum nefesimin ışığıyla genişliyor.", "gender": "any" },
+{ "id": "m_416", "text": "Nefes verirken içimdeki ağırlık çözülüyor.", "gender": "female" },
+{ "id":"m_417", "text": "Bugün içimdeki sessizlik gökyüzü kadar açık hissediliyor.", "gender": "any" },
+
+{ "id": "m_418", "text": "Zihin durduğunda bilgelik belirir. — Osho", "gender": "any" },
+
+{ "id": "m_419", "text": "Bugün nefesim beni daha yüksek bir farkındalık alanına taşıyor.", "gender": "male" },
+{ "id": "m_420", "text": "Her nefeste içimde kozmik bir denge hissediyorum.", "gender": "any" },
+{ "id": "m_421", "text": "Bugün ruhum nefesimin ışığında yumuşuyor.", "gender": "female" },
+{ "id": "m_422", "text": "Her anda farkındalık içimde genişleyen bir ferahlık yaratıyor.", "gender": "any" },
+{ "id": "m_423", "text": "Bugün sessizlik bana görünmez bir huzur bırakıyor.", "gender": "any" },
+
+{ "id": "m_424", "text": "Şimdi burada olmak yaşamın özü̈dür. — Eckhart Tolle", "gender": "male" },
+
+{ "id": "m_425", "text": "Bugün nefesim içimde mistik bir dinginlik uyandırıyor.", "gender": "any" },
+{ "id": "m_426", "text": "Her nefeste ruhum biraz daha genişliyor.", "gender": "female" },
+{ "id": "m_427", "text": "Bugün kozmik bir sakinlik içimde kök salıyor.", "gender": "any" },
+{ "id": "m_428", "text": "Nefesimin akışı beni berrak bir bilinç alanına getiriyor.", "gender": "any" },
+{ "id": "m_429", "text": "Bugün zihnimdeki yüklerin hafiflediğini hissediyorum.", "gender": "male" },
+
+{ "id": "m_430", "text": "Kendini bilmek tüm bilgeliğin başlangıcıdır. — Aristoteles", "gender": "any" },
+
+{ "id": "m_431", "text": "Bugün nefesim beni görünmez bir ışık akışına bağlıyor.", "gender": "female" },
+{ "id": "m_432", "text": "Her nefeste içimde parlayan bir huzur var.", "gender": "any" },
+{ "id": "m_433", "text": "Bugün sessizlik benimle nefes alıyor gibi hissediliyor.", "gender": "any" },
+{ "id": "m_434", "text": "Nefesimin sıcaklığı ruhumu yumuşak bir dengeye getiriyor.", "gender": "male" },
+{ "id": "m_435", "text": "Bugün farkındalık içimde ışıklı bir akış oluşturuyor.", "gender": "any" },
+
+{ "id": "m_436", "text": "Her nefes beni daha açık bir varoluşa davet ediyor.", "gender": "female" },
+
+{ "id": "m_437", "text": "Sessizlik en güçlü öğretmendir. — Ramana Maharshi", "gender": "any" },
+
+{ "id": "m_438", "text": "Bugün nefesim beni evrenin sakin titreşimine bağlıyor.", "gender": "any" },
+{ "id": "m_439", "text": "Her anda içimde hafif bir bilgelik parlıyor.", "gender": "male" },
+{ "id": "m_440", "text": "Bugün nefesimin akışı beni daha yumuşak bir farkındalığa götürüyor.", "gender": "any" },
+{ "id": "m_441", "text": "Nefes verirken bedenimdeki gerginliğin çözüldüğünü hissediyorum.", "gender": "female" },
+{ "id": "m_442", "text": "Bugün ruhum nefesimin taşıdığı ışığa güveniyor.", "gender": "any" },
+
+{ "id": "m_443", "text": "Her nefeste içimde göksel bir sakinlik beliriyor.", "gender": "any" },
+{ "id": "m_444", "text": "Bugün sessizlik içimde görünmez bir huzur yolu açıyor.", "gender": "male" },
+{ "id": "m_445", "text": "Nefesimin derinliği beni daha dingin bir bilince getiriyor.", "gender": "any" },
+{ "id": "m_446", "text": "Bugün ruhumda yumuşak bir mistik ferahlık taşıyorum.", "gender": "female" },
+{ "id":"m_447", "text": "Her anda nefesim beni daha açık bir varlığa davet ediyor.", "gender": "any" },
+
+{ "id": "m_448", "text": "Bugün içimde sessizce büyüyen kozmik huzuru hissediyorum.", "gender": "male" },
+{ "id": "m_449", "text": "Her nefes içimde yeni bir ışık kapısı aralıyor.", "gender": "any" },
+{ "id": "m_450", "text": "Bugün nefesimin taşıdığı sakinliği ruhumun her yerinde duyuyorum.", "gender": "any" }
+
 
 ]
+}

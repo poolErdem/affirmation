@@ -150,6 +150,22 @@ class _MyAffirmationListScreenState extends State<MyAffirmationListScreen> {
 
         await myAff.simulateNextDay();
 
+        final appState = context.read<AppState>();
+
+        if (!appState.preferences.premiumActive) {
+          appState.purchaseState.updatePremium(
+            active: true,
+            plan: PremiumPlan.monthly,
+            expiry: DateTime.now().add(const Duration(days: 30)),
+          );
+        } else {
+          appState.purchaseState.updatePremium(
+            active: false,
+            plan: PremiumPlan.monthly,
+            expiry: DateTime.now().add(const Duration(days: 30)),
+          );
+        }
+
         print(
             "🔥 simulateNextDay çağrıldı → Yeni challengeDay: ${myAff.todayChallengeDay}");
       },
@@ -382,31 +398,6 @@ class _MyAffRowState extends State<_MyAffRow>
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  /// test için
-  Widget _buildDebugNextDayButton(BuildContext context) {
-    return GestureDetector(
-      onTap: () async {
-        final myAff = context.read<MyAffirmationState>();
-
-        await myAff.simulateNextDay();
-
-        print(
-            "🔥 simulateNextDay çağrıldı → Yeni challengeDay: ${myAff.todayChallengeDay}");
-      },
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-        decoration: BoxDecoration(
-          color: Colors.redAccent.withValues(alpha: 0.7),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: const Text(
-          "Next Day",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
       ),
     );

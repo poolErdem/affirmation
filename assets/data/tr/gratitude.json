@@ -1,5 +1,434 @@
-[
-    { "id": "hp_001", "text": "Joy flows toward me more easily when I make space for simple pleasures.", "preferences": ["happiness"], "gender": "female" }
+{
+  "categoryId": "gratitude",
+  "affirmations": [
+
+{ "id": "gr_001", "text": "Bugün içimde derin bir minnettarlık akıyor.", "gender": "any" },
+{ "id": "gr_002", "text": "Sahip olduklarım bana huzur veriyor.", "gender": "any" },
+{ "id": "gr_003", "text": "Güne başlarken kalbimi yumuşak bir şükran duygusu sarıyor.", "gender": "female" },
+
+{ "id": "gr_004", "text": "{name}, bugün kalbindeki minnettarlık seni daha hafif hissettiriyor.", "gender": "any" },
+
+{ "id": "gr_005", "text": "Günün küçük detayları bile bana huzur veriyor.", "gender": "any" },
+{ "id": "gr_006", "text": "Evrenin bana sunduklarını zarafetle kabul ediyorum.", "gender": "any" },
+{ "id": "gr_007", "text": "Nefes aldığım her anın değerini daha çok hissediyorum.", "gender": "male" },
+{ "id": "gr_008", "text": "Yaşamımdaki güzellikler fark edilmeyi bekleyen hediyeler gibi.", "gender": "any" },
+{ "id": "gr_009", "text": "minnettarlığım bana içsel bir dinginlik getiriyor.", "gender": "female" },
+{ "id": "gr_010", "text": "Ruhum şükretmenin hafifliğiyle daha özgür.", "gender": "any" },
+
+{ "id": "gr_011", "text": "Hayatın bana sunduğu deneyimlere şefkatle yaklaşıyorum.", "gender": "any" },
+{ "id": "gr_012", "text": "küçük mutlulukları fark etmek beni zenginleştiriyor.", "gender": "male" },
+{ "id": "gr_013", "text": "Minnettarlık düşüncelerimi daha ışıklı kılıyor.", "gender": "any" },
+{ "id": "gr_014", "text": "Her nefes bana yeni bir şans hissettiriyor.", "gender": "female" },
+{ "id": "gr_015", "text": "kalbimde yumuşak bir huzur taşıyorum.", "gender": "any" },
+
+{ "id": "gr_016", "text": "Güzellikleri fark ettikçe hayatım daha parlak görünüyor.", "gender": "any" },
+{ "id": "gr_017", "text": "Sahip olduklarımın değerini daha derin bir şekilde algılıyorum.", "gender": "female" },
+{ "id": "gr_018", "text": "minnettarlık enerjisi bana güç veriyor.", "gender": "any" },
+{ "id": "gr_019", "text": "Kalbim şefkatle doldukça dünya daha yumuşak geliyor.", "gender": "male" },
+{ "id": "gr_020", "text": "Minnettarlığım beni daha merkezde hissettiriyor.", "gender": "any" },
+
+{ "id": "gr_021", "text": "Bugün bana sunulan imkanlara saygıyla yaklaşıyorum.", "gender": "any" },
+{ "id": "gr_022", "text": "Şükrettikçe huzur arttığını hissediyorum.", "gender": "female" },
+{ "id": "gr_023", "text": "Kalbim sakin bir minnettarlık ritmi taşıyor.", "gender": "any" },
+{ "id": "gr_024", "text": "Bugün hayatımdaki varlıkların değerini daha net görüyorum.", "gender": "any" },
+{ "id": "gr_025", "text": "Minnettarlık enerjisi zihnimi daha berrak yapıyor.", "gender": "male" },
+
+{ "id": "gr_026", "text": "içimdeki şükran duygusu beni hafifletiyor.", "gender": "any" },
+{ "id": "gr_027", "text": "Küçük mutlulukları fark etmek kalbimi yumuşatıyor.", "gender": "female" },
+{ "id": "gr_028", "text": "Geçmiş deneyimlerim için bile şükran duyuyorum.", "gender": "any" },
+{ "id": "gr_029", "text": "sahip olduğum her şeyin değerini hissediyorum.", "gender": "male" },
+{ "id": "gr_030", "text": "Şükran duygusu beni daha güçlü bir enerjiye taşıyor.", "gender": "any" },
+
+{ "id": "gr_031", "text": "sevginin bana geliş biçimine minnettarım.", "gender": "any" },
+{ "id": "gr_032", "text": "Dünya bana nazik davranıyor ve bunu hissediyorum.", "gender": "female" },
+{ "id": "gr_033", "text": "Şükrettiğimde hayatım daha kolay akıyor.", "gender": "any" },
+{ "id": "gr_034", "text": "Bugün içimdeki huzurun kaynağını onurlandırıyorum.", "gender": "any" },
+{ "id": "gr_035", "text": "Minnettarlığım içsel gücümü büyütüyor.", "gender": "male" },
+
+{ "id": "gr_036", "text": "evrenle bağlantımı daha net hissediyorum.", "gender": "any" },
+{ "id": "gr_037", "text": "Kalbimde yumuşakça büyüyen bir şükran var.", "gender": "female" },
+{ "id": "gr_038", "text": "Hayatın akışına güveniyorum.", "gender": "any" },
+{ "id": "gr_039", "text": "bana sunulan sıcaklığı kalbimde taşıyorum.", "gender": "male" },
+{ "id": "gr_040", "text": "Şükran duygusu beni daha huzurlu bir ritme sokuyor.", "gender": "any" },
+
+{ "id": "gr_041", "text": "yaşamın bana sunduklarına teslim oluyorum.", "gender": "any" },
+{ "id": "gr_042", "text": "Kalbim içsel bir teşekkürle dolu.", "gender": "female" },
+{ "id": "gr_043", "text": "Şükrettiğimde zihnim daha berrak oluyor.", "gender": "any" },
+{ "id": "gr_044", "text": "küçük şeyler bile beni mutlu ediyor.", "gender": "male" },
+{ "id": "gr_045", "text": "Minnettarlığım beni yumuşak bir güce bağlıyor.", "gender": "any" },
+
+{ "id": "gr_046", "text": "Bugün ruhum teşekkürle nefes alıyor.", "gender": "any" },
+{ "id": "gr_047", "text": "Her şey olması gerektiği gibi akıyor ve bunu hissediyorum.", "gender": "female" },
+{ "id": "gr_048", "text": "Minnettarlık enerjisi beni merkeze taşıyor.", "gender": "any" },
+{ "id": "gr_049", "text": "sevginin bana geliş yollarına minnettarım.", "gender": "male" },
+{ "id": "gr_050", "text": "Şükrettiğimde evren bana aynı enerjiyi geri veriyor.", "gender": "any" },
+
+{ "id": "gr_051", "text": "Kalbimdeki minnettarlık beni daha yumuşak biri yapıyor.", "gender": "female" },
+{ "id": "gr_052", "text": "Bugün evrenle uyum içindeyim.", "gender": "any" },
+{ "id": "gr_053", "text": "Ruhum şefkatli bir teşekkürle genişliyor.", "gender": "any" },
+{ "id": "gr_054", "text": "bana verilenlerin hepsini sevgiyle kabul ediyorum.", "gender": "male" },
+{ "id": "gr_055", "text": "Minnettarlık beni daha güçlü bir akışa taşıyor.", "gender": "any" },
+
+{ "id": "gr_056", "text": "Bugün zihnim şükranın ışığıyla aydınlanıyor.", "gender": "female" },
+{ "id": "gr_057", "text": "Dünya bana her gün yeni güzellikler sunuyor.", "gender": "any" },
+{ "id": "gr_058", "text": "Şükrettiğimde kalbim hafifliyor.", "gender": "male" },
+{ "id": "gr_059", "text": "sessiz bir minnettarlık enerjisi taşıyorum.", "gender": "any" },
+{ "id": "gr_060", "text": "Ruhum teşekkürle daha parlak hissediyor.", "gender": "any" },
+
+{ "id": "gr_061", "text": "hayatımdaki insanlara minnettarım.", "gender": "female" },
+{ "id": "gr_062", "text": "Güzellikleri görmek için kalbimi açıyorum.", "gender": "any" },
+{ "id": "gr_063", "text": "Şefkatli bir teşekkür beni daha derin bir huzura taşıyor.", "gender": "male" },
+{ "id": "gr_064", "text": "sahip olduklarım bana bir armağan gibi geliyor.", "gender": "any" },
+{ "id": "gr_065", "text": "Minnettarlığım içimdeki ışığı büyütüyor.", "gender": "any" },
+
+{ "id": "gr_066", "text": "kalbim dünyanın nezaketini hissetmeye hazır.", "gender": "female" },
+{ "id": "gr_067", "text": "Hayat bana ihtiyacım olanı zamanında sunuyor.", "gender": "any" },
+{ "id": "gr_068", "text": "Şükran duygusu beni daha açık bir zihne taşıyor.", "gender": "any" },
+{ "id": "gr_069", "text": "ruhum teşekkürle daha sıcak.", "gender": "male" },
+{ "id": "gr_070", "text": "Gün içindeki küçük mucizeleri fark ediyorum.", "gender": "any" },
+
+{ "id": "gr_071", "text": "Bugün varlığım minnettarlıkla genişliyor.", "gender": "female" },
+{ "id": "gr_072", "text": "Zihnim şükür enerjisiyle daha sakin.", "gender": "any" },
+{ "id": "gr_073", "text": "Dünyanın bana sunduklarını takdir ediyorum.", "gender": "male" },
+{ "id": "gr_074", "text": "kalbimde derin bir kabulleniş var.", "gender": "any" },
+{ "id": "gr_075", "text": "Minnettarlık enerjisi beni daha bilinçli bir hale getiriyor.", "gender": "any" },
+
+{ "id": "gr_076", "text": "{name}, teşekkür enerjin dünyayı bile yumuşaklaştırıyor.", "gender": "any" },
+
+{ "id": "gr_077", "text": "kalbimde yumuşak bir huzur taşıyorum.", "gender": "female" },
+{ "id": "gr_078", "text": "Şefkatle baktığım her şey güzelleşiyor.", "gender": "any" },
+{ "id": "gr_079", "text": "evrenle aynı ritimde nefes alıyorum.", "gender": "male" },
+{ "id": "gr_080", "text": "Minnettarlığım bana daha geniş bir bakış açısı veriyor.", "gender": "any" },
+
+{ "id": "gr_081", "text": "içimdeki huzuru şükranla besliyorum.", "gender": "female" },
+{ "id": "gr_082", "text": "Gün içinde karşılaştığım iyiliklere kalbimle karşılık veriyorum.", "gender": "any" },
+{ "id": "gr_083", "text": "Ruhumda teşekkür eden bir sıcaklık var.", "gender": "any" },
+{ "id": "gr_084", "text": "gördüğüm her güzellik beni zenginleştiriyor.", "gender": "male" },
+{ "id": "gr_085", "text": "Minnettarlık beni daha yaratıcı ve açık kılıyor.", "gender": "any" },
+
+{ "id": "gr_086", "text": "Bugün kalbim şefkatli bir teşekkürle genişliyor.", "gender": "female" },
+{ "id": "gr_087", "text": "Evren bana nazik işaretlerle yol gösteriyor.", "gender": "any" },
+{ "id": "gr_088", "text": "Şükrettiğimde ruhum daha hafif hissediyor.", "gender": "male" },
+{ "id": "gr_089", "text": "minnettarlık enerjisi beni daha güçlü hissettiriyor.", "gender": "any" },
+{ "id": "gr_090", "text": "Hayat bana sunduğu güzelliklerle beni destekliyor.", "gender": "any" },
+
+{ "id": "gr_091", "text": "dünyaya daha açık bir kalple bakıyorum.", "gender": "female" },
+{ "id": "gr_092", "text": "Şükran duydukça huzurum büyüyor.", "gender": "any" },
+{ "id": "gr_093", "text": "Minnettarlık beni daha sabırlı bir ritme taşıyor.", "gender": "male" },
+{ "id": "gr_094", "text": "evrenle olan bağımı daha derin hissediyorum.", "gender": "any" },
+{ "id": "gr_095", "text": "Kalbimdeki teşekkür enerjisi beni daha sevgi dolu yapıyor.", "gender": "any" },
+
+{ "id": "gr_096", "text": "{name}, bugün minnettarlığın çevrendeki enerjiyi bile yumuşatıyor.", "gender": "any" },
+
+{ "id": "gr_097", "text": "şükran duygusu ruhuma sıcak bir dokunuş gibi geliyor.", "gender": "female" },
+{ "id": "gr_098", "text": "Hayatın akışı beni her gün daha çok besliyor.", "gender": "any" },
+{ "id": "gr_099", "text": "Minnettarlık beni daha farkındalıklı bir kişi yapıyor.", "gender": "male" },
+{ "id": "gr_100", "text": "sahip olduklarım bana yeterli olduğumu hatırlatıyor.", "gender": "any" },
+{ "id": "gr_101", "text": "hayatımın sakin akışına minnet duyuyorum.", "gender": "any" },
+{ "id": "gr_102", "text": "Ruhuma dokunan küçük güzellikleri fark ediyorum.", "gender": "female" },
+{ "id": "gr_103", "text": "Güneşin sıcaklığı bana şefkatli bir hatırlatma gibi geliyor.", "gender": "any" },
+
+{ "id": "gr_104", "text": "Bugün içimde büyüyen huzura teşekkür ediyorum, {name}.", "gender": "any" },
+
+{ "id": "gr_105", "text": "Kalbimdeki yumuşak şükran beni daha hafif hissettiriyor.", "gender": "any" },
+{ "id": "gr_106", "text": "Günün zarif detayları bana ilham veriyor.", "gender": "male" },
+{ "id": "gr_107", "text": "Bugün aldığım her nefes bana yeni bir başlangıç gibi geliyor.", "gender": "any" },
+{ "id": "gr_108", "text": "Sessiz anlar bana derin bir teşekkür alanı açıyor.", "gender": "female" },
+{ "id": "gr_109", "text": "Hayatın yumuşak yanını daha net hissediyorum.", "gender": "any" },
+{ "id": "gr_110", "text": "kalbim sıcak bir minnettarlık ritmi taşıyor.", "gender": "male" },
+
+{ "id": "gr_111", "text": "Dünya bana nazikçe yaklaşırken bunu fark ediyorum.", "gender": "any" },
+{ "id": "gr_112", "text": "Bulunduğum yerin huzurunu içime alıyorum.", "gender": "female" },
+{ "id": "gr_113", "text": "Minnettarlık enerjisi bedenimi daha dengeli hissettiriyor.", "gender": "any" },
+{ "id": "gr_114", "text": "Bugün evrenle uyum içindeymişim gibi hissediyorum.", "gender": "any" },
+{ "id": "gr_115", "text": "Ruhum sakin bir teşekkürle genişliyor.", "gender": "male" },
+
+{ "id": "gr_116", "text": "Günün sunduğu küçük lütuflar beni besliyor.", "gender": "any" },
+{ "id": "gr_117", "text": "Bugün içimde büyüyen şefkatli hislere minnettarım.", "gender": "female" },
+{ "id": "gr_118", "text": "Kalbim dünyaya daha yumuşak bakıyor.", "gender": "any" },
+{ "id": "gr_119", "text": "Her şeyin zamanında geldiğini hissediyorum.", "gender": "male" },
+{ "id": "gr_120", "text": "ruhumun sıcaklığını daha çok taşıyorum.", "gender": "any" },
+
+{ "id": "gr_121", "text": "Hayatın akışı bana güven veren bir ritim sunuyor.", "gender": "any" },
+{ "id": "gr_122", "text": "Gördüğüm iyiliklerin bana geri döndüğünü fark ediyorum.", "gender": "female" },
+{ "id": "gr_123", "text": "içimde nazik bir teşekkür fısıltısı var.", "gender": "any" },
+{ "id": "gr_124", "text": "Şükrettikçe bakış açım genişliyor.", "gender": "any" },
+{ "id": "gr_125", "text": "Minnettarlık beni daha yumuşak bir enerjiye taşıyor.", "gender": "male" },
+
+{ "id": "gr_126", "text": "Bugün kalbimde hissedilen huzur bir armağan gibi.", "gender": "any" },
+{ "id": "gr_127", "text": "Her nefeste teşekkür enerjisi hissediyorum.", "gender": "female" },
+{ "id": "gr_128", "text": "Dünyanın bana sunduklarını daha yumuşak kabul ediyorum.", "gender": "any" },
+
+{ "id": "gr_129", "text": "Bugün hayatın sıcaklığını içimde taşıyorum, {name}.", "gender": "any" },
+
+{ "id": "gr_130", "text": "Minnettarlık ruhuma altın bir parlaklık katıyor.", "gender": "male" },
+{ "id": "gr_131", "text": "Küçük mutluluklar kalbimde büyük bir iz bırakıyor.", "gender": "any" },
+{ "id": "gr_132", "text": "her şeyin bir sebebi olduğunu daha iyi hissediyorum.", "gender": "female" },
+{ "id": "gr_133", "text": "Ruhumdaki şükran beni daha nazik bir frekansa taşırıyor.", "gender": "any" },
+{ "id": "gr_134", "text": "iyi olan her şeye sevgiyle yer açıyorum.", "gender": "any" },
+
+{ "id": "gr_135", "text": "Yaşamın bana sunduğu dinginliği takdir ediyorum.", "gender": "male" },
+{ "id": "gr_136", "text": "Kalbimdeki teşekkür enerjisi beni daha sıcak kılıyor.", "gender": "any" },
+{ "id": "gr_137", "text": "ruhum minnettarlığın yumuşak bir tonunda.", "gender": "female" },
+{ "id": "gr_138", "text": "Işığın gelişini fark ettiğim her an için şükran duyuyorum.", "gender": "any" },
+{ "id": "gr_139", "text": "Hayatın küçük hediyeleri bile bana büyük mutluluk veriyor.", "gender": "male" },
+
+{ "id": "gr_140", "text": "Bugün kalbimi hafifleten şeylere teşekkür ediyorum.", "gender": "any" },
+{ "id": "gr_141", "text": "Minnettarlık beni daha farkındalıklı bir ritme taşıyor.", "gender": "female" },
+{ "id": "gr_142", "text": "Bugün karşılaştığım iyilikler beni besliyor.", "gender": "any" },
+{ "id": "gr_143", "text": "Her detayda hayatın bana göz kırptığını hissediyorum.", "gender": "any" },
+{ "id": "gr_144", "text": "Şükrettikçe dünya bana daha sıcak davranıyor.", "gender": "male" },
+
+{ "id": "gr_145", "text": "sahip olduklarımın değerini daha çok fark ediyorum.", "gender": "any" },
+
+{ "id": "gr_146", "text": "Dünyanın bana sunduğu nezakete teşekkür ediyorum.", "gender": "female" },
+{ "id": "gr_147", "text": "Ruhumda büyüyen şükran beni daha yumuşak biri yapıyor.", "gender": "any" },
+{ "id": "gr_148", "text": "kalbimdeki teşekkür enerjisi günümü hafifletiyor.", "gender": "any" },
+{ "id": "gr_149", "text": "Minnettarlık bana geniş bir huzur alanı açıyor.", "gender": "male" },
+
+{ "id": "gr_150", "text": "Günün sunduğu güzellikleri sevgiyle kabul ediyorum, {name}.", "gender": "any" },
+
+{ "id": "gr_151", "text": "kalbimde hafif bir minnettarlık kıpırtısı hissediyorum.", "gender": "any" },
+{ "id": "gr_152", "text": "Günün yumuşak akışı bana huzur veriyor.", "gender": "female" },
+{ "id": "gr_153", "text": "Her nefes bana yeni bir şans gibi geliyor.", "gender": "any" },
+
+{ "id": "gr_154", "text": "içimde büyüyen sakinliğe teşekkür ediyorum, {name}.", "gender": "any" },
+
+{ "id": "gr_155", "text": "Dünyanın bana sunduğu küçük güzellikleri fark ediyorum.", "gender": "any" },
+{ "id": "gr_156", "text": "Ruhum yumuşacık bir teşekkür enerjisiyle doluyor.", "gender": "female" },
+{ "id": "gr_157", "text": "hava bile sanki bana dostça yaklaşıyor.", "gender": "any" },
+{ "id": "gr_158", "text": "Kalbim hafif bir rüya gibi genişliyor.", "gender": "male" },
+{ "id": "gr_159", "text": "Yaşamın sakin adımlarını yumuşakça kabul ediyorum.", "gender": "any" },
+{ "id": "gr_160", "text": "minnettarlık içimde tatlı bir melodi gibi akıyor.", "gender": "any" },
+
+{ "id": "gr_161", "text": "Günün zarif sessizliği bana huzur getiriyor.", "gender": "female" },
+{ "id": "gr_162", "text": "Kalbim küçük anların güzelliğine daha açık.", "gender": "any" },
+{ "id": "gr_163", "text": "Bugün aldığım nefesi bile bir armağan gibi hissediyorum.", "gender": "male" },
+{ "id": "gr_164", "text": "İçimdeki minnettarlık duygusu beni daha yumuşak bir ritme taşıyor.", "gender": "any" },
+{ "id": "gr_165", "text": "Hayatın hafif dokunuşlarını fark etmek beni zenginleştiriyor.", "gender": "female" },
+
+{ "id": "gr_166", "text": "Bugün kalbimde rüya gibi bir huzur taşıyorum.", "gender": "any" },
+{ "id": "gr_167", "text": "Minnettarlığın sıcaklığı içimde yavaşça büyüyor.", "gender": "any" },
+{ "id": "gr_168", "text": "Günün dinginliği bana iyi geliyor.", "gender": "male" },
+{ "id": "gr_169", "text": "Ruhum tatlı bir teşekkürle genişliyor.", "gender": "any" },
+{ "id": "gr_170", "text": "evrenle daha nazik bir uyum hissediyorum.", "gender": "female" },
+
+{ "id": "gr_171", "text": "Işığın gelişini fark etmek beni minnetle dolduruyor.", "gender": "any" },
+{ "id": "gr_172", "text": "Kalbimde yumuşak bir sevgi ve teşekkür hissi taşıyorum.", "gender": "any" },
+{ "id": "gr_173", "text": "dünya bana dostça davranıyor gibi hissediyorum.", "gender": "female" },
+{ "id": "gr_174", "text": "Minnettarlığın hafifliği beni daha merkezde tutuyor.", "gender": "male" },
+{ "id": "gr_175", "text": "Her küçük ayrıntıda hayatın bana göz kırptığını fark ediyorum.", "gender": "any" },
+
+{ "id": "gr_176", "text": "kalbimin ışığı rüya gibi bir sakinlik yayıyor.", "gender": "any" },
+
+{ "id": "gr_177", "text": "Günün hafif rüzgarı bile bana teşekkür ettiriyor.", "gender": "female" },
+{ "id": "gr_178", "text": "Ruhum yumuşacık bir minnettarlık örtüsüyle sarılıyor.", "gender": "any" },
+{ "id": "gr_179", "text": "yaşadığım her küçük an bana hediye gibi geliyor.", "gender": "male" },
+{ "id": "gr_180", "text": "Dünyanın yavaş ritmini kalbimde hissediyorum.", "gender": "any" },
+
+{ "id": "gr_181", "text": "içimde hafif bir huzur şarkısı duyuyorum.", "gender": "female" },
+{ "id": "gr_182", "text": "Minnettarlık ruhumu ince bir ışıkla aydınlatıyor.", "gender": "any" },
+{ "id": "gr_183", "text": "Her nefesimin içinde şükre sebep buluyorum.", "gender": "any" },
+{ "id": "gr_184", "text": "evren bana yumuşacık bir sarılma gibi geliyor.", "gender": "male" },
+{ "id": "gr_185", "text": "Kalbimdeki şükran bana tatlı bir denge sunuyor.", "gender": "any" },
+
+{ "id": "gr_186", "text": "Günün sessizliği bana rüya gibi bir huzur getiriyor.", "gender": "female" },
+{ "id": "gr_187", "text": "hayatın zarif taraflarını daha kolay fark ediyorum.", "gender": "any" },
+{ "id": "gr_188", "text": "Ruhumdaki teşekkür enerjisi beni daha yumuşak yapıyor.", "gender": "any" },
+{ "id": "gr_189", "text": "Bugün dünyanın bana sunduğu sakinlik beni sarıyor.", "gender": "male" },
+{ "id": "gr_190", "text": "Minnettarlık düşüncelerimin arasından hafifçe süzülüyor.", "gender": "any" },
+
+{ "id": "gr_191", "text": "kalbimde tatlı bir hafiflik hissediyorum.", "gender": "female" },
+{ "id": "gr_192", "text": "Dünya bana ince işlenmiş bir huzur armağan ediyor.", "gender": "any" },
+{ "id": "gr_193", "text": "Her detayda sevgi ve teşekkür görmeye daha açığım.", "gender": "male" },
+{ "id": "gr_194", "text": "Bugün içimde rüyasal bir sakinlik akıyor.", "gender": "any" },
+{ "id": "gr_195", "text": "Minnettarlık beni tatlı bir uyuma bağlıyor.", "gender": "any" },
+
+{ "id": "gr_196", "text": "Bugün kalbimdeki huzuru sevgiyle selamlıyorum, {name}.", "gender": "any" },
+
+{ "id": "gr_197", "text": "Her şey olması gerektiği gibi akıyor ve ben bunun için minnettarım.", "gender": "female" },
+{ "id": "gr_198", "text": "Bugünün küçük mucizeleri bana iyi geliyor.", "gender": "any" },
+{ "id": "gr_199", "text": "Şefkatli bir minnettarlık duygusu beni hafifletiyor.", "gender": "male" },
+{ "id": "gr_200", "text": "ruhum huzurun en yumuşak tonunda nefes alıyor.", "gender": "any" },
+{ "id": "gr_201", "text": "kalbimde hafif bir teşekkür rüzgârı esiyor.", "gender": "any" },
+{ "id": "gr_202", "text": "Hayatın yumuşak akışı bana huzur veriyor.", "gender": "female" },
+{ "id": "gr_203", "text": "nefesimin sakin ritmine minnettarım.", "gender": "any" },
+{ "id": "gr_204", "text": "Ruhuma dokunan küçük anlara teşekkür ediyorum.", "gender": "any" },
+{ "id": "gr_205", "text": "Günün zarif sessizliği beni yumuşatıyor.", "gender": "male" },
+
+{ "id": "gr_206", "text": "dünyayı daha nazik bir pencereden görüyorum.", "gender": "any" },
+{ "id": "gr_207", "text": "Kalbim günün hafifliğine teşekkür ediyor.", "gender": "female" },
+{ "id": "gr_208", "text": "Sessiz anlar bana içsel bir minnettarlık armağan ediyor.", "gender": "any" },
+{ "id": "gr_209", "text": "ruhumun hafifliğini daha çok hissediyorum.", "gender": "male" },
+{ "id": "gr_210", "text": "Dünyanın ince güzellikleri bana iyi geliyor.", "gender": "any" },
+
+{ "id": "gr_211", "text": "kalbimde sıcak bir teşekkür titreşimi var.", "gender": "any" },
+{ "id": "gr_212", "text": "Huzurun küçük dokunuşlarını fark ederek ilerliyorum.", "gender": "female" },
+{ "id": "gr_213", "text": "Hayatın sakin ritmine minnettarım.", "gender": "any" },
+{ "id": "gr_214", "text": "beni yumuşatan her duyguya teşekkür ediyorum.", "gender": "male" },
+{ "id": "gr_215", "text": "Dünyanın bana sunduğu huzuru içime alıyorum.", "gender": "any" },
+
+{ "id": "gr_216", "text": "Kalbimdeki minnettarlık beni daha sakin bir tona taşıyor.", "gender": "female" },
+{ "id": "gr_217", "text": "Bugün zarif bir huzurun içinde kendimi daha merkezde hissediyorum.", "gender": "any" },
+{ "id": "gr_218", "text": "Işığın yumuşak gelişine teşekkür ediyorum.", "gender": "any" },
+{ "id": "gr_219", "text": "Sessizlik bugün ruhuma tatlı bir şükran bırakıyor.", "gender": "male" },
+{ "id": "gr_220", "text": "Hayatın yavaş akışını fark etmek beni besliyor.", "gender": "any" },
+
+{ "id": "gr_221", "text": "Bugün dünyanın sakin yanına daha yakınım.", "gender": "any" },
+{ "id": "gr_222", "text": "Minnettarlık düşüncelerimin arasına yumuşakça karışıyor.", "gender": "female" },
+{ "id": "gr_223", "text": "Her şeyin nazikçe yerli yerine oturduğunu hissediyorum.", "gender": "any" },
+{ "id": "gr_224", "text": "Bugün ruhumun hafifliğini taşıyorum.", "gender": "male" },
+{ "id": "gr_225", "text": "Dünyayı sevgiyle karşıladıkça huzurum artıyor.", "gender": "any" },
+
+{ "id": "gr_226", "text": "içimde büyüyen yumuşacık şükrana teşekkür ediyorum.", "gender": "any" },
+{ "id": "gr_227", "text": "Ruhumun rüya gibi sakinleşmesine izin veriyorum.", "gender": "female" },
+{ "id": "gr_228", "text": "Hayatın hafif dokunuşlarını fark ettikçe mutluluğum artıyor.", "gender": "any" },
+{ "id": "gr_229", "text": "güzel olan her şey içimde tatlı bir iz bırakıyor.", "gender": "male" },
+{ "id": "gr_230", "text": "Kalbimdeki teşekkür sesi günümü yumuşatıyor.", "gender": "any" },
+
+{ "id": "gr_231", "text": "aldığım her nefese sevgiyle teşekkür ediyorum.", "gender": "any" },
+{ "id": "gr_232", "text": "Dünyanın bana sunduğu sıcaklığa kalbimi açıyorum.", "gender": "female" },
+{ "id": "gr_233", "text": "Hafif bir huzur dalgası beni sarıyor.", "gender": "any" },
+{ "id": "gr_234", "text": "Bugün güzellikleri daha kolay fark ediyorum.", "gender": "male" },
+{ "id": "gr_235", "text": "Şefkatle dolu bir şükran duygusu beni yumuşatıyor.", "gender": "any" },
+
+{ "id": "gr_236", "text": "Bugün içimde yüzen hafif bir huzur hissi var.", "gender": "female" },
+{ "id": "gr_237", "text": "Ruhuma dokunan küçük hediyeleri fark ediyorum.", "gender": "any" },
+{ "id": "gr_238", "text": "Minnettarlık düşüncelerimin içinde tatlı bir melodi gibi akıyor.", "gender": "any" },
+{ "id": "gr_239", "text": "evrenle aynı yumuşaklıkta nefes alıyorum.", "gender": "male" },
+{ "id": "gr_240", "text": "Dünyanın zarif detaylarına teşekkür ediyorum.", "gender": "any" },
+
+{ "id": "gr_241", "text": "kalbim yumuşak bir huzur örtüsü taşıyor.", "gender": "female" },
+{ "id": "gr_242", "text": "Her şey daha tatlı bir ritimde ilerliyor ve ben bunu hissediyorum.", "gender": "any" },
+{ "id": "gr_243", "text": "Minnettarlığım ruhuma ince bir ışık yayıyor.", "gender": "male" },
+{ "id": "gr_244", "text": "kalbimdeki şefkat bana rehberlik ediyor.", "gender": "any" },
+{ "id": "gr_245", "text": "Hayatın küçük anları bana büyük bir huzur veriyor.", "gender": "any" },
+
+{ "id": "gr_246", "text": "yürüdüğüm yolun sessizliğine teşekkür ediyorum.", "gender": "female" },
+{ "id": "gr_247", "text": "Dingin anlar bana rüya gibi bir rahatlık veriyor.", "gender": "any" },
+{ "id": "gr_248", "text": "Kalbimde taşıdığım yumuşak teşekkür hissi günümü şekillendiriyor.", "gender": "any" },
+{ "id": "gr_249", "text": "Bugün evrenin bana yumuşak mesajlar gönderdiğini hissediyorum.", "gender": "male" },
+{ "id": "gr_250", "text": "Ruhum hafif bir ışıkla doluyor ve bunun için minnettarım.", "gender": "any" },
+{ "id": "gr_251", "text": "kalbimde zarif bir minnettarlık akışı hissediyorum.", "gender": "any" },
+{ "id": "gr_252", "text": "Dünyanın bana sunduğu sakinliği takdir ediyorum.", "gender": "female" },
+{ "id": "gr_253", "text": "Her nefeste içime dolan hafif huzura teşekkür ediyorum.", "gender": "any" },
+{ "id": "gr_254", "text": "küçük anlar bile derin bir sıcaklık taşıyor.", "gender": "any" },
+{ "id": "gr_255", "text": "Ruhumun yumuşak ritmine şükran duyuyorum.", "gender": "male" },
+
+{ "id": "gr_256", "text": "sessizlik bile bana lüks bir huzur gibi geliyor.", "gender": "any" },
+{ "id": "gr_257", "text": "Kalbimdeki minnettarlık beni daha zarif hissettiriyor.", "gender": "female" },
+{ "id": "gr_258", "text": "Dünyanın nezaketine her zamankinden daha açıktayım.", "gender": "any" },
+{ "id": "gr_259", "text": "içimde hafif bir sakinlik parlıyor.", "gender": "male" },
+{ "id": "gr_260", "text": "Gördüğüm her güzellik beni daha nazik bir frekansa taşıyor.", "gender": "any" },
+
+{ "id": "gr_261", "text": "ruhumu hafifçe dolduran dinginliğe teşekkür ediyorum.", "gender": "any" },
+{ "id": "gr_262", "text": "Kalbimdeki sıcaklık bana zarif bir huzur sunuyor.", "gender": "female" },
+{ "id": "gr_263", "text": "Günün akışında yumuşak bir minnettarlık taşıyorum.", "gender": "any" },
+{ "id": "gr_264", "text": "Bugün hayatın bana kibarca dokunduğunu hissediyorum.", "gender": "male" },
+{ "id": "gr_265", "text": "Ruhum sakin bir teşekkür enerjisiyle genişliyor.", "gender": "any" },
+
+{ "id": "gr_266", "text": "Bugün varlığımı sade bir huzur sarmalıyor.", "gender": "any" },
+{ "id": "gr_267", "text": "Dünyanın bana hissettirdiği yumuşaklığı takdir ediyorum.", "gender": "female" },
+{ "id": "gr_268", "text": "Her küçük detayda şefkatle örülmüş bir güzellik görüyorum.", "gender": "any" },
+{ "id": "gr_269", "text": "aldığım her nefes bana yeni bir huzur sunuyor.", "gender": "male" },
+{ "id": "gr_270", "text": "Minnettarlığım beni daha zengin bir içsel sükunete taşıyor.", "gender": "any" },
+
+{ "id": "gr_271", "text": "hayatın sakin yüzünü sevgiyle kabul ediyorum.", "gender": "female" },
+{ "id": "gr_272", "text": "Ruhumun hafifliğine teşekkür ediyorum.", "gender": "any" },
+{ "id": "gr_273", "text": "Her şeyin nazikçe ilerlediğini fark etmek beni yumuşatıyor.", "gender": "any" },
+{ "id": "gr_274", "text": "Bugün evrenle tatlı bir uyum içindeyim.", "gender": "male" },
+{ "id": "gr_275", "text": "Sakinlik bana özel bir armağan gibi geliyor.", "gender": "any" },
+
+{ "id": "gr_276", "text": "içimde berrak bir huzur damlası hissediyorum.", "gender": "any" },
+{ "id": "gr_277", "text": "Dünyanın bana sunduğu sakin güzelliklere teşekkür ediyorum.", "gender": "female" },
+{ "id": "gr_278", "text": "Ruhuma hafifçe dokunan huzuru takdir ediyorum.", "gender": "any" },
+{ "id": "gr_279", "text": "kalbimde nazik bir dinginlik büyüyor.", "gender": "male" },
+{ "id": "gr_280", "text": "Hayatın sakin ritmini hissederek ilerliyorum.", "gender": "any" },
+
+{ "id": "gr_281", "text": "minnettarlığım yumuşak bir ışık gibi içimi aydınlatıyor.", "gender": "any" },
+{ "id": "gr_282", "text": "Kalbimde hafif bir huzur tınısı taşıyorum.", "gender": "female" },
+{ "id": "gr_283", "text": "Her detay bana zarifçe teşekkür ettiriyor.", "gender": "any" },
+{ "id": "gr_284", "text": "evrenin bana sunduğu incelikleri fark ediyorum.", "gender": "male" },
+{ "id": "gr_285", "text": "Dünyanın sakin yüzü beni daha yumuşak biri yapıyor.", "gender": "any" },
+
+{ "id": "gr_286", "text": "ruhumu dolduran hafif şefkate minnettarım.", "gender": "any" },
+{ "id": "gr_287", "text": "Sakinlik kalbime mutluluk veren bir sıcaklık katıyor.", "gender": "female" },
+{ "id": "gr_288", "text": "Günün yumuşak akışını takdir ederek ilerliyorum.", "gender": "any" },
+{ "id": "gr_289", "text": "her şey olması gerektiği gibi geliyor.", "gender": "male" },
+{ "id": "gr_290", "text": "Kalbimdeki teşekkür enerjisi bana hafif bir zarafet veriyor.", "gender": "any" },
+
+{ "id": "gr_291", "text": "dünya bana nazik bir sıcaklıkla yaklaşıyor.", "gender": "female" },
+{ "id": "gr_292", "text": "Sessizliğin içindeki güzelliği fark ediyorum.", "gender": "any" },
+{ "id": "gr_293", "text": "Minnettarlık beni daha dingin bir ritme bağlıyor.", "gender": "any" },
+{ "id": "gr_294", "text": "Bugün kalbimde hafif bir huzur vücut buluyor.", "gender": "male" },
+{ "id": "gr_295", "text": "Hayatın zarif ayrıntılarına teşekkür ediyorum.", "gender": "any" },
+
+{ "id": "gr_296", "text": "Bugün ruhuma saf ve derin bir sakinlik yerleşiyor.", "gender": "any" },
+{ "id": "gr_297", "text": "Günün hafifliğini içime alıyorum.", "gender": "female" },
+{ "id": "gr_298", "text": "Her detayda hayatın bana nazikçe gülümsediğini hissediyorum.", "gender": "any" },
+{ "id": "gr_299", "text": "Bugün kalbimde ince bir minnettarlık yayılıyor.", "gender": "male" },
+{ "id": "gr_300", "text": "Sessiz bir huzur bana eşlik ediyor ve bunun için minnettarım.", "gender": "any" },
+
+{ "id": "gr_301", "text": "hayatın bana sunduğu sakin armağanlara teşekkür ediyorum.", "gender": "any" },
+{ "id": "gr_302", "text": "Ruhuma dolan hafif ışık için minnettarım.", "gender": "female" },
+{ "id": "gr_303", "text": "Günün tatlı akışı bana derin bir huzur hissettiriyor.", "gender": "any" },
+{ "id": "gr_304", "text": "evrenin zarif desteğini içimde hissediyorum.", "gender": "any" },
+{ "id": "gr_305", "text": "Kalbimdeki yumuşacık şükran beni daha dengede tutuyor.", "gender": "male" },
+
+{ "id": "gr_306", "text": "bana dokunan her ışık zerresine teşekkür ediyorum.", "gender": "any" },
+{ "id": "gr_307", "text": "Sakinliğin yumuşak tonları beni besliyor.", "gender": "female" },
+{ "id": "gr_308", "text": "Ruhumda büyüyen minnettarlık ince bir huzur yayıyor.", "gender": "any" },
+{ "id": "gr_309", "text": "içimde göksel bir sıcaklık hissediyorum.", "gender": "male" },
+{ "id": "gr_310", "text": "Şefkatli anlar kalbimi nazikçe genişletiyor.", "gender": "any" },
+
+{ "id": "gr_311", "text": "dünyanın tatlı ritmine teşekkür ederek ilerliyorum.", "gender": "any" },
+{ "id": "gr_312", "text": "Işığın bana getirdiği hafifliği takdir ediyorum.", "gender": "female" },
+{ "id": "gr_313", "text": "Ruhuma yerleşen dinginlik beni daha yumuşak yapıyor.", "gender": "any" },
+{ "id": "gr_314", "text": "evrenin sessiz desteğini iliklerime kadar hissediyorum.", "gender": "male" },
+{ "id": "gr_315", "text": "Minnettarlık kalbimde zarif bir titreşim bırakıyor.", "gender": "any" },
+
+{ "id": "gr_316", "text": "Bugün hayatın beni nazikçe taşımasına teşekkür ediyorum.", "gender": "female" },
+{ "id": "gr_317", "text": "Gökyüzünün dingin rengi içimde bir şükran yaratıyor.", "gender": "any" },
+{ "id": "gr_318", "text": "Ruhumun derinlerinde hafif bir huzur çiçek açıyor.", "gender": "any" },
+{ "id": "gr_319", "text": "Bugün nefesim bile harika bir sakinlik taşıyor.", "gender": "male" },
+{ "id": "gr_320", "text": "Her şeyin yumuşakça yerine oturduğunu hissediyorum.", "gender": "any" },
+
+{ "id": "gr_321", "text": "Bugün içimde rüyamsı bir minnettarlık akıyor.", "gender": "female" },
+{ "id": "gr_322", "text": "Dünyanın bana sunduğu ince mesajlara teşekkür ediyorum.", "gender": "any" },
+{ "id": "gr_323", "text": "Kalbimdeki huzur ışık gibi genişliyor.", "gender": "any" },
+{ "id": "gr_324", "text": "evrenle aramda görünmez bir sakin bağ hissediyorum.", "gender": "male" },
+{ "id": "gr_325", "text": "Minnettarlık düşüncelerimin etrafında yumuşak bir sıcaklık bırakıyor.", "gender": "any" },
+
+{ "id": "gr_326", "text": "ruhuma kadar işleyen hafif bir teşekkür hissi taşıyorum.", "gender": "female" },
+{ "id": "gr_327", "text": "Evrenin bana sunduğu sükuneti daha kolay fark ediyorum.", "gender": "any" },
+{ "id": "gr_328", "text": "Güzelliklerin yumuşak akışı ruhumu nazikçe aydınlatıyor.", "gender": "any" },
+{ "id": "gr_329", "text": "günün berraklığını içimde hissediyorum.", "gender": "male" },
+{ "id": "gr_330", "text": "Kalbimin sıcak ritmine teşekkür ediyorum.", "gender": "any" },
+
+{ "id": "gr_331", "text": "rüya gibi bir hafiflik bana eşlik ediyor.", "gender": "female" },
+{ "id": "gr_332", "text": "Dünyanın sessiz nezaketini fark etmek beni besliyor.", "gender": "any" },
+{ "id": "gr_333", "text": "Minnettarlığım içimde altın bir ışık gibi parlıyor.", "gender": "male" },
+{ "id": "gr_334", "text": "Bugün hayatın yumuşak dalgalarına teslim oluyorum.", "gender": "any" },
+{ "id": "gr_335", "text": "Kalbimdeki huzur nefes aldıkça büyüyor.", "gender": "any" },
+
+{ "id": "gr_336", "text": "Bugün dünyayı daha yumuşak bir pencereden izliyorum.", "gender": "female" },
+{ "id": "gr_337", "text": "Ruhumu dolduran hafif minnettarlık bana denge veriyor.", "gender": "any" },
+{ "id": "gr_338", "text": "Günün sakinliğinde görünmez bir destek hissediyorum.", "gender": "any" },
+{ "id": "gr_339", "text": "Bugün içsel hafifliğime teşekkür ediyorum.", "gender": "male" },
+{ "id": "gr_340", "text": "Her şeyin bana nazikçe eşlik ettiğini fark ediyorum.", "gender": "any" },
+
+{ "id": "gr_341", "text": "kalbim ışığın tatlı gelişini kabul ediyor.", "gender": "female" },
+{ "id": "gr_342", "text": "Dünyanın hafif ritmi ruhuma huzur katıyor.", "gender": "any" },
+{ "id": "gr_343", "text": "Şükran duygum içimde göksel bir yumuşaklık bırakıyor.", "gender": "any" },
+{ "id": "gr_344", "text": "evrenin tatlı düzenini kalbimde hissediyorum.", "gender": "male" },
+{ "id": "gr_345", "text": "Her küçük an bana derin bir kolaylık hissettiriyor.", "gender": "any" },
+
+{ "id": "gr_346", "text": "içimde hafifçe titreşen bir huzura teşekkür ediyorum.", "gender": "female" },
+{ "id": "gr_347", "text": "Ruhuma dokunan rüyamsı sakinliği takdir ediyorum.", "gender": "any" },
+{ "id": "gr_348", "text": "Gökyüzünün yumuşak ışığı bana minnettarlık taşıyor.", "gender": "any" },
+{ "id": "gr_349", "text": "Bugün hayatın bana sunduğu dengeli sıcaklığı hissediyorum.", "gender": "male" },
+{ "id": "gr_350", "text": "Dünyanın hafif dokunuşları ruhumu yumuşakça sarıyor.", "gender": "any" }
 
 
 ]
+}

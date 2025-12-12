@@ -1,10 +1,459 @@
-[
+{
+  "categoryId": "career_success",
+  "affirmations": [
+
+{ "id": "cs_001", "text": "Her adimim daha berrak bir hedefe dogru ilerliyor.", "gender": "any" },
+{ "id": "cs_002", "text": "Bugun odagim daha net ve daha güçlü.", "gender": "any" },
+{ "id": "cs_003", "text": "Kararlarim daha saglam bir güç tasiyor.", "gender": "male" },
+
+{ "id": "cs_004", "text": "{name}, bugün yolundaki kapılar daha kolay aciliyor.", "gender": "any" },
+
+{ "id": "cs_005", "text": "Hedeflerimle aramdaki mesafe her gun daha da kisaliyor.", "gender": "any" },
+{ "id": "cs_006", "text": "Bugun enerjim islerimi ileri tasiyacak bir berraklikta.", "gender": "female" },
+{ "id": "cs_007", "text": "başarıyi sakin ama kesin adimlarla insa ediyorum.", "gender": "any" },
+{ "id": "cs_008", "text": "Her gun calismam beni daha ust bir seviyeye cikariyor.", "gender": "any" },
+{ "id": "cs_009", "text": "Zihnim bugun daha stratejik bir aciklikta.", "gender": "any" },
+{ "id": "cs_010", "text": "Dogru firsatlar dogru zamanda karsima cikiyor.", "gender": "any" },
+
+{ "id": "cs_011", "text": "Bugun attigim her adim daha yuksek bir potansiyeli tetikliyor.", "gender": "any" },
+{ "id": "cs_012", "text": "Kariyerim istedigim yone dogru zarif bir sekilde ilerliyor.", "gender": "female" },
+{ "id": "cs_013", "text": "Odaklandigim her sey benim icin sekilleniyor.", "gender": "any" },
+{ "id": "cs_014", "text": "Calisma disiplinim bana güçlu bir ivme kazandiriyor.", "gender": "male" },
+{ "id": "cs_015", "text": "Bugun motivasyonum gerekli olan tum alanlari aydinlatiyor.", "gender": "any" },
+
+{ "id": "cs_016", "text": "{name}, vizyonun bugun her zamankinden daha keskin.", "gender": "any" },
+
+{ "id": "cs_017", "text": "Kararliligim başarıyi bana daha da yaklastiriyor.", "gender": "any" },
+{ "id": "cs_018", "text": "Yeni yeteneklerimi her gun daha net kesfediyorum.", "gender": "female" },
+{ "id": "cs_019", "text": "Isimdeki degerim her adimla daha gorunur hale geliyor.", "gender": "any" },
+{ "id": "cs_020", "text": "Bugun isler daha duzgun bir ritimde akisina kavusuyor.", "gender": "any" },
+
+{ "id": "cs_021", "text": "Stratejik dusuncem bugun daha parlak bir sekilde isliyor.", "gender": "any" },
+{ "id": "cs_022", "text": "Calisma alanimdaki engelleri sakin bir güçle asiyorum.", "gender": "male" },
+{ "id": "cs_023", "text": "Yeni fikirlerim bana yepyeni kapılar aciyor.", "gender": "any" },
+{ "id": "cs_024", "text": "Bugun yaptigim her hamle daha derin bir etki yaratacak.", "gender": "female" },
+{ "id": "cs_025", "text": "Kariyerimdeki yol daha net bir şekilde beliriyor.", "gender": "any" },
+
+{ "id": "cs_026", "text": "Dogru insanlar dogru zamanda etrafimda beliriyor.", "gender": "any" },
+{ "id": "cs_027", "text": "Kariyer hedeflerimle tamamen uyumlu bir enerji tasiyorum.", "gender": "any" },
+{ "id": "cs_028", "text": "Bugun cesaretim daha profesyonel bir pariltiyla yuzeye cikiyor.", "gender": "any" },
+{ "id": "cs_029", "text": "Zihnimdeki berraklik bana daha hizli kararlar verdiriyor.", "gender": "female" },
+{ "id": "cs_030", "text": "Her adimim uzun vadeli başarı icin insa ediliyor.", "gender": "any" },
+
+{ "id": "cs_031", "text": "Bugun aklim daha keskin, vizyonum daha genis.", "gender": "male" },
+{ "id": "cs_032", "text": "Isimde ilerlemem kacinilmaz bir sekilde surekli artiyor.", "gender": "any" },
+{ "id": "cs_033", "text": "Hedeflerime yaklastikca enerjim daha da yukseliyor.", "gender": "any" },
+{ "id": "cs_034", "text": "Her yeni gune daha donusmus bir yetenekle basliyorum.", "gender": "any" },
+{ "id": "cs_035", "text": "Calisma ortami bugun benim icin daha destekleyici.", "gender": "female" },
+
+{ "id": "cs_036", "text": "{name}, vizyonun bugun etrafina ilham veriyor.", "gender": "any" },
+
+{ "id": "cs_037", "text": "Zamanimi dogru yonettikce başarı bana daha hizli geliyor.", "gender": "any" },
+{ "id": "cs_038", "text": "Bugun proje akislari daha kolay sekilleniyor.", "gender": "male" },
+{ "id": "cs_039", "text": "Emeğim her gun daha degerli bir sonuca donusuyor.", "gender": "any" },
+{ "id": "cs_040", "text": "Kariyerimdeki buyume bugun daha dengeli bir sekilde hissediliyor.", "gender": "any" },
+
+{ "id": "cs_041", "text": "Hedeflerime yaklasmak icin gerekli olan tum enerjiye sahibim.", "gender": "female" },
+{ "id": "cs_042", "text": "Bugun iletisimim daha net ve daha ikna edici.", "gender": "any" },
+{ "id": "cs_043", "text": "Kararlarim bana daha hizli yol aldiriyor.", "gender": "any" },
+{ "id": "cs_044", "text": "Is birikimim bugun daha olgun bir seviyeye ulasiyor.", "gender": "male" },
+{ "id": "cs_045", "text": "Emek verdiğim her sey benim icin dogru zamanda sekilleniyor.", "gender": "any" },
+
+{ "id": "cs_046", "text": "Yeni başlangıçlar icin bugun dogru bir momentum tasiyorum.", "gender": "any" },
+{ "id": "cs_047", "text": "Cesaretim profesyonel yolculugumun her adimina eslik ediyor.", "gender": "female" },
+{ "id": "cs_048", "text": "Bugun attigim stratejik hamleler uzun vadeli etkiler yaratıyor.", "gender": "any" },
+{ "id": "cs_049", "text": "Isimdeki yaraticilik daha verimli bir ritimde akis buluyor.", "gender": "any" },
+{ "id": "cs_050", "text": "Her adımım kariyerimde daha parlak bir gelecege dogru atiliyor.", "gender": "any" }, 
+{ "id": "cs_051", "text": "Bugün yeteneklerimi daha cesur bir şekilde ortaya koyuyorum.", "gender": "any" },
+{ "id": "cs_052", "text": "Profesyonel yolumda ilerlemek benim için artık daha doğal bir akış.", "gender": "any" },
+{ "id": "cs_053", "text": "Zihnim bugün daha üretken ve daha berrak.", "gender": "female" },
+
+{ "id": "cs_054", "text": "{name}, bugün attığın adımlar geleceğine güçlü bir iz bırakıyor.", "gender": "any" },
+
+{ "id":"cs_055", "text": "Her deneyimim beni daha yetkin bir seviyeye çıkarıyor.", "gender": "any" },
+{ "id":"cs_056", "text": "Bugün kararlarım daha hızlı ve daha net şekilleniyor.", "gender": "any" },
+{ "id":"cs_057", "text": "Çalışma disiplinim beni istikrarlı bir başarı yoluna taşıyor.", "gender": "male" },
+{ "id":"cs_058", "text": "Her hedefi adım adım yaklaşılabilir hale getiriyorum.", "gender": "any" },
+{ "id":"cs_059", "text": "Üretkenliğim yüksek bir akışla ilerliyor.", "gender": "female" },
+{ "id":"cs_060", "text": "Yaptığım iş çevremde güven ve değer yaratıyor.", "gender": "any" },
+
+{ "id":"cs_061", "text": "ortaya koyduğum emek geleceğimi güçlendiriyor.", "gender": "any" },
+{ "id":"cs_062", "text": "Yeni sorumlulukları doğal bir olgunlukla üstleniyorum.", "gender": "any" },
+{ "id":"cs_063", "text": "Zaman yönetimim çok daha akıcı.", "gender": "male" },
+{ "id":"cs_064", "text": "Kararlarım kariyerime net bir yön kazandırıyor.", "gender": "any" },
+{ "id":"cs_065", "text": "Her toplantıdan daha güçlü bir özgüvenle çıkıyorum.", "gender": "any" },
+
+{ "id":"cs_066", "text": "fırsatları doğru anda fark edebiliyorum.", "gender": "female" },
+{ "id":"cs_067", "text": "İşimdeki detaylara hâkimiyetim profesyonel gücümü artırıyor.", "gender": "any" },
+{ "id":"cs_068", "text": "Yüksek verimlilik benim doğal ritmim.", "gender": "male" },
+{ "id":"cs_069", "text": "Şu anki çabam gelecekteki başarımın temelini oluşturuyor.", "gender": "any" },
+{ "id":"cs_070", "text": "Yaratıcı düşünme becerim bugün daha esnek ve daha açık.", "gender": "any" },
+
+{ "id":"cs_071", "text": "Her iş gününe daha güçlü bir kararlılıkla başlıyorum.", "gender": "any" },
+{ "id":"cs_072", "text": "profesyonel duruşum çevremde ilham yaratıyor.", "gender": "female" },
+{ "id":"cs_073", "text": "Takım içinde uyum sağlayan bir denge noktası oluyorum.", "gender": "any" },
+{ "id":"cs_074", "text": "İşimi geliştiren yeni yolları kolayca fark ediyorum.", "gender": "any" },
+{ "id":"cs_075", "text": "enerjim sonuç odaklı bir netlikle ilerliyor.", "gender": "male" },
+
+{ "id":"cs_076", "text": "{name}, bugün gösterdiğin cesaret profesyonel geleceğini şekillendiriyor.", "gender": "any" },
+
+{ "id":"cs_077", "text": "Kararlılığım her engeli aşmamı kolaylaştırıyor.", "gender": "any" },
+{ "id":"cs_078", "text": "Yeni öğrenmeler kariyerime güçlü bir ivme kazandırıyor.", "gender": "female" },
+{ "id":"cs_079", "text": "attığım adımlar uzun vadeli başarıma hizmet ediyor.", "gender": "any" },
+{ "id":"cs_080", "text": "Profesyonel potansiyelim gün geçtikçe daha görünür.", "gender": "male" },
+
+{ "id":"cs_081", "text": "Her yeni görev bana değerli bir deneyim kazandırıyor.", "gender": "any" },
+{ "id":"cs_082", "text": "planlarım daha organize ve daha uygulanabilir.", "gender": "any" },
+{ "id":"cs_083", "text": "İş hayatımdaki akış her geçen gün daha pürüzsüz.", "gender": "female" },
+{ "id":"cs_084", "text": "Zorlukların içinden daha güçlü bir ben çıkıyor.", "gender": "any" },
+{ "id":"cs_085", "text": "İnisiyatif alma becerim bana yeni alanlar açıyor.", "gender": "male" },
+
+{ "id":"cs_086", "text": "profesyonel vizyonum daha geniş bir perspektifle açılıyor.", "gender": "any" },
+{ "id":"cs_087", "text": "Önceliklerimi doğru belirledikçe işlerim kolaylaşıyor.", "gender": "female" },
+{ "id":"cs_088", "text": "Her iş günüm daha bilinçli bir verimlilik taşıyor.", "gender": "any" },
+{ "id":"cs_089", "text": "Kariyerimdeki denge daha olgun bir noktada.", "gender": "any" },
+{ "id":"cs_090", "text": "Bugün işimde daha güçlü bir yön duygusu taşıyorum.", "gender": "male" },
+
+{ "id":"cs_091", "text": "Her kararım uzun vadeli faydayı destekliyor.", "gender": "any" },
+{ "id":"cs_092", "text": "ilerlemek için ihtiyacım olan tüm kaynaklara sahibim.", "gender": "female" },
+{ "id":"cs_093", "text": "Doğru insanlarla bağlantı kurma yeteneğim güçleniyor.", "gender": "any" },
+{ "id":"cs_094", "text": "Profesyonel duruşum bana yeni kapılar açıyor.", "gender": "any" },
+{ "id":"cs_095", "text": "Bugün işimde daha yenilikçi bir yaklaşım sergiliyorum.", "gender": "male" },
+
+{ "id":"cs_096", "text": "Yeteneklerimin değerini her geçen gün daha iyi görüyorum.", "gender": "any" },
+{ "id":"cs_097", "text": "motivasyonum beni ileri taşıyan güçlü bir kaynak.", "gender": "female" },
+{ "id":"cs_098", "text": "Her işimde daha profesyonel bir özgüven taşıyorum.", "gender": "any" },
+{ "id":"cs_099", "text": "Kariyer yolculuğum istikrarlı ve güven veren bir ritimde ilerliyor.", "gender": "any" },
+
+{ "id":"cs_100", "text": "{name}, bugün iş hayatında bıraktığın iz çok daha güçlü.", "gender": "any" },
+{ "id": "cs_101", "text": "işimde daha sağlam bir duruş sergiliyorum.", "gender": "any" },
+{ "id": "cs_102", "text": "Her adımım profesyonel gelişimime katkı sağlıyor.", "gender": "any" },
+{ "id": "cs_103", "text": "Zamanımı doğru kullandıkça verimliliğim artıyor.", "gender": "female" },
+
+{ "id": "cs_104", "text": "{name}, gösterdiğin odak seni bir üst seviyeye taşıyor.", "gender": "any" },
+
+{ "id": "cs_105", "text": "çözümlerim daha yaratıcı ve daha uygulanabilir.", "gender": "any" },
+{ "id": "cs_106", "text": "Profesyonel hedeflerimle uyumlu bir enerji içindeyim.", "gender": "any" },
+{ "id": "cs_107", "text": "Her görevi daha yüksek bir özenle tamamlıyorum.", "gender": "male" },
+{ "id": "cs_108", "text": "Yaptığım iş daha çok değer üretiyor.", "gender": "any" },
+{ "id": "cs_109", "text": "Zorlukların içinden daha güçlü bir bakış açısıyla çıkıyorum.", "gender": "any" },
+{ "id": "cs_110", "text": "iş akışım daha düzenli bir ritimde ilerliyor.", "gender": "female" },
+
+{ "id": "cs_111", "text": "Profesyonel vizyonum daha güçlü bir netlik taşıyor.", "gender": "any" },
+{ "id": "cs_112", "text": "Her adımım uzun vadeli başarıma hizmet ediyor.", "gender": "any" },
+{ "id": "cs_113", "text": "attığım hamleler daha etkili sonuçlar doğuruyor.", "gender": "male" },
+{ "id": "cs_114", "text": "İşimdeki ilerleme doğal bir akışla büyüyor.", "gender": "any" },
+{ "id": "cs_115", "text": "Bugün gösterdiğim çaba bana yeni fırsatlar getiriyor.", "gender": "any" },
+
+{ "id": "cs_116", "text": "Emeğimin karşılığını adım adım almaya başlıyorum.", "gender": "female" },
+{ "id": "cs_117", "text": "Kararlarım bugün daha hızlı sonuç veriyor.", "gender": "any" },
+{ "id": "cs_118", "text": "İş yaşamım daha istikrarlı bir ritme kavuşuyor.", "gender": "any" },
+{ "id": "cs_119", "text": "Yetkinliklerim her gün daha belirgin bir hâl alıyor.", "gender": "male" },
+{ "id": "cs_120", "text": "profesyonel iletişimim daha etkili ve daha akıcı.", "gender": "any" },
+
+{ "id": "cs_121", "text": "Projelerime kattığım değer her geçen gün artıyor.", "gender": "female" },
+{ "id": "cs_122", "text": "Kariyerimde ilerlemek artık daha doğal bir süreç.", "gender": "any" },
+{ "id": "cs_123", "text": "öğrenmeye daha açık ve daha esneğim.", "gender": "any" },
+{ "id": "cs_124", "text": "İşimin sorumluluğunu güçlü bir kararlılıkla taşıyorum.", "gender": "male" },
+{ "id": "cs_125", "text": "fırsatlara daha hızlı karşılık verebiliyorum.", "gender": "any" },
+
+{ "id": "cs_126", "text": "{name}, profesyonel yaklaşımın çevrene güven veriyor.", "gender": "any" },
+
+{ "id": "cs_127", "text": "işimde daha yaratıcı çözümler üretiyorum.", "gender": "any" },
+{ "id": "cs_128", "text": "Planlı hareket ettikçe işlerim daha kusursuz ilerliyor.", "gender": "female" },
+{ "id": "cs_129", "text": "Kariyerimdeki yükseliş daha dengeli bir şekilde büyüyor.", "gender": "any" },
+{ "id": "cs_130", "text": "stratejik düşünme becerim daha güçlü.", "gender": "male" },
+
+{ "id": "cs_131", "text": "Yeni sorumluluklara kendime güvenerek yaklaşıyorum.", "gender": "any" },
+{ "id": "cs_132", "text": "İş yaşamımdaki düzen beni daha verimli kılıyor.", "gender": "female" },
+{ "id": "cs_133", "text": "hedeflerimle daha uyumlu kararlar alıyorum.", "gender": "any" },
+{ "id": "cs_134", "text": "Profesyonel imzam daha belirgin hâle geliyor.", "gender": "any" },
+{ "id": "cs_135", "text": "attığım adımlar daha özgüvenli bir tonda.", "gender": "male" },
+
+{ "id": "cs_136", "text": "Kariyerimde ilerlemek için ihtiyacım olan enerjiye sahibim.", "gender": "any" },
+{ "id": "cs_137", "text": "çalışma ortamına daha yapıcı bir katkı sağlıyorum.", "gender": "female" },
+{ "id": "cs_138", "text": "Hedeflerimi gerçekleştirme isteğim bugün daha güçlü.", "gender": "any" },
+{ "id": "cs_139", "text": "Zaman içinde büyüyen deneyimim bana avantaj sağlıyor.", "gender": "any" },
+{ "id": "cs_140", "text": "Bugün sorumluluklarımı daha rahat yönetiyorum.", "gender": "male" },
+
+{ "id": "cs_141", "text": "Kariyerimdeki ilerleyişimi güvenle destekliyorum.", "gender": "any" },
+{ "id": "cs_142", "text": "işimde daha sabırlı, daha bilinçli ve daha kararlıyım.", "gender": "female" },
+{ "id": "cs_143", "text": "Çalışmalarım uzun vadede güçlü bir temel oluşturuyor.", "gender": "any" },
+{ "id": "cs_144", "text": "Hedeflerim için doğru anda doğru adımları atıyorum.", "gender": "any" },
+{ "id": "cs_145", "text": "profesyonel duruşum daha olgun bir hâlde.", "gender": "male" },
+
+{ "id": "cs_146", "text": "Yeni bağlantılar kariyerimde yeni yollar açıyor.", "gender": "any" },
+{ "id": "cs_147", "text": "çalışma şeklim daha düzenli ve daha verimli.", "gender": "female" },
+{ "id": "cs_148", "text": "Her iş günüm beni daha yetenekli bir seviyeye taşıyor.", "gender": "any" },
+{ "id": "cs_149", "text": "Kendime duyduğum güven iş sonuçlarıma yansıyor.", "gender": "any" },
+
+{ "id": "cs_150", "text": "{name}, bugün gösterdiğin istikrar geleceğini güçlendiriyor.", "gender": "any" }, 
+{ "id": "cs_151", "text": "işimde daha net bir yön duygusu taşıyorum.", "gender": "any" },
+{ "id": "cs_152", "text": "Her adımım profesyonel hedeflerimi güçlendiriyor.", "gender": "any" },
+{ "id": "cs_153", "text": "Sabır ve disiplin başarı yolumu berraklaştırıyor. — Seneca", "gender": "any" },
+
+{ "id": "cs_154", "text": "{name}, gösterdiğin odak sana yeni kapılar açıyor.", "gender": "any" },
+
+{ "id": "cs_155", "text": "işimde daha yaratıcı ve daha etkili kararlar alıyorum.", "gender": "female" },
+{ "id": "cs_156", "text": "Gücüm çalıştığım her alana daha net yansıyor.", "gender": "any" },
+{ "id": "cs_157", "text": "Her yeni sorumluluk beni daha olgun bir seviyeye taşıyor.", "gender": "any" },
+{ "id": "cs_158", "text": "Çevremde güven uyandıran bir profesyonellik sergiliyorum.", "gender": "male" },
+
+{ "id": "cs_159", "text": "Başarı düzenli çaba ile şekillenir. — Marcus Aurelius", "gender": "any" },
+
+{ "id": "cs_160", "text": "çalışma enerjim daha akıcı ve daha güçlü.", "gender": "any" },
+{ "id": "cs_161", "text": "Kariyerim doğal bir ritimde ilerliyor.", "gender": "any" },
+{ "id": "cs_162", "text": "Hedeflerime odaklanmak benim için daha kolay hale geliyor.", "gender": "female" },
+
+{ "id": "cs_163", "text": "Gerçek liderlik önce kendini yönetmekle başlar. — Lao Tzu", "gender": "any" },
+
+{ "id": "cs_164", "text": "iş birliğim daha akıcı bir uyum içinde.", "gender": "any" },
+{ "id": "cs_165", "text": "Profesyonel duruşum çevremde yüksek bir güven oluşturuyor.", "gender": "male" },
+{ "id": "cs_166", "text": "Başarıya giden yollar bugün daha belirgin.", "gender": "any" },
+
+{ "id": "cs_167", "text": "Gerçek güç sakin bir zihinden doğar. — Buddha", "gender": "any" },
+
+{ "id": "cs_168", "text": "Her adımım kariyerime değer katıyor.", "gender": "female" },
+{ "id": "cs_169", "text": "zihnim daha üretken bir seviyede çalışıyor.", "gender": "any" },
+{ "id": "cs_170", "text": "Kariyerimdeki ilerleyiş istikrarlı bir hızla devam ediyor.", "gender": "any" },
+
+{ "id": "cs_171", "text": "Emek verdiğin şey seni eninde sonunda ödüllendirir. — Rumi", "gender": "any" },
+
+{ "id": "cs_172", "text": "kararlarımı daha bilinçli bir netlikle alıyorum.", "gender": "male" },
+{ "id": "cs_173", "text": "Kendimi geliştirme isteğim her gün daha da artıyor.", "gender": "any" },
+{ "id": "cs_174", "text": "Profesyonel becerilerim bana yeni fırsatlar getiriyor.", "gender": "female" },
+
+{ "id": "cs_175", "text": "Zihin neye odaklanırsa onu büyütür. — James Allen", "gender": "any" },
+
+{ "id": "cs_176", "text": "işimde daha etkili çözümler üretiyorum.", "gender": "any" },
+{ "id": "cs_177", "text": "Her yeni gün potansiyelime bir adım daha yaklaşıyorum.", "gender": "any" },
+{ "id":"cs_178", "text": "Yaptığım işin değeri bugün daha belirgin.", "gender": "male" },
+
+{ "id": "cs_179", "text": "Yol yürüyene açılır. — Mevlana", "gender": "any" },
+
+{ "id": "cs_180", "text": "Bugün görevlerimi daha yüksek bir özgüvenle tamamlıyorum.", "gender": "female" },
+{ "id": "cs_181", "text": "Her fırsatı daha geniş bir perspektiften değerlendiriyorum.", "gender": "any" },
+{ "id": "cs_182", "text": "Profesyonel gelişimim bugün daha görünür bir noktada.", "gender": "any" },
+
+{ "id": "cs_183", "text": "Gerçek başarı küçük adımların toplamıdır. — Zig Ziglar", "gender": "any" },
+
+{ "id": "cs_184", "text": "işimdeki esnekliğim bana yeni alanlar açıyor.", "gender": "male" },
+{ "id": "cs_185", "text": "Çalışma şeklim daha planlı bir düzen içinde.", "gender": "any" },
+{ "id": "cs_186", "text": "Yaratıcılığım işime doğal bir akış getiriyor.", "gender": "female" },
+
+{ "id": "cs_187", "text": "Huzurlu bir zihin verimli bir iş ortaya çıkarır. — Eckhart Tolle", "gender": "any" },
+
+{ "id": "cs_188", "text": "işimde daha güçlü bir kararlılık hissediyorum.", "gender": "any" },
+{ "id": "cs_189", "text": "İlerlemem sabit ve güven veren bir ritimde devam ediyor.", "gender": "any" },
+{ "id": "cs_190", "text": "Profesyonel kimliğim her gün daha sağlamlaşıyor.", "gender": "male" },
+
+{ "id": "cs_191", "text": "Başarı sistemli bir zihnin ürünüdür. — Napoleon Hill", "gender": "any" },
+
+{ "id": "cs_192", "text": "ekip çalışmasında daha uyumlu bir enerji taşıyorum.", "gender": "female" },
+{ "id": "cs_193", "text": "Her iş adımım daha bilinçli bir yaklaşım içeriyor.", "gender": "any" },
+{ "id": "cs_194", "text": "Yaptığım planlar daha uygulanabilir bir hâle geliyor.", "gender": "any" },
+
+{ "id": "cs_195", "text": "{name}, vizyonun profesyonel yolunu genişletiyor.", "gender": "any" },
+
+{ "id": "cs_196", "text": "iş dünyasında daha güçlü bir denge ile ilerliyorum.", "gender": "male" },
+{ "id": "cs_197", "text": "Kendime duyduğum güven iş sonuçlarıma net bir şekilde yansıyor.", "gender": "any" },
+{ "id": "cs_198", "text": "Her görev bana yeni bir deneyim kazandırıyor.", "gender": "female" },
+{ "id": "cs_199", "text": "Gelişimim istikrarlı bir yükseliş ritmiyle devam ediyor.", "gender": "any" },
+
+{ "id": "cs_200", "text": "ürettiğim değer geleceğimin temelini güçlendiriyor.", "gender": "any" },
+{ "id": "cs_201", "text": "işimde daha rafine bir bakış açısıyla ilerliyorum.", "gender": "any" },
+{ "id": "cs_202", "text": "Her adımım profesyonel gücümü daha görünür kılıyor.", "gender": "any" },
+{ "id": "cs_203", "text": "Çözümlerim bugün daha net ve daha etkili.", "gender": "female" },
+
+{ "id": "cs_204", "text": "{name}, bugün odaklanma gücün çalıştığın her alana değer katıyor.", "gender": "any" },
+
+{ "id": "cs_205", "text": "Kariyerimdeki ilerleyiş sakin ama kararlı bir ritimde büyüyor.", "gender": "any" },
+{ "id": "cs_206", "text": "iş ortamına kattığım enerji daha dengeli ve daha güçlü.", "gender": "any" },
+{ "id": "cs_207", "text": "Profesyonel kimliğim günden güne daha da olgunlaşıyor.", "gender": "male" },
+{ "id": "cs_208", "text": "Her detaya gösterdiğim özen sonuçlarıma doğrudan yansıyor.", "gender": "any" },
+{ "id": "cs_209", "text": "Bugün yaptığım işler daha yüksek bir kalite hissi taşıyor.", "gender": "female" },
+{ "id": "cs_210", "text": "İş akışım daha düzenli ve daha pürüzsüz ilerliyor.", "gender": "any" },
+
+{ "id": "cs_211", "text": "Profesyonel kararlarım daha sağlam temellere dayanıyor.", "gender": "any" },
+{ "id": "cs_212", "text": "Yeni sorumluluklar bana doğal bir büyüme alanı yaratıyor.", "gender": "any" },
+{ "id": "cs_213", "text": "Çalışma disiplinim bana istikrarlı bir yükseliş sağlıyor.", "gender": "male" },
+{ "id": "cs_214", "text": "Potansiyelim her gün daha belirgin bir hâle geliyor.", "gender": "any" },
+{ "id": "cs_215", "text": "işimde daha geniş bir perspektifle ilerliyorum.", "gender": "any" },
+
+{ "id": "cs_216", "text": "Yaratıcılığım iş sonuçlarıma zarif bir dokunuş katıyor.", "gender": "female" },
+{ "id": "cs_217", "text": "Önceliklerimi doğru belirledikçe başarım daha istikrarlı oluyor.", "gender": "any" },
+{ "id": "cs_218", "text": "hedeflerime yaklaşmak benim için daha akıcı.", "gender": "any" },
+{ "id": "cs_219", "text": "Disiplinim profesyonel duruşuma seçkin bir güç katıyor.", "gender": "male" },
+{ "id": "cs_220", "text": "İş yaşamımdaki ilerleme beni daha özgüvenli bir noktaya taşıyor.", "gender": "any" },
+
+{ "id": "cs_221", "text": "yaptığım her hamle uzun vadeli hedeflerimi destekliyor.", "gender": "any" },
+{ "id": "cs_222", "text": "Kariyerimdeki büyüme daha sakin ve daha derin bir akışla ilerliyor.", "gender": "female" },
+{ "id": "cs_223", "text": "Zorluklarla baş etme becerim bugün daha keskin.", "gender": "any" },
+{ "id": "cs_224", "text": "Bugün zihnim daha analitik ve daha berrak çalışıyor.", "gender": "any" },
+{ "id": "cs_225", "text": "İş ortamındaki uyumum profesyonel etkimi artırıyor.", "gender": "male" },
+
+{ "id": "cs_226", "text": "{name}, vizyonun iş dünyasında yeni yollar açıyor.", "gender": "any" },
+
+{ "id": "cs_227", "text": "işimde daha derin bir iç disiplin taşıyorum.", "gender": "any" },
+{ "id": "cs_228", "text": "Kariyerimde yükselmek doğal bir süreç haline geliyor.", "gender": "female" },
+{ "id": "cs_229", "text": "Her adımım daha güçlü bir profesyonel iz bırakıyor.", "gender": "any" },
+{ "id": "cs_230", "text": "kararlarım daha stratejik bir sağlamlık taşıyor.", "gender": "male" },
+
+{ "id": "cs_231", "text": "Yetkinliklerim işimde beni ön plana çıkarıyor.", "gender": "any" },
+{ "id": "cs_232", "text": "daha bilinçli bir motivasyonla ilerliyorum.", "gender": "female" },
+{ "id": "cs_233", "text": "Her proje bana yeni bir güç alanı oluşturuyor.", "gender": "any" },
+{ "id": "cs_234", "text": "İletişim becerilerim bugün daha akışkan.", "gender": "any" },
+{ "id": "cs_235", "text": "Profesyonel duruşum iş çevremde pozitif bir etki yaratıyor.", "gender": "male" },
+
+{ "id": "cs_236", "text": "işimde daha kararlı, daha odaklı ve daha nettim.", "gender": "any" },
+{ "id": "cs_237", "text": "Her gün gelişen tecrübem bana yeni kapılar açıyor.", "gender": "female" },
+{ "id": "cs_238", "text": "Zamanı yönetme yeteneğim bugün daha güçlü.", "gender": "any" },
+{ "id": "cs_239", "text": "Profesyonel enerjim çalıştığım alanı olumlu yönde etkiliyor.", "gender": "any" },
+{ "id": "cs_240", "text": "Bugün üretkenliğim daha sağlam bir ritimde akıyor.", "gender": "male" },
+
+{ "id": "cs_241", "text": "Her yeni iş günü beni daha bilgili bir seviyeye taşıyor.", "gender": "any" },
+{ "id": "cs_242", "text": "sorumluluklarıma daha olgun bir yaklaşımla ilerliyorum.", "gender": "female" },
+{ "id": "cs_243", "text": "Kariyerimdeki resmi giderek daha net görüyorum.", "gender": "any" },
+{ "id": "cs_244", "text": "Çalışmalarım uzun vadede güçlü bir temel oluşturuyor.", "gender": "any" },
+{ "id": "cs_245", "text": "iş yolculuğum daha dengeli bir hızda devam ediyor.", "gender": "male" },
+
+{ "id": "cs_246", "text": "Analitik düşünme becerim bugün daha keskin bir hâlde.", "gender": "any" },
+{ "id": "cs_247", "text": "profesyonel planlarımı daha etkili yönetiyorum.", "gender": "female" },
+{ "id": "cs_248", "text": "Her görevde gösterdiğim odak beni ileri taşıyor.", "gender": "any" },
+{ "id": "cs_249", "text": "Kariyerimdeki yükselişimi güvenle destekliyorum.", "gender": "any" },
+
+{ "id": "cs_250", "text": "{name}, bugün ortaya koyduğun kalite seni daha görünür kılıyor.", "gender": "any" },
+
+{ "id": "cs_251", "text": "karar alma becerim daha keskin ve daha stratejik.", "gender": "any" },
+{ "id": "cs_252", "text": "Her adımım profesyonel otoritemi güçlendiriyor.", "gender": "any" },
+{ "id": "cs_253", "text": "İş dünyasında sakin gücümle öne çıkıyorum.", "gender": "male" },
+
+{ "id": "cs_254", "text": "{name}, bugün liderlik enerjin etrafındaki düzeni net bir şekilde belirliyor.", "gender": "any" },
+
+{ "id": "cs_255", "text": "işimde daha büyük resmi görmek benim için doğal.", "gender": "any" },
+{ "id": "cs_256", "text": "Profesyonel duruşum çevremde yüksek bir güven etkisi yaratıyor.", "gender": "female" },
+{ "id": "cs_257", "text": "Zorluklara yaklaşımım daha olgun ve daha kontrollü.", "gender": "any" },
+{ "id": "cs_258", "text": "Stratejim daha güçlü bir netlikle işliyor.", "gender": "any" },
+{ "id": "cs_259", "text": "Ekibime kattığım yön daha görünür hale geliyor.", "gender": "male" },
+{ "id": "cs_260", "text": "Bugün iş hayatındaki ritmim daha profesyonel bir akış taşıyor.", "gender": "any" },
+
+{ "id": "cs_261", "text": "Analitik düşüncem bugün her karara değer katıyor.", "gender": "any" },
+{ "id": "cs_262", "text": "Beklentileri aşmak benim doğal standartım oluyor.", "gender": "female" },
+{ "id": "cs_263", "text": "Bugün işimde daha büyük bir soğukkanlılık hissediyorum.", "gender": "any" },
+{ "id": "cs_264", "text": "Liderliğim güçlü ama sessiz bir otorite yayıyor.", "gender": "male" },
+{ "id":"cs_265", "text": "Bugün iş dünyasında daha keskin bir farkındalık taşıyorum.", "gender": "any" },
+
+{ "id":"cs_266", "text": "Her toplantıdan daha güçlü bir etki bırakarak çıkıyorum.", "gender": "any" },
+{ "id":"cs_267", "text": "Önceliklerimi belirleme becerim bugün daha isabetli.", "gender": "female" },
+{ "id":"cs_268", "text": "Her değişimi stratejik bir avantaja dönüştürebiliyorum.", "gender": "any" },
+{ "id":"cs_269", "text": "yönetim becerim daha rafine bir seviyede.", "gender": "male" },
+{ "id":"cs_270", "text": "Profesyonel hedeflerime emin ve sakin adımlarla ilerliyorum.", "gender": "any" },
+
+{ "id":"cs_271", "text": "verdiğim kararlar uzun vadeli başarıyı şekillendiriyor.", "gender": "any" },
+{ "id":"cs_272", "text": "Kariyerimdeki yükseliş kontrollü ve güçlü bir ivmeyle devam ediyor.", "gender": "female" },
+{ "id":"cs_273", "text": "Kendimi yönetme becerim her şeyin temelini oluşturuyor.", "gender": "any" },
+{ "id":"cs_274", "text": "iş dünyasında gözle görülür bir etki yaratıyorum.", "gender": "any" },
+{ "id":"cs_275", "text": "Profesyonel sabrım bana büyük kazançlar sağlıyor.", "gender": "male" },
+
+{ "id":"cs_276", "text": "{name}, stratejik bakış açın iş ortamını yeniden şekillendiriyor.", "gender": "any" },
+
+{ "id":"cs_277", "text": "işimdeki akıl yürütme gücüm daha seçkin bir hâlde.", "gender": "any" },
+{ "id":"cs_278", "text": "Her projeye kattığım kalite beni daha ileri taşıyor.", "gender": "female" },
+{ "id":"cs_279", "text": "Özgüvenim profesyonel duruşumu güçlendiriyor.", "gender": "any" },
+{ "id":"cs_280", "text": "Bugün iş alanımdaki ağırlığım daha net hissediliyor.", "gender": "male" },
+
+{ "id":"cs_281", "text": "Hedef odaklı yaklaşımım beni istikrarlı bir başarıya götürüyor.", "gender": "any" },
+{ "id":"cs_282", "text": "veri odaklı düşünme biçimim daha etkili çalışıyor.", "gender": "female" },
+{ "id":"cs_283", "text": "Profesyonel alanımla ilgili tüm sorumlulukları güvenle taşıyorum.", "gender": "any" },
+{ "id":"cs_284", "text": "Bugün yaptığım iş geleceğim için sağlam bir temel oluşturuyor.", "gender": "any" },
+{ "id":"cs_285", "text": "Sakin gücüm iş hayatındaki konumumu güçlendiriyor.", "gender": "male" },
+
+{ "id":"cs_286", "text": "işimde daha net, daha kararlı bir tutum sergiliyorum.", "gender": "any" },
+{ "id":"cs_287", "text": "Disiplinim profesyonel varlığımın en güçlü yanı oluyor.", "gender": "female" },
+{ "id":"cs_288", "text": "Her iş günüm daha olgun bir özgüven taşıyor.", "gender": "any" },
+{ "id":"cs_289", "text": "Bugün iş dünyasındaki duruşum daha seçkin bir izlenim bırakıyor.", "gender": "male" },
+{ "id":"cs_290", "text": "Zorluklara getirdiğim çözümler beni daha değerli kılıyor.", "gender": "any" },
+
+{ "id":"cs_291", "text": "profesyonel farkındalığım daha derin bir seviyede.", "gender": "any" },
+{ "id":"cs_292", "text": "Her hamlem daha geniş bir vizyonla şekilleniyor.", "gender": "female" },
+{ "id":"cs_293", "text": "Kariyerimde yükselmemi sağlayan güç içimde büyüyor.", "gender": "any" },
+{ "id":"cs_294", "text": "işimde daha net bir liderlik enerjisi taşıyorum.", "gender": "any" },
+
+{ "id":"cs_295", "text": "{name}, bugün duruşun iş dünyasında doğal bir otorite yaratıyor.", "gender": "any" },
+
+{ "id":"cs_296", "text": "Her yeni kararım beni daha yüksek bir profesyonel seviyeye taşıyor.", "gender": "male" },
+{ "id":"cs_297", "text": "Bugün üretkenliğim daha seçkin bir akışla ilerliyor.", "gender": "female" },
+{ "id":"cs_298", "text": "Kariyerimdeki yolculuk sakin ama güçlü bir ivme kazanıyor.", "gender": "any" },
+{ "id":"cs_299", "text": "Her gün kendimi daha yüksek bir profesyonel standarda uyumlar hâlde buluyorum.", "gender": "any" },
+{ "id":"cs_300", "text": "işimdeki vizyonum geleceğe güçlü bir temel oluşturuyor.", "gender": "male" },
+
+{ "id": "cs_301", "text": "kontrolü ben belirliyorum.", "gender": "any" },
+{ "id": "cs_302", "text": "Her kararım iş dünyasında güçlü bir yön çiziyor.", "gender": "any" },
+{ "id": "cs_303", "text": "Hedeflerime giden yolu başkaları değil, ben tanımlarım.", "gender": "male" },
+
+{ "id": "cs_304", "text": "{name}, bugün gücün masaya yön veren ses oluyor.", "gender": "any" },
+
+{ "id": "cs_305", "text": "önceliklerime kimse dokunamaz.", "gender": "any" },
+{ "id": "cs_306", "text": "Attığım her adım fark yaratmak için tasarlanmış.", "gender": "female" },
+{ "id": "cs_307", "text": "Stratejim net; uygulaması benden sorulur.", "gender": "any" },
+{ "id": "cs_308", "text": "Kimsenin onayına ihtiyacım yok; sonuçlar konuşur.", "gender": "male" },
+{ "id": "cs_309", "text": "masaya sadece kesin çözümlerle geliyorum.", "gender": "any" },
+{ "id": "cs_310", "text": "Zorluklar benim için sadece hızlanma noktasıdır.", "gender": "any" },
+
+{ "id": "cs_311", "text": "iş dünyasında görünmez değil, belirleyici gücüm.", "gender": "female" },
+{ "id": "cs_312", "text": "Her engeli lehime çevirecek soğukkanlılığa sahibim.", "gender": "any" },
+{ "id": "cs_313", "text": "Beklentileri yönetmem; aşarım.", "gender": "any" },
+{ "id":"cs_314", "text": "Kontrol bugün bende; oyunun ritmini ben belirliyorum.", "gender": "male" },
+{ "id":"cs_315", "text": "kimse hızımı kesemez.", "gender": "any" },
+
+{ "id":"cs_316", "text": "Kararlılığım iş dünyasında iz bırakan bir güç oluşturuyor.", "gender": "any" },
+{ "id":"cs_317", "text": "Sonuç üretmek benim doğal standardım.", "gender": "female" },
+{ "id":"cs_318", "text": "Bugün masadan güçlü kalkmayı garanti ediyorum.", "gender": "any" },
+{ "id":"cs_319", "text": "Hiçbir şey beni odağımdan uzaklaştıramaz.", "gender": "male" },
+{ "id":"cs_320", "text": "kararlarımı tereddütsüz uyguluyorum.", "gender": "any" },
+
+{ "id":"cs_321", "text": "Gücüm beklentileri değil, standartları belirler.", "gender": "any" },
+{ "id":"cs_322", "text": "Bugün pazarlık yapmam; yön veririm.", "gender": "female" },
+{ "id":"cs_323", "text": "Hedeflerime doğru yürümem değil, direkt ilerlemem gerekir.", "gender": "any" },
+{ "id":"cs_324", "text": "Karar alma hızım bugün rakipsiz.", "gender": "male" },
+{ "id":"cs_325", "text": "Başarı benim için seçenek değil, sonuçtur.", "gender": "any" },
+
+{ "id":"cs_326", "text": "{name}, bugün iş dünyasında ağırlığın oyunun kurallarını değiştiriyor.", "gender": "any" },
+
+{ "id":"cs_327", "text": "etkimi saklamıyorum; doğrudan ortaya koyuyorum.", "gender": "any" },
+{ "id":"cs_328", "text": "Rakiplerimi izlemem; geçerim.", "gender": "female" },
+{ "id":"cs_329", "text": "Her hamlem kontrollü ve hesaplı.", "gender": "any" },
+{ "id":"cs_330", "text": "Bugün başarı grafiğim sert bir yükselişe geçiyor.", "gender": "male" },
+
+{ "id":"cs_331", "text": "Masadaki en sakin kişi her zaman en güçlüdür ve bugün o benim.", "gender": "any" },
+{ "id":"cs_332", "text": "Değerimi gizlemem; hissettiririm.", "gender": "female" },
+{ "id":"cs_333", "text": "sınırları zorlamak değil, genişletmek için hareket ediyorum.", "gender": "any" },
+{ "id":"cs_334", "text": "Doğru kararlar içgüdülerimden besleniyor.", "gender": "any" },
+{ "id":"cs_335", "text": "Bugün masaya koyduğum vizyon tartışmasız.", "gender": "male" },
+
+{ "id":"cs_336", "text": "Önümde hiçbir engelin duramayacağı bir momentum taşıyorum.", "gender": "any" },
+{ "id":"cs_337", "text": "Bugün yönettiğim enerji iş sonuçlarına direkt yansıyor.", "gender": "female" },
+{ "id":"cs_338", "text": "Kendime güvenim liderliği doğal kılıyor.", "gender": "any" },
+{ "id":"cs_339", "text": "Dengeyi ben kurarım, oyunu ben hızlandırırım.", "gender": "male" },
+{ "id":"cs_340", "text": "iş dünyasında görünmez değil, hesap edilen tarafım.", "gender": "any" },
+
+{ "id":"cs_341", "text": "Her hareketim kontrollü bir güç yayıyor.", "gender": "any" },
+{ "id":"cs_342", "text": "hiçbir kararımı ertelemiyorum.", "gender": "female" },
+{ "id":"cs_343", "text": "Başarıyı kovalamam; kendime çekerim.", "gender": "any" },
+{ "id":"cs_344", "text": "Bugün vizyonum tüm gürültünün üstünde.", "gender": "male" },
+{ "id":"cs_345", "text": "Her toplantıda ağırlığımı net bir şekilde hissettiriyorum.", "gender": "any" },
+
+{ "id":"cs_346", "text": "{name}, bugün stratejik duruşun rakiplerin hızını kesiyor.", "gender": "any" },
+
+{ "id":"cs_347", "text": "iş otoritem tartışılmaz bir netlik taşıyor.", "gender": "female" },
+{ "id":"cs_348", "text": "Kariyer yolculuğum yüksek bir kararlılık seviyesinde ilerliyor.", "gender": "any" },
+{ "id":"cs_349", "text": "Duruşum sonuç üretmek için yeterli gücü taşıyor.", "gender": "any" },
+{ "id":"cs_350", "text": "Bugün oyunun ritmini ben yönetiyorum.", "gender": "male" }
 
 
-    { "id": "hp_001", "text": "Joy flows toward me more easily when I make space for simple pleasures.", "preferences": ["happiness"], "gender": "female" }
 
-
-]
+  ]
+}
     
 
 

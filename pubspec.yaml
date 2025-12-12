@@ -93,11 +93,11 @@ flutter:
     - assets/data/en/sleep.json
     
     # Turkish Categories & Content
+    - assets/data/tr/general.json
     - assets/data/tr/self_care.json
     - assets/data/tr/stress_anxiety.json
     - assets/data/tr/positive_thinking.json
     - assets/data/tr/motivation.json
-    - assets/data/tr/healing.json
     - assets/data/tr/happiness.json
     - assets/data/tr/relationships.json
     - assets/data/tr/confidence.json
@@ -136,6 +136,7 @@ flutter:
     - assets/data/themes/a8.jpg
     - assets/data/themes/a9.jpg
     - assets/data/themes/a10.jpg
+    - assets/data/themes/a11.jpg
 
     - assets/data/themes/c1.jpg
     - assets/data/themes/c2.jpg
@@ -152,6 +153,8 @@ flutter:
     - assets/data/themes/c13.jpg
     - assets/data/themes/c14.jpg
     - assets/data/themes/c15.jpg
+    - assets/data/themes/c16.jpg
+    - assets/data/themes/c17.jpg
 
     - assets/data/themes/d1.jpg
     - assets/data/themes/d2.jpg
@@ -162,8 +165,12 @@ flutter:
     - assets/data/themes/d7.jpg
     - assets/data/themes/d8.jpg
     - assets/data/themes/d9.jpg
+    - assets/data/themes/d10.jpg
+
     - assets/data/themes/e1.mp4
-    
+    - assets/data/themes/e2.mp4
+    - assets/data/themes/e3.mp4
+
     # Category Images
     - assets/data/categories/career.jpg
     - assets/data/categories/favorites.jpg

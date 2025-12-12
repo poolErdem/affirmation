@@ -1,5 +1,4 @@
 import 'package:affirmation/l10n/app_localizations.dart';
-import 'package:affirmation/models/user_preferences.dart';
 import 'package:affirmation/state/my_affirmation_state.dart';
 import 'package:affirmation/state/reminder_state.dart';
 import 'package:affirmation/ui/screens/home_screen.dart';
@@ -27,12 +26,6 @@ void main() async {
 
   final appState = AppState();
   await appState.initialize();
-
-  appState.purchaseState.updatePremium(
-    active: false,
-    plan: PremiumPlan.monthly,
-    expiry: DateTime.now().add(const Duration(days: 30)),
-  );
 
   final reminderState = ReminderState(appState: appState);
   await reminderState.initialize();

@@ -23,7 +23,7 @@ class AppState extends ChangeNotifier {
   List<AffirmationCategory> _categories = [];
   List<ThemeModel> _themes = [];
   List<Affirmation> _cachedGeneral = [];
-  List<Affirmation> _cachedCategoryFeed = [];
+  //List<Affirmation> _cachedCategoryFeed = [];
   List<Affirmation> _cachedFavoriteFeed = [];
 
   Set<String> onboardingContentPrefs = {};
@@ -73,6 +73,8 @@ class AppState extends ChangeNotifier {
   // Cache → key: "gender|premium|cat1,cat2"
   final Map<String, List<Affirmation>> _categoryCache = {};
   final Map<String, List<Affirmation>> _cachedAffirmations = {};
+  final Map<String, List<Affirmation>> _cachedCategoryFeed = {};
+  //final Map<String, List<Affirmation>> _cachedGeneralFeed = {};
 
   // Lazy getter
   PurchaseState get purchaseState {
@@ -387,12 +389,29 @@ class AppState extends ChangeNotifier {
     print("✅ Onboarding data saved successfully!");
   }
 
+  bool isSwipeChange = false;
+
+  void changeBySwipe(int index) {
+    isSwipeChange = true;
+    setCurrentIndex(index);
+  }
+
+  void changeByCategory(int index) {
+    isSwipeChange = false;
+    setCurrentIndex(index);
+  }
+
   // FEEDS
   List<Affirmation> get generalFeed {
     if (_generalDirty) {
       _cachedGeneral = _calculateGeneralFeed();
       _generalDirty = false;
+    } else {
+      print('⚡ [GENERAL FEED] Cache uygulandı');
     }
+
+    print('🔍 GENERAL FEED (raw) count: ${_cachedGeneral.length}');
+
     return _cachedGeneral;
   }
 
@@ -409,17 +428,20 @@ class AppState extends ChangeNotifier {
           _preferences.selectedContentPreferences.contains(a.actualCategory);
     }).toList();
 
-    print('🔍 GENERAL FEED (raw) count: ${list.length}');
-
     return list;
   }
 
   List<Affirmation> get categoryFeed {
-    if (_categoryDirty) {
-      _cachedCategoryFeed = _calculateCategoryFeed();
+    final key = _makeCacheCategoryKey(_activeCategoryId);
+    if (_categoryDirty && !_cachedCategoryFeed.containsKey(key)) {
+      _cachedCategoryFeed[key] = _calculateCategoryFeed();
       _categoryDirty = false;
+    } else {
+      print('⚡ [CATEGORY FEED] Cache uygulandı');
     }
-    return _cachedCategoryFeed;
+    print('🔍 CATEGORY FEED (raw) count = ${_cachedCategoryFeed[key]?.length}');
+
+    return _cachedCategoryFeed[key]!;
   }
 
   List<Affirmation> _calculateCategoryFeed() {
@@ -430,8 +452,6 @@ class AppState extends ChangeNotifier {
       return a.categoryId == _activeCategoryId &&
           matchGender(a, _preferences.gender);
     }).toList();
-
-    print('🔍 CATEGORY FEED (raw) count = ${list.length}');
 
     return list;
   }
@@ -551,7 +571,7 @@ class AppState extends ChangeNotifier {
       return;
     }
 
-    _generalDirty = true;
+    //_generalDirty = true;
     _categoryDirty = true;
     _favoriteDirty = true;
 
@@ -587,6 +607,11 @@ class AppState extends ChangeNotifier {
     final cats = sorted.join(",");
     final gender = _preferences.gender;
     return "$gender|$cats";
+  }
+
+  String _makeCacheCategoryKey(String categoryId) {
+    final gender = _preferences.gender;
+    return "$gender|$categoryId";
   }
 
   void clearAffirmationCache() {
@@ -711,7 +736,7 @@ class AppState extends ChangeNotifier {
     );
 
     _generalDirty = true;
-    _categoryDirty = true;
+    //_categoryDirty = true;
     _favoriteDirty = true;
 
     notifyListeners();

@@ -27,6 +27,8 @@ class _ReminderListScreenState extends State<ReminderListScreen>
   // 4 general/preset slot
   static const int _slotCount = 4;
 
+  int? _lastEditedSlot; // ⭐ EKLE
+
   // Edit ekranından gelen, henüz aktif edilmemiş (enable edilmemiş) taslaklar
   final Map<int, ReminderModel> _drafts = {};
 
@@ -69,6 +71,17 @@ class _ReminderListScreenState extends State<ReminderListScreen>
       if (r.id == id) return r;
     }
     return null;
+  }
+
+  String _categoryLabel(Set<String> ids, AppLocalizations t) {
+    if (ids.isEmpty || ids.contains(Constants.generalCategoryId)) {
+      return t.general;
+    }
+
+    return ids
+        .map((e) => e.replaceAll("_", " "))
+        .map((e) => e[0].toUpperCase() + e.substring(1))
+        .join(", ");
   }
 
   @override
@@ -151,8 +164,8 @@ class _ReminderListScreenState extends State<ReminderListScreen>
                         padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
                         children: [
                           // 1) My Affirmations kartı
-                          _buildMyAffirmationsCard(context, isPremium),
-                          const SizedBox(height: 20),
+                          //_buildMyAffirmationsCard(context, isPremium),
+                          //const SizedBox(height: 20),
 
                           // 2) 4 adet reminder slot kartı
                           for (int i = 0; i < _slotCount; i++)
@@ -257,93 +270,164 @@ class _ReminderListScreenState extends State<ReminderListScreen>
   // ------------------------------------------------------------
   // ⭐ PREMIUM: MY AFFIRMATIONS (Glass Card)
   // ------------------------------------------------------------
-  Widget _buildMyAffirmationsCard(BuildContext context, bool isPremium) {
-    final t = AppLocalizations.of(context)!;
+  // Widget _buildMyAffirmationsCard(BuildContext context, bool isPremium) {
+  //   final t = AppLocalizations.of(context)!;
 
-    return GestureDetector(
-      onTap: () {
-        if (!isPremium) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => const PremiumScreen()),
-          );
-          return;
-        }
+  //   return GestureDetector(
+  //     onTap: () {
+  //       if (!isPremium) {
+  //         Navigator.push(
+  //           context,
+  //           MaterialPageRoute(builder: (_) => const PremiumScreen()),
+  //         );
+  //         return;
+  //       }
 
-        final template = ReminderModel(
-          id: "my_affirmations_${DateTime.now().millisecondsSinceEpoch}",
-          categoryIds: {"my_affirmations"},
-          startTime: const TimeOfDay(hour: 10, minute: 0),
-          endTime: const TimeOfDay(hour: 14, minute: 0),
-          repeatCount: 3,
-          repeatDays: {1, 3, 5},
-          enabled: true,
-          isPremium: true,
-        );
+  //       final template = ReminderModel(
+  //         id: "my_affirmations_${DateTime.now().millisecondsSinceEpoch}",
+  //         categoryIds: {"my_affirmations"},
+  //         startTime: const TimeOfDay(hour: 10, minute: 0),
+  //         endTime: const TimeOfDay(hour: 14, minute: 0),
+  //         repeatCount: 3,
+  //         repeatDays: {1, 3, 5},
+  //         enabled: true,
+  //         isPremium: true,
+  //       );
 
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => ReminderEditScreen(reminder: template),
+  //       Navigator.push(
+  //         context,
+  //         MaterialPageRoute(
+  //           builder: (_) => ReminderEditScreen(reminder: template),
+  //         ),
+  //       );
+  //     },
+  //     child: _glassCard(
+  //       highlight: isPremium,
+  //       child: Row(
+  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //         children: [
+  //           // Left text
+  //           Column(
+  //             crossAxisAlignment: CrossAxisAlignment.start,
+  //             children: [
+  //               Text(
+  //                 t.myAff,
+  //                 style: const TextStyle(
+  //                   fontSize: 17,
+  //                   fontWeight: FontWeight.w700,
+  //                   color: Colors.white,
+  //                 ),
+  //               ),
+  //               const SizedBox(height: 6),
+  //               Text(
+  //                 isPremium
+  //                     ? "Custom affirmation reminders"
+  //                     : "Premium feature",
+  //                 style: TextStyle(
+  //                   fontSize: 13,
+  //                   color: Colors.white.withValues(alpha: 0.78),
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+
+  //           // Right icon
+  //           Container(
+  //             padding: const EdgeInsets.all(8),
+  //             decoration: BoxDecoration(
+  //               shape: BoxShape.circle,
+  //               border: Border.all(
+  //                 color: isPremium
+  //                     ? const Color(0xFFC9A85D)
+  //                     : Colors.white.withValues(alpha: 0.40),
+  //                 width: 1.2,
+  //               ),
+  //             ),
+  //             child: Icon(
+  //               isPremium
+  //                   ? Icons.arrow_forward_ios_rounded
+  //                   : Icons.lock_outline_rounded,
+  //               size: 18,
+  //               color: isPremium
+  //                   ? const Color(0xFFC9A85D)
+  //                   : Colors.white.withValues(alpha: 0.80),
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
+
+  Future<void> _handleSwitchChanged(
+    bool v,
+    int slotIndex,
+    ReminderModel? active,
+    bool isPremium,
+    ReminderState reminderState,
+    AppLocalizations t,
+  ) async {
+    if (v) {
+      final status = await Permission.notification.request();
+      if (!status.isGranted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Please allow notification permission."),
           ),
         );
-      },
-      child: _glassCard(
-        highlight: isPremium,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            // Left text
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  t.myAff,
-                  style: const TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                  ),
-                ),
-                const SizedBox(height: 6),
-                Text(
-                  isPremium
-                      ? "Custom affirmation reminders"
-                      : "Premium feature",
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: Colors.white.withValues(alpha: 0.78),
-                  ),
-                ),
-              ],
-            ),
+        return;
+      }
 
-            // Right icon
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: isPremium
-                      ? const Color(0xFFC9A85D)
-                      : Colors.white.withValues(alpha: 0.40),
-                  width: 1.2,
-                ),
-              ),
-              child: Icon(
-                isPremium
-                    ? Icons.arrow_forward_ios_rounded
-                    : Icons.lock_outline_rounded,
-                size: 18,
-                color: isPremium
-                    ? const Color(0xFFC9A85D)
-                    : Colors.white.withValues(alpha: 0.80),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+      final draft =
+          _drafts[slotIndex] ?? _defaultTemplate(slotIndex, isPremium);
+
+      final model = (active ?? draft).copyWith(
+        id: _slotId(slotIndex),
+        enabled: true,
+        categoryIds: isPremium
+            ? (draft.categoryIds.isEmpty
+                ? {Constants.generalCategoryId}
+                : draft.categoryIds)
+            : {Constants.generalCategoryId},
+        isPremium: isPremium,
+      );
+
+      if (active == null) {
+        await reminderState.addReminder(model, t);
+      } else {
+        await reminderState.updateReminder(model, t);
+      }
+    } else {
+      if (active != null) {
+        await reminderState.deleteReminder(active.id);
+      }
+    }
+  }
+
+  String formatCategoryPreview(
+    Set<String> ids,
+    AppLocalizations t, {
+    int max = 3,
+  }) {
+    if (ids.isEmpty || ids.contains(Constants.generalCategoryId)) {
+      return t.general;
+    }
+
+    String short(String s) {
+      final clean = s.replaceAll("_", " ").trim();
+      if (clean.isEmpty) return "";
+
+      final part = clean.length <= 3 ? clean : clean.substring(0, 3);
+      return part[0].toUpperCase() + part.substring(1).toLowerCase();
+    }
+
+    final list = ids.map(short).toList();
+
+    if (list.length <= max) {
+      return list.join(", ");
+    }
+
+    return "${list.take(max).join(", ")}…";
   }
 
   // ------------------------------------------------------------
@@ -355,6 +439,19 @@ class _ReminderListScreenState extends State<ReminderListScreen>
     required bool isPremium,
     required List<ReminderModel> reminders,
   }) {
+    final bool highlightNow = _lastEditedSlot == slotIndex;
+
+// ⭐ highlight sadece 1 kere görünsün
+    if (highlightNow) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          setState(() {
+            _lastEditedSlot = null;
+          });
+        }
+      });
+    }
+
     final t = AppLocalizations.of(context)!;
     final reminderState = context.read<ReminderState>();
 
@@ -376,15 +473,6 @@ class _ReminderListScreenState extends State<ReminderListScreen>
 
     return GestureDetector(
       onTap: () async {
-        if (locked) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => const PremiumScreen()),
-          );
-          return;
-        }
-
-        // Edit ekranına mevcut uiModel ile git
         final edited = await Navigator.push<ReminderModel?>(
           context,
           MaterialPageRoute(
@@ -394,6 +482,8 @@ class _ReminderListScreenState extends State<ReminderListScreen>
 
         if (edited != null) {
           setState(() {
+            _lastEditedSlot = slotIndex; // ⭐ sadece bunu işaretle
+
             _drafts[slotIndex] = edited.copyWith(
               id: _slotId(slotIndex),
               categoryIds: isPremium
@@ -413,7 +503,7 @@ class _ReminderListScreenState extends State<ReminderListScreen>
         }
       },
       child: _glassCard(
-        highlight: isOn,
+        highlight: isOn || highlightNow,
         locked: locked,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -423,7 +513,9 @@ class _ReminderListScreenState extends State<ReminderListScreen>
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  t.general,
+                  formatCategoryPreview(uiModel.categoryIds, t),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.w700,
@@ -459,66 +551,40 @@ class _ReminderListScreenState extends State<ReminderListScreen>
 
             // SECOND ROW
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Wrap(
-                  spacing: 6,
-                  children: _weekdayBadges(uiModel.repeatDays),
+                Expanded(
+                  // ⭐ KRİTİK SATIR
+                  child: Wrap(
+                    spacing: 6,
+                    runSpacing: 6,
+                    children: _weekdayBadges(uiModel.repeatDays),
+                  ),
                 ),
+                const SizedBox(width: 8),
                 Row(
                   children: [
                     if (locked)
-                      Icon(Icons.lock_outline_rounded,
-                          size: 20,
-                          color: Colors.white.withValues(alpha: 0.85)),
+                      Icon(
+                        Icons.lock_outline_rounded,
+                        size: 20,
+                        color: Colors.white.withValues(alpha: 0.85),
+                      ),
                     Switch(
-                        value: isOn,
-                        activeThumbColor: const Color(0xFFAEE5FF), // soft blue
-                        activeTrackColor:
-                            const Color(0xFFAEE5FF).withValues(alpha: 0.50),
-                        inactiveThumbColor:
-                            Colors.white.withValues(alpha: 0.90),
-                        inactiveTrackColor:
-                            Colors.white.withValues(alpha: 0.25),
-                        onChanged: (v) async {
-                          if (v) {
-                            // 🔥 BURADA İZİN İSTE
-                            final status =
-                                await Permission.notification.request();
-                            if (!status.isGranted) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                    content: Text(
-                                        "Please allow notification permission.")),
-                              );
-                              return;
-                            }
-
-                            final draft = _drafts[slotIndex] ??
-                                _defaultTemplate(slotIndex, isPremium);
-
-                            final model = (active ?? draft).copyWith(
-                              id: _slotId(slotIndex),
-                              enabled: true,
-                              categoryIds: isPremium
-                                  ? (draft.categoryIds.isEmpty
-                                      ? {Constants.generalCategoryId}
-                                      : draft.categoryIds)
-                                  : {Constants.generalCategoryId},
-                              isPremium: isPremium,
-                            );
-
-                            if (active == null) {
-                              await reminderState.addReminder(model, t);
-                            } else {
-                              await reminderState.updateReminder(model, t);
-                            }
-                          } else {
-                            if (active != null) {
-                              await reminderState.deleteReminder(active.id);
-                            }
-                          }
-                        }),
+                      value: isOn,
+                      activeThumbColor: const Color(0xFFAEE5FF),
+                      activeTrackColor:
+                          const Color(0xFFAEE5FF).withValues(alpha: 0.50),
+                      inactiveThumbColor: Colors.white.withValues(alpha: 0.90),
+                      inactiveTrackColor: Colors.white.withValues(alpha: 0.25),
+                      onChanged: (v) => _handleSwitchChanged(
+                        v,
+                        slotIndex,
+                        active,
+                        isPremium,
+                        reminderState,
+                        t,
+                      ),
+                    ),
                   ],
                 ),
               ],

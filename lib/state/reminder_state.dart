@@ -287,6 +287,7 @@ class ReminderState extends ChangeNotifier {
           'Affirmation Reminders',
           importance: Importance.high,
           priority: Priority.high,
+          icon: 'ic_notification',
         ),
       ),
       androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,

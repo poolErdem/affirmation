@@ -37,7 +37,12 @@ class Affirmation {
       };
 
   String renderWithName(String userName) {
-    if (userName.isEmpty) return text.replaceAll(", {name}", "");
+    if (userName.isEmpty) {
+      return text
+          .replaceAll(", {name}", "")
+          .replaceAll("{name},", "")
+          .replaceAll("{name}", "");
+    }
     return text.replaceAll("{name}", userName);
   }
 }

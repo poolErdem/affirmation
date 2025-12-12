@@ -304,4 +304,17 @@ class MyAffirmationState extends ChangeNotifier {
     if (ts == null) return null;
     return DateTime.fromMillisecondsSinceEpoch(ts);
   }
+
+  bool get isChallengeCompleted {
+    if (challengeStart == null) return false;
+
+    // 1'den 21'e kadar her günün tamamlanmış olması gerekir
+    for (int day = 1; day <= 21; day++) {
+      if (writtenCountForDay(day) < requiredForDay(day)) {
+        return false;
+      }
+    }
+
+    return true; // 🎉 Challenge başarıyla tamamlandı
+  }
 }

@@ -1,182 +1,572 @@
-[
-    { "id": "rl_001", "text": "I deserve a love that feels gentle and safe.", "preferences": ["self_worth","love"], "gender": "female" },
-    { "id": "rl_002", "text": "I attract relationships where I am valued and respected.", "preferences": ["love","personal_growth"], "gender": "female" },
-    { "id": "rl_003", "text": "My heart opens only for what is good for me.", "preferences": ["boundaries","love"], "gender": "female" },
-    { "id": "rl_004", "text": "I allow healthy love into my life.", "preferences": ["love","healing"], "gender": "female" },
-    { "id": "rl_005", "text": "I am worthy of being loved deeply and consistently.", "preferences": ["self_worth"], "gender": "female" },
+{
+  "categoryId": "relationships",
+  "affirmations": [
 
-    { "id": "rl_006", "text": "My relationships grow from mutual respect.", "preferences": ["love","respect"], "gender": "female" },
-    { "id": "rl_007", "text": "I attract partners who appreciate my heart.", "preferences": ["love"], "gender": "female" },
-    { "id": "rl_008", "text": "I release connections that do not honor me.", "preferences": ["boundaries","healing"], "gender": "female" },
-    { "id": "rl_009", "text": "I deserve to feel safe with the people I love.", "preferences": ["love","calm"], "gender": "female" },
-    { "id": "rl_010", "text": "Love that is meant for me flows toward me with ease.", "preferences": ["love","positivity"], "gender": "female" },
+{ "id": "rl_001", "text": "Kalbimdeki açıklık ilişkilerimde daha sıcak bir bağ kurmamı sağlıyor.", "gender": "any" },
+{ "id": "rl_002", "text": "Nazik ve net bir iletişim ilişkilerimi güçlendiriyor.", "gender": "female" },
+{ "id": "rl_003", "text": "Sakin kaldığımda sevgiye daha fazla alan açıyorum.", "gender": "any" },
 
-    { "id": "rl_011", "text": "I choose partners who choose me fully.", "preferences": ["self_worth","love"], "gender": "female" },
-    { "id": "rl_012", "text": "My heart welcomes gentle affection.", "preferences": ["love","calm"], "gender": "female" },
-    { "id": "rl_013", "text": "I am learning what true love feels like.", "preferences": ["healing","love"], "gender": "female" },
-    { "id": "rl_014", "text": "I attract emotionally mature people.", "preferences": ["boundaries","growth"], "gender": "female" },
-    { "id": "rl_015", "text": "I communicate my needs with clarity and confidence.", "preferences": ["communication","strength"], "gender": "female" },
+{ "id": "rl_004", "text": "Derin bağlantılar samimiyetten doğar. — Brené Brown", "gender": "any" },
 
-    { "id": "rl_016", "text": "I set boundaries that protect my peace.", "preferences": ["boundaries","self_care"], "gender": "female" },
-    { "id": "rl_017", "text": "I am worthy of consistent love.", "preferences": ["self_worth"], "gender": "female" },
-    { "id": "rl_018", "text": "I deserve a partner who shows up for me.", "preferences": ["love"], "gender": "female" },
-    { "id": "rl_019", "text": "I attract people who value emotional connection.", "preferences": ["love","connection"], "gender": "female" },
-    { "id": "rl_020", "text": "My heart is open to healthy relationships only.", "preferences": ["boundaries","love"], "gender": "female" },
+{ "id": "rl_005", "text": "Duygularımı dürüstçe ifade etmek ilişkilerimde güven yaratıyor.", "gender": "male" },
+{ "id": "rl_006", "text": "Kalbimi açtığımda bağ kurmak daha doğal hale geliyor.", "gender": "any" },
+{ "id": "rl_007", "text": "Nazik sınırlar kurduğumda ilişkilerim daha sağlıklı oluyor.", "gender": "female" },
+{ "id": "rl_008", "text": "Uyumlu bir iletişim kurduğumda yakınlık kendiliğinden artıyor.", "gender": "any" },
+{ "id": "rl_009", "text": "Samimiyet paylaştıkça ilişkilerimde yumuşaklık oluşuyor.", "gender": "any" },
 
-    { "id": "rl_021", "text": "The right people feel natural and peaceful.", "preferences": ["connection","calm"], "gender": "female" },
-    { "id": "rl_022", "text": "I let go of relationships that drain me.", "preferences": ["boundaries","healing"], "gender": "female" },
-    { "id": "rl_023", "text": "The love I seek is seeking me too.", "preferences": ["love","positivity"], "gender": "female" },
-    { "id": "rl_024", "text": "I choose partners who support my growth.", "preferences": ["growth","love"], "gender": "female" },
-    { "id": "rl_025", "text": "I trust the timing of my love life.", "preferences": ["calm","positivity"], "gender": "female" },
+{ "id": "rl_010", "text": "Gerçek sevgi şefkati rehber edinir. — Maya Angelou", "gender": "any" },
 
-    { "id": "rl_026", "text": "I honor my needs in every relationship.", "preferences": ["self_worth","boundaries"], "gender": "female" },
-    { "id": "rl_027", "text": "I attract emotionally available love.", "preferences": ["love"], "gender": "female" },
-    { "id": "rl_028", "text": "My relationships feel balanced and supportive.", "preferences": ["connection","growth"], "gender": "female" },
-    { "id": "rl_029", "text": "I allow myself to receive love without fear.", "preferences": ["healing","love"], "gender": "female" },
-    { "id": "rl_030", "text": "I choose partners who honor my boundaries.", "preferences": ["boundaries"], "gender": "female" },
+{ "id": "rl_011", "text": "İçsel açıklığım ilişkilerimde daha güçlü bir bağ yaratıyor.", "gender": "male" },
+{ "id": "rl_012", "text": "Anlayış gösterdiğimde bağlarım daha huzurlu hale geliyor.", "gender": "any" },
+{ "id": "rl_013", "text": "Nazik temaslar duygusal yakınlığı besliyor.", "gender": "female" },
 
-    { "id": "rl_031", "text": "Love comes to me softly and steadily.", "preferences": ["love","calm"], "gender": "female" },
-    { "id": "rl_032", "text": "I am ready for a nurturing partnership.", "preferences": ["love","healing"], "gender": "female" },
-    { "id": "rl_033", "text": "I am confident in my ability to love and be loved.", "preferences": ["confidence","love"], "gender": "female" },
-    { "id": "rl_034", "text": "I attract deep, meaningful connections.", "preferences": ["connection","growth"], "gender": "female" },
-    { "id": "rl_035", "text": "I release fear around love.", "preferences": ["healing"], "gender": "female" },
+{ "id": "rl_014", "text": "Sevgi, paylaşıldıkça çoğalan bir iyiliktir. — Leo Tolstoy", "gender": "any" },
 
-    { "id": "rl_036", "text": "I attract people who appreciate my softness and strength.", "preferences": ["love","self_worth"], "gender": "female" },
-    { "id": "rl_037", "text": "I only give my heart to people who protect it.", "preferences": ["boundaries"], "gender": "female" },
-    { "id": "rl_038", "text": "I deserve love that chooses me every day.", "preferences": ["self_worth"], "gender": "female" },
-    { "id": "rl_039", "text": "I am learning to trust again, gently.", "preferences": ["healing"], "gender": "female" },
-    { "id": "rl_040", "text": "I attract a partner who celebrates who I am.", "preferences": ["love"], "gender": "female" },
+{ "id": "rl_015", "text": "Kalbimdeki sıcaklık ilişkilerime doğal şekilde yansıyor.", "gender": "any" },
+{ "id": "rl_016", "text": "Anlayışla konuştuğumda bağlarım daha sağlam hissediliyor.", "gender": "male" },
+{ "id": "rl_017", "text": "Duygularımı nazikçe ifade etmek güveni artırıyor.", "gender": "female" },
+{ "id": "rl_018", "text": "Samimi bir bakış ilişkilerdeki mesafeyi azaltabiliyor.", "gender": "any" },
+{ "id": "rl_019", "text": "Yakınlık, kalpten gelen açıklıkla oluşuyor.", "gender": "any" },
 
-    { "id": "rl_041", "text": "I nurture the relationships that nurture me.", "preferences": ["connection","self_care"], "gender": "female" },
-    { "id": "rl_042", "text": "I welcome honest and open communication.", "preferences": ["communication"], "gender": "female" },
-    { "id": "rl_043", "text": "My love life is unfolding beautifully.", "preferences": ["positivity","love"], "gender": "female" },
-    { "id": "rl_044", "text": "The right people understand my heart.", "preferences": ["connection"], "gender": "female" },
-    { "id": "rl_045", "text": "I choose relationships that feel like peace, not chaos.", "preferences": ["calm","boundaries"], "gender": "female" },
+{ "id": "rl_020", "text": "Sevgi cesareti sever. — Osho", "gender": "male" },
 
-    { "id": "rl_046", "text": "I naturally attract people who respect me.", "preferences": ["respect"], "gender": "any" },
-    { "id": "rl_047", "text": "Love flows freely in my life.", "preferences": ["love"], "gender": "any" },
-    { "id": "rl_048", "text": "I enjoy deep and healthy connections.", "preferences": ["connection"], "gender": "any" },
-    { "id": "rl_049", "text": "I bring kindness and honesty into my relationships.", "preferences": ["communication"], "gender": "any" },
-    { "id": "rl_050", "text": "I create relationships filled with trust.", "preferences": ["trust"], "gender": "any" },
+{ "id": "rl_021", "text": "Sakinliğim ilişkilerimde daha dengeli bir alan yaratıyor.", "gender": "any" },
+{ "id": "rl_022", "text": "Duygularımı dürüstçe paylaştığımda bağlarım güçleniyor.", "gender": "female" },
+{ "id": "rl_023", "text": "Yumuşak bir anlayış ilişkilerde gerçek değişim yaratabiliyor.", "gender": "any" },
+{ "id": "rl_024", "text": "Duymak kadar anlamaya da alan açıyorum.", "gender": "any" },
+{ "id": "rl_025", "text": "Sadeliği seçtiğimde ilişkilerim derinleşiyor.", "gender": "male" },
 
-    { "id": "rl_051", "text": "I show up fully for the people I love.", "preferences": ["connection"], "gender": "male" },
-    { "id": "rl_052", "text": "I attract partners who value loyalty.", "preferences": ["trust","respect"], "gender": "male" },
-    { "id": "rl_053", "text": "I communicate openly and clearly.", "preferences": ["communication"], "gender": "male" },
-    { "id": "rl_054", "text": "I choose relationships that help me grow.", "preferences": ["growth"], "gender": "male" },
-    { "id": "rl_055", "text": "My energy attracts people who match my integrity.", "preferences": ["respect"], "gender": "male" },
+{ "id": "rl_026", "text": "Bağ kurduğumda içimde hafiflik hissediyorum.", "gender": "any" },
+{ "id": "rl_027", "text": "Nazik duruşum ilişkilerimde güven hissi yaratıyor.", "gender": "female" },
+{ "id": "rl_028", "text": "Anlayış gösterdiğimde ilişkilerimde iyileşme başlıyor.", "gender": "any" },
+{ "id": "rl_029", "text": "Gerçek yakınlık karşılıklılıkla güçleniyor.", "gender": "any" },
+{ "id": "rl_030", "text": "Sevgi duyulduğunda büyür. — Thich Nhat Hanh", "gender": "male" },
 
-    { "id": "rl_056", "text": "I attract loving and uplifting energy.", "preferences": ["love"], "gender": "female" },
-    { "id": "rl_057", "text": "I release the need to chase affection.", "preferences": ["self_worth","boundaries"], "gender": "female" },
-    { "id": "rl_058", "text": "Healthy love feels natural to me.", "preferences": ["love"], "gender": "female" },
-    { "id": "rl_059", "text": "I am whole with or without a partner.", "preferences": ["self_worth"], "gender": "female" },
-    { "id": "rl_060", "text": "My heart attracts gentle and kind love.", "preferences": ["love","calm"], "gender": "female" },
+{ "id": "rl_031", "text": "Açıklık paylaştıkça ilişkilerim daha akışkan oluyor.", "gender": "any" },
+{ "id": "rl_032", "text": "İçsel sakinliğim iletişimimde netlik sağlıyor.", "gender": "female" },
+{ "id": "rl_033", "text": "Kırılganlığıma alan açtığımda daha gerçek bağlar kuruyorum.", "gender": "any" },
+{ "id": "rl_034", "text": "Nazik bir yaklaşım güveni karşılıklı olarak artırıyor.", "gender": "any" },
+{ "id": "rl_035", "text": "İlişkilerimde dengeyi korumak için iç sesimi dinliyorum.", "gender": "male" },
 
-    { "id": "rl_061", "text": "I welcome a partner who loves with intention.", "preferences": ["love"], "gender": "female" },
-    { "id": "rl_062", "text": "I choose relationships aligned with my values.", "preferences": ["respect"], "gender": "female" },
-    { "id": "rl_063", "text": "I trust the universe to bring the right love.", "preferences": ["positivity","love"], "gender": "female" },
-    { "id": "rl_064", "text": "My softness is a strength in relationships.", "preferences": ["self_worth","love"], "gender": "female" },
-    { "id": "rl_065", "text": "I attract love that feels stable and supportive.", "preferences": ["love","growth"], "gender": "female" },
+{ "id": "rl_036", "text": "Duygusal farkındalığım ilişkilerimi derinleştiriyor.", "gender": "any" },
+{ "id": "rl_037", "text": "Anlamak ve anlaşılmak ilişkilerimde eşit değerde.", "gender": "female" },
+{ "id": "rl_038", "text": "Yakınlık, birlikte yavaşça büyümeye izin vermekle oluşuyor.", "gender": "any" },
+{ "id": "rl_039", "text": "Sakinliğim iletişimime güven katıyor.", "gender": "any" },
+{ "id": "rl_040", "text": "Şefkatli bir bakış ilişkilerde onarıcı olabiliyor.", "gender": "male" },
 
-    { "id": "rl_066", "text": "I am surrounded by people who genuinely care.", "preferences": ["connection","gratitude"], "gender": "any" },
-    { "id": "rl_067", "text": "I give and receive love with ease.", "preferences": ["love"], "gender": "any" },
-    { "id": "rl_068", "text": "I choose compassion in my relationships.", "preferences": ["connection"], "gender": "any" },
-    { "id": "rl_069", "text": "I allow myself to experience meaningful love.", "preferences": ["love"], "gender": "any" },
-    { "id": "rl_070", "text": "Love feels safe for me now.", "preferences": ["healing"], "gender": "any" },
+{ "id": "rl_041", "text": "Küçük ama iyi niyetli adımlar bağları güçlendiriyor.", "gender": "any" },
+{ "id": "rl_042", "text": "Karşımdakiyle daha uyumlu bir bağ kurmaya açığım.", "gender": "female" },
+{ "id": "rl_043", "text": "Sözlerimi seçerken niyetime dikkat ediyorum.", "gender": "any" },
 
-    { "id": "rl_071", "text": "I express my feelings with confidence.", "preferences": ["communication"], "gender": "male" },
-    { "id": "rl_072", "text": "I show affection openly and honestly.", "preferences": ["connection"], "gender": "male" },
-    { "id": "rl_073", "text": "I create relationships built on trust.", "preferences": ["trust"], "gender": "male" },
-    { "id": "rl_074", "text": "Love supports me and strengthens me.", "preferences": ["love"], "gender": "male" },
-    { "id": "rl_075", "text": "I welcome love into my life with maturity.", "preferences": ["growth"], "gender": "male" },
+{ "id": "rl_044", "text": "Anlayış gerçek sevginin temelidir. — Alan Alda", "gender": "any" },
 
-    { "id": "rl_076", "text": "I attract partners who cherish my presence.", "preferences": ["love"], "gender": "female" },
-    { "id": "rl_077", "text": "I am open to a relationship that feels like home.", "preferences": ["love","calm"], "gender": "female" },
-    { "id": "rl_078", "text": "My heart knows how to choose wisely.", "preferences": ["growth","boundaries"], "gender": "female" },
-    { "id": "rl_079", "text": "I release old stories about love.", "preferences": ["healing"], "gender": "female" },
-    { "id": "rl_080", "text": "I attract devotion, honesty, and consistency.", "preferences": ["respect","love"], "gender": "female" },
+{ "id": "rl_045", "text": "Ses tonumdaki sıcaklık ilişkilerimde güven hissi yaratıyor.", "gender": "male" },
+{ "id": "rl_046", "text": "Kalbimdeki açıklık karşımdakini de rahatlatıyor.", "gender": "any" },
+{ "id": "rl_047", "text": "Duygularımı nazikçe ifade ettiğimde ilişkilerim güçleniyor.", "gender": "female" },
+{ "id": "rl_048", "text": "Yakınlık kurmak için kalbimde bilinçli olarak yer açıyorum.", "gender": "any" },
+{ "id": "rl_049", "text": "İçimdeki yumuşaklık iletişimime yansıyor.", "gender": "any" },
 
-    { "id": "rl_081", "text": "I surround myself with people who uplift me.", "preferences": ["connection"], "gender": "female" },
-    { "id": "rl_082", "text": "I allow relationships to unfold naturally.", "preferences": ["calm"], "gender": "female" },
-    { "id": "rl_083", "text": "I attract soul-nourishing love.", "preferences": ["love","healing"], "gender": "female" },
-    { "id": "rl_084", "text": "My heart is safe with the right person.", "preferences": ["love","boundaries"], "gender": "female" },
-    { "id": "rl_085", "text": "I let go of anyone who unsettles my peace.", "preferences": ["boundaries"], "gender": "female" },
+{ "id": "rl_050", "text": "Empati kurduğumda bağlarım daha sağlam hissediliyor.", "gender": "male" },
 
-    { "id": "rl_086", "text": "I am glowing with self-worth, and it shows in my relationships.", "preferences": ["self_worth"], "gender": "female" },
-    { "id": "rl_087", "text": "Healthy love finds its way to me.", "preferences": ["love"], "gender": "female" },
-    { "id": "rl_088", "text": "I create relationships where I feel seen and understood.", "preferences": ["connection"], "gender": "female" },
-    { "id": "rl_089", "text": "I welcome authenticity in love.", "preferences": ["communication"], "gender": "female" },
-    { "id": "rl_090", "text": "I choose people who choose clarity over confusion.", "preferences": ["boundaries"], "gender": "female" },
+{ "id": "rl_051", "text": "Sevgi paylaşıldıkça ilişkilerimde derinleşiyor.", "gender": "any" },
+{ "id": "rl_052", "text": "Nazik bir açıklık karşılıklı yakınlığı güçlendiriyor.", "gender": "female" },
+{ "id": "rl_053", "text": "İçimde büyüyen sevgi ilişkilerime de yansıyor.", "gender": "any" },
 
-    { "id": "rl_091", "text": "I attract genuine affection.", "preferences": ["love"], "gender": "any" },
-    { "id": "rl_092", "text": "My relationships feel soft and supportive.", "preferences": ["connection","calm"], "gender": "any" },
-    { "id": "rl_093", "text": "I show love openly and kindly.", "preferences": ["connection"], "gender": "any" },
-    { "id": "rl_094", "text": "The right people understand my heart.", "preferences": ["love"], "gender": "any" },
-    { "id": "rl_095", "text": "I am worthy of reciprocal love.", "preferences": ["self_worth"], "gender": "any" },
+{ "id": "rl_054", "text": "Sevgi bazen küçük ve sade anlarda ortaya çıkar, {name}.", "gender": "any" },
 
-    { "id": "rl_096", "text": "I surround myself with honesty and trust.", "preferences": ["trust"], "gender": "male" },
-    { "id": "rl_097", "text": "I attract partners who communicate with care.", "preferences": ["communication"], "gender": "male" },
-    { "id": "rl_098", "text": "I honor the feelings of the people I love.", "preferences": ["connection"], "gender": "male" },
-    { "id": "rl_099", "text": "Love strengthens me every day.", "preferences": ["love"], "gender": "male" },
-    { "id": "rl_100", "text": "I bring emotional maturity into my relationships.", "preferences": ["growth"], "gender": "male" },
+{ "id": "rl_055", "text": "Duru bir iletişim kalpler arasındaki mesafeyi azaltıyor.", "gender": "male" },
+{ "id": "rl_056", "text": "Sakin kaldığımda karşılıklı güven daha kolay oluşuyor.", "gender": "any" },
+{ "id": "rl_057", "text": "Yumuşak bir bakış bile yakınlığı artırabiliyor.", "gender": "female" },
+{ "id": "rl_058", "text": "Açıklığa yer verdiğimde ilişkilerim daha rahat akıyor.", "gender": "any" },
+{ "id": "rl_059", "text": "Şefkatli bir ses tonu ilişkilerime huzur katıyor.", "gender": "any" },
 
-    { "id": "rl_101", "text": "I invite a partner who cherishes my heart.", "preferences": ["love"], "gender": "female" },
-    { "id": "rl_102", "text": "I trust myself to choose loving relationships.", "preferences": ["self_worth"], "gender": "female" },
-    { "id": "rl_103", "text": "Love feels natural and steady for me.", "preferences": ["love","calm"], "gender": "female" },
-    { "id": "rl_104", "text": "I release relationships that dim my light.", "preferences": ["boundaries"], "gender": "female" },
-    { "id": "rl_105", "text": "I attract connection that nurtures my soul.", "preferences": ["connection"], "gender": "female" },
+{ "id": "rl_060", "text": "Paylaştığım güven ilişkilerimi derinleştiriyor.", "gender": "male" },
 
-    { "id": "rl_106", "text": "I welcome soft, secure love into my life.", "preferences": ["love"], "gender": "female" },
-    { "id": "rl_107", "text": "I am loved for exactly who I am.", "preferences": ["self_worth"], "gender": "female" },
-    { "id": "rl_108", "text": "My relationships feel aligned and meaningful.", "preferences": ["growth"], "gender": "female" },
-    { "id": "rl_109", "text": "I attract honesty, loyalty, and compassion.", "preferences": ["trust"], "gender": "female" },
-    { "id": "rl_110", "text": "Love gently expands in my life.", "preferences": ["positivity","love"], "gender": "female" },
+{ "id": "rl_061", "text": "Karşımdakini anlamak için kalbimi bilinçli olarak açıyorum.", "gender": "any" },
+{ "id": "rl_062", "text": "Duygulara alan açtığımda samimiyet artıyor.", "gender": "female" },
+{ "id": "rl_063", "text": "Nazik duruşum sevgiye davetkâr bir alan oluşturuyor.", "gender": "any" },
+{ "id": "rl_064", "text": "Uyumlu iletişim kurduğumda içsel güvenim güçleniyor.", "gender": "any" },
 
-    { "id": "rl_111", "text": "I choose to build healthy connections.", "preferences": ["connection"], "gender": "any" },
-    { "id": "rl_112", "text": "My relationships reflect my inner peace.", "preferences": ["calm"], "gender": "any" },
-    { "id": "rl_113", "text": "I give love with an open heart.", "preferences": ["love"], "gender": "any" },
-    { "id": "rl_114", "text": "I receive love with gratitude.", "preferences": ["gratitude"], "gender": "any" },
-    { "id": "rl_115", "text": "I bring kindness to every relationship.", "preferences": ["connection","kindness"], "gender": "any" },
+{ "id": "rl_065", "text": "Yakınlığı güçlendirmek için iç sesimi dinliyorum.", "gender": "male" },
 
-    { "id": "rl_116", "text": "I show up with sincerity in relationships.", "preferences": ["communication"], "gender": "male" },
-    { "id": "rl_117", "text": "I attract a partner who supports my dreams.", "preferences": ["support","love"], "gender": "male" },
-    { "id": "rl_118", "text": "I communicate my emotions with clarity.", "preferences": ["communication"], "gender": "male" },
-    { "id": "rl_119", "text": "My relationships feel strong and meaningful.", "preferences": ["connection"], "gender": "male" },
-    { "id": "rl_120", "text": "I welcome emotional depth in love.", "preferences": ["love","growth"], "gender": "male" },
+{ "id": "rl_066", "text": "Nezaketle başlayan iletişim daha kolay derinleşiyor.", "gender": "any" },
+{ "id": "rl_067", "text": "Yumuşak bir yaklaşım ilişkilerde güvenli bir alan yaratıyor.", "gender": "female" },
+{ "id": "rl_068", "text": "Duygusal farkındalığım bağlarımı besliyor.", "gender": "any" },
+{ "id": "rl_069", "text": "İçsel sakinliğim iletişimime yansıyor.", "gender": "any" },
+{ "id": "rl_070", "text": "Nazik bir temas yakınlığı güçlendirebiliyor.", "gender": "male" },
 
-    { "id": "rl_121", "text": "I attract love that feels fulfilling and warm.", "preferences": ["love"], "gender": "female" },
-    { "id": "rl_122", "text": "My heart feels open and safe.", "preferences": ["calm","love"], "gender": "female" },
-    { "id": "rl_123", "text": "I choose relationships aligned with my worth.", "preferences": ["self_worth"], "gender": "female" },
-    { "id": "rl_124", "text": "I let go of people who do not value my presence.", "preferences": ["boundaries"], "gender": "female" },
-    { "id": "rl_125", "text": "I am open to a deep, loving connection.", "preferences": ["love"], "gender": "female" },
+{ "id": "rl_071", "text": "İlişkilerimde anlayışa daha fazla alan açıyorum.", "gender": "any" },
+{ "id": "rl_072", "text": "Kalbimdeki açıklık karşımdakini rahatlatıyor.", "gender": "female" },
+{ "id": "rl_073", "text": "Duygularımı yumuşak bir dille ifade etmek bana iyi geliyor.", "gender": "any" },
 
-    { "id": "rl_126", "text": "I enjoy building meaningful connections.", "preferences": ["connection"], "gender": "any" },
-    { "id": "rl_127", "text": "Love enters my life at the right time.", "preferences": ["positivity","love"], "gender": "any" },
-    { "id": "rl_128", "text": "I express love freely and confidently.", "preferences": ["confidence"], "gender": "any" },
-    { "id": "rl_129", "text": "I trust myself in relationships.", "preferences": ["self_worth"], "gender": "any" },
-    { "id": "rl_130", "text": "I am surrounded by genuine and caring people.", "preferences": ["connection"], "gender": "any" },
+{ "id": "rl_074", "text": "Gerçek bağ kalbin konuştuğu yerdedir. — Carl Rogers", "gender": "any" },
 
-    { "id": "rl_131", "text": "I choose love that makes me feel whole.", "preferences": ["love"], "gender": "female" },
-    { "id": "rl_132", "text": "I deserve effort, honesty, and devotion.", "preferences": ["self_worth"], "gender": "female" },
-    { "id": "rl_133", "text": "I attract a partner who shows genuine care.", "preferences": ["love"], "gender": "female" },
-    { "id": "rl_134", "text": "My heart receives affection with ease.", "preferences": ["love","calm"], "gender": "female" },
-    { "id": "rl_135", "text": "I am ready for a relationship built on stability.", "preferences": ["growth","love"], "gender": "female" },
+{ "id": "rl_075", "text": "Açıklık paylaştıkça ilişkilerim güçleniyor.", "gender": "male" },
+{ "id": "rl_076", "text": "Şefkatli bir bakış sevgi için sağlam bir zemin oluşturuyor.", "gender": "any" },
+{ "id": "rl_077", "text": "Nazikçe kurulan bağlar daha uzun ömürlü oluyor.", "gender": "female" },
+{ "id": "rl_078", "text": "İçimdeki anlayış duygusal mesafeleri azaltıyor.", "gender": "any" },
+{ "id": "rl_079", "text": "Duygusal uyum ilişkilerimde derinlik yaratıyor.", "gender": "any" },
 
-    { "id": "rl_136", "text": "I attract people who listen deeply.", "preferences": ["communication"], "gender": "any" },
-    { "id": "rl_137", "text": "I bring understanding and empathy to relationships.", "preferences": ["connection","kindness"], "gender": "any" },
-    { "id": "rl_138", "text": "My relationships support my well-being.", "preferences": ["self_care"], "gender": "any" },
-    { "id": "rl_139", "text": "I deserve relationships that feel peaceful.", "preferences": ["calm"], "gender": "any" },
-    { "id": "rl_140", "text": "I attract love that aligns with my heart.", "preferences": ["love"], "gender": "any" },
+{ "id": "rl_080", "text": "Kalbimde yer açtıkça sevgi daha özgür hissediliyor.", "gender": "male" },
 
-    { "id": "rl_141", "text": "Love grows naturally in my life.", "preferences": ["love"], "gender": "male" },
-    { "id": "rl_142", "text": "I show care through presence and honesty.", "preferences": ["communication"], "gender": "male" },
-    { "id": "rl_143", "text": "I deserve a partner who respects my emotions.", "preferences": ["respect","love"], "gender": "male" },
-    { "id": "rl_144", "text": "I bring maturity and warmth to relationships.", "preferences": ["growth"], "gender": "male" },
-    { "id": "rl_145", "text": "I attract strong and loving connections.", "preferences": ["connection"], "gender": "male" },
+{ "id": "rl_081", "text": "Nezaketle konuştuğumda ilişkilerim yumuşuyor.", "gender": "any" },
+{ "id": "rl_082", "text": "İçsel sakinliğim karşımdakine de iyi geliyor.", "gender": "female" },
+{ "id": "rl_083", "text": "Sıcak bir gülümseme bağları güçlendirebiliyor.", "gender": "any" },
+{ "id": "rl_084", "text": "Samimi bir kalp ilişkilerimde bana rehberlik ediyor.", "gender": "any" },
 
-    { "id": "rl_146", "text": "I trust myself to walk away from what harms me.", "preferences": ["boundaries"], "gender": "female" },
-    { "id": "rl_147", "text": "I attract love that honors my softness.", "preferences": ["love"], "gender": "female" },
-    { "id": "rl_148", "text": "My heart is open to being adored and cherished.", "preferences": ["self_worth","love"], "gender": "female" },
-    { "id": "rl_149", "text": "I welcome the relationship I truly deserve.", "preferences": ["love"], "gender": "female" },
-    { "id": "rl_150", "text": "I am surrounded by love in every form.", "preferences": ["gratitude","love"], "gender": "female" }
+{ "id": "rl_085", "text": "Birlikte büyümeye açık olduğumda bağlarım derinleşiyor.", "gender": "male" },
+
+{ "id": "rl_086", "text": "Duygusal açıklık iletişimimi daha sağlıklı kılıyor.", "gender": "any" },
+{ "id": "rl_087", "text": "Nazik bir yaklaşım sevgiye alan açıyor.", "gender": "female" },
+{ "id": "rl_088", "text": "İçsel dinginlik ilişkilerimde güven hissi yaratıyor.", "gender": "any" },
+{ "id": "rl_089", "text": "Özenli iletişim bağlarımı tazeliyor.", "gender": "any" },
+{ "id": "rl_090", "text": "Karşılıklı nezaket yakınlığı güçlendiriyor.", "gender": "male" },
+
+{ "id": "rl_091", "text": "Sözlerime dikkat ettiğimde sevgi daha rahat akıyor.", "gender": "any" },
+
+{ "id": "rl_092", "text": "Sevgiyle yaklaştığımda bağlar zarar görmeden güçleniyor.", "gender": "any" },
+
+{ "id": "rl_093", "text": "Nazik bir açıklık ilişkilerde yeni bir alan oluşturuyor.", "gender": "female" },
+{ "id": "rl_094", "text": "Duygularımı fark etmek samimiyeti artırıyor.", "gender": "any" },
+{ "id": "rl_095", "text": "Şefkatli duruşum ilişkilerimde onarıcı oluyor.", "gender": "any" },
+
+{ "id": "rl_096", "text": "Huzur taşıyan bir kalp ilişkileri güçlendirir, {name}.", "gender": "male" },
+
+{ "id": "rl_097", "text": "Anlayışla kurulan bağlar daha sağlam hissediliyor.", "gender": "any" },
+{ "id": "rl_098", "text": "İçimdeki açıklık ilişkilerime ışık katıyor.", "gender": "female" },
+{ "id": "rl_099", "text": "Nazikçe konuştuğumda sevgiye alan açılıyor.", "gender": "any" },
+{ "id": "rl_100", "text": "Sevgiye alan açtığımda bağlarım yumuşuyor.", "gender": "male" },
+
+{ "id": "rl_101", "text": "Kalbimi açık tutmayı seçiyorum ve bu karşımdakine güven veriyor.", "gender": "any" },
+{ "id": "rl_102", "text": "Nazik kalmayı seçtiğimde duygusal sıcaklık artıyor.", "gender": "female" },
+{ "id": "rl_103", "text": "Duygularımı yumuşak bir dille ifade etmeye izin veriyorum.", "gender": "any" },
+
+{ "id": "rl_104", "text": "İletişimde sakin kalmayı seçiyorum ve bu huzur yaratıyor.", "gender": "male" },
+{ "id": "rl_105", "text": "İçimdeki sevecenliği tutuyorum ve yakınlık kendiliğinden geliyor.", "gender": "any" },
+
+{ "id": "rl_106", "text": "Uyum için kalbimde yer açıyorum.", "gender": "female" },
+{ "id": "rl_107", "text": "Açıklığımı paylaşmayı seçiyorum ve ilişkiler yumuşuyor.", "gender": "any" },
+{ "id": "rl_108", "text": "Duygusal farkındalığımı koruyorum ve samimiyet güçleniyor.", "gender": "any" },
+
+{ "id": "rl_109", "text": "Yakınlık için iç sesimi dinlemeyi seçiyorum.", "gender": "male" },
+{ "id": "rl_110", "text": "Nazik temaslara alan açıyorum; sevgi daha görünür oluyor.", "gender": "any" },
+
+{ "id": "rl_111", "text": "Duygularımdaki yumuşaklığı koruyorum ve denge oluşuyor.", "gender": "female" },
+{ "id": "rl_112", "text": "Samimiyetin içsel açıklıktan geldiğini hatırlıyorum.", "gender": "any" },
+{ "id": "rl_113", "text": "Sevecen bir ton seçiyorum ve yakınlık artıyor.", "gender": "any" },
+
+{ "id": "rl_114", "text": "İlişkilerimde güveni besleyen bir duruşu benimsiyorum.", "gender": "male" },
+{ "id": "rl_115", "text": "Kalbimdeki yumuşaklığı iletişime taşımayı seçiyorum.", "gender": "any" },
+
+{ "id": "rl_116", "text": "Duygulara yer açıyorum ve bağlar daha gerçek hissediliyor.", "gender": "female" },
+{ "id": "rl_117", "text": "Ses tonumu yumuşatıyorum; yakınlık derinleşiyor.", "gender": "any" },
+{ "id": "rl_118", "text": "Açıklığı büyütüyorum ve ilişkiler ısınıyor.", "gender": "any" },
+
+{ "id": "rl_119", "text": "Sakin bir kalbi seçiyorum; sağlam bağlar buradan doğuyor.", "gender": "male" },
+{ "id": "rl_120", "text": "Anlayışımı paylaşmayı seçiyorum ve bağlar güçleniyor.", "gender": "any" },
+
+{ "id": "rl_121", "text": "Nazik sınırlar koyuyorum ve sevgiye alan açılıyor.", "gender": "female" },
+
+{ "id": "rl_122", "text": "Duygularımı dürüstçe paylaştığımda yakınlık artıyor.", "gender": "any" },
+
+{ "id": "rl_123", "text": "Samimi iletişimi seçiyorum; kalpler birbirine yaklaşıyor.", "gender": "any" },
+{ "id": "rl_124", "text": "Kalbimdeki güveni tutuyorum ve ilişkiler dengeleniyor.", "gender": "male" },
+{ "id": "rl_125", "text": "Yumuşak bir açıklığa izin veriyorum; duygusal uyum geliyor.", "gender": "any" },
+
+{ "id": "rl_126", "text": "Uyumlu kalmayı seçiyorum ve sevgi daha rahat akıyor.", "gender": "female" },
+{ "id": "rl_127", "text": "Duyarlılığımı paylaşıyorum; ilişkiler derinleşiyor.", "gender": "any" },
+{ "id": "rl_128", "text": "İçsel huzurumu iletişime taşıyorum.", "gender": "any" },
+
+{ "id": "rl_129", "text": "Nazik bağlar kuruyorum ve birlikte büyüyoruz.", "gender": "male" },
+{ "id": "rl_130", "text": "Sıcak bir yaklaşım seçiyorum; güvenli zemin oluşuyor.", "gender": "any" },
+
+{ "id": "rl_131", "text": "Sözlerime özen göstermeyi seçiyorum.", "gender": "female" },
+{ "id": "rl_132", "text": "Ruhumdaki açıklığı ilişkilerime taşıyorum.", "gender": "any" },
+{ "id": "rl_133", "text": "Nazik bir duruşla sevgiyi görünür kılıyorum.", "gender": "any" },
+
+{ "id": "rl_134", "text": "Kalbimdeki sıcaklığı yakınlığa dönüştürüyorum.", "gender": "male" },
+{ "id": "rl_135", "text": "Anlayışı rehber alıyorum.", "gender": "any" },
+
+{ "id": "rl_136", "text": "Uyumu korumak için kalbimi dinliyorum.", "gender": "female" },
+{ "id": "rl_137", "text": "Samimiyetin rahatlatıcı etkisine izin veriyorum.", "gender": "any" },
+{ "id": "rl_138", "text": "Anlayışlı kalmayı seçiyorum ve sevgi büyüyor.", "gender": "any" },
+
+{ "id": "rl_139", "text": "Açıklığı iletişimime taşıyorum.", "gender": "male" },
+{ "id": "rl_140", "text": "Rahat bir duygusal alan yaratıyorum.", "gender": "any" },
+
+{ "id": "rl_141", "text": "Duyulduğunu hissettirmeyi seçiyorum.", "gender": "female" },
+{ "id": "rl_142", "text": "Yumuşak iletişime izin veriyorum.", "gender": "any" },
+{ "id": "rl_143", "text": "Duygusal alanda yer açıyorum ve güven geliyor.", "gender": "any" },
+
+{ "id": "rl_144", "text": "Paylaşmayı seçiyorum; sevgi derinleşiyor.", "gender": "male" },
+{ "id": "rl_145", "text": "Sakin iletişimle ilişkinin tonunu değiştiriyorum.", "gender": "any" },
+
+{ "id": "rl_146", "text": "Nazik sözler söylemeyi seçiyorum.", "gender": "female" },
+{ "id": "rl_147", "text": "Açıklığım duygularımı ifade etmeyi kolaylaştırıyor.", "gender": "any" },
+{ "id": "rl_148", "text": "Güven taşıyan bir duruş benimsiyorum.", "gender": "any" },
+
+{ "id": "rl_149", "text": "Sözlerime sıcaklık katıyorum.", "gender": "male" },
+{ "id": "rl_150", "text": "Nazik duruşla karşımdakine alan tanıyorum.", "gender": "any" },
+
+{ "id": "rl_151", "text": "Anlayışı büyütüyorum ve sevgiye yer açıyorum.", "gender": "female" },
+{ "id": "rl_152", "text": "Duygusal berraklığı seçiyorum.", "gender": "any" },
+{ "id": "rl_153", "text": "Nazik ifade ile yakınlığı davet ediyorum.", "gender": "any" },
+
+{ "id": "rl_154", "text": "Sevgiyle iletişim kurmayı seçiyorum.", "gender": "male" },
+{ "id": "rl_155", "text": "İçimdeki huzuru ilişkilere taşıyorum.", "gender": "any" },
+
+{ "id": "rl_156", "text": "Bağ kurarken açıklığı rehber alıyorum.", "gender": "female" },
+
+{ "id": "rl_157", "text": "{name}, içindeki yumuşaklığı ilişkilere taşımalısın.", "gender": "any" },
+
+{ "id": "rl_158", "text": "Uyumlu kalıyorum ve karşılıklı güven oluşuyor.", "gender": "any" },
+{ "id": "rl_159", "text": "Nazik temaslara izin veriyorum; duvarlar eriyor.", "gender": "male" },
+{ "id": "rl_160", "text": "Açık iletişimi seçiyorum; sevgi rahat akıyor.", "gender": "any" },
+
+{ "id": "rl_161", "text": "Duygularımı fark ediyorum ve bağlar derinleşiyor.", "gender": "female" },
+{ "id": "rl_162", "text": "Yumuşak açıklıkla ilişkinin tonunu değiştiriyorum.", "gender": "any" },
+{ "id": "rl_163", "text": "Samimi bir duruş sergiliyorum.", "gender": "any" },
+
+{ "id": "rl_164", "text": "Bağ kurarken sakinliğimi takip ediyorum.", "gender": "male" },
+{ "id": "rl_165", "text": "Sevginin yumuşak akışına güveniyorum.", "gender": "any" },
+
+{ "id": "rl_166", "text": "Duygusal açıklığı bağların temeli olarak görüyorum.", "gender": "female" },
+{ "id": "rl_167", "text": "Uyumu karşılıklı anlayışla kuruyorum.", "gender": "any" },
+{ "id": "rl_168", "text": "Nazik iletişimi tercih ediyorum.", "gender": "any" },
+
+{ "id": "rl_169", "text": "Kalbimde yer açıyorum ve ilişkiler nefes alıyor.", "gender": "male" },
+{ "id": "rl_170", "text": "Sıcak iletişimle duygusal yakınlığı güçlendiriyorum.", "gender": "any" },
+
+{ "id": "rl_171", "text": "İçsel açıklığı seçiyorum ve samimiyet büyüyor.", "gender": "female" },
+
+{ "id": "rl_172", "text": "Duygularımı yumuşakça ifade etmeye izin veriyorum.", "gender": "any" },
+
+{ "id": "rl_173", "text": "Nazik bağlar kuruyorum ve kendimi güvende hissediyorum.", "gender": "any" },
+{ "id": "rl_174", "text": "Ruhumdaki sakinliği ilişkilere taşıyorum.", "gender": "male" },
+{ "id": "rl_175", "text": "Şefkatli yaklaşımı seçiyorum.", "gender": "any" },
+{ "id": "rl_176", "text": "Açık bir kalple ilişkilere giriyorum.", "gender": "any" },
+{ "id": "rl_177", "text": "Nazik duruşla duygusal mesafeyi azaltıyorum.", "gender": "female" },
+
+{ "id": "rl_178", "text": "İçimde büyüyen güven ilişkilerimi sağlamlaştırıyor.", "gender": "any" },
+{ "id": "rl_179", "text": "Uyumlu bir akış sevginin doğal halidir.", "gender": "male" },
+
+{ "id": "rl_180", "text": "Ruhumdaki yumuşaklık ilişkilerimi iyileştiriyor.", "gender": "any" },
+
+{ "id": "rl_181", "text": "Sıcak bir iç ton sevgiyi daha görünür yapar.", "gender": "female" },
+{ "id":"rl_182", "text": "Duygusal açıklık güvenli bir alan yaratır.", "gender": "any" },
+{ "id": "rl_183", "text": "Nazikçe ifade edilen bir duygu bağları büyütür.", "gender": "any" },
+{ "id": "rl_184", "text": "Samimiyet içsel şeffaflıktan beslenir.", "gender": "male" },
+{ "id": "rl_185", "text": "Kalbimde doğan sıcaklık iletişime de dokunuyor.", "gender": "any" },
+
+{ "id": "rl_186", "text": "İlişkilerimde daha derin bir uyuma alan açıyorum.", "gender": "female" },
+{ "id":"rl_187", "text": "Duygulara alan açmak sağlıklı bir bağ için zemin oluşturur.", "gender": "any" },
+{ "id": "rl_188", "text": "Nazik bir anlayış ilişkideki gerginliği çözer.", "gender": "any" },
+
+{ "id": "rl_189", "text": "Kalbimde taşıdığım açıklık sevgiye davetiye çıkarıyor.", "gender": "male" },
+
+{ "id": "rl_190", "text": "Paylaşılmış bir sakinlik ilişkilerde güven yaratır.", "gender": "any" },
+{ "id": "rl_191", "text": "Sıcak bir bakış içsel mesafeleri kapatır.", "gender": "female" },
+{ "id":"rl_192", "text": "Samimi bir duruş sevginin tınısını güçlendirir.", "gender": "any" },
+{ "id": "rl_193", "text": "Nazikçe kurulan bağlar karşılıklı huzur doğurur.", "gender": "any" },
+
+{ "id": "rl_194", "text": "İçimde büyüyen şefkat ilişkilerimi yumuşatıyor.", "gender": "male" },
+
+{ "id": "rl_195", "text": "Ruhumdaki sıcaklık sevgi akışını kolaylaştırır.", "gender": "female" },
+{ "id":"rl_196", "text": "Yumuşak bir ifade duygusal yakınlığı artırır.", "gender": "any" },
+{ "id": "rl_197", "text": "Huzurlu bir iç ton ilişkilerime yansıyarak denge yaratır.", "gender": "any" },
+{ "id": "rl_198", "text": "Nazik bir yaklaşım sağlıklı iletişimin temelidir.", "gender": "male" },
+
+{ "id": "rl_199", "text": "Bağ kurarken yumuşaklık ve açıklık bana rehberlik ediyor.", "gender": "any" },
+
+{ "id": "rl_200", "text": "Ruhumdaki uyum ilişkilerimi daha sevgi dolu bir hâle getiriyor.", "gender": "female" },
+
+
+{ "id": "rl_201", "text": "Ruhumdaki yumuşaklık ilişkilerime huzur taşıyor.", "gender": "any" },
+{ "id": "rl_202", "text": "Sevgiye açık bir duruş yakınlığı doğal olarak artırır.", "gender": "female" },
+{ "id": "rl_203", "text": "Nazikçe ifade edilen sözler bağı güçlendirir.", "gender": "any" },
+
+{ "id": "rl_204", "text": "Duygusal açıklık karşılıklı güven yaratır.", "gender": "male" },
+{ "id": "rl_205", "text": "Sıcak bir yaklaşım kalpleri birbirine yaklaştırır, {name}.", "gender": "any" },
+
+{ "id": "rl_206", "text": "Nazik sınırlar ilişkilere güvenli bir alan kazandırır.", "gender": "female" },
+{ "id": "rl_207", "text": "Dingin bir iletişim sevgi akışını yumuşatır.", "gender": "any" },
+{ "id": "rl_208", "text": "Kalbimde yer açtığımda yakınlık kendiliğinden büyür.", "gender": "any" },
+{ "id": "rl_209", "text": "Samimiyetle kurulan bir bağ daha derin hissedilir.", "gender": "male" },
+{ "id": "rl_210", "text": "Sevginin sade hâli ilişkide denge yaratır.", "gender": "any" },
+
+{ "id": "rl_211", "text": "İletişimime kattığım yumuşaklık bağlarımı güçlendiriyor.", "gender": "female" },
+{ "id": "rl_212", "text": "Duygusal uyum için kalbimin sesini duyuyorum.", "gender": "any" },
+{ "id": "rl_213", "text": "Açık bir ifade ilişkide berraklık sağlar.", "gender": "any" },
+
+{ "id": "rl_214", "text": "Sıcak bir enerji karşımdakini rahatlatır.", "gender": "male" },
+{ "id": "rl_215", "text": "Paylaştığım samimiyet ilişkilerimi yumuşatıyor.", "gender": "any" },
+
+{ "id": "rl_216", "text": "Nazik bir niyet sevgi akışını kolaylaştırır.", "gender": "female" },
+{ "id": "rl_217", "text": "Ruhumdaki açıklık ilişkilerime ışık katıyor.", "gender": "any" },
+{ "id": "rl_218", "text": "Duygusal farkındalık ilişkilerde yeni alanlar açar.", "gender": "any" },
+
+{ "id": "rl_219", "text": "Sakin bir yaklaşım anlaşılmayı kolaylaştırır.", "gender": "male" },
+{ "id": "rl_220", "text": "İlişkilerimdeki tınıyı sevgiyle yumuşatıyorum.", "gender": "any" },
+
+{ "id": "rl_221", "text": "İçimde büyüyen anlayış bağlarımı güçlendiriyor.", "gender": "female" },
+
+{ "id": "rl_222", "text": "Yakınlığı büyütmek için duygularımı nazikçe paylaşıyorum.", "gender": "any" },
+
+{ "id": "rl_223", "text": "Şefkatli bir bakış bile güveni artırabilir.", "gender": "any" },
+{ "id": "rl_224", "text": "Kalbimin sıcaklığı iletişimime yansıyor.", "gender": "male" },
+{ "id": "rl_225", "text": "Yumuşak bir ton sevgiye alan açar.", "gender": "any" },
+
+{ "id": "rl_226", "text": "Nezaketle kurulan bağlar daha kalıcıdır.", "gender": "female" },
+{ "id": "rl_227", "text": "Açık bir iletişim ruhumdaki ağırlığı azaltır.", "gender": "any" },
+{ "id": "rl_228", "text": "Duygusal şeffaflık ilişkide karşılıklı huzur yaratır, {name}", "gender": "any" },
+
+{ "id": "rl_229", "text": "Nazikçe özen göstermeyi seçiyorum ve bağlar tazeleniyor.", "gender": "male" },
+{ "id": "rl_230", "text": "İçimdeki yumuşaklığı ilişkilerime taşımayı seçiyorum.", "gender": "any" },
+
+{ "id": "rl_231", "text": "Sevgiye alan açıyorum; iletişim daha rahat akıyor.", "gender": "female" },
+{ "id": "rl_232", "text": "Ruhumdaki uyumu ilişkilerimde hissetmeyi seçiyorum.", "gender": "any" },
+{ "id": "rl_233", "text": "Nazik kalmayı seçiyorum ve anlayış derinleşiyor.", "gender": "any" },
+
+{ "id": "rl_234", "text": "Duygularımı özenle ifade etmeye izin veriyorum.", "gender": "male" },
+{ "id": "rl_235", "text": "Sakin bir enerjiyi tutuyorum; sevgi daha rahat akıyor.", "gender": "any" },
+
+{ "id": "rl_236", "text": "Açıklığımı paylaşıyorum ve ilişkiler daha gerçek hissediliyor.", "gender": "female" },
+{ "id": "rl_237", "text": "Duygusal yumuşaklığı yakınlığın temeli olarak görüyorum.", "gender": "any" },
+{ "id": "rl_238", "text": "Nazik temasa izin veriyorum; sevgi görünür oluyor.", "gender": "any" },
+
+{ "id": "rl_239", "text": "Uyumu beslemek için kalbimde yer açıyorum.", "gender": "male" },
+{ "id": "rl_240", "text": "Açık ifade etmeyi seçiyorum ve sevgiye alan açılıyor.", "gender": "any" },
+
+{ "id": "rl_241", "text": "Ruhumdaki sıcaklığı iletişime taşıyorum.", "gender": "female" },
+{ "id": "rl_242", "text": "Duygusal alana yer açıyorum; bağlar yumuşuyor.", "gender": "any" },
+{ "id": "rl_243", "text": "Nazikçe dinlemeyi seçiyorum ve güven büyüyor.", "gender": "any" },
+
+{ "id": "rl_244", "text": "İçimdeki huzuru ilişkilere taşıyorum.", "gender": "male" },
+{ "id": "rl_245", "text": "Sözlerime sevgi katmayı seçiyorum.", "gender": "any" },
+
+{ "id": "rl_246", "text": "Şefkatli bir duruş sergiliyorum.", "gender": "female" },
+{ "id": "rl_247", "text": "Nazik ifade ile duvarları yumuşatıyorum.", "gender": "any" },
+{ "id": "rl_248", "text": "Duygusal açıklığı yakınlığa davet olarak görüyorum.", "gender": "any" },
+
+{ "id": "rl_249", "text": "Sıcak iletişimi seçiyorum; mesafe azalıyor.", "gender": "male" },
+{ "id": "rl_250", "text": "Açıklığın sevgiye alan açtığını fark ediyorum.", "gender": "any" },
+
+{ "id": "rl_251", "text": "Ruhumdaki sakinliği ilişkilere taşıyorum.", "gender": "female" },
+{ "id": "rl_252", "text": "Duyguları nazikçe paylaşmayı seçiyorum.", "gender": "any" },
+{ "id": "rl_253", "text": "Yumuşak bir tonla huzuru davet ediyorum.", "gender": "any" },
+
+{ "id": "rl_254", "text": "Duygularımı paylaştığımda bağlar olgunlaşıyor.", "gender": "male" },
+{ "id": "rl_255", "text": "Anlayışı büyütmeyi seçiyorum.", "gender": "any" },
+
+{ "id": "rl_256", "text": "Samimiyet taşıyan bir duruşu benimsiyorum.", "gender": "female" },
+{ "id": "rl_257", "text": "Nazik iletişimi güvenli bir zemin olarak görüyorum.", "gender": "any" },
+{ "id": "rl_258", "text": "Açık bir kalple duygularımı ifade ediyorum.", "gender": "any" },
+
+{ "id": "rl_259", "text": "İçimdeki yumuşaklığı ilişkilerime taşıyorum.", "gender": "male" },
+{ "id": "rl_260", "text": "Sakin ifade ile sevgi akışını derinleştiriyorum.", "gender": "any" },
+
+{ "id": "rl_261", "text": "Ruhumdaki sıcaklığa güveniyorum.", "gender": "female" },
+{ "id": "rl_262", "text": "Duygusal uyumu ilişkinin en zarif hâli olarak görüyorum.", "gender": "any" },
+{ "id": "rl_263", "text": "Nazik temasa izin veriyorum; güven büyüyor.", "gender": "any" },
+
+{ "id": "rl_264", "text": "Şefkatli yaklaşımı seçiyorum.", "gender": "male" },
+{ "id": "rl_265", "text": "Açıklığımı iletişime taşıyorum.", "gender": "any" },
+
+{ "id": "rl_266", "text": "Yumuşak iletişimi seçiyorum; sevgi doğal akıyor.", "gender": "female" },
+{ "id": "rl_267", "text": "Nazik bağlar kuruyorum ve kendimi güvende hissediyorum.", "gender": "any" },
+{ "id": "rl_268", "text": "Duygusal açıklıkla derinliği kabul ediyorum.", "gender": "any" },
+
+{ "id": "rl_269", "text": "Sakin duruşu seçiyorum; güvensizlik çözülüyor.", "gender": "male" },
+{ "id": "rl_270", "text": "Açık ifade ile bağları tazeliyorum.", "gender": "any" },
+
+{ "id": "rl_271", "text": "Ruhumdaki uyumu ilişkilere taşıyorum.", "gender": "female" },
+
+{ "id": "rl_272", "text": "Yakınlık için duygularımı duymayı seçiyorum.", "gender": "any" },
+
+{ "id": "rl_273", "text": "Nazik anlayışı rehber alıyorum.", "gender": "any" },
+{ "id": "rl_274", "text": "Duygusal açıklığı huzurun temeli olarak görüyorum.", "gender": "male" },
+{ "id": "rl_275", "text": "Şefkatli ifade ile karşılıklı yumuşamaya izin veriyorum.", "gender": "any" },
+
+{ "id": "rl_276", "text": "İlişkilerimde sevginin doğal akışını destekliyorum.", "gender": "female" },
+{ "id": "rl_277", "text": "Nazik yaklaşımı seçiyorum; yakınlık görünür oluyor.", "gender": "any" },
+{ "id": "rl_278", "text": "Duygusal esnekliği sağlıklı bağların temeli olarak görüyorum.", "gender": "any" },
+
+{ "id": "rl_279", "text": "Açıklığı koruyorum ve ilişkiler sakinleşiyor.", "gender": "male" },
+{ "id": "rl_280", "text": "Açık iletişimle huzuru davet ediyorum.", "gender": "any" },
+
+{ "id": "rl_281", "text": "Ruhumdaki sıcaklığı paylaşmayı seçiyorum.", "gender": "female" },
+{ "id": "rl_282", "text": "Nazik ifade ile sevgi kapılarını aralıyorum.", "gender": "any" },
+{ "id": "rl_283", "text": "Yumuşak bakışa izin veriyorum.", "gender": "any" },
+
+{ "id": "rl_284", "text": "Güveni besleyen bir kalbi taşıyorum.", "gender": "male" },
+{ "id": "rl_285", "text": "Sakin enerjiyi tutuyorum; bağlar güçleniyor.", "gender": "any" },
+
+{ "id": "rl_286", "text": "İçimdeki sevgiyi ilişkilere taşıyorum.", "gender": "female" },
+{ "id": "rl_287", "text": "Nazikçe ifade edilen duygulara alan açıyorum.", "gender": "any" },
+{ "id": "rl_288", "text": "Duygusal açıklıkla daha şeffaf bağlar kuruyorum.", "gender": "any" },
+
+{ "id": "rl_289", "text": "Bağ kurarken kalbimin sıcaklığına güveniyorum.", "gender": "male" },
+
+{ "id": "rl_290", "text": "Sevginin akışına izin veriyorum.", "gender": "female" },
+{ "id": "rl_291", "text": "Nazik niyetle ilişkinin tonunu yumuşatıyorum.", "gender": "any" },
+{ "id": "rl_292", "text": "Duygusal şeffaflığı canlı tutuyorum.", "gender": "any" },
+
+{ "id": "rl_293", "text": "Açık duruşla sevgiyi görünür kılıyorum.", "gender": "male" },
+{ "id": "rl_294", "text": "Ruhumdaki güveni ilişkilere taşıyorum.", "gender": "any" },
+
+{ "id": "rl_295", "text": "İlişkilerimde sevgiye alan açmayı seçiyorum.", "gender": "female" },
+{ "id": "rl_296", "text": "Nazik temaslara izin veriyorum; duygular akıyor.", "gender": "any" },
+{ "id": "rl_297", "text": "Duygularımı törpülemeden ifade etmeyi seçiyorum.", "gender": "any" },
+
+{ "id": "rl_298", "text": "Kalbimdeki yumuşaklığı ilişkilere taşıyorum.", "gender": "male" },
+
+{ "id": "rl_299", "text": "Sakin iletişimle her duyguyu yumuşatıyorum.", "gender": "any" },
+{ "id": "rl_300", "text": "Ruhumdaki uyumla güvenli bir alan kuruyorum.", "gender": "female" },
+
+{ "id": "rl_301", "text": "Kalbimdeki sakinlik ilişkilerime ince bir yumuşaklık taşıyor.", "gender": "any" },
+{ "id": "rl_302", "text": "Nazik bir yaklaşım karşılıklı güveni besler.", "gender": "female" },
+{ "id": "rl_303", "text": "Duygularımı özenle ifade ettiğimde bağlarım güçleniyor.", "gender": "any" },
+
+{ "id": "rl_304", "text": "Sakin bir ton sevgi akışını yumuşatır.", "gender": "male" },
+{ "id": "rl_305", "text": "Ruhumdaki açıklık ilişkilerime sıcaklık katıyor.", "gender": "any" },
+
+{ "id": "rl_306", "text": "Nazikçe paylaşılan duygular ilişkide derinlik yaratır.", "gender": "female" },
+{ "id": "rl_307", "text": "Açık bir iletişim samimiyetin yolunu açar.", "gender": "any" },
+{ "id": "rl_308", "text": "Yumuşak bir bakış kalpleri birbirine yaklaştırabilir.", "gender": "any" },
+
+{ "id": "rl_309", "text": "Duygusal uyum ilişkilerde doğal bir yakınlık oluşturur.", "gender": "male" },
+{ "id": "rl_310", "text": "Paylaştığım içsel sakinlik iletişimime iyi geliyor.", "gender": "any" },
+
+{ "id": "rl_311", "text": "Ruhumdaki sıcaklık sevgi dilimi inceltiyor.", "gender": "female" },
+{ "id": "rl_312", "text": "Nazik bir ifade karşılıklı anlayışı büyütür.", "gender": "any" },
+{ "id": "rl_313", "text": "Duygularımı açıkça paylaşmak ilişkilerimi yumuşatıyor.", "gender": "any" },
+
+{ "id": "rl_314", "text": "Sözlerime kattığım özen bağlarımı iyileştiriyor.", "gender": "male" },
+{ "id": "rl_315", "text": "Sakin bir enerji karşımdakini daha rahat hissettirir.", "gender": "any" },
+
+{ "id": "rl_316", "text": "Samimiyetle kurulan bağlar daha kalıcıdır.", "gender": "female" },
+{ "id": "rl_317", "text": "Nazik bir duruş sevgi akışını doğal kılar.", "gender": "any" },
+{ "id": "rl_318", "text": "Ruhumdaki uyum ilişkilerime berraklık getiriyor.", "gender": "any" },
+
+{ "id": "rl_319", "text": "İçimdeki şefkat iletişimime yumuşaklık katıyor.", "gender": "male" },
+{ "id": "rl_320", "text": "Bağ kurarken kalbimin rehberliğine güveniyorum.", "gender": "any" },
+
+{ "id": "rl_321", "text": "Sıcak bir ifade duygusal mesafeyi kısaltır.", "gender": "female" },
+{ "id": "rl_322", "text": "Nazikçe dinlemek karşılıklı bağları güçlendirir.", "gender": "any" },
+{ "id": "rl_323", "text": "Duygusal açıklık ilişkilerde şeffaflık yaratır.", "gender": "any" },
+
+{ "id": "rl_324", "text": "Sevgiye alan açtıkça yakınlık daha kolay oluşuyor.", "gender": "male" },
+{ "id": "rl_325", "text": "İçimde büyüyen anlayış bağlarımı besliyor.", "gender": "any" },
+
+{ "id": "rl_326", "text": "Sakin bir iç ton iletişimimde fark yaratıyor.", "gender": "female" },
+{ "id": "rl_327", "text": "Nazik sınırlar ilişkilerde güvenli bir alan yaratır.", "gender": "any" },
+{ "id": "rl_328", "text": "Paylaştığım şeffaflık bağı daha derin kılıyor.", "gender": "any" },
+
+{ "id": "rl_329", "text": "Duygularımı hafifçe ifade etmek yakınlığı artırır.", "gender": "male" },
+{ "id": "rl_330", "text": "Ruhumdaki sıcaklık ilişkilerimi daha huzurlu kılıyor.", "gender": "any" },
+
+{ "id": "rl_331", "text": "İletişimde yumuşaklık sevgiye yeni alan açar.", "gender": "female" },
+{ "id": "rl_332", "text": "Nazik bir yaklaşım duygusal güveni büyütür.", "gender": "any" },
+{ "id": "rl_333", "text": "Duygusal uyum sağlıklı bağların temelidir.", "gender": "any" },
+
+{ "id": "rl_334", "text": "Açık bir kalp ilişkilerdeki tınıyı değiştirir.", "gender": "male" },
+{ "id": "rl_335", "text": "Paylaştığım sevgi ilişkilerime zarif bir ton katıyor.", "gender": "any" },
+
+{ "id": "rl_336", "text": "Ruhumdaki nazik enerji iletişimime rehberlik ediyor.", "gender": "female" },
+{ "id": "rl_337", "text": "İlişkilerimde yumuşaklığı bilinçli şekilde büyütüyorum.", "gender": "any" },
+{ "id": "rl_338", "text": "Sözlerime özen göstermek bağlarımı şeffaflaştırır.", "gender": "any" },
+
+{ "id": "rl_339", "text": "Nazikçe kurulan bağlar güven inşa eder.", "gender": "male" },
+{ "id": "rl_340", "text": "Sevginin yumuşak akışı ilişkilerime huzur getiriyor.", "gender": "any" },
+
+{ "id": "rl_341", "text": "Yakınlığı güçlendirmek için kalbimi duyuyorum.", "gender": "female" },
+
+{ "id": "rl_342", "text": "Duygularımı açıkça ifade ettiğimde bağım derinleşiyor.", "gender": "any" },
+
+{ "id": "rl_343", "text": "Nazik bir samimiyet karşılıklı güven yaratır.", "gender": "any" },
+{ "id": "rl_344", "text": "İçimdeki sıcaklık iletişimimin tonunu güzelleştiriyor.", "gender": "male" },
+{ "id": "rl_345", "text": "Sakin bir yaklaşım ilişkide huzuru artırır.", "gender": "any" },
+
+{ "id": "rl_346", "text": "Ruhumdaki açıklık sevgiyi daha doğal kılıyor.", "gender": "female" },
+{ "id": "rl_347", "text": "Duygusal farkındalık bağları dinginleştirir.", "gender": "any" },
+{ "id": "rl_348", "text": "Nazikçe gösterilen ilgi ilişkileri güzelleştirir.", "gender": "any" },
+
+{ "id": "rl_349", "text": "Yumuşak bir ifade duvarları kolayca eritir.", "gender": "male" },
+
+
+{ "id": "rl_350", "text": "Açık iletişimi seçiyorum ve sevgi daha rahat akıyor.", "gender": "any" },
+{ "id": "rl_351", "text": "Ruhumdaki uyumu ilişkilerimde dengede tutuyorum.", "gender": "female" },
+{ "id": "rl_352", "text": "Nazik temasa izin veriyorum; bağ görünür oluyor.", "gender": "any" },
+{ "id": "rl_353", "text": "Duygusal açıklığı seçiyorum ve sevgi berraklaşıyor.", "gender": "any" },
+{ "id": "rl_354", "text": "İçimdeki yumuşak enerjiyi ilişkilerime taşıyorum.", "gender": "male" },
+{ "id": "rl_355", "text": "Sözlerimde inceliği koruyorum.", "gender": "any" },
+{ "id": "rl_356", "text": "Sevgiye açık duruşu benimsiyorum.", "gender": "female" },
+{ "id": "rl_357", "text": "Nazik sınırlarla saygıyı koruyorum.", "gender": "any" },
+{ "id": "rl_358", "text": "Ruhumdaki sıcaklıkla duygularımı daha rahat ifade ediyorum.", "gender": "any" },
+
+{ "id": "rl_359", "text": "Yumuşak bir kalple güvenli alan tutuyorum.", "gender": "male" },
+{ "id": "rl_360", "text": "Açık yaklaşımı seçiyorum; duygusal akış rahatlıyor.", "gender": "any" },
+
+{ "id": "rl_361", "text": "Sakin iç tonumu iletişimime taşıyorum.", "gender": "female" },
+
+{ "id": "rl_362", "text": "Duygulara yer açtıkça derinliği hissediyorum.", "gender": "any" },
+
+{ "id": "rl_363", "text": "Nazik iletişimi seçiyorum; bağların tonu yumuşuyor.", "gender": "any" },
+{ "id": "rl_364", "text": "Açıklığımı paylaşıyorum ve sevgiye kapı açılıyor.", "gender": "male" },
+{ "id": "rl_365", "text": "Ruhumdaki dinginliği ilişkilere taşıyorum.", "gender": "any" },
+
+{ "id": "rl_366", "text": "Duygusal şeffaflığı yakınlığın temeli olarak görüyorum.", "gender": "female" },
+{ "id": "rl_367", "text": "Nazik temasla içsel mesafelerin azalmasına izin veriyorum.", "gender": "any" },
+{ "id": "rl_368", "text": "Anlayışımı ilişkilere zarifçe taşıyorum.", "gender": "any" },
+
+{ "id": "rl_369", "text": "Sözlerimdeki özeni koruyorum.", "gender": "male" },
+{ "id": "rl_370", "text": "Ruhumdaki sıcaklığı iletişime yansıtıyorum.", "gender": "any" },
+
+{ "id": "rl_371", "text": "Samimiyetle yaklaşmayı seçiyorum.", "gender": "female" },
+{ "id": "rl_372", "text": "Nazik ifadeyle sevginin doğasını koruyorum.", "gender": "any" },
+{ "id": "rl_373", "text": "Açık duygu akışına izin veriyorum.", "gender": "any" },
+
+{ "id": "rl_374", "text": "Ruhumdaki sakinlikle yakınlığı daha kolay hissediyorum.", "gender": "male" },
+{ "id": "rl_375", "text": "Sıcak iç tonumu koruyorum.", "gender": "any" },
+
+{ "id": "rl_376", "text": "Duygusal açıklıkla gerginliği bırakıyorum.", "gender": "female" },
+{ "id": "rl_377", "text": "Nazik özeni iletişimimde tutuyorum.", "gender": "any" },
+{ "id": "rl_378", "text": "Yumuşak bakışa izin veriyorum.", "gender": "any" },
+
+{ "id": "rl_379", "text": "Bağ kurarken kalbimin sıcaklığını rehber alıyorum.", "gender": "male" },
+{ "id": "rl_380", "text": "Açık iletişimle bağları güçlendiriyorum.", "gender": "any" },
+
+{ "id": "rl_381", "text": "Duyarlılığımı ilişkilere taşıyorum.", "gender": "female" },
+{ "id": "rl_382", "text": "Nazik yaklaşımı seçiyorum; sevgi daha rahat akıyor.", "gender": "any" },
+{ "id": "rl_383", "text": "Duygusal berraklığı koruyorum.", "gender": "any" },
+
+{ "id": "rl_384", "text": "Sözlerimdeki sıcaklığı bilinçle kullanıyorum.", "gender": "male" },
+{ "id": "rl_385", "text": "İçimdeki sakinliği ilişkilerime taşıyorum.", "gender": "any" },
+
+{ "id": "rl_386", "text": "Sevgiye açık kalmayı seçiyorum.", "gender": "female" },
+
+{ "id": "rl_387", "text": "Duygularımı nazikçe paylaştıkça yakınlık artıyor.", "gender": "any" },
+
+{ "id": "rl_388", "text": "Nazik ifadeyle uyumu besliyorum.", "gender": "any" },
+{ "id": "rl_389", "text": "Açıklığımla sevgi tonunu berrak tutuyorum.", "gender": "male" },
+{ "id": "rl_390", "text": "Sakin duruşla yumuşak bir alan kuruyorum.", "gender": "any" },
+
+{ "id": "rl_391", "text": "Duygusal açıklığı sevginin doğal parçası olarak görüyorum.", "gender": "female" },
+{ "id": "rl_392", "text": "Nazik bağlarla sıcaklığı çoğaltıyorum.", "gender": "any" },
+{ "id": "rl_393", "text": "Yumuşak yaklaşımla güveni büyütüyorum.", "gender": "any" },
+
+{ "id": "rl_394", "text": "İçimde büyüyen sevgiyi ilişkilere taşıyorum.", "gender": "male" },
+{ "id": "rl_395", "text": "Duygusal uyum için kalbimin rehberliğini izliyorum.", "gender": "any" },
+
+{ "id": "rl_396", "text": "Sakin enerjiyi bilinçle tutuyorum.", "gender": "female" },
+{ "id": "rl_397", "text": "Nazik yaklaşımla şefkati büyütüyorum.", "gender": "any" },
+{ "id": "rl_398", "text": "Yumuşak ifadeye alan açıyorum.", "gender": "any" },
+
+{ "id": "rl_399", "text": "Bağ kurarken içsel açıklığımı koruyorum.", "gender": "male" },
+{ "id": "rl_400", "text": "Ruhumdaki uyumu ilişkilerime taşıyorum.", "gender": "female" }
+
+
 ]
+
+}
 

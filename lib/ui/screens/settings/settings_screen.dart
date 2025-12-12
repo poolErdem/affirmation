@@ -320,8 +320,10 @@ class _SettingsScreenState extends State<SettingsScreen>
                               boxShadow: isPremium
                                   ? [
                                       BoxShadow(
-                                        color: Colors.amber.withAlpha(150),
-                                        blurRadius: 22,
+                                        color: const Color.fromARGB(
+                                                255, 205, 192, 153)
+                                            .withAlpha(150),
+                                        blurRadius: 16,
                                       )
                                     ]
                                   : null,
@@ -374,28 +376,6 @@ class _SettingsScreenState extends State<SettingsScreen>
                   ],
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  // PARTICLES -------------------------------------------------------
-  Widget _buildParticle(Particle p, double progress, Size size) {
-    final pos = p.getPosition(progress, size);
-    return Positioned(
-      left: pos.dx,
-      top: pos.dy,
-      child: Container(
-        width: p.size,
-        height: p.size,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          gradient: RadialGradient(
-            colors: [
-              Colors.amber.withValues(alpha: 0.8),
-              Colors.amber.withValues(alpha: 0),
             ],
           ),
         ),

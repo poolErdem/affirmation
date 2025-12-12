@@ -25,7 +25,8 @@
     {"id":"c13","imageAsset":"assets/data/themes/c13.jpg","group":"Colorful","isPremiumLocked":false,"soundAsset":null},
     {"id":"c14","imageAsset":"assets/data/themes/c14.jpg","group":"Colorful","isPremiumLocked":false,"soundAsset":null},
     {"id":"c15","imageAsset":"assets/data/themes/c15.jpg","group":"Colorful","isPremiumLocked":false,"soundAsset":null},
- 
+    {"id":"c16","imageAsset":"assets/data/themes/c16.jpg","group":"Colorful","isPremiumLocked":false,"soundAsset":null},
+    {"id":"c17","imageAsset":"assets/data/themes/c17.jpg","group":"Colorful","isPremiumLocked":false,"soundAsset":null},
 
     {"id":"d1","imageAsset":"assets/data/themes/d1.jpg","group":"Dark","isPremiumLocked":true,"soundAsset":null},
     {"id":"d2","imageAsset":"assets/data/themes/d2.jpg","group":"Dark","isPremiumLocked":true,"soundAsset":null},
@@ -36,8 +37,15 @@
     {"id":"d7","imageAsset":"assets/data/themes/d7.jpg","group":"Dark","isPremiumLocked":false,"soundAsset":null},
     {"id":"d8","imageAsset":"assets/data/themes/d8.jpg","group":"Dark","isPremiumLocked":false,"soundAsset":null},
     {"id":"d9","imageAsset":"assets/data/themes/d9.jpg","group":"Dark","isPremiumLocked":false,"soundAsset":null},
+    {"id":"d9","imageAsset":"assets/data/themes/d10.jpg","group":"Dark","isPremiumLocked":false,"soundAsset":null},
 
-    {"id":"e1","imageAsset":"assets/data/themes/e1.mp4","group":"Live","isPremiumLocked":false,"soundAsset":null}
+    {"id":"e1","imageAsset":"assets/data/themes/e1.mp4","group":"Live","isPremiumLocked":false,"soundAsset":null},
+    {"id":"e2","imageAsset":"assets/data/themes/e2.mp4","group":"Live","isPremiumLocked":false,"soundAsset":null},
+
+    {"id":"e3","imageAsset":"assets/data/themes/e3.mp4","group":"Live","isPremiumLocked":false,"soundAsset":null},
+
+    {"id":"e4","imageAsset":"assets/data/themes/e4.mp4","group":"Live","isPremiumLocked":false,"soundAsset":null}
+
 
 
 ]

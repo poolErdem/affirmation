@@ -167,11 +167,11 @@ class _NameScreenState extends State<NameScreen>
                               decoration: const InputDecoration(
                                 border: InputBorder.none,
                                 hintText: "Type your name...",
-                                hintStyle: TextStyle(color: Colors.black38),
+                                hintStyle: TextStyle(color: Colors.white),
                               ),
                               style: const TextStyle(
                                 fontSize: 16,
-                                color: Colors.black87,
+                                color: Colors.white,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),

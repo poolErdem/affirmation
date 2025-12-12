@@ -89,7 +89,7 @@ class _ReminderEditScreenState extends State<ReminderEditScreen>
                     // CATEGORY
                     _glassInfoBox(
                       title: t.category,
-                      value: _categoryLabel(t),
+                      value: formatCategoryPreview(data.categoryIds, t),
                       isPremium: isPremium,
                       onTap: _openCategorySheet,
                     ),
@@ -155,14 +155,6 @@ class _ReminderEditScreenState extends State<ReminderEditScreen>
   }
 
   // -------------------------------------------------------------
-  // CATEGORY LABEL
-  // -------------------------------------------------------------
-  String _categoryLabel(AppLocalizations t) {
-    if (data.categoryIds.contains("general")) return "General";
-    return data.categoryIds.join(", ");
-  }
-
-  // -------------------------------------------------------------
   // CATEGORY SELECTION SHEET
   // -------------------------------------------------------------
   void _openCategorySheet() async {
@@ -218,6 +210,27 @@ class _ReminderEditScreenState extends State<ReminderEditScreen>
     );
   }
 
+  String formatCategoryPreview(
+    Set<String> ids,
+    AppLocalizations t, {
+    int max = 2,
+  }) {
+    if (ids.isEmpty || ids.contains(Constants.generalCategoryId)) {
+      return t.general;
+    }
+
+    final list = ids
+        .map((e) => e.replaceAll("_", " "))
+        .map((e) => e[0].toUpperCase() + e.substring(1))
+        .toList();
+
+    if (list.length <= max) {
+      return list.join(", ");
+    }
+
+    return "${list.take(max).join(", ")}..";
+  }
+
   // -------------------------------------------------------------
   // GLASS INFO BOX
   // -------------------------------------------------------------
@@ -240,41 +253,57 @@ class _ReminderEditScreenState extends State<ReminderEditScreen>
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
             decoration: _glassDeco(),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(title,
-                    style: const TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white)),
-                Row(
-                  children: [
-                    Text(
-                      value,
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w700,
-                        color: isFree ? Colors.black26 : Colors.black87,
-                      ),
-                    ),
-                    if (isFree)
-                      Container(
-                        margin: const EdgeInsets.only(left: 8),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 4),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFC9A85D),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: const Text(
-                          "Premium",
+                // LEFT: title
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
+                ),
+
+                const SizedBox(width: 12),
+
+                // RIGHT: value + badge
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          value,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.right,
                           style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w700,
+                            color: const Color.fromARGB(255, 219, 206, 104),
+                          ),
+                        ),
+                      ),
+                      if (isFree)
+                        Container(
+                          margin: const EdgeInsets.only(left: 8),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 148, 111, 26),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: const Text(
+                            "Premium",
+                            style: TextStyle(
                               color: Colors.white,
                               fontSize: 11,
-                              fontWeight: FontWeight.bold),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
-                      ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -383,9 +412,7 @@ class _ReminderEditScreenState extends State<ReminderEditScreen>
     );
   }
 
-  // -------------------------------------------------------------
   // REPEAT DAYS
-  // -------------------------------------------------------------
   Widget _repeatDaysGlassBox() {
     final t = AppLocalizations.of(context)!;
     const names = ["M", "T", "W", "T", "F", "S", "S"];

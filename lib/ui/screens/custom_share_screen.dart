@@ -58,18 +58,17 @@ class _CustomShareScreenState extends State<CustomShareScreen>
           children: [
             // ARKA PLAN RESİM
             if (_imageBytes != null)
-              Positioned.fill(
-                child: Image.memory(
+              if (_imageBytes != null)
+                Image.memory(
                   _imageBytes!,
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
                     debugPrint("Image memory error: $error");
                     return Container(color: Colors.grey[900]);
                   },
-                ),
-              )
-            else
-              Container(color: Colors.grey[900]),
+                )
+              else
+                Container(color: Colors.grey[900]),
 
             // OVERLAY
             Container(
