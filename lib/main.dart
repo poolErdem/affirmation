@@ -80,6 +80,10 @@ class AffirmationApp extends StatelessWidget {
         Locale('tr'),
         Locale('es'),
         Locale('de'),
+        Locale('fr'),
+        Locale('it'),
+        Locale('pt'),
+        Locale('ru'),
       ],
       localizationsDelegates: const [
         AppLocalizations.delegate,
