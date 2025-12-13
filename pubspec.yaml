@@ -170,6 +170,8 @@ flutter:
     - assets/data/themes/e1.mp4
     - assets/data/themes/e2.mp4
     - assets/data/themes/e3.mp4
+    - assets/data/themes/e4.mp4
+    - assets/data/themes/e5.mp4
 
     # Category Images
     - assets/data/categories/career.jpg

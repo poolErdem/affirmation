@@ -61,7 +61,7 @@
 { "id":"cf_046", "text": "{name}, bugün kendine olan inancın hayattaki duruşunu güçlendiriyor.", "gender": "any" },
 
 { "id":"cf_047", "text": "Özgüvenim her gün daha zarif bir güçle büyüyor.", "gender": "female" },
-{ "id":"cf_048", "text": "Bugün kendimi daha güçlü bir farkındalıkla taşıyorum.", "gender": "any" },
+{ "id":"cf_048", "text": "Bugün kendimi daha güçlü bir farkındalıkla yaşıyorum.", "gender": "any" },
 { "id":"cf_049", "text": "Her an, kendime duyduğum güveni yeniden inşa ediyorum.", "gender": "any" },
 { "id":"cf_050", "text": "Özgüvenim bugün tüm kararlarımı aydınlatıyor.", "gender": "male" },
 
@@ -179,7 +179,7 @@
 { "id": "cf_140", "text": "Düşüncelerimde netlik, adımlarımda güç var.", "gender": "male" },
 
 { "id": "cf_141", "text": "Sevgiyle güç birleştiğinde özgüven doğar.", "gender": "any" },
-{ "id": "cf_142", "text": "Bugün kendimi narin ama sarsılmaz bir enerjiyle taşıyorum.", "gender": "female" },
+{ "id": "cf_142", "text": "İnanıyorum.", "gender": "female" },
 { "id": "cf_143", "text": "Sesimi yükseltmeme gerek yok; enerjim yeter.", "gender": "any" },
 { "id": "cf_144", "text": "Bugün güvenimi kimse gölgeleyemez.", "gender": "male" },
 { "id": "cf_145", "text": "Kendime duyduğum sevgi özgüvenime her gün yeni katmanlar ekliyor.", "gender": "any" },
@@ -264,11 +264,11 @@
 { "id": "cf_209", "text": "Duruşumun sadeliği etkimin büyüklüğünü gizlemiyor.", "gender": "female" },
 { "id": "cf_210", "text": "kalbimde sessiz bir hakimiyet hissediyorum.", "gender": "any" },
 
-{ "id": "cf_211", "text": "Her adımımda seçkin bir özgüven taşıyorum.", "gender": "any" },
+{ "id": "cf_211", "text": "Her adımımda sağlam bir özgüven geliştiriyorum.", "gender": "any" },
 { "id": "cf_212", "text": "Yumuşak bakışım bile güç yayıyor.", "gender": "male" },
 { "id": "cf_213", "text": "kararlılığım romantik bir zarafetle birleşiyor.", "gender": "any" },
 { "id": "cf_214", "text": "Gücüm görünmez ama etkisi tartışmasız.", "gender": "female" },
-{ "id": "cf_215", "text": "Karanlıkta bile kendimi güvenle taşıyorum.", "gender": "any" },
+{ "id": "cf_215", "text": "Karanlıkta bile kendimi güvende hissediyorum.", "gender": "any" },
 
 { "id": "cf_216", "text": "minimal bir adımım bile büyük bir etki yaratıyor.", "gender": "any" },
 { "id": "cf_217", "text": "Sesimin yumuşaklığı duruşumun gücünü artırıyor.", "gender": "female" },

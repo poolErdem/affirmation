@@ -7,9 +7,9 @@
 { "id": "g_003", "text": "Zihnim sakinleşiyor ve düşüncelerim berraklaşıyor.", "actualCategory": "mindfulness", "gender": "any" },
 { "id": "g_004", "text": "Evrenin sunduğu güzellikleri fark etmeye açığım.", "actualCategory": "gratitude", "gender": "female" },
 { "id": "g_005", "text": "Her zorluk, gelişim için görünmez bir fırsat taşır.", "actualCategory": "positive_thinking", "gender": "any" },
-{ "id": "g_006", "text": "İçimde karşıma çıkan sorunları aşacak bir güç var.", "actualCategory": "confidence", "gender": "male" },
+{ "id": "g_006", "text": "Karşıma çıkan zorlukları aşma gücü benimle.", "actualCategory": "stress_anxiety", "gender": "male" },
 { "id": "g_007", "text": "{name}, bugün sevgiye ve huzura tamamen açıktır.", "actualCategory": "self_care", "gender": "any" },
-{ "id": "g_008", "text": "dingin uykuya doğru doğal bir şekilde akıyorum.", "actualCategory": "sleep", "gender": "any" },
+{ "id": "g_008", "text": "Dingin uykuya doğru doğal bir şekilde akıyorum.", "actualCategory": "sleep", "gender": "any" },
 { "id": "g_009", "text": "Sevgi dolu bağlar kurma kapasitem her geçen gün büyüyor.", "actualCategory": "relationships", "gender": "female" },
 { "id": "g_010", "text": "Yaşadığım anın bana sunduğu sessiz gücü hissediyorum.", "actualCategory": "mindfulness", "gender": "any" },
 { "id": "g_011", "text": "Düşüncelerim her geçen gün daha pozitif bir yöne evriliyor.", "actualCategory": "positive_thinking", "gender": "any" },
@@ -43,7 +43,7 @@
 { "id": "g_039", "text": "Şu anın dinginliği tüm bedenime yayılıyor.", "actualCategory": "mindfulness", "gender": "any" },
 { "id": "g_040", "text": "{name}, bugün kendi ışığını daha özgür parlatıyorsun.", "actualCategory": "confidence", "gender": "any" },
 { "id": "g_041", "text": "Motive oldukça önümdeki yollar daha da açılıyor.", "actualCategory": "motivation", "gender": "any" },
-{ "id": "g_042", "text": "Başarı için gereken sabır ve güç içimde mevcut.", "actualCategory": "career_success", "gender": "male" },
+{ "id": "g_042", "text": "Başarı ve sabır cinsiyete özgü değil.", "actualCategory": "career_success", "gender": "any" },
 { "id": "g_043", "text": "Negatif yükleri bırakmaya kararlıyım.", "actualCategory": "stress_anxiety", "gender": "any" },
 { "id": "g_044", "text": "Hayatın sunduğu küçük mucizeleri takdir ediyorum.", "actualCategory": "gratitude", "gender": "female" },
 { "id": "g_045", "text": "Mutluluk enerjisi tüm gün bana eşlik ediyor.", "actualCategory": "happiness", "gender": "any" },
@@ -62,7 +62,7 @@
 { "id": "g_057", "text": "Zihnim sakinleştikçe dünyayı daha berrak görüyorum.", "actualCategory": "mindfulness", "gender": "any" },
 { "id": "g_058", "text": "{name}, nefesin seni güvenli bir alana taşıyor.", "actualCategory": "stress_anxiety", "gender": "female" },
 { "id": "g_059", "text": "Her anımda sevgiye biraz daha açıldığımı hissediyorum.", "actualCategory": "relationships", "gender": "any" },
-{ "id": "g_060", "text": "mutluluk kalbime hafif bir dokunuşla geliyor.", "actualCategory": "happiness", "gender": "any" },
+{ "id": "g_060", "text": "Mutluluk kalbime hafif bir dokunuşla geliyor.", "actualCategory": "happiness", "gender": "any" },
 
 { "id": "g_061", "text": "{name}, bugün içsel ışığın kendini göstermeye hazır.", "actualCategory": "positive_thinking", "gender": "any" },
 { "id": "g_062", "text": "Kaygılarımı anlamaya çalıştıkça üzerimdeki baskı azalıyor.", "actualCategory": "stress_anxiety", "gender": "any" },
@@ -84,13 +84,13 @@
 { "id": "g_077", "text": "Bugün kendimi başarıya daha yakın hissediyorum.", "actualCategory": "career_success", "gender": "any" },
 { "id": "g_078", "text": "Kaygılarımı serbest bıraktıkça zihnimde ferahlık oluşuyor.", "actualCategory": "stress_anxiety", "gender": "any" },
 { "id": "g_079", "text": "{name}, bu gece bedenin rahat bir uyku için hazırlanıyor.", "actualCategory": "sleep", "gender": "any" },
-{ "id": "g_080", "text": "motivasyonumu yumuşak ama kararlı bir şekilde hissediyorum.", "actualCategory": "motivation", "gender": "any" },
+{ "id": "g_080", "text": "Motivasyonumu yumuşak ama kararlı bir şekilde hissediyorum.", "actualCategory": "motivation", "gender": "any" },
 
 { "id": "g_081", "text": "{name}, bugün kalbine iyi gelecek seçimler yapıyorsun.", "actualCategory": "self_care", "gender": "female" },
 { "id": "g_082", "text": "Mutluluğu içimde doğan küçük kıvılcımlarla hissediyorum.", "actualCategory": "happiness", "gender": "any" },
 { "id": "g_083", "text": "Nefesin seni daha da sakinleştirebilir.", "actualCategory": "mindfulness", "gender": "any" },
 { "id": "g_084", "text": "Hayatın güzelliklerini fark ettikçe kalbim genişliyor.", "actualCategory": "gratitude", "gender": "any" },
-{ "id": "g_085", "text": "Kendimi bugün daha yumuşak ve açık bir enerjiyle taşıyorum.", "actualCategory": "positive_thinking", "gender": "any" },
+{ "id": "g_085", "text": "Her şey olması gerektiği zamanda olması gerektiği şekilde oluyor.", "actualCategory": "positive_thinking", "gender": "any" },
 { "id": "g_086", "text": "Sevgi dolu bağlara daha yaklaşıyorsun.", "actualCategory": "relationships", "gender": "any" },
 { "id": "g_087", "text": "Bugün başarı bana ulaşılabilir geliyor.", "actualCategory": "career_success", "gender": "male" },
 { "id": "g_088", "text": "{name}, kalbindeki huzur gün boyunca seninle akacak.", "actualCategory": "mindfulness", "gender": "any" },
@@ -110,11 +110,11 @@
 { "id": "g_101", "text": "Nefes aldıkça içimde yumuşak bir huzur beliriyor.", "actualCategory": "mindfulness", "gender": "any" },
 { "id": "g_102", "text": "Kalbimdeki sevgi dünden daha derin kökler salıyor.", "actualCategory": "relationships", "gender": "female" },
 { "id": "g_103", "text": "{name}, kalbine ulaşan ışık bugün daha berrak.", "actualCategory": "positive_thinking", "gender": "any" },
-{ "id": "g_104", "text": "Her nefeste bedenimdeki gerginliğin çözüldüğünü hissediyorum.", "actualCategory": "stress_anxiety", "gender": "any" },
-{ "id": "g_105", "text": "Gecenin sessizliği bana derin bir sükunet veriyor.", "actualCategory": "sleep", "gender": "any" },
+{ "id": "g_104", "text": "Her nefeste bedenimdeki gerginliğin çözüldüğünü farkediyorum.", "actualCategory": "stress_anxiety", "gender": "any" },
+{ "id": "g_105", "text": "Gecenin sessizliği bana derin bir rahatlık veriyor.", "actualCategory": "sleep", "gender": "any" },
 
 { "id": "g_106", "text": "Mutluluğun hafif bir kıvılcımı içimde nazikçe yanıyor.", "actualCategory": "happiness", "gender": "female" },
-{ "id": "g_107", "text": "Bugün başarıya doğru attığım adımlar beni güçlendiriyor.", "actualCategory": "career_success", "gender": "male" },
+{ "id": "g_107", "text": "Başarı yolu herkese açık.", "actualCategory": "career_success", "gender": "any" },
 { "id": "g_108", "text": "{name}, nefesin seni güvenli bir alana taşıyor.", "actualCategory": "mindfulness", "gender": "any" },
 { "id": "g_109", "text": "Minnet duydukça içimde sıcak bir ışık yayılıyor.", "actualCategory": "gratitude", "gender": "any" },
 { "id": "g_110", "text": "Kendimi yavaşça evrenin akışına bırakıyorum.", "actualCategory": "positive_thinking", "gender": "any" },
@@ -126,25 +126,25 @@
 { "id": "g_115", "text": "Başarı için ihtiyacım olan güç içimde derin bir yerde saklı.", "actualCategory": "career_success", "gender": "any" },
 
 { "id": "g_116", "text": "Bugün kendime duyduğum şefkatle ilerliyorum.", "actualCategory": "self_care", "gender": "any" },
-{ "id": "g_117", "text": "Her nefesimde içimde yeni bir alan açılıyor.", "actualCategory": "mindfulness", "gender": "any" },
+{ "id": "g_117", "text": "Her nefesimde içimde yeni bir çiçek açılıyor.", "actualCategory": "mindfulness", "gender": "any" },
 { "id": "g_118", "text": "{name}, bugün zihnin daha sakin akıyor.", "actualCategory": "positive_thinking", "gender": "any" },
 { "id": "g_119", "text": "Sevgi dolu bağlar kurmaya her zamankinden daha açığım.", "actualCategory": "relationships", "gender": "any" },
 { "id": "g_120", "text": "Kendimi huzurlu bir geleceğe doğru ilerlerken görüyorum.", "actualCategory": "motivation", "gender": "any" },
 
 { "id": "g_121", "text": "Bugün kaygılarım çözülüyor ve yerini hafifliğe bırakıyor.", "actualCategory": "stress_anxiety", "gender": "any" },
 { "id": "g_122", "text": "Gecenin yumuşak karanlığında ruhum dinleniyor.", "actualCategory": "sleep", "gender": "any" },
-{ "id": "g_123", "text": "Motivasyonum sessiz ama güçlü bir kıvılcım gibi büyüyor.", "actualCategory": "motivation", "gender": "male" },
+{ "id": "g_123", "text": "Motivasyonum sessiz ama güçlü bir ateş gibi büyüyor.", "actualCategory": "motivation", "gender": "male" },
 { "id": "g_124", "text": "İçimdeki gücün fısıltılarını duyabiliyorum.", "actualCategory": "confidence", "gender": "any" },
 { "id": "g_125", "text": "{name}, kalbin artık daha özgür bir ritimde atıyor.", "actualCategory": "self_care", "gender": "female" },
 
 { "id": "g_126", "text": "Kendimi sevgiyle sardıkça içimdeki gölgeler dağılıyor.", "actualCategory": "positive_thinking", "gender": "any" },
 { "id": "g_127", "text": "Her adımım beni daha huzurlu bir versiyonuma taşıyor.", "actualCategory": "motivation", "gender": "any" },
-{ "id": "g_128", "text": "Artık dünyayla uyumlu bir frekansta titreştiğimi hissediyorum.", "actualCategory": "mindfulness", "gender": "any" },
+{ "id": "g_128", "text": "Bedenim ve nefesim şu anda uyum içinde.", "actualCategory": "mindfulness", "gender": "any" },
 { "id": "g_129", "text": "{name}, evren bugün sana sakin bir rehberlik sunuyor.", "actualCategory": "gratitude", "gender": "any" },
 { "id": "g_130", "text": "Kaygılarımı serbest bıraktıkça içimde yumuşak bir ferahlık oluşuyor.", "actualCategory": "stress_anxiety", "gender": "any" },
 
 { "id": "g_131", "text": "Gözlerimi kapadığımda içimde sessiz bir evren hissediyorum.", "actualCategory": "mindfulness", "gender": "any" },
-{ "id": "g_132", "text": "Bugün mutluluğun hafif melodisini içimde taşıyorum.", "actualCategory": "happiness", "gender": "any" },
+{ "id": "g_132", "text": "Bugün mutluluğun hafif melodisini içimde yaşıyorum.", "actualCategory": "happiness", "gender": "any" },
 { "id": "g_133", "text": "Kendimi yaşamın yumuşak akışına bırakıyorum.", "actualCategory": "positive_thinking", "gender": "female" },
 { "id": "g_134", "text": "Başarıya doğru ilerlerken içimde sessiz bir kararlılık büyüyor.", "actualCategory": "career_success", "gender": "any" },
 { "id": "g_135", "text": "{name}, bu gece uyku seni güvenli bir ışıkla sarıyor.", "actualCategory": "sleep", "gender": "any" },
@@ -186,7 +186,7 @@
 { "id": "g_165", "text": "{name}, kalbindeki sevgi bugün daha açık bir ritimde akıyor.", "actualCategory": "relationships", "gender": "any" },
 
 { "id": "g_166", "text": "Bugün içimde filizlenen güven beni ileri çağırıyor.", "actualCategory": "confidence", "gender": "any" },
-{ "id": "g_167", "text": "Yolumu sisler kaplasa bile içimde bilge bir huzur taşıyorum.", "actualCategory": "positive_thinking", "gender": "any" },
+{ "id": "g_167", "text": "Yolumu sisler kaplasa bile içimde bilge bir huzur var.", "actualCategory": "positive_thinking", "gender": "any" },
 { "id": "g_168", "text": "Gecenin derinliğinde bile kendi ışığımı bulabiliyorum.", "actualCategory": "mindfulness", "gender": "any" },
 { "id": "g_169", "text": "Bugün başarı bana ağırbaşlı bir sakinlikle yaklaşıyor.", "actualCategory": "career_success", "gender": "any" },
 { "id": "g_170", "text": "Ruhumun derininden yükselen bir umut beni sarıyor.", "actualCategory": "motivation", "gender": "female" },
@@ -198,12 +198,12 @@
 { "id": "g_175", "text": "Gecenin karanlığı bile bugün bana dostça görünüyor.", "actualCategory": "mindfulness", "gender": "any" },
 
 { "id": "g_176", "text": "Kendimi ağırbaşlı ve sakin bir gücün içinde hissediyorum.", "actualCategory": "confidence", "gender": "any" },
-{ "id": "g_177", "text": "Her nefesimde kalbimde saklı romantik bir titreşim uyanıyor.", "actualCategory": "happiness", "gender": "any" },
+{ "id": "g_177", "text": "Kalbimde saklı romantik bir titreşim uyanıyor.", "actualCategory": "happiness", "gender": "any" },
 { "id": "g_178", "text": "Bugün içimdeki gölge bile bana bir şey öğretmek istiyor.", "actualCategory": "self_care", "gender": "any" },
 { "id": "g_179", "text": "Motivasyonum derinden yükselen sakin bir akış gibi hissediliyor.", "actualCategory": "motivation", "gender": "any" },
 { "id": "g_180", "text": "{name}, rüzgar bugün seni hafif bir ilhamla okşuyor.", "actualCategory": "positive_thinking", "gender": "any" },
 
-{ "id": "g_181", "text": "Bugün içimdeki sessiz nehir ağır ama huzurlu akıyor.", "actualCategory": "mindfulness", "gender": "male" },
+{ "id": "g_181", "text": "Bugün içimde derin bir sakinlik var.", "actualCategory": "mindfulness", "gender": "any" },
 { "id": "g_182", "text": "Kendimi romantik bir dinginliğin ortasında buluyorum.", "actualCategory": "happiness", "gender": "any" },
 { "id": "g_183", "text": "Gecenin derinliğinde bile kalbimle bağımı hissediyorum.", "actualCategory": "sleep", "gender": "any" },
 { "id": "g_184", "text": "{name}, bugün evren sana ince bir rehberlik fısıldıyor.", "actualCategory": "mindfulness", "gender": "any" },
@@ -258,7 +258,7 @@
 { "id": "g_225", "text": "Kendimi evrenin nazik akışına zarifçe bırakıyorum.", "actualCategory": "positive_thinking", "gender": "any" },
 
 { "id": "g_226", "text": "Bugün içimde biriken sessizlik bana şifa veriyor.", "actualCategory": "self_care", "gender": "any" },
-{ "id": "g_227", "text": "Her nefeste ruhum genişleyip hafifliyor.", "actualCategory": "mindfulness", "gender": "any" },
+{ "id": "g_227", "text": "Şu an buradayım ve bu an yeterli.", "actualCategory": "mindfulness", "gender": "any" },
 { "id": "g_228", "text": "Başarıya doğru ilerlerken içimde yeni bir odak doğuyor.", "actualCategory": "career_success", "gender": "any" },
 { "id": "g_229", "text": "Bugün kalbimde romantik bir huzur esiyor.", "actualCategory": "happiness", "gender": "female" },
 { "id": "g_230", "text": "Düşüncelerimi sadeleştirdikçe her şey daha anlamlı görünüyor.", "actualCategory": "positive_thinking", "gender": "any" },
@@ -282,12 +282,12 @@
 { "id": "g_245", "text": "Her şey sadeleştiğinde içimdeki ışığı daha net görüyorum.", "actualCategory": "positive_thinking", "gender": "any" },
 
 { "id": "g_246", "text": "Sevgi dolu bağlarım bugün daha derin hissediliyor.", "actualCategory": "relationships", "gender": "any" },
-{ "id": "g_247", "text": "Motivasyonum içimde akan yumuşak bir nehir gibi hissediliyor.", "actualCategory": "motivation", "gender": "male" },
+{ "id": "g_247", "text": "Motivasyonum beni adım adım ileriye taşıyor.", "actualCategory": "motivation", "gender": "any" },
 { "id": "g_248", "text": "{name}, bugün kalbin romantik bir dinginlikle açılıyor.", "actualCategory": "relationships", "gender": "any" },
 { "id": "g_249", "text": "Nefesimle birlikte içimdeki gölgeler hafifliyor.", "actualCategory": "stress_anxiety", "gender": "any" },
 { "id": "g_250", "text": "Bugün kendimi evrenin dingin ritmine zarifçe bırakıyorum.", "actualCategory": "mindfulness", "gender": "any" },
 
-{ "id": "g_251", "text": "Bugün nefes aldıkça içimde sessiz bir açıklık oluşuyor.", "actualCategory": "mindfulness", "gender": "any" },
+{ "id": "g_251", "text": "Düşüncelerim gelip geçiyor, ben onları izliyorum.", "actualCategory": "mindfulness", "gender": "any" },
 { "id": "g_252", "text": "Kalbimdeki sıcaklık bana hafif bir umut getiriyor.", "actualCategory": "happiness", "gender": "female" },
 { "id": "g_253", "text": "Sevgiye yöneldikçe ruhumun yumuşadığını hissediyorum.", "actualCategory": "relationships", "gender": "any" },
 { "id": "g_254", "text": "Her adımım beni daha berrak bir bilince taşıyor.", "actualCategory": "positive_thinking", "gender": "any" },
@@ -299,11 +299,11 @@
 { "id": "g_259", "text": "Kaygılarım hafif bir sis gibi dağılmaya başlıyor.", "actualCategory": "stress_anxiety", "gender": "any" },
 { "id": "g_260", "text": "Sevgiye her açıldığımda içimde sıcak bir alan genişliyor.", "actualCategory": "relationships", "gender": "any" },
 
-{ "id": "g_261", "text": "Bugün beni taşıyan nefesin ritmine güveniyorum.", "actualCategory": "mindfulness", "gender": "any" },
+{ "id": "g_261", "text": "Bu anı olduğu gibi kabul ediyorum.", "actualCategory": "mindfulness", "gender": "any" },
 { "id": "g_262", "text": "Ruhumun derininden yükselen sessizlik bana güç veriyor.", "actualCategory": "self_care", "gender": "any" },
 { "id": "g_263", "text": "Başarıya doğru ilerlerken içimde ağırbaşlı bir huzur taşıyorum.", "actualCategory": "career_success", "gender": "male" },
 { "id": "g_264", "text": "Bugün kalbimde romantik bir titreşim hissediyorum.", "actualCategory": "happiness", "gender": "female" },
-{ "id": "g_265", "text": "Her nefeste ruhumun biraz daha yumuşadığını fark ediyorum.", "actualCategory": "mindfulness", "gender": "any" },
+{ "id": "g_265", "text": "Şu anda olan her şeye alan açıyorum.", "actualCategory": "mindfulness", "gender": "any" },
 
 { "id": "g_266", "text": "Sessizlik bana bugün bir öğretmen gibi görünüyor.", "actualCategory": "self_care", "gender": "any" },
 { "id": "g_267", "text": "Kaygılarımın altındaki saklı huzuru görmeye başlıyorum.", "actualCategory": "stress_anxiety", "gender": "any" },
@@ -313,7 +313,7 @@
 
 { "id": "g_271", "text": "Sevginin dokunduğu her yerim yumuşuyor.", "actualCategory": "relationships", "gender": "female" },
 { "id": "g_272", "text": "Bugün kendimi evrenin yumuşak ritmine bırakıyorum.", "actualCategory": "positive_thinking", "gender": "any" },
-{ "id": "g_273", "text": "Motivasyonum içimde akan zarif bir nehir gibi hissediliyor.", "actualCategory": "motivation", "gender": "any" },
+{ "id": "g_273", "text": "İlerlemem istikrarlı ve sürekli.", "actualCategory": "motivation", "gender": "any" },
 { "id": "g_274", "text": "Gecenin karanlığında bile kendimi güvende hissediyorum.", "actualCategory": "sleep", "gender": "any" },
 { "id": "g_275", "text": "Bugün kalbimi taşıyan sıcaklık beni hafifçe ileri itiyor.", "actualCategory": "happiness", "gender": "female" },
 
@@ -321,7 +321,7 @@
 { "id": "g_277", "text": "Her sessizlik bana içimde saklı bir kapı gösteriyor.", "actualCategory": "self_care", "gender": "any" },
 { "id": "g_278", "text": "Bugün yoldaşım olan nefese güveniyorum.", "actualCategory": "mindfulness", "gender": "any" },
 { "id": "g_279", "text": "Kendimi daha sade, daha hafif bir yaşamın içinde hissediyorum.", "actualCategory": "positive_thinking", "gender": "any" },
-{ "id": "g_280", "text": "{name} için bugün sakinlik yeni bir başlangıç gibi akıyor.", "actualCategory": "mindfulness", "gender": "any" },
+{ "id": "g_280", "text": "Benim için bugün sakinlik yeni bir başlangıç gibi akıyor.", "actualCategory": "mindfulness", "gender": "any" },
 
 { "id": "g_281", "text": "Gölgeyle ışık arasındaki dengeyi içimde buluyorum.", "actualCategory": "mindfulness", "gender": "any" },
 { "id": "g_282", "text": "Bugün başarı beni çağıran sakin bir melodi gibi.", "actualCategory": "career_success", "gender": "female" },
@@ -330,50 +330,50 @@
 { "id": "g_285", "text": "Sevgiye doğru açıldıkça kendimi daha tam hissediyorum.", "actualCategory": "relationships", "gender": "any" },
 
 { "id": "g_286", "text": "Bugün içimdeki sessizlik bana şefkatli bir alan sunuyor.", "actualCategory": "self_care", "gender": "any" },
-{ "id": "g_287", "text": "{name} için bugün umut hafif bir rüzgar gibi esiyor.", "actualCategory": "positive_thinking", "gender": "any" },
+{ "id": "g_287", "text": "Benim için bugün umut hafif bir rüzgar gibi esiyor.", "actualCategory": "positive_thinking", "gender": "any" },
 { "id": "g_288", "text": "Motivasyonumun kökü bugün daha derinde hissediliyor.", "actualCategory": "motivation", "gender": "male" },
 { "id": "g_289", "text": "Kendimi gecenin yumuşak karanlığına güvenle bırakıyorum.", "actualCategory": "sleep", "gender": "any" },
 { "id": "g_290", "text": "Bugün kalbimde beliren hafif kıpırtılar bana ilham veriyor.", "actualCategory": "happiness", "gender": "female" },
 
-{ "id": "g_291", "text": "{name} için bugün sevgi sıcak bir ışık taşıyor.", "actualCategory": "relationships", "gender": "any" },
+{ "id": "g_291", "text": "Senin için bugün sevgi sıcak bir ışık taşıyor.", "actualCategory": "relationships", "gender": "any" },
 { "id": "g_292", "text": "Her sessiz an bana kendi özümü hatırlatıyor.", "actualCategory": "mindfulness", "gender": "any" },
 { "id": "g_293", "text": "Bugün minnet duygum içimde hafifçe büyüyor.", "actualCategory": "gratitude", "gender": "any" },
 { "id": "g_294", "text": "Ruhumu taşıyan dinginliği bugün daha net hissediyorum.", "actualCategory": "self_care", "gender": "female" },
 { "id": "g_295", "text": "Başarıya yürürken içimde zarif bir güç beliriyor.", "actualCategory": "career_success", "gender": "any" },
 
 { "id": "g_296", "text": "Düşüncelerimi sadeleştirdikçe dünya daha yumuşak görünüyor.", "actualCategory": "positive_thinking", "gender": "any" },
-{ "id": "g_297", "text": "{name} için bugün kalbin ritmi daha huzurlu atıyor.", "actualCategory": "self_care", "gender": "female" },
+{ "id": "g_297", "text": "Bugün kalbin ritmi daha huzurlu atıyor, {name}.", "actualCategory": "self_care", "gender": "female" },
 { "id": "g_298", "text": "Bugün ruhumun taşıdığı enerjiyi daha bilinçli hissediyorum.", "actualCategory": "mindfulness", "gender": "any" },
 { "id": "g_299", "text": "Nefesim bana bugün sade bir güç sunuyor.", "actualCategory": "mindfulness", "gender": "any" },
 { "id": "g_300", "text": "Her adımım beni daha sakin bir geleceğe doğru taşıyor.", "actualCategory": "positive_thinking", "gender": "any" },
 
 { "id": "g_301", "text": "Bugün içimde yükselen zarif bir güçle ilerliyorum.", "actualCategory": "confidence", "gender": "any" },
-{ "id": "g_302", "text": "Nefesim beni daha yüksek bir farkındalığa taşıyor.", "actualCategory": "mindfulness", "gender": "any" },
+{ "id": "g_302", "text": "Zihnimi yargılamadan gözlemliyorum.", "actualCategory": "mindfulness", "gender": "any" },
 { "id": "g_303", "text": "Işığımın derinliği bugün daha net parlıyor.", "actualCategory": "positive_thinking", "gender": "female" },
 { "id": "g_304", "text": "Her adımım sade bir dinginlikle güçleniyor.", "actualCategory": "motivation", "gender": "any" },
-{ "id": "g_305", "text": "Bugün kalbimde lüks bir huzur taşıyorum.", "actualCategory": "self_care", "gender": "any" },
+{ "id": "g_305", "text": "Bugün kalbimde sakin ve güven veren bir huzur var.", "actualCategory": "self_care", "gender": "any" },
 
-{ "id": "g_306", "text": "Yaşamımın ritmi bugün daha sofistike akıyor.", "actualCategory": "happiness", "gender": "any" },
+{ "id": "g_306", "text": "Hayatım bugün daha dengeli ve akıcı ilerliyor.", "actualCategory": "happiness", "gender": "any" },
 { "id": "g_307", "text": "Kendimi zarif bir özgüvenle sarılmış hissediyorum.", "actualCategory": "confidence", "gender": "any" },
-{ "id": "g_308", "text": "Kalbimde oluşan sade güç bana yol gösteriyor.", "actualCategory": "mindfulness", "gender": "any" },
-{ "id": "g_309", "text": "Kaygılarım çözüldükçe ruhum daha elit bir hafiflik kazanıyor.", "actualCategory": "stress_anxiety", "gender": "any" },
+{ "id": "g_308", "text": "Bu an güvenli ve sakin.", "actualCategory": "mindfulness", "gender": "any" },
+{ "id": "g_309", "text": "Kaygılarım çözüldükçe ruhum hafifleşiyor.", "actualCategory": "stress_anxiety", "gender": "any" },
 { "id": "g_310", "text": "Bugün ruhum derin bir sükunetle nefes alıyor.", "actualCategory": "self_care", "gender": "female" },
 
 { "id": "g_311", "text": "Mutluluğu zarif detayların içinde buluyorum.", "actualCategory": "happiness", "gender": "any" },
 { "id": "g_312", "text": "Başarı yolum bugün daha berrak bir ışıltı taşıyor.", "actualCategory": "career_success", "gender": "male" },
 { "id": "g_313", "text": "Her nefes içimdeki zarif dengeyi güçlendiriyor.", "actualCategory": "mindfulness", "gender": "any" },
-{ "id": "g_314", "text": "Bugün sevgiye daha rafine bir yerden açılıyorum.", "actualCategory": "relationships", "gender": "any" },
+{ "id": "g_314", "text": "Bugün sevgiye daha saf bir yerden açılıyorum.", "actualCategory": "relationships", "gender": "any" },
 { "id": "g_315", "text": "Ruhum minimalist bir zarafet içinde genişliyor.", "actualCategory": "positive_thinking", "gender": "any" },
 
 { "id": "g_316", "text": "Düşüncelerimi sadeleştirdikçe içimde berrak bir alan açılıyor.", "actualCategory": "self_care", "gender": "any" },
 { "id": "g_317", "text": "Bugün attığım her adım sakin bir güçle işliyor.", "actualCategory": "motivation", "gender": "any" },
-{ "id": "g_318", "text": "Ruhuma yayılan dinginlik bana lüks bir huzur sunuyor.", "actualCategory": "mindfulness", "gender": "female" },
+{ "id": "g_318", "text": "İçime yayılan dinginlik bedenimde yumuşak bir rahatlama yaratıyor.", "actualCategory": "mindfulness", "gender": "female" },
 { "id": "g_319", "text": "Başarı bana zarif bir davet gibi yaklaşıyor.", "actualCategory": "career_success", "gender": "any" },
 { "id": "g_320", "text": "Kalbimde büyüyen ışık tatlı bir sıcaklık taşıyor.", "actualCategory": "happiness", "gender": "any" },
 
-{ "id": "g_321", "text": "Bugün nefesim beni yüksek frekansta bir dinginliğe taşıyor.", "actualCategory": "mindfulness", "gender": "any" },
+{ "id": "g_321", "text": "Geçmiş ve gelecekten bu ana dönüyorum.", "actualCategory": "mindfulness", "gender": "any" },
 { "id": "g_322", "text": "Kendimi daha seçkin bir huzurun içinde hissediyorum.", "actualCategory": "self_care", "gender": "any" },
-{ "id": "g_323", "text": "Motivasyonumun kökü bugün daha rafine hissediliyor.", "actualCategory": "motivation", "gender": "male" },
+{ "id": "g_323", "text": "Hayallerine inan, çünkü onlar seni geleceğine taşır, {name}.", "actualCategory": "motivation", "gender": "male" },
 { "id": "g_324", "text": "Sevgiyle buluşan kalbim daha derin bir zarafet taşıyor.", "actualCategory": "relationships", "gender": "any" },
 { "id": "g_325", "text": "Bugün içimde büyüyen güvenle yolum aydınlanıyor.", "actualCategory": "confidence", "gender": "any" },
 
@@ -384,58 +384,58 @@
 { "id": "g_330", "text": "Başarı yolculuğum zarif bir ritimle ilerliyor.", "actualCategory": "career_success", "gender": "any" },
 
 { "id": "g_331", "text": "Bugün içimde seçkin bir zarafet taşıyorum, {name}.", "actualCategory": "confidence", "gender": "any" },
-{ "id": "g_332", "text": "Dinginliğin sade dokunuşuyla günün açılıyor", "actualCategory": "mindfulness", "gender": "any" },
+{ "id": "g_332", "text": "Hislerim var ve geçiciler.", "actualCategory": "mindfulness", "gender": "any" },
 { "id": "g_333", "text": "Evren sana bugün zarif bir huzur sunuyor, {name}.", "actualCategory": "positive_thinking", "gender": "female" },
 { "id": "g_334", "text": "Sevgi çevrene ince bir ışıltı bırakıyor.", "actualCategory": "relationships", "gender": "any" },
-{ "id": "g_335", "text": "Ruhunun taşıdığı elite güç bugün daha görünür.", "actualCategory": "self_care", "gender": "any" },
+{ "id": "g_335", "text": "İçimdeki güç bugün sessiz ama net bir şekilde hissediliyor.", "actualCategory": "self_care", "gender": "any" },
 
 { "id": "g_336", "text": "Bugün sessizliğin içindeki altın enerjiyi hissediyorum.", "actualCategory": "mindfulness", "gender": "any" },
 { "id": "g_337", "text": "Kendimi hayatın zarif ritmine zarifçe bırakıyorum.", "actualCategory": "positive_thinking", "gender": "any" },
 { "id": "g_338", "text": "Kalbimde büyüyen sıcaklık bana özel bir güç veriyor.", "actualCategory": "self_care", "gender": "female" },
 { "id": "g_339", "text": "Bugün attığım adımlar seçkin bir kararlılıkla akıyor.", "actualCategory": "motivation", "gender": "any" },
-{ "id": "g_340", "text": "Ruhumdaki uyum bana lüks bir sadelik hissettiriyor.", "actualCategory": "mindfulness", "gender": "any" },
+{ "id": "g_340", "text": "Ruhumdaki uyum bana sadelik hissettiriyor.", "actualCategory": "mindfulness", "gender": "any" },
 
 { "id": "g_341", "text": "Başarıyı bana yaklaştıran sakin ışığı bugün hissediyorum.", "actualCategory": "career_success", "gender": "any" },
-{ "id": "g_342", "text": "Her nefes bana rafine bir huzur getiriyor.", "actualCategory": "mindfulness", "gender": "male" },
-{ "id": "g_343", "text": "Bugün kalbimde değerli bir sadelik taşıyorum.", "actualCategory": "self_care", "gender": "any" },
-{ "id": "g_344", "text": "Ruhum sade bir harmoni içinde genişliyor.", "actualCategory": "positive_thinking", "gender": "female" },
+{ "id": "g_342", "text": "Şu anda olan yeterli, fazlasına gerek yok.", "actualCategory": "mindfulness", "gender": "male" },
+{ "id": "g_343", "text": "Bugün kalbimde öz değerlerimi taşıyorum.", "actualCategory": "self_care", "gender": "any" },
+{ "id": "g_344", "text": "Ruhum sade bir harmoni içinde zenginleşiyor.", "actualCategory": "positive_thinking", "gender": "female" },
 { "id": "g_345", "text": "Sevgiyle attığım adımlarım beni daha zarif bir geleceğe götürüyor.", "actualCategory": "relationships", "gender": "any" },
 
 { "id": "g_346", "text": "Bugün kendi içsel sanatımı daha net görüyorum.", "actualCategory": "positive_thinking", "gender": "any" },
 { "id": "g_347", "text": "Motivasyonum minimal ama güçlü bir akışla büyüyor.", "actualCategory": "motivation", "gender": "any" },
 { "id": "g_348", "text": "Ruhumu parlatan sessiz bir güç hissediyorum.", "actualCategory": "self_care", "gender": "any" },
-{ "id": "g_349", "text": "Bugün nefesim beni daha elit bir sakinliğe taşıyor.", "actualCategory": "mindfulness", "gender": "any" },
+{ "id": "g_349", "text": "Zihnimdeki gürültüyü fark edip bırakıyorum.", "actualCategory": "mindfulness", "gender": "any" },
 { "id": "g_350", "text": "Işığımla uyumlandığım her an daha seçkin hissediyorum.", "actualCategory": "confidence", "gender": "any" },
 
 { "id": "g_351", "text": "Bugün içimdeki zarif denge bana güven veriyor.", "actualCategory": "confidence", "gender": "any" },
-{ "id": "g_352", "text": "Nefesim içimde elit bir huzur alanı yaratıyor.", "actualCategory": "mindfulness", "gender": "any" },
+{ "id": "g_352", "text": "Nefesim içimde huzur alanı yaratıyor.", "actualCategory": "mindfulness", "gender": "any" },
 { "id": "g_353", "text": "Ruhumun taşıdığı minimal sadelik beni hafifletiyor.", "actualCategory": "positive_thinking", "gender": "female" },
 
-{ "id": "g_354", "text": "Günün sade dinginliğini içimde taşıyorum, {name}", "actualCategory": "self_care", "gender": "any" },
+{ "id": "g_354", "text": "Günün sade dinginliğini içimde yaşıyorum.", "actualCategory": "self_care", "gender": "any" },
 
-{ "id": "g_355", "text": "Bugün attığım adımlar sessiz bir güçle ilerliyor.", "actualCategory": "motivation", "gender": "any" },
+{ "id": "g_355", "text": "Bugün attığım adımlar sessiz ve emin bir güçle ilerliyor.", "actualCategory": "motivation", "gender": "any" },
 { "id": "g_356", "text": "Kaygılarımı çözen o derin sakinliği hissediyorum.", "actualCategory": "stress_anxiety", "gender": "any" },
 { "id": "g_357", "text": "Gecenin loşluğunda ruhum yenileniyor.", "actualCategory": "sleep", "gender": "any" },
-{ "id": "g_358", "text": "Başarıyı taşıyan frekans bugün bana daha yakın.", "actualCategory": "career_success", "gender": "male" },
+{ "id": "g_358", "text": "Bugün hedeflerime doğru ilerlediğimi daha net görüyorum.", "actualCategory": "career_success", "gender": "male" },
 { "id": "g_359", "text": "Bugün ruhumun zarif tarafı daha belirgin parlıyor.", "actualCategory": "happiness", "gender": "female" },
 
 { "id": "g_360", "text": "Sevgi dolu frekanslar çevreni yumuşak bir zarafetle sarıyor, {name}", "actualCategory": "relationships", "gender": "female" },
 
-{ "id": "g_361", "text": "Her nefesimde içimdeki ağırlıkları yumuşakça bırakıyorum.", "actualCategory": "mindfulness", "gender": "any" },
+{ "id": "g_361", "text": "Şu anın farkındalığı bana iyi geliyor.", "actualCategory": "mindfulness", "gender": "any" },
 { "id": "g_362", "text": "Ruhumun derininden yükselen gücü takdir ediyorum.", "actualCategory": "confidence", "gender": "any" },
-{ "id": "g_363", "text": "Bugün dünyaya karşı daha rafine bir açıklık hissediyorum.", "actualCategory": "positive_thinking", "gender": "any" },
-{ "id": "g_364", "text": "Işığımın titreşimi bugün daha elit bir yumuşaklık taşıyor.", "actualCategory": "self_care", "gender": "female" },
+{ "id": "g_363", "text": "Bugün dünyaya karşı daha güçlü bir farkındalıktayım.", "actualCategory": "positive_thinking", "gender": "any" },
+{ "id": "g_364", "text": "Işığımın titreşimi bugün daha sevgi dolu yumuşaklık barındırıyor.", "actualCategory": "self_care", "gender": "female" },
 { "id": "g_365", "text": "Sevgi dolu bağlar kurma niyetim bugün daha zarif.", "actualCategory": "relationships", "gender": "any" },
 { "id": "g_366", "text": "Bugün içimde büyüyen huzur beni ileri taşıyor.", "actualCategory": "motivation", "gender": "any" },
 { "id": "g_367", "text": "Düşüncelerimdeki minimal sadelik bana ferahlık veriyor.", "actualCategory": "mindfulness", "gender": "any" },
 
-{ "id": "g_368", "text": "Bugün nefesin seni daha elit bir berraklığa götürüyor, {name}", "actualCategory": "mindfulness", "gender": "any" },
+{ "id": "g_368", "text": "Bugün nefesin seni berraklığa götürüyor, {name}", "actualCategory": "mindfulness", "gender": "any" },
 
 { "id": "g_369", "text": "Sevgiye zarafetle yaklaştıkça ruhum hafifliyor.", "actualCategory": "relationships", "gender": "female" },
-{ "id": "g_370", "text": "Bugün hayatın elit akışıyla uyum içinde hissediyorum.", "actualCategory": "positive_thinking", "gender": "any" },
+{ "id": "g_370", "text": "Bugün hayatın akışıyla daha uyumlu hissediyorum.", "actualCategory": "positive_thinking", "gender": "any" },
 { "id": "g_371", "text": "Her sessizlik anı içimde değerli bir alan yaratıyor.", "actualCategory": "self_care", "gender": "any" },
 { "id": "g_372", "text": "Ruhumun dinginliği bana derin bir berraklık sunuyor.", "actualCategory": "mindfulness", "gender": "any" },
-{ "id": "g_373", "text": "Bugün nefesim ruhumu şık bir sakinlikle taşıyor.", "actualCategory": "mindfulness", "gender": "male" },
+{ "id": "g_373", "text": "Anda kalmak için çaba göstermiyorum.", "actualCategory": "mindfulness", "gender": "male" },
 { "id": "g_374", "text": "Başarı yolum bugün daha anlamlı bir ritimle akıyor.", "actualCategory": "career_success", "gender": "any" },
 { "id": "g_375", "text": "Kalbimdeki yumuşak parlaklığı hissediyorum.", "actualCategory": "happiness", "gender": "any" },
 
@@ -444,8 +444,8 @@
 { "id": "g_377", "text": "Ruhumun elit sakinliği beni merkezde tutuyor.", "actualCategory": "self_care", "gender": "any" },
 { "id": "g_378", "text": "Motivasyonum sessiz ama güçlü bir frekansta yükseliyor.", "actualCategory": "motivation", "gender": "any" },
 { "id": "g_379", "text": "Kalbimi uyandıran romantik bir titreşim hissediyorum.", "actualCategory": "relationships", "gender": "any" },
-{ "id": "g_380", "text": "Bugün nefesim bana derin bir huzur akışı sunuyor.", "actualCategory": "mindfulness", "gender": "any" },
-{ "id": "g_381", "text": "Nahoş bir kararlılık ruhumun derininde büyüyor.", "actualCategory": "confidence", "gender": "any" },
+{ "id": "g_380", "text": "Olanı değiştirmeden fark ediyorum.", "actualCategory": "mindfulness", "gender": "any" },
+{ "id": "g_381", "text": "Kararlılık ruhumun derinlerinde büyüyor.", "actualCategory": "confidence", "gender": "any" },
 { "id": "g_382", "text": "Her anın minimal estetiği içimi aydınlatıyor.", "actualCategory": "positive_thinking", "gender": "any" },
 { "id": "g_383", "text": "Bugün sevgiyi daha sofistike bir yerden hissediyorum.", "actualCategory": "relationships", "gender": "female" },
 { "id": "g_384", "text": "Dingin bir huzur beni gecenin içine zarifçe taşıyor.", "actualCategory": "sleep", "gender": "any" },
@@ -455,7 +455,7 @@
 { "id": "g_386", "text": "Bugün içimdeki dingin güç beni yumuşak bir şekilde yükseltiyor.", "actualCategory": "motivation", "gender": "any" },
 { "id": "g_387", "text": "Ruhum derin bir sadelik içinde genişliyor.", "actualCategory": "self_care", "gender": "any" },
 { "id": "g_388", "text": "Her nefes bana üst düzey bir berraklık hissettiriyor.", "actualCategory": "mindfulness", "gender": "any" },
-{ "id": "g_389", "text": "Kalbimdeki zarif titreşim beni sevgiye yaklaştırıyor.", "actualCategory": "relationships", "gender": "any" },
+{ "id": "g_389", "text": "Kalbimdeki zarif hareketlenme beni sevgiye daha da yaklaştırıyor.", "actualCategory": "relationships", "gender": "any" },
 { "id": "g_390", "text": "Bugünün enerjisi bana parlak bir sadeleşme getiriyor.", "actualCategory": "positive_thinking", "gender": "female" },
 
 { "id": "g_391", "text": "Evren sana bugün zarif bir huzur sunuyor, {name}", "actualCategory": "positive_thinking", "gender": "female" },
@@ -463,16 +463,16 @@
 { "id": "g_392", "text": "Her sessizlik anı içimde altın bir dinginlik yaratıyor.", "actualCategory": "mindfulness", "gender": "any" },
 { "id": "g_393", "text": "Bugün hislerim minimalist bir zarafet içinde akıyor.", "actualCategory": "self_care", "gender": "female" },
 { "id": "g_394", "text": "Gücümün derin kaynağını bugün daha net hissediyorum.", "actualCategory": "confidence", "gender": "any" },
-{ "id": "g_395", "text": "Sevgiye yöneldiğimde dünya daha anlamlı bir ton alıyor.", "actualCategory": "relationships", "gender": "any" },
+{ "id": "g_395", "text": "Sevgiye yöneldiğimde dünya daha anlamlı gelmeye başlıyor.", "actualCategory": "relationships", "gender": "any" },
 { "id": "g_396", "text": "Bugün ruhumun temiz ritmine zarifçe uyumlanıyorum.", "actualCategory": "mindfulness", "gender": "any" },
-{ "id": "g_397", "text": "Dinginliğin yüksek kalitesini içimde taşıyorum.", "actualCategory": "self_care", "gender": "any" },
+{ "id": "g_397", "text": "Dinginliğin yüksek kalitesini içimde yaşıyorum.", "actualCategory": "self_care", "gender": "any" },
 { "id": "g_398", "text": "Her düşüncemi elit bir zarafetle serbest bırakıyorum.", "actualCategory": "positive_thinking", "gender": "any" },
 { "id": "g_399", "text": "Kalbimde derin ve zarif bir uyum hissediyorum.", "actualCategory": "self_care", "gender": "any" },
 
-{ "id": "g_400", "text": "8 milyar içinde tek olabilirsin, ama senden başka tek bir kişi bile yok.", "actualCategory": "mindfulness", "gender": "any" },
+{ "id": "g_400", "text": "Yedi milyardan fazla insan içinde benzersiz bir ışık taşıyorum.", "actualCategory": "mindfulness", "gender": "any" },
 
 { "id": "g_401", "text": "Bugün içimde yükselen sessiz güç bana derin bir zarafet sunuyor.", "actualCategory": "confidence", "gender": "any" },
-{ "id": "g_402", "text": "Nefesimle genişleyen bu alan bana minimalist bir huzur veriyor.", "actualCategory": "mindfulness", "gender": "any" },
+{ "id": "g_402", "text": "Nefesim beni şimdiye getiriyor.", "actualCategory": "mindfulness", "gender": "any" },
 { "id": "g_403", "text": "Kalbimde yankılanan yumuşak titreşim beni romantik bir güvene taşıyor.", "actualCategory": "self_care", "gender": "female" },
 
 { "id": "g_404", "text": "Günün kadifemsi yumuşaklığı sana zarif bir açıklık getiriyor, {name}", "actualCategory": "positive_thinking", "gender": "any" },
@@ -507,9 +507,9 @@
 
 { "id": "g_427", "text": "Sevginin ağırbaşlı zarafeti beni yumuşakça sarıyor.", "actualCategory": "relationships", "gender": "any" },
 { "id": "g_428", "text": "Dinginliğin karanlık tonu bile bana bugün güven veriyor.", "actualCategory": "sleep", "gender": "any" },
-{ "id": "g_429", "text": "Nefesim içimde büyüyen aristokrat bir huzuru uyandırıyor.", "actualCategory": "self_care", "gender": "male" },
+{ "id": "g_429", "text": "İçimde sakin ve güvenli bir huzur var.", "actualCategory": "self_care", "gender": "male" },
 { "id": "g_430", "text": "Gölgelerin ardında bile berrak bir ışık görüyorum.", "actualCategory": "positive_thinking", "gender": "any" },
-{ "id": "g_431", "text": "Her anım benim için daha yüksek bir frekansa dönüşüyor.", "actualCategory": "mindfulness", "gender": "any" },
+{ "id": "g_431", "text": "Her anı daha bilinçli ve sakin karşılıyorum.", "actualCategory": "mindfulness", "gender": "any" },
 
 { "id": "g_432", "text": "Kalbimin taşıdığı lüks dinginlik bana güç veriyor.", "actualCategory": "confidence", "gender": "any" },
 { "id": "g_433", "text": "Bugün içimde uyuyan romantik ışığı uyandırıyorum.", "actualCategory": "happiness", "gender": "female" },
@@ -517,7 +517,7 @@
 { "id": "g_435", "text": "Gökyüzünün yumuşak hareketi ruhuma huzur taşıyor.", "actualCategory": "mindfulness", "gender": "any" },
 { "id": "g_436", "text": "Bugün her düşüncem anlamlı bir sadeleşmeye dönüşüyor.", "actualCategory": "positive_thinking", "gender": "any" },
 
-{ "id": "g_437", "text": "Evrenin sana sunduğu bu mistik lüksü fark ediyorsun, {name}", "actualCategory": "mindfulness", "gender": "any" },
+{ "id": "g_437", "text": "Bu an bana sade ve derin bir huzur sunuyor.", "actualCategory": "mindfulness", "gender": "any" },
 
 { "id": "g_438", "text": "Motivasyonum bugün derin bir sofistike güçle yükseliyor.", "actualCategory": "motivation", "gender": "any" },
 { "id": "g_439", "text": "Kalbimde yankılanan sükunet beni daha yüksek bir benliğe taşıyor.", "actualCategory": "self_care", "gender": "any" },
@@ -535,7 +535,7 @@
 
 { "id": "g_449", "text": "Evren sana kadife gibi bir sükunet taşıyor, {name}", "actualCategory": "self_care", "gender": "any" },
 
-{ "id": "g_450", "text": "yaşamımın lüks akışıyla derin bir uyum içindeyim.", "actualCategory": "mindfulness", "gender": "any" }, 
+{ "id": "g_450", "text": "Yaşamımın lüks akışıyla derin bir uyum içindeyim.", "actualCategory": "mindfulness", "gender": "any" }, 
 { "id": "g_451", "text": "İçimde yükselen sessiz güç bana hak ettiğim zarafeti sunuyor.", "actualCategory": "confidence", "gender": "any" },
 { "id": "g_452", "text": "Nefesim beni daha sakin bir boyuta taşıyor.", "actualCategory": "mindfulness", "gender": "any" },
 { "id": "g_453", "text": "Kalbimde beliren yumuşak titreşim bana yeni bir sıcaklık getiriyor.", "actualCategory": "happiness", "gender": "female" },
@@ -567,14 +567,14 @@
 
 { "id": "g_468", "text": "Ben büyüyorum. Sessizce, derinden, kesin bir güçle.", "actualCategory": "positive_thinking", "gender": "any" },
 
-{ "id": "g_469", "text": "ruhumun ritmi daha rahat hissediliyor.", "actualCategory": "happiness", "gender": "female" },
+{ "id": "g_469", "text": "Ruhumun ritmi daha rahat hissediliyor.", "actualCategory": "happiness", "gender": "female" },
 
 { "id": "g_470", "text": "Işığın bugün seni daha nazik bir zarafetle sarıyor, {name}", "actualCategory": "relationships", "gender": "any" },
 
 { "id": "g_471", "text": "Benim için doğru olan yol sakin adımlarla beliriyor.", "actualCategory": "positive_thinking", "gender": "any" },
 { "id": "g_472", "text": "Her nefeste benliğimin daha saf bir haline yaklaşıyorum.", "actualCategory": "mindfulness", "gender": "any" },
 { "id": "g_473", "text": "Kalbimdeki titreşimi onurlandırdıkça güçleniyorum.", "actualCategory": "confidence", "gender": "any" },
-{ "id": "g_474", "text": "duygularım ipeksi bir akışla ilerliyor.", "actualCategory": "self_care", "gender": "female" },
+{ "id": "g_474", "text": "Duygularım ipeksi bir akışla ilerliyor.", "actualCategory": "self_care", "gender": "female" },
 
 { "id": "g_475", "text": "Ben hazırım. Yeni sayfaya, yeni ışığa, yeni güce.", "actualCategory": "motivation", "gender": "any" },
 
@@ -625,7 +625,7 @@
 { "id": "g_506", "text": "Her şey sadeleştikçe ruhumdaki ışık daha görünür oluyor.", "actualCategory": "positive_thinking", "gender": "any" },
 { "id": "g_507", "text": "Bugün sevgiye daha açık, daha zarif bir kalple yaklaşıyorum.", "actualCategory": "relationships", "gender": "any" },
 
-{ "id": "g_508", "text": "Ben güçlüyüm. Gerçekten güçlüyüm.", "actualCategory": "confidence", "gender": "male" },
+{ "id": "g_508", "text": "Yeteneklerime güveniyorum, potansiyelime inanıyorum.", "actualCategory": "confidence", "gender": "male" },
 
 { "id": "g_509", "text": "Her nefes bana derin bir sakinlik getiriyor.", "actualCategory": "mindfulness", "gender": "any" },
 { "id": "g_510", "text": "İçimdeki yumuşak titreşim beni ileri taşıyor.", "actualCategory": "self_care", "gender": "any" },
@@ -660,9 +660,9 @@
 { "id": "g_529", "text": "Motivasyonum ağırbaşlı ama kararlı bir ritimle akıyor.", "actualCategory": "motivation", "gender": "any" },
 { "id": "g_530", "text": "Ruhumun taşıdığı derin sadelik bana güç veriyor.", "actualCategory": "self_care", "gender": "female" },
 { "id": "g_531", "text": "Bugün hayatımda berrak bir odak doğuyor.", "actualCategory": "positive_thinking", "gender": "any" },
-{ "id": "g_532", "text": "Başarı bana daha rafine  enerjiyle yaklaşıyor.", "actualCategory": "career_success", "gender": "any" },
+{ "id": "g_532", "text": "Başarı bana daha net enerjiyle yaklaşıyor.", "actualCategory": "career_success", "gender": "any" },
 
-{ "id": "g_533", "text": "Ben yükseliyorum. Sessizce, sağlam bir güçle.", "actualCategory": "confidence", "gender": "any" },
+{ "id": "g_533", "text": "Kararlılığım içten ve gerçek.", "actualCategory": "confidence", "gender": "any" },
 
 { "id": "g_534", "text": "Sevgi içimde şiir gibi akıyor.", "actualCategory": "relationships", "gender": "any" },
 { "id": "g_535", "text": "Nefesimin berraklığı bana yeni bir alan açıyor.", "actualCategory": "mindfulness", "gender": "any" },
@@ -682,7 +682,7 @@
 { "id": "g_545", "text": "Sevgi bana bugün daha ferah bir ışık getiriyor.", "actualCategory": "relationships", "gender": "any" },
 { "id": "g_546", "text": "Ruhumun minimal sadeliği her şeyi daha net gösteriyor.", "actualCategory": "positive_thinking", "gender": "any" },
 { "id": "g_547", "text": "Duygularım derin ama huzurlu bir akışla ilerliyor.", "actualCategory": "self_care", "gender": "female" },
-{ "id": "g_548", "text": "Her adımım beni daha rafine bir geleceğe taşıyor.", "actualCategory": "career_success", "gender": "any" },
+{ "id": "g_548", "text": "Her adımım beni daha saf bir geleceğe taşıyor.", "actualCategory": "career_success", "gender": "any" },
 
 { "id": "g_549", "text": "Evren sana kristal bir açıklık sunuyor, {name}", "actualCategory": "mindfulness", "gender": "any" },
 
@@ -697,7 +697,7 @@
 { "id": "g_556", "text": "Attığım her adımda sakin bir güç hissediyorum.", "actualCategory": "motivation", "gender": "any" },
 { "id": "g_557", "text": "Sevgiye yöneldikçe ruhum derin bir yumuşaklıkla doluyor.", "actualCategory": "relationships", "gender": "any" },
 
-{ "id": "g_558", "text": "Ben güçlüyüm. Hem de sessiz bir güçle.", "actualCategory": "confidence", "gender": "male" },
+{ "id": "g_558", "text": "Kararlılığım içten ve gerçek.", "actualCategory": "confidence", "gender": "male" },
 
 { "id": "g_559", "text": "Her nefes bana elit bir berraklık getiriyor.", "actualCategory": "mindfulness", "gender": "any" },
 { "id": "g_560", "text": "Bugün kalbimde ağırbaşlı bir huzur taşıyorum.", "actualCategory": "self_care", "gender": "any" },
@@ -725,7 +725,7 @@
 
 { "id": "g_575", "text": "Zihnimin netliği bana geniş bir açıklık sunuyor.", "actualCategory": "positive_thinking", "gender": "any" },
 { "id": "g_576", "text": "Kalbimde büyüyen dinginlik bana muazzam bir huzur taşıyor.", "actualCategory": "self_care", "gender": "female" },
-{ "id": "g_577", "text": "duygularım daha şiirsel bir akışla ilerliyor.", "actualCategory": "happiness", "gender": "any" },
+{ "id": "g_577", "text": "Duygularım daha şiirsel bir akışla ilerliyor.", "actualCategory": "happiness", "gender": "any" },
 { "id": "g_578", "text": "Nefesimin ritmi beni temiz bir alana taşıyor.", "actualCategory": "mindfulness", "gender": "any" },
 
 { "id": "g_579", "text": "{name}, evren sana kristal bir açıklık sunuyor.", "actualCategory": "positive_thinking", "gender": "any" },
@@ -735,7 +735,7 @@
 { "id": "g_582", "text": "Hayatımın akışı daha kararlı bir ritim taşıyor.", "actualCategory": "positive_thinking", "gender": "any" },
 { "id": "g_583", "text": "Kalbimdeki sevgi daha ferah bir sıcaklıkla genişliyor.", "actualCategory": "relationships", "gender": "any" },
 
-{ "id": "g_584", "text": "Ben yükseliyorum. Sessizce ama kesin bir güçle.", "actualCategory": "confidence", "gender": "any" },
+{ "id": "g_584", "text": "Zamanla daha güçlü, daha bilge oluyorum.", "actualCategory": "confidence", "gender": "any" },
 
 { "id": "g_585", "text": "Zihnim bugün daha sakin, daha açık, daha hafif.", "actualCategory": "mindfulness", "gender": "any" },
 { "id": "g_586", "text": "Ruhumun derin tonu bana güven veriyor.", "actualCategory": "self_care", "gender": "female" },
@@ -796,7 +796,7 @@
 
 { "id": "g_625", "text": "Düşüncelerim sade bir berraklık taşıyor.", "actualCategory": "positive_thinking", "gender": "any" },
 { "id": "g_626", "text": "Ruhumun minimal düzeni beni hafifletiyor.", "actualCategory": "self_care", "gender": "female" },
-{ "id": "g_627", "text": "duygularım yumuşak bir açıklık içinde akıyor.", "actualCategory": "happiness", "gender": "any" },
+{ "id": "g_627", "text": "Duygularım yumuşak bir açıklık içinde akıyor.", "actualCategory": "happiness", "gender": "any" },
 { "id": "g_628", "text": "Nefesim beni daha yüksek bir berraklığa taşıyor.", "actualCategory": "mindfulness", "gender": "any" },
 
 { "id": "g_629", "text": "{name}, evren sana sade ama güçlü bir dinginlik sunuyor.", "actualCategory": "positive_thinking", "gender": "any" },
@@ -827,7 +827,7 @@
 { "id": "g_647", "text": "Ruhumdaki sade denge bana huzur veriyor.", "actualCategory": "self_care", "gender": "any" },
 { "id": "g_648", "text": "Gecenin sessiz tonu içimdeki ağırlığı hafifletiyor.", "actualCategory": "sleep", "gender": "any" },
 { "id": "g_649", "text": "Düşüncelerimin berraklığı bana yeni bir yön gösteriyor.", "actualCategory": "positive_thinking", "gender": "any" },
-{ "id": "g_650", "text": "yaşamımın ritmi sade ama güçlü bir huzur taşıyor.", "actualCategory": "mindfulness", "gender": "any" }, 
+{ "id": "g_650", "text": "Yaşamımın ritmi sade ama güçlü bir huzur taşıyor.", "actualCategory": "mindfulness", "gender": "any" }, 
 { "id": "g_651", "text": "İçimde doğan sade güç bana berrak bir denge sunuyor.", "actualCategory": "confidence", "gender": "any" },
 { "id": "g_652", "text": "Her nefesim beni daha yumuşak bir farkındalığa taşıyor.", "actualCategory": "mindfulness", "gender": "any" },
 { "id": "g_653", "text": "Kalbimde beliren ince sıcaklığı onurlandırıyorum.", "actualCategory": "self_care", "gender": "female" },
@@ -841,7 +841,7 @@
 { "id": "g_658", "text": "Ben güçlüyüm. Sessiz ama tartışılmaz bir güçle.", "actualCategory": "confidence", "gender": "male" },
 
 { "id": "g_659", "text": "Her nefes bana yeni bir netlik getiriyor.", "actualCategory": "mindfulness", "gender": "any" },
-{ "id": "g_660", "text": "İçimde taşıdığım dinginlik bana seçkin bir huzur sunuyor.", "actualCategory": "self_care", "gender": "any" },
+{ "id": "g_660", "text": "İçimde taşıdığım dinginlik bana huzur sunuyor.", "actualCategory": "self_care", "gender": "any" },
 
 { "id": "g_661", "text": "Benim için doğru olan enerji sakin bir akışla beliriyor.", "actualCategory": "positive_thinking", "gender": "any" },
 { "id": "g_662", "text": "Başarıya yönelen adımlarım bugün daha berrak.", "actualCategory": "career_success", "gender": "any" },
@@ -851,7 +851,7 @@
 { "id": "g_664", "text": "Gecenin dinginliği ruhumdaki karanlığı yumuşatıyor.", "actualCategory": "sleep", "gender": "any" },
 { "id": "g_665", "text": "İçimdeki ışık daha net bir sıcaklık yayıyor.", "actualCategory": "positive_thinking", "gender": "any" },
 
-{ "id": "g_666", "text": "Attığım her adım bugün daha zarif bir güçle ilerliyor.", "actualCategory": "motivation", "gender": "any" },
+{ "id": "g_666", "text": "Attığım her adım bugün daha zarif güçle ilerliyor.", "actualCategory": "motivation", "gender": "any" },
 { "id": "g_667", "text": "Ruhumun taşıdığı minimal sadelik beni hafifletiyor.", "actualCategory": "self_care", "gender": "female" },
 { "id": "g_668", "text": "Nefesimin ritmi beni daha sakin bir genişliğe götürüyor.", "actualCategory": "mindfulness", "gender": "any" },
 
@@ -866,7 +866,7 @@
 
 { "id": "g_675", "text": "Zihnim daha temiz bir gökyüzü gibi açılıyor.", "actualCategory": "positive_thinking", "gender": "any" },
 { "id": "g_676", "text": "Ruhumun sade düzeni bana harika bir sakinlik sunuyor.", "actualCategory": "self_care", "gender": "female" },
-{ "id": "g_677", "text": "duygularım daha hafif bir ritimle akıyor.", "actualCategory": "happiness", "gender": "any" },
+{ "id": "g_677", "text": "Duygularım daha hafif bir ritimle akıyor.", "actualCategory": "happiness", "gender": "any" },
 { "id": "g_678", "text": "Nefesim içimde yeni bir alan açıyor.", "actualCategory": "mindfulness", "gender": "any" },
 
 { "id": "g_679", "text": "{name}, evren sana kristal bir sadeleşme sunuyor.", "actualCategory": "positive_thinking", "gender": "any" },
@@ -887,7 +887,7 @@
 
 { "id": "g_690", "text": "Kalbimde yankılanan sevgi bana derin bir huzur getiriyor.", "actualCategory": "happiness", "gender": "any" },
 { "id": "g_691", "text": "Her nefes beni kendi merkezime daha da bağlıyor.", "actualCategory": "mindfulness", "gender": "any" },
-{ "id": "g_692", "text": "yolum sade ama güçlü bir ışıkla beliriyor.", "actualCategory": "positive_thinking", "gender": "any" },
+{ "id": "g_692", "text": "Yolum sade ama güçlü bir ışıkla beliriyor.", "actualCategory": "positive_thinking", "gender": "any" },
 { "id": "g_693", "text": "Sevgi bana zarif bir açıklıkla dokunuyor.", "actualCategory": "relationships", "gender": "female" },
 { "id": "g_694", "text": "Nefesimle hafifleyen gölgeler bana yeni bir nefes sunuyor.", "actualCategory": "mindfulness", "gender": "any" },
 
@@ -897,7 +897,7 @@
 { "id": "g_697", "text": "Attığım adımlar fark edilir bir kararlılıkla ilerliyor.", "actualCategory": "motivation", "gender": "male" },
 { "id": "g_698", "text": "Karanlığın bile bana öğrettiği bir huzur var bugün.", "actualCategory": "sleep", "gender": "any" },
 { "id": "g_699", "text": "Düşüncelerim bugün yeni bir berraklık kazanıyor.", "actualCategory": "positive_thinking", "gender": "any" },
-{ "id": "g_700", "text": "yaşamım sade ama güçlü bir denge taşıyor.", "actualCategory": "mindfulness", "gender": "any" },
+{ "id": "g_700", "text": "Yaşamım sade ama güçlü bir denge taşıyor.", "actualCategory": "mindfulness", "gender": "any" },
 
 { "id": "g_701", "text": "Bugün içimde doğan derin bir sükunet bana net bir yön veriyor.", "actualCategory": "mindfulness", "gender": "any" },
 { "id": "g_702", "text": "Her nefesim beni daha yumuşak bir farkındalığa taşıyor.", "actualCategory": "self_care", "gender": "any" },
@@ -975,13 +975,13 @@
 
 { "id": "g_751", "text": "İçimde hafifleyen ağırlık bana yeni bir ferahlık sunuyor.", "actualCategory": "self_care", "gender": "any" },
 
-{ "id": "g_752", "text": "Basarmak isteyen icin hicbir yol fazla karanlik degildir. — Seneca", "actualCategory": "motivation", "gender": "any" },
+{ "id": "g_752", "text": "Başarmak isteyen için hiçbir yol fazla karanlık degildir. — Seneca", "actualCategory": "motivation", "gender": "any" },
 
-{ "id": "g_753", "text": "{name}, evren seni yumuşak bir berraklıkla karşılıyor.", "actualCategory": "positive_thinking", "gender": "any" },
+{ "id": "g_753", "text": "{name}, evren seni yumuşak bir tebessümle karşılıyor.", "actualCategory": "positive_thinking", "gender": "any" },
 
 { "id": "g_754", "text": "Her nefesim beni merkeze daha çok yaklaştırıyor.", "actualCategory": "mindfulness", "gender": "any" },
 
-{ "id": "g_755", "text": "Gercek mutluluk ic huzurunun sicakliginda yasar. — Marcus Aurelius", "actualCategory": "happiness", "gender": "any" },
+{ "id": "g_755", "text": "Gerçek mutluluk iç huzurunun sıcaklığında yaşar. — Marcus Aurelius", "actualCategory": "happiness", "gender": "any" },
 
 { "id": "g_756", "text": "Attığım adımlar benden bağımsız bir zarafetle akıyor.", "actualCategory": "motivation", "gender": "any" },
 
@@ -991,11 +991,11 @@
 
 { "id": "g_759", "text": "Bugün içimde yükselen sıcaklık beni yeni bir ışığa taşıyor.", "actualCategory": "self_care", "gender": "any" },
 
-{ "id": "g_760", "text": "Zihnin sessizliginde en buyuk cevaplar belirir. — Lao Tzu", "actualCategory": "mindfulness", "gender": "any" },
+{ "id": "g_760", "text": "Zihnin sessizliginde en büyük cevaplar belirir. — Lao Tzu", "actualCategory": "mindfulness", "gender": "any" },
 
 { "id": "g_761", "text": "Duygularım daha şiirsel bir ritimde akıyor.", "actualCategory": "happiness", "gender": "any" },
 
-{ "id": "g_762", "text": "En keskin kararlilik bile yumuşak bir kalpten dogabilir. — Khalil Gibran", "actualCategory": "confidence", "gender": "any" },
+{ "id": "g_762", "text": "En keskin kararlılık bile yumuşak bir kalpten doğabilir. — Khalil Gibran", "actualCategory": "confidence", "gender": "any" },
 
 { "id": "g_763", "text": "Ruhumun minimal tonu bana temiz bir genişlik sunuyor.", "actualCategory": "mindfulness", "gender": "any" },
 
@@ -1071,8 +1071,58 @@
 
 { "id": "g_799", "text": "Karanlığın içindeki ışığı görebilen yolunu asla kaybetmez. — Victor Hugo", "actualCategory": "sleep", "gender": "any" },
 
-{ "id": "g_800", "text": "yaşamımın ritmi sade ama derinden etkileyici bir ışık taşıyor.", "actualCategory": "mindfulness", "gender": "any" }
+{ "id": "g_800", "text": "Yaşamımın ritmi sade ama derinden etkileyici bir ışık taşıyor.", "actualCategory": "mindfulness", "gender": "any" }, 
 
+ { "id": "g_801", "text": "Bugün enerjim taze bir başlangıç için hazır.", "actualCategory": "motivation", "gender": "any" },
+    { "id": "g_802", "text": "Hatalarım beni büyütüyor, her deneme beni ileri taşıyor.", "actualCategory": "positive_thinking", "gender": "any" },
+    { "id": "g_803", "text": "Bedenimi dinliyorum, ihtiyaçlarına saygı gösteriyorum.", "actualCategory": "self_care", "gender": "any" },
+    { "id": "g_804", "text": "Çevremdeki insanlara nazikçe yaklaşıyorum.", "actualCategory": "relationships", "gender": "any" },
+    { "id": "g_805", "text": "Bugün gülümsemek için küçük bir sebep buldum.", "actualCategory": "happiness", "gender": "any" },
+    { "id": "g_806", "text": "İşimde attığım her adım değerli ve anlamlı.", "actualCategory": "career_success", "gender": "any" },
+    { "id": "g_807", "text": "Gerginliğim azalıyor, kaslarım gevşiyor.", "actualCategory": "stress_anxiety", "gender": "any" },
+    { "id": "g_808", "text": "Bugün olanları yargılamamaya çalışıyorum.", "actualCategory": "mindfulness", "gender": "any" },
+    { "id": "g_809", "text": "Sahip olduklarım için minnettarım.", "actualCategory": "gratitude", "gender": "any" },
+    { "id": "g_810", "text": "Yatağım beni sıcak bir kucakla bekliyor.", "actualCategory": "sleep", "gender": "any" },
+    { "id": "g_811", "text": "Bugün bir kişiye güler yüzle yaklaşacağım.", "actualCategory": "relationships", "gender": "any" },
+    { "id": "g_812", "text": "On dakika kendime ayırıyorum.", "actualCategory": "self_care", "gender": "any" },
+    { "id": "g_813", "text": "Bir bardak su içip bedenime teşekkür ediyorum.", "actualCategory": "self_care", "gender": "any" },
+    { "id": "g_814", "text": "Bugün sağlığım için minnettarım.", "actualCategory": "gratitude", "gender": "any" },
+    { "id": "g_815", "text": "Sevdiklerime sahip olduğum için şanslıyım.", "actualCategory": "gratitude", "gender": "any" },
+    { "id": "g_816", "text": "Ben yeterim.", "actualCategory": "confidence", "gender": "any" },
+    { "id": "g_817", "text": "Şimdi buradayım.", "actualCategory": "mindfulness", "gender": "any" },
+    { "id": "g_818", "text": "Her şey geçici.", "actualCategory": "stress_anxiety", "gender": "any" },
+    { "id": "g_819", "text": "Gücüm benim içimde, her zaman erişilebilir.", "actualCategory": "confidence", "gender": "any" },
+    { "id": "g_820", "text": "Yeteneklerime güveniyorum, potansiyelime inanıyorum.", "actualCategory": "confidence", "gender": "any" },
+    { "id": "g_821", "text": "Kararlılığım içten ve gerçek.", "actualCategory": "confidence", "gender": "any" },
+    { "id": "g_822", "text": "Zamanla daha güçlü, daha bilge oluyorum.", "actualCategory": "positive_thinking", "gender": "any" },
+    { "id": "g_823", "text": "Kendimi olduğum gibi kabul ediyorum.", "actualCategory": "self_care", "gender": "any" },
+    { "id": "g_824", "text": "Her nefes bana yeni bir fırsat sunuyor.", "actualCategory": "mindfulness", "gender": "any" },
+    { "id": "g_825", "text": "İçimdeki ses bana rehberlik ediyor.", "actualCategory": "mindfulness", "gender": "any" },
+    { "id": "g_826", "text": "Bugün kendime karşı şefkatli davranıyorum.", "actualCategory": "self_care", "gender": "any" },
+    { "id": "g_827", "text": "Zorluklardan sonra daha güçlü çıkıyorum.", "actualCategory": "positive_thinking", "gender": "any" },
+    { "id": "g_828", "text": "Her yeni gün bana temiz bir sayfa açıyor.", "actualCategory": "motivation", "gender": "any" },
+    { "id": "g_829", "text": "Hayallerimi gerçeğe dönüştürme gücüm var.", "actualCategory": "motivation", "gender": "any" },
+    { "id": "g_830", "text": "Kendime vadettiğim değişimi yaratabiliyorum.", "actualCategory": "motivation", "gender": "any" },
+    { "id": "g_831", "text": "Sosyal ortamlarda rahat ve kendim gibi oluyorum.", "actualCategory": "confidence", "gender": "any" },
+    { "id": "g_832", "text": "İnsanlarla bağlantı kurmak benim doğal yeteneğim.", "actualCategory": "relationships", "gender": "any" },
+    { "id": "g_833", "text": "Duygularıma izin veriyorum, onları yargılamıyorum.", "actualCategory": "mindfulness", "gender": "any" },
+    { "id": "g_834", "text": "Başarısızlık değil, öğrenme deneyimi yaşıyorum.", "actualCategory": "positive_thinking", "gender": "any" },
+    { "id": "g_835", "text": "Bugün başkaları için değil, kendim için yaşıyorum.", "actualCategory": "self_care", "gender": "any" },
+    { "id": "g_836", "text": "Sınırlarımı net bir şekilde ifade edebiliyorum.", "actualCategory": "confidence", "gender": "any" },
+    { "id": "g_837", "text": "Geçmiş geçmişte kaldı, şimdi özgürüm.", "actualCategory": "positive_thinking", "gender": "any" },
+    { "id": "g_838", "text": "Mükemmel olmak zorunda değilim, yeterli olmak yeterli.", "actualCategory": "self_care", "gender": "any" },
+    { "id": "g_839", "text": "Her adımda kendime daha çok güveniyorum.", "actualCategory": "confidence", "gender": "any" },
+    { "id": "g_840", "text": "Başarı benim için doğal bir sonuç.", "actualCategory": "career_success", "gender": "any" },
+    { "id": "g_841", "text": "Profesyonel hedeflerime adım adım yaklaşıyorum.", "actualCategory": "career_success", "gender": "any" },
+    { "id": "g_842", "text": "Değerimi biliyorum ve bunu yansıtıyorum.", "actualCategory": "confidence", "gender": "any" },
+    { "id": "g_843", "text": "Kalbimi açık tutuyorum, sevgi içeri girsin.", "actualCategory": "relationships", "gender": "any" },
+    { "id": "g_844", "text": "Anlaşılmak için değil, anlamak için dinliyorum.", "actualCategory": "relationships", "gender": "any" },
+    { "id": "g_845", "text": "Bağışlama beni hafifletiyor ve özgürleştiriyor.", "actualCategory": "positive_thinking", "gender": "any" },
+    { "id": "g_846", "text": "Bugün kendime yatırım yapıyorum.", "actualCategory": "self_care", "gender": "any" },
+    { "id": "g_847", "text": "Geleceğim parlak, çünkü bugünü iyi yaşıyorum.", "actualCategory": "motivation", "gender": "any" },
+    { "id": "g_848", "text": "Duygusal dengem her gün güçleniyor.", "actualCategory": "stress_anxiety", "gender": "any" },
+    { "id": "g_849", "text": "Kendimle barışık, dünyayla uyumlu.", "actualCategory": "mindfulness", "gender": "any" },
+    { "id": "g_850", "text": "Her gün daha iyi bir versiyonuma dönüşüyorum.", "actualCategory": "motivation", "gender": "any" }
 
 
   ]

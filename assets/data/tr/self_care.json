@@ -31,14 +31,14 @@
 
 { "id": "sc_020", "text": "Kendine nazik ol, iyileşmenin kapısı burada açılır. — Rumi", "gender": "any" },
 
-{ "id": "sc_021", "text": "Ruhumdaki hafiflik kendime yakın hissettiriyor.", "gender": "female" },
+{ "id": "sc_021", "text": "Kendime nasıl bakacağımı biliyorum.", "gender": "female" },
 { "id": "sc_022", "text": "Nazik bir iç ton beni daha sakin bir yere çağırıyor.", "gender": "any" },
 { "id": "sc_023", "text": "Duygularımı yargılamadan kabul etmek içsel gücümü artırıyor.", "gender": "any" },
 
 { "id": "sc_024", "text": "Kendime verdiğim molalar değerimi hatırlatıyor.", "gender": "male" },
-{ "id":"sc_025", "text": "Sakin bir iç frekans bedenimi gevşetiyor.", "gender": "any" },
+{ "id":"sc_025", "text": "Kendime yardım ettiğimde başkalarına da daha iyi yardımcı olurum.", "gender": "any" },
 
-{ "id": "sc_026", "text": "Nazikçe nefes almak bile ruhumu yumuşatıyor.", "gender": "female" },
+{ "id": "sc_026", "text": "Sağlıklı seçimler yaparım.", "gender": "female" },
 { "id": "sc_027", "text": "Kendime duyduğum sabır iyileşmemi kolaylaştırıyor.", "gender": "any" },
 { "id": "sc_028", "text": "Yumuşak bir kabul tüm günümü hafifletiyor.", "gender": "any" },
 
@@ -47,7 +47,7 @@
 
 { "id": "sc_031", "text": "Nazik bir sessizlik ruhumu sakinleştiriyor.", "gender": "female" },
 { "id": "sc_032", "text": "Sakin bir yürüyüş bile içsel alanımı genişletiyor.", "gender": "any" },
-{ "id": "sc_033", "text": "Bedenime kulak verdikçe hafifliyorum.", "gender": "any" },
+{ "id": "sc_033", "text": "Zihnimle, bedenimle ve ruhumla ilgileniyorum.", "gender": "any" },
 
 { "id": "sc_034", "text": "Kendimi desteklemek içimde sıcak bir güven yaratıyor.", "gender": "male" },
 { "id": "sc_035", "text": "Nazik bir mola beni yeniden dengeliyor.", "gender": "any" },
@@ -95,7 +95,7 @@
 { "id": "sc_065", "text": "Sakin bir içsel enerji gerginliğimi çözüyor.", "gender": "any" },
 
 { "id": "sc_066", "text": "Kendime nazik bir yaklaşım gösterdiğimde hafifliyorum.", "gender": "female" },
-{ "id":"sc_067", "text": "Duygularımı yumuşakça kabul etmek beni iyileştiriyor.", "gender": "any" },
+{ "id":"sc_067", "text": "Kendi sevgimi ve bakımımı hak ediyorum.", "gender": "any" },
 { "id": "sc_068", "text": "Nazik bir nefesle içsel alanım genişliyor.", "gender": "any" },
 
 { "id": "sc_069", "text": "Bugün kendime duyduğum şefkat bana iyi geliyor, {name}.", "gender": "male" },
@@ -110,21 +110,21 @@
 
 { "id": "sc_076", "text": "Duygularımı anlamak içsel gücümü artırıyor.", "gender": "female" },
 { "id": "sc_077", "text": "Sakin bir nefesle içimdeki gerginlik çözülüyor.", "gender": "any" },
-{ "id": "sc_078", "text": "Nazik bir iç ton ruhumu yumuşatıyor.", "gender": "any" },
+{ "id": "sc_078", "text": "Kendime, değerli bir dost gibi davranıyorum.", "gender": "any" },
 
 { "id": "sc_079", "text": "Kendimi desteklemek bana huzur veriyor.", "gender": "male" },
-{ "id": "sc_080", "text": "Sakin bir duruş bedenime güven veriyor.", "gender": "any" },
+{ "id": "sc_080", "text": "Huzurum önemlidir.", "gender": "any" },
 
 { "id": "sc_081", "text": "Nazik bir nefes tüm günümü hafifletiyor.", "gender": "female" },
 { "id": "sc_082", "text": "Kendimi duymaya açıldıkça gevşiyorum.", "gender": "any" },
-{ "id": "sc_083", "text": "Sakinleşmek bana içsel bir berraklık getiriyor.", "gender": "any" },
+{ "id": "sc_083", "text": "Kendime dinlenme ve gevşeme izni veriyorum.", "gender": "any" },
 
 { "id": "sc_084", "text": "Ruhumdaki yumuşaklık içime huzur yayıyor.", "gender": "male" },
 { "id": "sc_085", "text": "Nazik bir adım bile içsel ağırlığımı azaltıyor.", "gender": "any" },
 
 { "id": "sc_086", "text": "Kendime verdiğim küçük anlar büyük rahatlık sağlıyor.", "gender": "female" },
 { "id": "sc_087", "text": "Sakin bir iç ton beni dengeliyor.", "gender": "any" },
-{ "id":"sc_088", "text": "Nazik bir kabul duygularımı yumuşatıyor.", "gender": "any" },
+{ "id":"sc_088", "text": "Öz bakımım önceliğimdir.", "gender": "any" },
 
 { "id": "sc_089", "text": "Ruhuma verdiğim güven içsel tınımı sakinleştiriyor.", "gender": "male" },
 { "id": "sc_090", "text": "Sakinleşmek beni kendime daha yakın hissettiriyor.", "gender": "any" },
@@ -138,7 +138,7 @@
 
 { "id": "sc_096", "text": "Kendime alan verdiğimde daha huzurlu hissediyorum.", "gender": "female" },
 { "id": "sc_097", "text": "Sakin bir içsel akış bedenimi gevşetiyor.", "gender": "any" },
-{ "id": "sc_098", "text": "Nazik bir nefes gerginliğimi çözüyor.", "gender": "any" },
+{ "id": "sc_098", "text": "Kendime değer verdiğim için kendime özen gösteriyorum.", "gender": "any" },
 
 { "id": "sc_099", "text": "Ruhuma duyduğum şefkat beni iyileştiriyor, {name}.", "gender": "male" },
 { "id": "sc_100", "text": "Sakin bir iç ton bugün yumuşamama yardımcı oluyor.", "gender": "female" },
@@ -149,7 +149,7 @@
 { "id": "sc_104", "text": "Kendime gösterdiğim özen bana huzur getiriyor.", "gender": "male" },
 { "id": "sc_105", "text": "Ruhuma duyduğum şefkat iç alanımı genişletiyor.", "gender": "any" },
 
-{ "id": "sc_106", "text": "Nazikçe dinlenmek beni iyileştiriyor.", "gender": "female" },
+{ "id": "sc_106", "text": "Kendime yardım ettiğimde başkalarına da daha iyi yardımcı olurum.", "gender": "female" },
 { "id": "sc_107", "text": "Sakinleşmek bedenime güven veriyor.", "gender": "any" },
 { "id": "sc_108", "text": "Duygularımı yumuşakça kabul etmek içimi hafifletiyor.", "gender": "any" },
 
@@ -168,7 +168,7 @@
 { "id": "sc_118", "text": "Nazik bir iç ses bana destek oluyor.", "gender": "any" },
 
 { "id": "sc_119", "text": "Bugün kendime gösterdiğim özen içimi yumuşatıyor, {name}.", "gender": "male" },
-{ "id": "sc_120", "text": "Ruhumdaki sıcaklık beni daha dengeli hissettiriyor.", "gender": "any" },
+{ "id": "sc_120", "text": "Kendime nasıl bakacağımı biliyorum.", "gender": "any" },
 
 { "id": "sc_121", "text": "Nazik bir dokunuş içsel alanımı hafifletiyor.", "gender": "female" },
 { "id": "sc_122", "text": "Sakinleşmek bugün bana iyi geliyor.", "gender": "any" },
@@ -179,7 +179,7 @@
 
 { "id": "sc_126", "text": "Kendime alan tanıdıkça nefesim genişliyor.", "gender": "female" },
 { "id": "sc_127", "text": "Sakin bir duruş içimde güven yaratıyor.", "gender": "any" },
-{ "id": "sc_128", "text": "Nazik bir nefes zihnimi temizliyor.", "gender": "any" },
+{ "id": "sc_128", "text": "Zihnimle, bedenimle ve ruhumla ilgileniyorum.", "gender": "any" },
 
 { "id": "sc_129", "text": "Ruhumdaki açıklık bana huzur getiriyor.", "gender": "male" },
 { "id": "sc_130", "text": "Sakin olmak içsel gücümü artırıyor.", "gender": "any" },
@@ -227,25 +227,25 @@
 { "id": "sc_160", "text": "Sakin bir adım bile içimi düzenliyor.", "gender": "any" },
 
 { "id": "sc_161", "text": "Nazik bir iç ses beni iyileşmeye çağırıyor.", "gender": "female" },
-{ "id": "sc_162", "text": "Kendime duyduğum sabır ruhumu yumuşatıyor.", "gender": "any" },
+{ "id": "sc_162", "text": "Sevgi ve saygıyı hak ediyorum.", "gender": "any" },
 { "id": "sc_163", "text": "Sakin bir nefesle iç dünyam berraklaşıyor.", "gender": "any" },
 
 { "id": "sc_164", "text": "Ruhumdaki sıcaklık kendime yaklaşmamı sağlıyor.", "gender": "male" },
-{ "id": "sc_165", "text": "Nazikçe dinlenmek gerginliğimi azaltıyor.", "gender": "any" },
+{ "id": "sc_165", "text": "Yeteneklerime güveniyorum.", "gender": "any" },
 
 { "id": "sc_166", "text": "Kendimi duymaya izin verdiğimde rahatlıyorum.", "gender": "female" },
 { "id": "sc_167", "text": "Sakin bir içsel duruş bana güven veriyor.", "gender": "any" },
-{ "id": "sc_168", "text": "Nazik bir nefes içimde bir genişlik yaratıyor.", "gender": "any" },
+{ "id": "sc_168", "text": "Olduğum haliyle yeterliyim.", "gender": "any" },
 
 { "id": "sc_169", "text": "Bugün kendime verdiğim alan içsel huzurumu büyütüyor, {name}.", "gender": "male" },
 { "id": "sc_170", "text": "Ruhumu desteklemek bedenimi rahatlatıyor.", "gender": "any" },
 
-{ "id": "sc_171", "text": "Nazik bir farkındalık beni iyileştiriyor.", "gender": "female" },
+{ "id": "sc_171", "text": "Farkındalık beni iyileştiriyor.", "gender": "female" },
 { "id": "sc_172", "text": "Kendimi olduğum hâlle kabul etmek bana iyi geliyor.", "gender": "any" },
 { "id": "sc_173", "text": "Sakin bir nefes içimdeki tınıyı değiştiriyor.", "gender": "any" },
 
 { "id": "sc_174", "text": "Ruhumdaki açıklık beni daha huzurlu hissettiriyor.", "gender": "male" },
-{ "id": "sc_175", "text": "Nazikçe hissetmek içime sıcaklık yayıyor.", "gender": "any" },
+{ "id": "sc_175", "text": "Hissetmek içime sıcaklık yayıyor.", "gender": "any" },
 
 { "id": "sc_176", "text": "Kendime duyduğum sevgi beni toparlıyor.", "gender": "female" },
 { "id": "sc_177", "text": "Sakin bir iç alan bana güç veriyor.", "gender": "any" },
@@ -254,12 +254,12 @@
 { "id": "sc_179", "text": "Bugün kendimi nazikçe duyduğumda rahatlıyorum, {name}.", "gender": "male" },
 { "id": "sc_180", "text": "Ruhumdaki dinginlik içsel akışımı düzenliyor.", "gender": "any" },
 
-{ "id": "sc_181", "text": "Nazik bir iç ton bugün beni destekliyor.", "gender": "female" },
+{ "id": "sc_181", "text": "Dönüşmekte olduğum kadından gurur duyuyorum.", "gender": "female" },
 { "id": "sc_182", "text": "Kendimi duymak içimde bir hafiflik uyandırıyor.", "gender": "any" },
 { "id": "sc_183", "text": "Sakin bir nefes zihinsel dalgalarımı yatıştırıyor.", "gender": "any" },
 
 { "id": "sc_184", "text": "Ruhuma duyduğum güven gerginliğimi azaltıyor.", "gender": "male" },
-{ "id": "sc_185", "text": "Nazikçe durmak bugün bana iyi geliyor.", "gender": "any" },
+{ "id": "sc_185", "text": "Öz-bakım ve öz-sevgiyi hak ediyorum.", "gender": "any" },
 
 { "id": "sc_186", "text": "Kendime karşı yumuşak bir yaklaşım içsel huzurumu artırıyor.", "gender": "female" },
 { "id":"sc_187", "text": "Sakinleşmek beni kendime yakınlaştırıyor.", "gender": "any" },
@@ -268,35 +268,35 @@
 { "id": "sc_189", "text": "Ruhumdaki yumuşaklık bugün bana güç veriyor, {name}.", "gender": "male" },
 { "id": "sc_190", "text": "Sakin bir duruş bedenime güven veriyor.", "gender": "any" },
 
-{ "id": "sc_191", "text": "Nazik bir iç ses beni yumuşatıyor.", "gender": "female" },
+{ "id": "sc_191", "text": "Sürekli olarak gelişiyor ve büyüyorum.", "gender": "female" },
 { "id": "sc_192", "text": "Kendimi duymak içsel açıklığımı büyütüyor.", "gender": "any" },
 { "id": "sc_193", "text": "Sakin bir nefes içimde tazelik hissi yaratıyor.", "gender": "any" },
 
 { "id": "sc_194", "text": "Ruhuma verdiğim sevgi iyileşmeme yardımcı oluyor.", "gender": "male" },
-{ "id": "sc_195", "text": "Nazikçe adım atmak beni toparlıyor.", "gender": "any" },
+{ "id": "sc_195", "text": "Gerçek benliğimi ifade ederken kendime güveniyorum.", "gender": "any" },
 
 { "id": "sc_196", "text": "Kendime duyduğum şefkat içsel alanımı büyütüyor.", "gender": "female" },
 { "id":"sc_197", "text": "Sakin bir nefes bedenime huzur getiriyor.", "gender": "any" },
-{ "id": "sc_198", "text": "Nazik bir iç ton ruhumu dinginleştiriyor.", "gender": "any" },
+{ "id": "sc_198", "text": "Ben bir ışık ve pozitiflik kaynağıyım.", "gender": "any" },
 
 { "id": "sc_199", "text": "Bugün kendime duyduğum sevgi beni hafifletiyor, {name}.", "gender": "male" },
 { "id": "sc_200", "text": "Sakinleşmek içimde yeni bir denge yaratıyor.", "gender": "female" },
 
 { "id": "sc_201", "text": "Ruhuma verdiğim yumuşaklık bedenimi de sakinleştiriyor.", "gender": "any" },
-{ "id": "sc_202", "text": "Nazik bir nefesle içimde hafif bir rahatlama doğuyor.", "gender": "female" },
+{ "id": "sc_202", "text": "Kişisel gelişimime bağlıyım.", "gender": "female" },
 { "id": "sc_203", "text": "Sakin bir iç ton bana güven hissettiriyor.", "gender": "any" },
 
 { "id": "sc_204", "text": "Kendime gösterdiğim şefkat bedenimde yumuşak bir denge kuruyor.", "gender": "male" },
-{ "id": "sc_205", "text": "Ruhumdaki açıklık bugün bana iyi geliyor.", "gender": "any" },
+{ "id": "sc_205", "text": "Yeni fırsatlara ve deneyimlere açığım.", "gender": "any" },
 
-{ "id": "sc_206", "text": "Nazikçe dinlenmek içsel alanımı genişletiyor.", "gender": "female" },
+{ "id": "sc_206", "text": "Pozitif enerjiyle çevriliyim.", "gender": "female" },
 { "id": "sc_207", "text": "Sakin bir nefes günün ağırlığını çözüyor.", "gender": "any" },
 { "id": "sc_208", "text": "Kendimi yumuşakça duymak beni rahatlatıyor.", "gender": "any" },
 
 { "id": "sc_209", "text": "Ruhumdaki sıcaklık içime nazik bir güç veriyor.", "gender": "male" },
 { "id": "sc_210", "text": "Sakinleşmek zihnimin akışını düzenliyor.", "gender": "any" },
 
-{ "id": "sc_211", "text": "Nazik bir içsel duruş beni daha dengeli hissettiriyor.", "gender": "female" },
+{ "id": "sc_211", "text": "Güç, zarafet ve dayanıklılığa sahip bir kadınım.", "gender": "female" },
 { "id": "sc_212", "text": "Kendime izin verdiğimde içimde hafif bir ferahlık doğuyor.", "gender": "any" },
 { "id": "sc_213", "text": "Sakin bir nefesle bedenim yumuşuyor.", "gender": "any" },
 

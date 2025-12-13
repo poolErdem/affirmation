@@ -7,12 +7,12 @@
 
 { "id": "hp_004", "text": "Bugün dünyaya daha sıcak bir gülümsemeyle bakıyorum, {name}.", "gender": "any" },
 
-{ "id": "hp_005", "text": "Her nefeste hafif bir sevinç taşıyorum.", "gender": "male" },
+{ "id": "hp_005", "text": "Her nefeste hafif bir sevinç, her sevinçte hafif bir rahatlama yaşıyorum.", "gender": "male" },
 { "id": "hp_006", "text": "Ruhumun yumuşak enerjisi beni mutlu ediyor.", "gender": "any" },
 { "id": "hp_007", "text": "Bugün içimde parlayan küçük ışıkları fark ediyorum.", "gender": "female" },
 { "id": "hp_008", "text": "Kalbimde hafif bir mutluluk kıpırtısı var.", "gender": "any" },
 { "id": "hp_009", "text": "Günün akışında kendimi daha canlı hissediyorum.", "gender": "male" },
-{ "id": "hp_010", "text": "Bugün bana iyi gelen şeylere daha açık hissediyorum.", "gender": "any" },
+{ "id": "hp_010", "text": "Bugün bana iyi gelen şeyler var.", "gender": "any" },
 
 { "id": "hp_011", "text": "İçimdeki neşe beni yumuşakça yukarı çekiyor.", "gender": "any" },
 { "id": "hp_012", "text": "Bugün gülümsemek bana doğal geliyor.", "gender": "female" },
@@ -70,7 +70,7 @@
 { "id": "hp_054", "text": "Bugün içimde yumuşak bir ışık gibi mutluluk hissediyorum.", "gender": "male" },
 { "id": "hp_055", "text": "Her nefesimde hafif bir neşe büyüyor.", "gender": "any" },
 
-{ "id": "hp_056", "text": "Bugün kalbimde güneşli bir huzur taşıyorum.", "gender": "female" },
+{ "id": "hp_056", "text": "Bugün kalbimde güneşli bir huzur yaşatıyorum.", "gender": "female" },
 { "id": "hp_057", "text": "Ruhumun parlak enerjisi beni daha mutlu hissettiriyor.", "gender": "any" },
 { "id": "hp_058", "text": "Günün sıcak akışı bana yumuşak bir sevinç veriyor.", "gender": "any" },
 { "id": "hp_059", "text": "Bugün içimde parlayan mutluluk beni hafifletiyor.", "gender": "male" },
@@ -85,7 +85,7 @@
 { "id": "hp_066", "text": "Bugün ruhum tatlı bir huzurla aydınlanıyor.", "gender": "female" },
 { "id": "hp_067", "text": "Dünyanın sıcak ritmi bana neşeli geliyor.", "gender": "any" },
 { "id": "hp_068", "text": "Kalbimde hafif bir mutluluk ışığı dolaşıyor.", "gender": "male" },
-{ "id": "hp_069", "text": "Bugün içimde berrak ve sakin bir sevinç taşıyorum.", "gender": "any" },
+{ "id": "hp_069", "text": "Bugün içimde berrak ve sakin bir sevinç güzelliği var.", "gender": "any" },
 { "id": "hp_070", "text": "Mutluluk bugün bana yumuşak bir esinti gibi dokunuyor.", "gender": "any" },
 
 { "id": "hp_071", "text": "Bugün güneşin parlaklığı ruhumda yankılanıyor.", "gender": "female" },
@@ -114,8 +114,8 @@
 
 { "id": "hp_091", "text": "Bugün tatlı bir huzur ve sevinç bana eşlik ediyor.", "gender": "female" },
 { "id": "hp_092", "text": "Kalbimde hafif bir mutluluk çiçek açıyor.", "gender": "any" },
-{ "id": "hp_093", "text": "Bugün içimde neşeli bir sıcaklık taşıyorum.", "gender": "any" },
-{ "id": "hp_094", "text": "Her ayrıntıda küçük bir mutluluk parıltısı görüyorum.", "gender": "male" },
+{ "id": "hp_093", "text": "Bugün içimde neşeli bir sıcaklık barındırıyorum.", "gender": "any" },
+{ "id": "hp_094", "text": "Her ayrıntıda küçük bir mutluluk parıltısı var ve bana parlıyorlar.", "gender": "male" },
 { "id": "hp_095", "text": "Günün parlak tonu bana huzurlu bir gülümseme getiriyor.", "gender": "any" },
 
 { "id": "hp_096", "text": "Bugün ruhumun içinde yumuşak bir güneş parlıyor.", "gender": "female" },
@@ -245,7 +245,7 @@
 { "id": "hp_196", "text": "Bugün ruhumun parlaklığı daha görünür geliyor.", "gender": "female" },
 { "id": "hp_197", "text": "Mutluluğun sakin tonları beni nazikçe sarıyor.", "gender": "any" },
 { "id": "hp_198", "text": "Günün ferah enerjisi bana hafiflik veriyor.", "gender": "male" },
-{ "id": "hp_199", "text": "Bugün içimde huzurla karışmış bir sevinç taşıyorum.", "gender": "any" },
+{ "id": "hp_199", "text": "Bugün içimde huzurla harmanlaşmış bir sevinç var.", "gender": "any" },
 { "id": "hp_200", "text": "Her yeni anda içimde taze bir mutluluk doğuyor.", "gender": "any" },
 
 { "id": "hp_201", "text": "Bugün içimde hafif bir mutluluk kıpır kıpır dolaşıyor.", "gender": "any" },
@@ -292,7 +292,7 @@
 
 { "id": "hp_233", "text": "Günün bana sunduğu bu sıcak mutluluğa minnet duyuyorum, {name}.", "gender": "any" },
 
-{ "id": "hp_234", "text": "Bugün güneş gibi hafif bir neşe taşıyorum.", "gender": "male" },
+{ "id": "hp_234", "text": "Bugün güneş gibi hafif bir neşe kaynağım var.", "gender": "male" },
 { "id": "hp_235", "text": "Mutlu hissetmek bugün bana daha doğal geliyor.", "gender": "any" },
 
 { "id": "hp_236", "text": "Bugün içimde parlak bir tatlılık hissediyorum.", "gender": "female" },
@@ -334,7 +334,7 @@
 { "id": "hp_266", "text": "Bugün içimde yumuşak bir altın huzur taşıyorum.", "gender": "female" },
 { "id": "hp_267", "text": "Her şey bugün bana daha zarif bir neşeyle dokunuyor.", "gender": "any" },
 { "id": "hp_268", "text": "Kalbimdeki ışık beni sakin ve mutlu hissettiriyor.", "gender": "male" },
-{ "id": "hp_269", "text": "Bugün dünyanın tonu ruhuma altın bir sıcaklık bırakıyor.", "gender": "any" },
+{ "id": "hp_269", "text": "Bugün dünyanın tonu ruhuma sıcaklık bırakıyor.", "gender": "any" },
 { "id": "hp_270", "text": "Mutluluk bugün bana daha parlak bir zarafetle eşlik ediyor.", "gender": "any" },
 
 { "id": "hp_271", "text": "Bugün içimde büyüyen sevinç altın bir melodi gibi akıyor.", "gender": "female" },
@@ -378,7 +378,7 @@
 { "id": "hp_304", "text": "Güneşin sıcaklığı bana yumuşak bir neşe getiriyor.", "gender": "male" },
 { "id": "hp_305", "text": "Ruhumun parlak sesi bugün bana daha yakın.", "gender": "any" },
 
-{ "id": "hp_306", "text": "Bugün içimde uçuşan hafif bir mutluluk taşıyorum.", "gender": "female" },
+{ "id": "hp_306", "text": "Bugün içimde uçuşan hafif bir mutluluk yaşıyorum.", "gender": "female" },
 { "id": "hp_307", "text": "Tatlı bir sevinç tonu içimde sessizce parlıyor.", "gender": "any" },
 
 { "id": "hp_308", "text": "Bugün dünyaya daha sıcak bir gülümsemeyle bakıyorum, {name}.", "gender": "any" },
@@ -431,7 +431,7 @@
 { "id": "hp_344", "text": "Her şey bugün bana daha yumuşak ve daha parlak hissettiriyor.", "gender": "any" },
 
 { "id": "hp_345", "text": "Ruhumun içindeki altın sıcaklık beni hafifçe sarıyor.", "gender": "male" },
-{ "id": "hp_346", "text": "Bugün içimde sakin bir mutluluk rüyası taşıyorum.", "gender": "any" },
+{ "id": "hp_346", "text": "Bugün içimde sakin bir mutluluk rüyası yaşıyorum.", "gender": "any" },
 { "id": "hp_347", "text": "Günün ferahlatıcı parlaklığı beni yeniliyor.", "gender": "female" },
 { "id": "hp_348", "text": "Bugün kalbimde yumuşak bir sevinç akışı var.", "gender": "any" },
 { "id": "hp_349", "text": "Işığın tatlı tonu beni içten içe gülümsetiyor.", "gender": "any" },
@@ -515,7 +515,7 @@
 { "id": "hp_409", "text": "Güneşli bir huzur bugün kalbimde ince bir çizgi bırakıyor.", "gender": "male" },
 { "id": "hp_410", "text": "Her nefesimde hafif bir umut kıvılcımı hissediyorum.", "gender": "any" },
 
-{ "id": "hp_411", "text": "Bugün içimde tatlı bir parlaklık taşıyorum.", "gender": "female" },
+{ "id": "hp_411", "text": "Bugün içimde tatlı bir parlaklık taşıyorum ve hayata gülümsüyorum.", "gender": "female" },
 { "id": "hp_412", "text": "Ruhumun sakin titreşimi beni gün boyu gülümsetiyor.", "gender": "any" },
 { "id": "hp_413", "text": "Günün altın tonu bana yumuşak bir mutluluk katıyor.", "gender": "any" },
 { "id": "hp_414", "text": "Bugün sevinç kalbimde yavaşça büyüyor.", "gender": "male" },
@@ -541,7 +541,7 @@
 
 { "id": "hp_431", "text": "Bugün sevinç ruhumda ince bir ışıltı bırakıyor.", "gender": "female" },
 { "id": "hp_432", "text": "Günün yumuşak nefesi bana tatlı bir ferahlık getiriyor.", "gender": "any" },
-{ "id": "hp_433", "text": "Bugün içimde altın bir sıcaklık taşıyorum.", "gender": "any" },
+{ "id": "hp_433", "text": "Bugün içimde bir mutluluk var ve beni almasına izin verdim.", "gender": "any" },
 { "id": "hp_434", "text": "Kalbimde büyüyen hafiflik beni yumuşacık tutuyor.", "gender": "male" },
 { "id": "hp_435", "text": "Her detay bugün bana umut dolu hissettiriyor.", "gender": "any" },
 
@@ -553,7 +553,7 @@
 
 { "id": "hp_441", "text": "Bugün dünyaya hafif bir umutla gülümsüyorum.", "gender": "female" },
 { "id": "hp_442", "text": "Ruhumun ince titreşimi beni ferahlıkla dolduruyor.", "gender": "any" },
-{ "id": "hp_443", "text": "Bugün kalbimde tatlı bir aydınlık taşıyorum.", "gender": "any" },
+{ "id": "hp_443", "text": "Bugün kalbimde tatlı bir aydınlıkla yürüyor ve nefes alıyorum.", "gender": "any" },
 { "id": "hp_444", "text": "Günün ışığı ruhumda mutluluğun sessiz bir yankısına dönüşüyor.", "gender": "male" },
 { "id": "hp_445", "text": "Bugün her şey bana daha zarif bir parlaklıkla geliyor.", "gender": "any" },
 

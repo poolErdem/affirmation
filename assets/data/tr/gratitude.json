@@ -323,7 +323,7 @@
 
 { "id": "gr_261", "text": "ruhumu hafifçe dolduran dinginliğe teşekkür ediyorum.", "gender": "any" },
 { "id": "gr_262", "text": "Kalbimdeki sıcaklık bana zarif bir huzur sunuyor.", "gender": "female" },
-{ "id": "gr_263", "text": "Günün akışında yumuşak bir minnettarlık taşıyorum.", "gender": "any" },
+{ "id": "gr_263", "text": "Günün akışında yumuşak bir minnettarlık kokusu var.", "gender": "any" },
 { "id": "gr_264", "text": "Bugün hayatın bana kibarca dokunduğunu hissediyorum.", "gender": "male" },
 { "id": "gr_265", "text": "Ruhum sakin bir teşekkür enerjisiyle genişliyor.", "gender": "any" },
 
@@ -399,7 +399,7 @@
 { "id": "gr_324", "text": "evrenle aramda görünmez bir sakin bağ hissediyorum.", "gender": "male" },
 { "id": "gr_325", "text": "Minnettarlık düşüncelerimin etrafında yumuşak bir sıcaklık bırakıyor.", "gender": "any" },
 
-{ "id": "gr_326", "text": "ruhuma kadar işleyen hafif bir teşekkür hissi taşıyorum.", "gender": "female" },
+{ "id": "gr_326", "text": "Ruhuma kadar işleyen hafif bir teşekkür hissi yaşıyorum.", "gender": "female" },
 { "id": "gr_327", "text": "Evrenin bana sunduğu sükuneti daha kolay fark ediyorum.", "gender": "any" },
 { "id": "gr_328", "text": "Güzelliklerin yumuşak akışı ruhumu nazikçe aydınlatıyor.", "gender": "any" },
 { "id": "gr_329", "text": "günün berraklığını içimde hissediyorum.", "gender": "male" },

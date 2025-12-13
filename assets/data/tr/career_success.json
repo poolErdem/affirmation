@@ -346,7 +346,7 @@
 { "id":"cs_266", "text": "Her toplantıdan daha güçlü bir etki bırakarak çıkıyorum.", "gender": "any" },
 { "id":"cs_267", "text": "Önceliklerimi belirleme becerim bugün daha isabetli.", "gender": "female" },
 { "id":"cs_268", "text": "Her değişimi stratejik bir avantaja dönüştürebiliyorum.", "gender": "any" },
-{ "id":"cs_269", "text": "yönetim becerim daha rafine bir seviyede.", "gender": "male" },
+{ "id":"cs_269", "text": "Yönetim becerim daha emin bir seviyede.", "gender": "male" },
 { "id":"cs_270", "text": "Profesyonel hedeflerime emin ve sakin adımlarla ilerliyorum.", "gender": "any" },
 
 { "id":"cs_271", "text": "verdiğim kararlar uzun vadeli başarıyı şekillendiriyor.", "gender": "any" },
@@ -357,7 +357,7 @@
 
 { "id":"cs_276", "text": "{name}, stratejik bakış açın iş ortamını yeniden şekillendiriyor.", "gender": "any" },
 
-{ "id":"cs_277", "text": "işimdeki akıl yürütme gücüm daha seçkin bir hâlde.", "gender": "any" },
+{ "id":"cs_277", "text": "işimdeki akıl yürütme gücüm daha etkin bir hâlde.", "gender": "any" },
 { "id":"cs_278", "text": "Her projeye kattığım kalite beni daha ileri taşıyor.", "gender": "female" },
 { "id":"cs_279", "text": "Özgüvenim profesyonel duruşumu güçlendiriyor.", "gender": "any" },
 { "id":"cs_280", "text": "Bugün iş alanımdaki ağırlığım daha net hissediliyor.", "gender": "male" },
